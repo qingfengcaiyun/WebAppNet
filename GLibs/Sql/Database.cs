@@ -109,7 +109,7 @@ namespace Glibs.Sql
             this.cmd = this.conn.CreateCommand();
             this.cmd.CommandText = sql;
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -131,7 +131,7 @@ namespace Glibs.Sql
             this.cmd = this.conn.CreateCommand();
             this.cmd.CommandText = sql;
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -153,7 +153,7 @@ namespace Glibs.Sql
             this.cmd = this.conn.CreateCommand();
             this.cmd.CommandText = sql;
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -175,7 +175,7 @@ namespace Glibs.Sql
             this.cmd = this.conn.CreateCommand();
             this.cmd.CommandText = sql;
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -194,7 +194,7 @@ namespace Glibs.Sql
             this.cmd = this.conn.CreateCommand();
             this.cmd.CommandText = sql;
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -228,7 +228,7 @@ namespace Glibs.Sql
             this.cmd.CommandText = sql;
             this.cmd.Parameters.Clear();
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -265,7 +265,7 @@ namespace Glibs.Sql
             this.cmd.CommandText = sql;
             this.cmd.Parameters.Clear();
 
-            if (param.Count > 0)
+            if (param != null && param.Count > 0)
             {
                 foreach (KeyValuePair<string, object> kv in param)
                 {
@@ -306,7 +306,7 @@ namespace Glibs.Sql
             {
                 tran = this.conn.BeginTransaction();
                 this.cmd.Transaction = tran;
-                if (paramList.Count > 0)
+                if (paramList != null && paramList.Count > 0)
                 {
                     foreach (Dictionary<string, object> param in paramList)
                     {

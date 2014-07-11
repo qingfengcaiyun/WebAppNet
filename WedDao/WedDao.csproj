@@ -66,11 +66,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\Info\ActivityDao.cs" />
+    <Compile Include="Dao\Info\NewsDao.cs" />
     <Compile Include="Dao\Info\CategoryDao.cs" />
+    <Compile Include="Dao\Info\RelationshipDao.cs" />
     <Compile Include="Dao\System\AdminDao.cs" />
+    <Compile Include="Dao\System\AreaRelationDao.cs" />
+    <Compile Include="Dao\System\CustomAreaDao.cs" />
     <Compile Include="Dao\System\FunctionDao.cs" />
     <Compile Include="Dao\System\LocationDao.cs" />
+    <Compile Include="Dao\System\RoleDao.cs" />
+    <Compile Include="Dao\System\RoleFuncDao.cs" />
     <Compile Include="Dao\System\UserDao.cs" />
+    <Compile Include="Dao\System\UserFuncDao.cs" />
+    <Compile Include="Dao\System\UserRoleDao.cs" />
+    <Compile Include="Dao\Users\ClientDao.cs" />
+    <Compile Include="Dao\Users\MemberDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -81,7 +92,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dao\Renovation\" />
-    <Folder Include="Dao\Users\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,33 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WedDao.Dao.System;
+using WedDao.Dao.Info;
 
-namespace WebLogic.Service.System
+namespace WebLogic.Service.Info
 {
-    public class FunctionLogic
+    public class CategoryLogic
     {
-        private FunctionDao dao = null;
+        private CategoryDao dao = null;
 
-        public FunctionLogic()
+        public CategoryLogic()
         {
-            this.dao = new FunctionDao();
+            this.dao = new CategoryDao();
         }
 
-        public String GetTree(String parentNo, int userId)
+        public Dictionary<string, object> getOne(int cateId)
         {
-            List<Dictionary<string, object>> list = null;
-            if (userId > 0)
-            {
-                list = this.dao.GetListByUserId(parentNo, userId);
-            }
-            else
-            {
-                list = this.dao.getList(parentNo);
-            }
+            return this.dao.GetOne(cateId);
+        }
+
+        public List<Dictionary<string, object>> getList(string parentNo)
+        {
+            return this.dao.GetList(parentNo);
+        }
+
+        public bool Delete(int cateId)
+        {
+            return this.dao.Delete(cateId);
+        }
+
+        public bool Update(Dictionary<string, object> content)
+        {
+            return this.dao.Update(content);
+        }
+
+        public long Insert(Dictionary<string, object> content)
+        {
+            return this.dao.Insert(content);
+        }
+
+        public string GetTree(string parentNo)
+        {
+            List<Dictionary<string, object>> list = this.dao.GetList(parentNo);
+
             Dictionary<string, object> temp = null;
             Dictionary<string, List<Dictionary<string, object>>> lists = new Dictionary<string, List<Dictionary<string, object>>>();
-            string key = "";
+            String key = "";
 
             if (list.Count > 0)
             {
@@ -59,7 +77,7 @@ namespace WebLogic.Service.System
             StringBuilder str = new StringBuilder();
             List<Dictionary<string, object>> list = lists.ContainsKey(parentNo) ? lists[parentNo] : null;
             Dictionary<string, object> temp = null;
-            string substr = string.Empty;
+            string substr = "";
 
             if (list != null && list.Count > 0)
             {
@@ -69,18 +87,21 @@ namespace WebLogic.Service.System
 
                     str.Append(",{");
                     str.Append("\"id\":\"");
-                    str.Append(temp["funcNo"].ToString());
+                    str.Append(temp["cateNo"].ToString());
                     str.Append("\",");
                     str.Append("\"text\":\"");
-                    str.Append(temp["funcName"].ToString());
+                    str.Append(temp["cateName"].ToString());
                     str.Append("\"");
 
-                    substr = this.GetSubTree(lists, temp["funcNo"].ToString());
+                    substr = this.GetSubTree(lists, temp["cateNo"].ToString());
                     if (string.IsNullOrEmpty(substr))
                     {
                         str.Append(",\"attributes\":{");
-                        str.Append("\"url\":\"");
-                        str.Append(temp["funcUrl"].ToString());
+                        str.Append("\"cateId\":\"");
+                        str.Append(temp["cateId"].ToString());
+                        str.Append("\",\"url\":\"");
+                        str.Append("info/ArticleAction?cateId="
+                            + temp["cateId"].ToString());
                         str.Append("\"}}");
                     }
                     else

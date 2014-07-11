@@ -67,6 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Info\ActivityLogic.cs" />
+    <Compile Include="Service\Info\CategoryLogic.cs" />
+    <Compile Include="Service\Info\NewsLogic.cs" />
     <Compile Include="Service\System\FunctionLogic.cs" />
     <Compile Include="Service\System\LocationLogic.cs" />
     <Compile Include="Service\System\UserLogic.cs" />
@@ -82,7 +85,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Service\Info\" />
     <Folder Include="Service\Renovation\" />
     <Folder Include="Service\Users\" />
   </ItemGroup>

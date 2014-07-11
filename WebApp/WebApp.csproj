@@ -80,9 +80,9 @@
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
     <Content Include="manage\index.aspx" />
-    <Content Include="manage\info\article\Action.aspx" />
-    <Content Include="manage\info\article\Detail.aspx" />
-    <Content Include="manage\info\article\List.aspx" />
+    <Content Include="manage\info\news\Action.aspx" />
+    <Content Include="manage\info\news\Detail.aspx" />
+    <Content Include="manage\info\news\List.aspx" />
     <Content Include="manage\info\category\Action.aspx" />
     <Content Include="manage\libs\easyui\jquery.easyui.min.js" />
     <Content Include="manage\libs\easyui\locale\easyui-lang-zh_CN.js" />
@@ -185,8 +185,8 @@
     <Content Include="manage\sys\function\Action.aspx" />
     <Content Include="manage\WebManage.aspx" />
     <None Include="templates\manage\manage.vm" />
-    <None Include="templates\manage\info\article\detail.vm" />
-    <None Include="templates\manage\info\article\list.vm" />
+    <None Include="templates\manage\info\news\detail.vm" />
+    <None Include="templates\manage\info\news\list.vm" />
     <Content Include="test.aspx" />
     <Content Include="VerifyCodeAction.aspx" />
     <Content Include="Web.config" />
@@ -222,25 +222,25 @@
     <Compile Include="manage\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="manage\info\article\Action.aspx.cs">
+    <Compile Include="manage\info\news\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="manage\info\article\Action.aspx.designer.cs">
+    <Compile Include="manage\info\news\Action.aspx.designer.cs">
       <DependentUpon>Action.aspx</DependentUpon>
     </Compile>
-    <Compile Include="manage\info\article\Detail.aspx.cs">
+    <Compile Include="manage\info\news\Detail.aspx.cs">
       <DependentUpon>Detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="manage\info\article\Detail.aspx.designer.cs">
+    <Compile Include="manage\info\news\Detail.aspx.designer.cs">
       <DependentUpon>Detail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="manage\info\article\List.aspx.cs">
+    <Compile Include="manage\info\news\List.aspx.cs">
       <DependentUpon>List.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="manage\info\article\List.aspx.designer.cs">
+    <Compile Include="manage\info\news\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\info\category\Action.aspx.cs">

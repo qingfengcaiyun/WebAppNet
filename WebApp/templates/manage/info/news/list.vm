@@ -63,7 +63,7 @@
         }
 
         function add() {
-            window.location.href = "Detail.aspx?iaId=0";
+            window.location.href = "Detail.aspx?newsId=0";
         }
 
         function edit() {
@@ -71,7 +71,7 @@
             if (n == null) {
                 jQuery.messager.alert('注意', '请选择要编辑的文章！', 'warning');
             } else {
-                window.location.href = "Detail.aspx?iaId=" + $("#dg").datagrid('getSelected').iaId;
+                window.location.href = "Detail.aspx?newsId=" + $("#dg").datagrid('getSelected').newsId;
             }
         }
 
@@ -82,7 +82,7 @@
             } else {
                 jQuery.messager.confirm('删除', '确认删除该文章么？', function (r) {
                     if (r) {
-                        var param = { action: "delete", iaId: n.iaId };
+                        var param = { action: "delete", newsId: n.newsId };
                         jQuery.post(
                             "Action.aspx",
                             param,

@@ -104,7 +104,7 @@
             var itemIndex = $("#itemIndex").val();
             var outLink = $("#outLink").val();
 
-            var iaId = $("#iaId").val();
+            var newsId = $("#newsId").val();
 
             if (longTitle == null) {
                 jQuery.messager.alert('错误', '请输入长标题！', 'error');
@@ -133,8 +133,8 @@
 
             var param = {
                 action: "save",
-                paramsStr: "iaId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
-                iaId: iaId,
+                paramsStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
+                newsId: newsId,
                 longTitle: longTitle,
                 titleColor: titleColor,
                 shortTitle: shortTitle,
@@ -154,7 +154,7 @@
                     if (parseInt(data) == 1) {
                         jQuery.messager.confirm('保存成功', '你想输入新信息么？', function (r) {
                             if (r) {
-                                window.location.href = "?action=edit&iaId=0";
+                                window.location.href = "?action=edit&newsId=0";
                             } else {
                                 window.location.href = "ArticleAction?cateId=" + cateId;
                             }
@@ -167,13 +167,13 @@
         }
 
         function getOne() {
-            var iaId = $("#iaId").val();
-            if (parseInt(iaId) > 0) {
+            var newsId = $("#newsId").val();
+            if (parseInt(newsId) > 0) {
                 jQuery.post(
                     "Action.aspx",
                     {
                         action: "one",
-                        iaId: iaId
+                        newsId: newsId
                     },
                     function (data) {
                         var d = jQuery.parseJSON(data);
@@ -312,7 +312,7 @@
                 </td>
                 <td>
                     <input type="hidden" id="isTop" value="" />
-                    <input type="hidden" id="iaId" value="$iaId" /><input type="hidden" id="cateList"
+                    <input type="hidden" id="newsId" value="$newsId" /><input type="hidden" id="cateList"
                         value="" />
                 </td>
             </tr>

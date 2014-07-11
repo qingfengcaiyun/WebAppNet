@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Glibs.Sql;
 using Glibs.Util;
 
@@ -77,9 +75,6 @@ namespace WedDao.Dao.Info
                 if (list != null && list.Count > 0)
                 {
                     List<Dictionary<string, object>> paramList = new List<Dictionary<string, object>>();
-
-                    this.sql = "update [Info_Category] set [cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
-
                     Dictionary<string, object> item = null;
 
                     string parentNo = content["cateNo"].ToString();
@@ -88,7 +83,7 @@ namespace WedDao.Dao.Info
                     {
                         item = list[i];
 
-                        this.param = new Dictionary<string,object>();
+                        this.param = new Dictionary<string, object>();
                         this.param.Add("cateNo", parentNo + item["cateNo"].ToString().Substring(cate["cateNo"].ToString().Length));
                         this.param.Add("parentNo", parentNo + item["parentNo"].ToString().Substring(cate["cateNo"].ToString().Length));
                         this.param.Add("cateId", Int32.Parse(item["cateId"].ToString()));
@@ -97,6 +92,8 @@ namespace WedDao.Dao.Info
 
                         paramList.Add(this.param);
                     }
+
+                    this.sql = "update [Info_Category] set [cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
 
                     this.db.Batch(this.sql, paramList);
                 }
