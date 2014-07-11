@@ -75,9 +75,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="manage\Action.aspx" />
+    <Content Include="manage\FileUpload.aspx" />
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
     <Content Include="manage\index.aspx" />
+    <Content Include="manage\info\article\Action.aspx" />
+    <Content Include="manage\info\article\Detail.aspx" />
+    <Content Include="manage\info\article\List.aspx" />
+    <Content Include="manage\info\category\Action.aspx" />
     <Content Include="manage\libs\easyui\jquery.easyui.min.js" />
     <Content Include="manage\libs\easyui\locale\easyui-lang-zh_CN.js" />
     <Content Include="manage\libs\easyui\themes\default\accordion.css" />
@@ -161,7 +167,6 @@
     <Content Include="manage\libs\jquery.bigcolorpicker.js" />
     <Content Include="manage\libs\jquery.js" />
     <Content Include="manage\libs\jquery.md5.js" />
-    <Content Include="manage\libs\jquery.ztree.all-3.5.min.js" />
     <Content Include="manage\libs\kindeditor\kindeditor-all.js" />
     <Content Include="manage\libs\kindeditor\lang\zh_CN.js" />
     <Content Include="manage\libs\kindeditor\themes\common\anchor.gif" />
@@ -176,28 +181,12 @@
     <Content Include="manage\libs\kindeditor\themes\qq\editor.gif" />
     <Content Include="manage\libs\kindeditor\themes\qq\qq.css" />
     <Content Include="manage\libs\kindeditor\themes\simple\simple.css" />
-    <Content Include="manage\libs\MicrosoftAjax.js" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\1_close.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\1_open.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\2.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\3.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\4.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\5.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\6.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\7.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\8.png" />
-    <Content Include="manage\libs\zTreeStyle\img\diy\9.png" />
-    <Content Include="manage\libs\zTreeStyle\img\line_conn.gif" />
-    <Content Include="manage\libs\zTreeStyle\img\loading.gif" />
-    <Content Include="manage\libs\zTreeStyle\img\zTreeStandard.gif" />
-    <Content Include="manage\libs\zTreeStyle\img\zTreeStandard.png" />
-    <Content Include="manage\libs\zTreeStyle\zTreeStyle.css" />
-    <Content Include="manage\AjaxUpload.ashx" />
     <None Include="templates\manage\login.vm" />
-    <Content Include="manage\ManageAction.aspx" />
-    <Content Include="manage\sys\FunctionAction.aspx" />
+    <Content Include="manage\sys\function\Action.aspx" />
     <Content Include="manage\WebManage.aspx" />
     <None Include="templates\manage\manage.vm" />
+    <None Include="templates\manage\info\article\detail.vm" />
+    <None Include="templates\manage\info\article\list.vm" />
     <Content Include="test.aspx" />
     <Content Include="VerifyCodeAction.aspx" />
     <Content Include="Web.config" />
@@ -212,8 +201,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="manage\AjaxUpload.ashx.cs">
-      <DependentUpon>AjaxUpload.ashx</DependentUpon>
+    <Compile Include="manage\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\FileUpload.aspx.cs">
+      <DependentUpon>FileUpload.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\FileUpload.aspx.designer.cs">
+      <DependentUpon>FileUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -222,19 +222,40 @@
     <Compile Include="manage\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="manage\ManageAction.aspx.cs">
-      <DependentUpon>ManageAction.aspx</DependentUpon>
+    <Compile Include="manage\info\article\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="manage\ManageAction.aspx.designer.cs">
-      <DependentUpon>ManageAction.aspx</DependentUpon>
+    <Compile Include="manage\info\article\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
     </Compile>
-    <Compile Include="manage\sys\FunctionAction.aspx.cs">
-      <DependentUpon>FunctionAction.aspx</DependentUpon>
+    <Compile Include="manage\info\article\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="manage\sys\FunctionAction.aspx.designer.cs">
-      <DependentUpon>FunctionAction.aspx</DependentUpon>
+    <Compile Include="manage\info\article\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\info\article\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\info\article\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\info\category\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\info\category\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\sys\function\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\sys\function\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\WebManage.aspx.cs">
       <DependentUpon>WebManage.aspx</DependentUpon>
@@ -264,13 +285,18 @@
     <Folder Include="attached\images\" />
     <Folder Include="attached\temp\" />
     <Folder Include="manage\libs\kindeditor\attached\" />
+    <Folder Include="manage\renovation\" />
+    <Folder Include="manage\user\" />
+    <Folder Include="templates\manage\renovation\" />
+    <Folder Include="templates\manage\sys\" />
+    <Folder Include="templates\manage\user\" />
     <Folder Include="templates\webhtml\" />
     <Folder Include="webhtml\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GLibs\GLibs.csproj">
+    <ProjectReference Include="..\GLibs\Glibs.csproj">
       <Project>{44AE183D-516D-4F05-93F0-F8870B4A0AC2}</Project>
-      <Name>GLibs</Name>
+      <Name>Glibs</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebLogic\WebLogic.csproj">
       <Project>{D9EF6C81-E8DB-4A97-9F90-035BD9E1FBE1}</Project>

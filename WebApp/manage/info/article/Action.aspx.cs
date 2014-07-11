@@ -5,11 +5,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
-using WebLogic.Service.System;
 
-namespace WebApp.manage.sys
+namespace WebApp.manage.info.article
 {
-    public partial class FunctionAction : System.Web.UI.Page
+    public partial class Action : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -18,14 +17,14 @@ namespace WebApp.manage.sys
 
             switch (action)
             {
-                case "tree": rs = FuncTree(); break;
+                case "tree": rs = Tree(); break;
                 default: Session.Abandon(); break;
             }
 
             Response.Write(rs);
         }
 
-        private string FuncTree()
+        private string Tree()
         {
             Dictionary<string, object> cUser = (Dictionary<string, object>)WebPageCore.GetSession("cUser");
             return new FunctionLogic().GetTree("0", Int32.Parse(cUser["userId"].ToString()));

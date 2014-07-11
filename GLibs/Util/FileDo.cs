@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Glibs.Util;
+using System.Text;
 
-namespace GLibs.Util
+namespace Glibs.Util
 {
     public class FileDo
     {

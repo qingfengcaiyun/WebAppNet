@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>文章编辑</title>
+    <link href="../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../libs/kindeditor/themes/default/default.css" rel="stylesheet" type="text/css" />
+    <link href="../../libs/jquery.bigcolorpicker.css" rel="stylesheet" type="text/css" />
+    <link href="../../libs/global.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        td
+        {
+            height: 30px;
+        }
+        .top
+        {
+            float: left;
+            margin-left: 15px;
+        }
+    </style>
+    <script type="text/javascript" src="../../libs/jquery.js"></script>
+    <script type="text/javascript" src="../../libs/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../libs/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="../../libs/kindeditor/lang/zh_CN.js"></script>
+    <script type="text/javascript" src="../../libs/jquery.bigcolorpicker.js"></script>
+    <script type="text/javascript">
+        var editor;
+        $(document).ready(function () {
+            switchTopOption();
+            getCateTree();
+            getOne();
+
+            $("#titleColor").bigColorpicker(function (el, color) {
+                $(el).css("backgroundColor", color);
+                $(el).val(color);
+            });
+        });
+
+        KindEditor.ready(function (K) {
+            editor = K.create('textarea[name="content"]', {
+                allowFileManager: true
+            });
+        });
+
+        function switchTopOption() {
+            var b = $("#topSwitch").slider('getValue');
+            if (parseInt(b) == 1) {
+                $("#topTimeDiv").show();
+                $("#top1").css({
+                    'color': 'black',
+                    'font-weight': 'normal'
+                });
+                $("#top2").css({
+                    'color': 'red',
+                    'font-weight': 'bold'
+                });
+                $("#isTop").val(true);
+            } else {
+                $("#topTimeDiv").hide();
+                $("#top2").css({
+                    'color': 'black',
+                    'font-weight': 'normal'
+                });
+                $("#top1").css({
+                    'color': 'red',
+                    'font-weight': 'bold'
+                });
+                $("#isTop").val(false);
+            }
+        }
+
+        function preview() {
+            jQuery.messager.alert('嘻嘻', '模板还未做完！');
+        }
+
+        function save() {
+            //cateList
+            var t = $("#cate").combotree('tree');
+            var n = t.tree('getChecked');
+            var cateList = "";
+            var cateId;
+            if (n.length > 0) {
+                for (var i = 0; i < n.length; i++) {
+                    cateList = cateList + "," + n[i].attributes.cateId;
+                    cateId = n[i].attributes.cateId;
+                }
+                cateList = cateList.substr(1);
+            }
+
+            var longTitle = $("#longTitle").val();
+
+            var titleColor = $("#titleColor").val();
+            if (titleColor == "标题颜色") {
+                titleColor = "#000000";
+            }
+
+            var shortTitle = $("#shortTitle").val();
+            var isTop = $("#isTop").val();
+            var topTime = $("#topTime").datetimebox('getValue');
+            var content = editor.html();
+            var keywords = $("#keywords").val();
+            var itemIndex = $("#itemIndex").val();
+            var outLink = $("#outLink").val();
+
+            var iaId = $("#iaId").val();
+
+            if (longTitle == null) {
+                jQuery.messager.alert('错误', '请输入长标题！', 'error');
+                $("#longTitle").focus();
+                return;
+            }
+            if (editor.text() == null) {
+                jQuery.messager.alert('错误', '请输入内容', 'error');
+                return;
+            }
+            if (keywords == null) {
+                jQuery.messager.alert('错误', '请输入关键词，以逗号分隔！', 'error');
+                $("#keywords").focus();
+                return;
+            }
+            if (itemIndex == null) {
+                jQuery.messager.alert('错误', '请输入文章排序值。数值越大越往前！', 'error');
+                $("#itemIndex").focus();
+                return;
+            }
+            if (cateList == "") {
+                jQuery.messager.alert('错误', '请选择文章分类！！', 'error');
+                $("#cate").focus();
+                return;
+            }
+
+            var param = {
+                action: "save",
+                paramsStr: "iaId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
+                iaId: iaId,
+                longTitle: longTitle,
+                titleColor: titleColor,
+                shortTitle: shortTitle,
+                isTop: isTop,
+                topTime: topTime,
+                content: content,
+                keywords: keywords,
+                itemIndex: itemIndex,
+                cateList: cateList,
+                outLink: outLink
+            };
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+
+                    if (parseInt(data) == 1) {
+                        jQuery.messager.confirm('保存成功', '你想输入新信息么？', function (r) {
+                            if (r) {
+                                window.location.href = "?action=edit&iaId=0";
+                            } else {
+                                window.location.href = "ArticleAction?cateId=" + cateId;
+                            }
+                        });
+                    } else {
+                        jQuery.messager.alert('错误', '保存失败！', 'error');
+                    }
+                }
+            );
+        }
+
+        function getOne() {
+            var iaId = $("#iaId").val();
+            if (parseInt(iaId) > 0) {
+                jQuery.post(
+                    "Action.aspx",
+                    {
+                        action: "one",
+                        iaId: iaId
+                    },
+                    function (data) {
+                        var d = jQuery.parseJSON(data);
+                        $("#longTitle").val(d.longTitle);
+                        $("#shortTitle").val(d.shortTitle);
+                        $("#keywords").val(d.keywords);
+                        $("#itemIndex").val(d.itemIndex);
+                        $("#cateList").val(d.cateList);
+                        $("#outLink").val(d.outLink);
+
+                        editor.html(d.content);
+
+                        if (d.isTop.toString() == "true") {
+                            $("#topSwitch").slider("setValue", "1");
+                            $("#topTime").datetimebox("setValue", d.topTime.toString());
+                        } else {
+                            $("#topSwitch").slider("setValue", "0");
+                        }
+                        switchTopOption();
+
+                        var c = d.cateList.toString().split(',');
+                        var l = [];
+
+                        for (var i = 0; i < c.length; i++) {
+                            l.push(parseInt(c[i]));
+                        }
+
+                        $("#cate").combotree("setValues", l);
+                    }
+                );
+            }
+        }
+
+        function getCateTree() {
+            jQuery.post(
+                "../category/Action.aspx",
+                {
+                    action: "tree"
+                },
+                function (data) {
+                    var d = jQuery.parseJSON(data);
+                    $("#cate").combotree('loadData', d);
+                }
+            );
+        }
+    </script>
+</head>
+<body>
+    <div class="easyui-panel" title="&nbsp;文章编辑" data-options="fit:true">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="100" class="algR">
+                    完整标题：
+                </td>
+                <td width="">
+                    <input class="easyui-validatebox textbox w400" type="text" id="longTitle" data-options="required:true" />&nbsp;<input
+                        class="txtInput w80 algC" type="text" id="titleColor" value="标题颜色" readonly="readonly" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    简化标题：
+                </td>
+                <td>
+                    <input class="easyui-validatebox textbox w300" type="text" id="shortTitle" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    文章分类：
+                </td>
+                <td>
+                    <input class="easyui-combotree w300" data-options="required:true" multiple id="cate" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    文章内容：
+                </td>
+                <td>
+                    <textarea id="content" name="content" cols="" rows="" class="txtArea"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    置顶：
+                </td>
+                <td>
+                    <span id="top1" class="top">否</span><span class="top">
+                        <input class="easyui-slider" id="topSwitch" style="width: 20px" data-options="step:1,min:0,max:1,value:0,onComplete:switchTopOption" />
+                    </span><span id="top2" class="top">是</span> <span id="topTimeDiv" class="top">该文章置顶截止：
+                        <input class="easyui-datetimebox" value="10/11/2012 2:3:56" style="width: 200px;"
+                            id="topTime" />
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    关键词：
+                </td>
+                <td>
+                    <input class="easyui-validatebox textbox w300" type="text" id="keywords" value=""
+                        data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    排序值：
+                </td>
+                <td>
+                    <input class="easyui-validatebox textbox w80" type="text" id="itemIndex" value="1000"
+                        data-options="required:true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    外部连接：
+                </td>
+                <td>
+                    <input class="txtInput w400" type="text" id="outLink" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    &nbsp;
+                </td>
+                <td>
+                    <a class="easyui-linkbutton" iconcls="icon-search" href="javascript:void(0)" onclick="preview()">
+                        &nbsp;预览&nbsp;</a>&nbsp;&nbsp;<a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)"
+                            onclick="save()">&nbsp;保存&nbsp;</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    &nbsp;
+                </td>
+                <td>
+                    <input type="hidden" id="isTop" value="" />
+                    <input type="hidden" id="iaId" value="$iaId" /><input type="hidden" id="cateList"
+                        value="" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

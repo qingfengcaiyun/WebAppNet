@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Glibs.Sql;
-using GLibs.Util;
+using Glibs.Util;
 
 namespace WedDao.Dao.System
 {

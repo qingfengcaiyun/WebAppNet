@@ -72,9 +72,9 @@
     <Compile Include="Service\System\UserLogic.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GLibs\GLibs.csproj">
+    <ProjectReference Include="..\GLibs\Glibs.csproj">
       <Project>{44AE183D-516D-4F05-93F0-F8870B4A0AC2}</Project>
-      <Name>GLibs</Name>
+      <Name>Glibs</Name>
     </ProjectReference>
     <ProjectReference Include="..\WedDao\WedDao.csproj">
       <Project>{958BBDE4-524B-4A88-9C09-5D6C8E752D71}</Project>

@@ -15,7 +15,6 @@
     </style>
     <script type="text/javascript" src="libs/jquery.js"></script>
     <script type="text/javascript" src="libs/jquery.md5.js"></script>
-    <script type="text/javascript" src="libs/MicrosoftAjax.js"></script>
     <script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="libs/jquery.ztree.all-3.5.min.js"></script>
@@ -28,7 +27,7 @@
             var param = { action: "logout" };
 
             jQuery.post(
-                "ManageAction.aspx",
+                "Action.aspx",
                 param,
                 function (data) { }
             );
@@ -59,7 +58,7 @@
 
             if (newpwd == repwd) {
                 jQuery.post(
-                    "ManageAction.aspx",
+                    "Action.aspx",
                     param,
                     function (data) {
                         var m = jQuery.parseJSON(data);
@@ -95,7 +94,7 @@
         function privateInfo() {
             var param = { action: "getAdmin" };
             jQuery.post(
-                "ManageAction.aspx",
+                "Action.aspx",
                 param,
                 function (data) {
                     var u = jQuery.parseJSON(data);
@@ -114,7 +113,6 @@
         }
 
         function savePrivate() {
-
             var param = {
                 action: "saveAdmin",
                 paramStr: "fullName,phone,email,qq",
@@ -125,7 +123,7 @@
             };
 
             jQuery.post(
-                "ManageAction.aspx",
+                "Action.aspx",
                 param,
                 function (data) {
                     var m = jQuery.parseJSON(data);
@@ -145,7 +143,7 @@
                 action: "tree"
             };
             jQuery.post(
-                "sys/FunctionAction.aspx",
+                "sys/function/Action.aspx",
                 param,
                 function (data) {
                     var m = jQuery.parseJSON(data);

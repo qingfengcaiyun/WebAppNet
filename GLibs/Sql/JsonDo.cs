@@ -2,7 +2,7 @@
 using System.Text;
 using Glibs.Util;
 
-namespace GLibs.Sql
+namespace Glibs.Sql
 {
     public class JsonDo
     {

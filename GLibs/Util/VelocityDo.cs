@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using Glibs.Util;
 using NVelocity;
 using NVelocity.App;
 using NVelocity.Runtime;
 
-namespace GLibs.Util
+namespace Glibs.Util
 {
     public class VelocityDo
     {

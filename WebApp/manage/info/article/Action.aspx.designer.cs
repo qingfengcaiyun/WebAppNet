@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApp.manage {
+namespace WebApp.manage.info.article {
     
     
-    public partial class ManageAction {
+    public partial class Action {
     }
 }

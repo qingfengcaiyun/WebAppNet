@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Web;
 
-namespace GLibs.Util
+namespace Glibs.Util
 {
     public class VerifyCode
     {

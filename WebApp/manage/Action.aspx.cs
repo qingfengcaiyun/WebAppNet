@@ -4,14 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Glibs.Sql;
 using Glibs.Util;
 using WebLogic.Service.System;
-using GLibs.Sql;
-using GLibs.Util;
 
 namespace WebApp.manage
 {
-    public partial class ManageAction : System.Web.UI.Page
+    public partial class Action : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

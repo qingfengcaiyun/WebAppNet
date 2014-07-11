@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace GLibs.Util
+namespace Glibs.Util
 {
     public class Cryption
     {

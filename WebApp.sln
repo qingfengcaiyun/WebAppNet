@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{325BFE6E-93EB-47F5-B19F-C7F1E6F05F3E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLibs", "GLibs\GLibs.csproj", "{44AE183D-516D-4F05-93F0-F8870B4A0AC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glibs", "GLibs\Glibs.csproj", "{44AE183D-516D-4F05-93F0-F8870B4A0AC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WedDao", "WedDao\WedDao.csproj", "{958BBDE4-524B-4A88-9C09-5D6C8E752D71}"
 EndProject

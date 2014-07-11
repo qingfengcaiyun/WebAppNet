@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApp.manage.sys {
+namespace WebApp.manage.info.category {
     
     
-    public partial class FunctionAction {
+    public partial class Action {
     }
 }

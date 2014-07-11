@@ -14,7 +14,6 @@
     </style>
     <script type="text/javascript" src="libs/jquery.js"></script>
     <script type="text/javascript" src="libs/jquery.md5.js"></script>
-    <script type="text/javascript" src="libs/MicrosoftAjax.js"></script>
     <script type="text/javascript" src="libs/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
@@ -47,7 +46,7 @@
             };
 
             jQuery.post(
-                "ManageAction.aspx",
+                "Action.aspx",
                 param,
                 function (data) {
                     var m = jQuery.parseJSON(data);
