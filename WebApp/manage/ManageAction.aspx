@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ManageAction.aspx.cs" Inherits="WebApp.manage.ManageAction" %>
