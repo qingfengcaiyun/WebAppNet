@@ -295,7 +295,7 @@ namespace Glibs.Sql
             }
         }
 
-        public bool Import(string sql, List<Dictionary<string, object>> paramList)
+        public bool Batch(string sql, List<Dictionary<string, object>> paramList)
         {
             this.OpenDB();
             this.cmd = this.conn.CreateCommand();

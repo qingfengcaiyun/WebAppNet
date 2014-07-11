@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
-using System.Text;
-using System.IO;
 
 namespace WebApp
 {
@@ -24,7 +24,11 @@ namespace WebApp
 
             //Response.Write(System.AppDomain.CurrentDomain.BaseDirectory+@"templates\manage");
 
-            Response.Write(Server.MapPath("attached"));
+            //Response.Write(Server.MapPath("attached"));
+
+            string str = "001001003001001002";
+            int i = str.IndexOf("001");
+            Response.Write(i);
         }
     }
 }

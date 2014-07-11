@@ -66,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dao\Info\CategoryDao.cs" />
     <Compile Include="Dao\System\AdminDao.cs" />
     <Compile Include="Dao\System\FunctionDao.cs" />
     <Compile Include="Dao\System\LocationDao.cs" />
@@ -79,7 +80,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dao\Info\" />
     <Folder Include="Dao\Renovation\" />
     <Folder Include="Dao\Users\" />
   </ItemGroup>

@@ -27,7 +27,7 @@ namespace WebApp.manage.info.category
         private string Tree()
         {
             Dictionary<string, object> cUser = (Dictionary<string, object>)WebPageCore.GetSession("cUser");
-            return new FunctionLogic().GetTree("0", Int32.Parse(cUser["userId"].ToString()));
+            return "";
         }
     }
 }

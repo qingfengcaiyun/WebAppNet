@@ -19,17 +19,21 @@ namespace WedDao.Dao.System
         public Dictionary<string, object> GetOne(string userName, string userPwd)
         {
             this.sql = @"select [userId],[userName],[userPwd],[userType],[lastLogin],[locationId],[isDeleted],[isLocked] from [Sys_User] where [userName]=@userName and [userPwd]=@userPwd";
+
             this.param = new Dictionary<string, object>();
             this.param.Add("userName", userName);
             this.param.Add("userPwd", userPwd);
+
             return this.db.GetDataRow(sql, param);
         }
 
         public Dictionary<string, object> GetOne(int userId)
         {
             this.sql = @"select [userId],[userName],[userPwd],[userType],[lastLogin],[locationId],[isDeleted],[isLocked] from [Sys_User] where [userId]=@userId";
+
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", userId);
+
             return this.db.GetDataRow(this.sql, this.param);
         }
 
@@ -60,8 +64,7 @@ namespace WedDao.Dao.System
         {
             this.sql = @"select [userId],[md5Pwd] from [Sys_User]";
             List<Dictionary<string, object>> list = this.db.GetDataTable(this.sql, null);
-
-            this.sql = @"update [Sys_User] set [userPwd]=@userPwd where [userId]=@userId";
+            
             if (list.Count > 0)
             {
                 List<Dictionary<string, object>> paramsList = new List<Dictionary<string, object>>();
@@ -75,7 +78,8 @@ namespace WedDao.Dao.System
                     paramsList.Add(this.param);
                 }
 
-                return this.db.Import(this.sql, paramsList);
+                this.sql = @"update [Sys_User] set [userPwd]=@userPwd where [userId]=@userId";
+                return this.db.Batch(this.sql, paramsList);
             }
             else
             {

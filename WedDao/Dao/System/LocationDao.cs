@@ -13,7 +13,6 @@ namespace WedDao.Dao.System
         public LocationDao()
         {
             this.db = DbUtil.CreateDatabase();
-            this.param = new Dictionary<string, object>();
         }
 
         public Dictionary<string, object> GetOne(int locationId)
@@ -21,7 +20,7 @@ namespace WedDao.Dao.System
 
             this.sql = @"select [locationId],[cnName],[enName],[levelNo],[parentNo],[levelCnName],[levelEnName],[isLeaf] from [Sys_Location] where [locationId]=@locationId";
 
-            this.param.Clear();
+            this.param = new Dictionary<string, object>();
             this.param.Add("locationId", locationId);
 
             return this.db.GetDataRow(this.sql, this.param);
@@ -32,7 +31,7 @@ namespace WedDao.Dao.System
 
             this.sql = @"select [locationId],[cnName],[enName],[levelNo],[parentNo],[levelCnName],[levelEnName],[isLeaf] from [Sys_Location] where [levelNo]=@levelNo";
 
-            this.param.Clear();
+            this.param = new Dictionary<string, object>();
             this.param.Add("levelNo", levelNo);
 
             return this.db.GetDataRow(this.sql, this.param);
@@ -47,7 +46,7 @@ namespace WedDao.Dao.System
 
             this.sql = @"select [locationId],[cnName],[enName],[levelNo],[parentNo],[levelCnName],[levelEnName],[isLeaf] from [Sys_Location] where [parentNo] like @parentNo+'%' order by [levelNo] asc";
 
-            this.param.Clear();
+            this.param = new Dictionary<string, object>();
             this.param.Add("parentNo", parentNo);
 
             return this.db.GetDataTable(this.sql, this.param);
