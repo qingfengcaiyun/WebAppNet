@@ -14,11 +14,19 @@ namespace WebApp.manage.info.article
         {
             if (!Page.IsPostBack)
             {
+                string cateId = WebPageCore.GetRequest("cateId");
+
+                if (!RegexDo.IsInt32(cateId)) 
+                {
+                    cateId = "0";
+                }
+
                 Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
                 Dictionary<string, object> content = new Dictionary<string, object>();
                 content.Add("cityId", cUser["locationId"]);
+                content.Add("cateId", cateId);
 
-                Response.Write(VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/manage/info/article", content));
+                Response.Write(VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/manage/info/news", content));
             }
         }
     }

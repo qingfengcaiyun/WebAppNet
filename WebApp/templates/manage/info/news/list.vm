@@ -32,6 +32,12 @@
                     getPager(n.attributes.cateId);
                 }
             });
+
+            var cateId = $("#cateId").val();
+
+            if (parseInt(cateId) > 0) {
+                getPager(cateId);
+            }
         });
 
         function getPager(cateId) {
@@ -130,7 +136,7 @@
             <input class="easyui-combotree w100" type="text" style="text-align: center" id="cate" />
         </div>
     </div>
-    <input id="cityId" type="hidden" value="$cityId" />
+    <input id="cityId" type="hidden" value="$cityId" /><input id="cateId" type="hidden" value="$cateId" />
     <table id="dg" class="easyui-datagrid" title="文章管理" style="width: 1000px; height: 400px"
         data-options="fit:true,fitColumns:true,rownumbers:true,singleSelect:true,pagination:true,toolbar:'#tb'">
         <thead>

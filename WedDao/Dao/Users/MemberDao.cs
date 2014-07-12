@@ -110,7 +110,7 @@ namespace WedDao.Dao.Users
             this.param.Add("logoUrl", content["logoUrl"]);
             this.param.Add("memo", content["memo"]);
             this.param.Add("memberId", content["memberId"]);
-            this.param.Add("updateTime", now);
+            this.param.Add("updateTime", DateTime.Now);
 
             return this.db.Update(this.sql, this.param);
         }

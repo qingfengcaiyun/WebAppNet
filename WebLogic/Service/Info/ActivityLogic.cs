@@ -13,7 +13,7 @@ namespace WebLogic.Service.Info
             this.dao = new ActivityDao();
         }
 
-        public Dictionary<string, object> getOne(int actId)
+        public Dictionary<string, object> GetOne(int actId)
         {
             return this.dao.GetOne(actId);
         }

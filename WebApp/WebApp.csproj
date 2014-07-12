@@ -80,6 +80,7 @@
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
     <Content Include="manage\index.aspx" />
+    <Content Include="manage\info\category\View.aspx" />
     <Content Include="manage\info\news\Action.aspx" />
     <Content Include="manage\info\news\Detail.aspx" />
     <Content Include="manage\info\news\List.aspx" />
@@ -221,6 +222,13 @@
     </Compile>
     <Compile Include="manage\index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\info\category\View.aspx.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\info\category\View.aspx.designer.cs">
+      <DependentUpon>View.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\info\news\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>

@@ -14,12 +14,12 @@ namespace WebLogic.Service.Info
             this.dao = new CategoryDao();
         }
 
-        public Dictionary<string, object> getOne(int cateId)
+        public Dictionary<string, object> GetOne(int cateId)
         {
             return this.dao.GetOne(cateId);
         }
 
-        public List<Dictionary<string, object>> getList(string parentNo)
+        public List<Dictionary<string, object>> GetList(string parentNo)
         {
             return this.dao.GetList(parentNo);
         }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
+using WebLogic.Service.Info;
 
 namespace WebApp.manage.info.category
 {
@@ -26,8 +27,7 @@ namespace WebApp.manage.info.category
 
         private string Tree()
         {
-            Dictionary<string, object> cUser = (Dictionary<string, object>)WebPageCore.GetSession("cUser");
-            return "";
+            return new CategoryLogic().GetTree("0");
         }
     }
 }

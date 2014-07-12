@@ -156,7 +156,7 @@
                             if (r) {
                                 window.location.href = "?action=edit&newsId=0";
                             } else {
-                                window.location.href = "ArticleAction?cateId=" + cateId;
+                                window.location.href = "List.aspx?cateId=" + cateId;
                             }
                         });
                     } else {

@@ -23,7 +23,7 @@ namespace WebLogic.Service.System
             }
             else
             {
-                list = this.dao.getList(parentNo);
+                list = this.dao.GetList(parentNo);
             }
             Dictionary<string, object> temp = null;
             Dictionary<string, List<Dictionary<string, object>>> lists = new Dictionary<string, List<Dictionary<string, object>>>();
