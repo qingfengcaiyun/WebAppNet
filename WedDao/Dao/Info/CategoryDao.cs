@@ -53,7 +53,7 @@ namespace WedDao.Dao.Info
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"update [Info_Category] set [isLeaf]=0 where [cateNo]=@cateNo;insert into [Info_Category] ([cityId],[cateName],[cateNo],[parentNo],[isLeaf])values(@cityId,@cateName,@cateNo,@parentNo,1);";
+            this.sql = @"update [Info_Category] set [isLeaf]=0 where [cateNo]=@cateNo;insert into [Info_Category] ([cityId],[cateName],[cateNo],[parentNo],[isLeaf])values(@cityId,@cateName,@cateNo,@parentNo,1)";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cityId", content["cityId"]);
@@ -93,18 +93,20 @@ namespace WedDao.Dao.Info
                         paramList.Add(this.param);
                     }
 
-                    this.sql = "update [Info_Category] set [cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
+                    this.sql = @"update [Info_Category] set [cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
 
                     this.db.Batch(this.sql, paramList);
                 }
             }
 
-            this.sql = "update [Info_Category] set [isLeaf]=false where [cateNo]=?;"
-                + "update [Info_Category] set [cityId]=?,[cateName]=?,[cateNo]=?,[parentNo]=? where [cateId]=?";
+            this.sql = @"update [Info_Category] set [isLeaf]=0 where [cateNo]=@parentNo;update [Info_Category] set [cityId]=@cityId,[cateName]=@cateName,[cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("", content["parentNo"]);
-            this.param.Add("", content["parentNo"]);
+            this.param.Add("cateNo", content["cateNo"]);
+            this.param.Add("parentNo", content["parentNo"]);
+            this.param.Add("cityId", content["cityId"]);
+            this.param.Add("cateName", content["cateName"]);
+            this.param.Add("cateId", content["cateId"]);
 
             return this.db.Update(this.sql, this.param);
         }

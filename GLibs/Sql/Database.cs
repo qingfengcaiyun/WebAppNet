@@ -225,7 +225,7 @@ namespace Glibs.Sql
         {
             this.OpenDB();
             this.cmd = this.conn.CreateCommand();
-            this.cmd.CommandText = sql;
+            this.cmd.CommandText = sql + @";select @@IDENTITY AS id;";
             this.cmd.Parameters.Clear();
 
             if (param != null && param.Count > 0)

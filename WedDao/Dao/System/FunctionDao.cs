@@ -32,7 +32,7 @@ namespace WedDao.Dao.System
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public List<Dictionary<string, object>> getList(string parentNo)
+        public List<Dictionary<string, object>> GetList(string parentNo)
         {
             if (!RegexDo.IsNumber(parentNo))
             {

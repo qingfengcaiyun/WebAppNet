@@ -52,7 +52,7 @@ namespace WedDao.Dao.System
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Sys_Roles] ([roleName],[itemIndex])values(@roleName,@itemIndex);";
+            this.sql = @"insert into [Sys_Roles] ([roleName],[itemIndex])values(@roleName,@itemIndex)";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleName", content["roleName"]);

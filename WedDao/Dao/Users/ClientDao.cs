@@ -100,24 +100,21 @@ namespace WedDao.Dao.Users
             pr.CurrentPage = pageNo;
             pr.PageSize = pageSize;
 
+            pr.CountKey = @"c.[clientId]";
+            pr.SqlFields = @"u.[userId],u.[userName],u.[lastLogin],c.[clientId],c.[locationId],c.[fullName],c.[phone],l.[cnName]";
+            pr.SqlOrderBy = @"c.[fullName] asc";
+            pr.SqlTable = @"[Sys_Users] as u,[User_Client] as c,[Sys_Locations] as l";
+
             this.param = new Dictionary<string, object>();
 
             if (locationId > 0)
             {
-                pr.CountKey = @"c.[clientId]";
-                pr.SqlFields = @"u.[userId],u.[userName],u.[lastLogin],c.[clientId],c.[locationId],c.[fullName],c.[phone],l.[cnName]";
-                pr.SqlOrderBy = @"c.[fullName] asc";
-                pr.SqlTable = @"[Sys_Users] as u,[User_Client] as c,[Sys_Locations] as l";
                 pr.SqlWhere = @"u.[userId]=c.[userId] and c.[locationId]=l.[locationId] and u.[locationId]=l.[locationId] and c.[isDeleted]=0 and u.[userType]='C' and c.[locationId]=@locationId and (c.[fullName] like '%'+@msg+'%' or c.[phone] like '%'+@msg+'%')";
 
                 this.param.Add("locationId", locationId);
             }
             else
             {
-                pr.CountKey = @"c.[clientId]";
-                pr.SqlFields = @"u.[userId],u.[userName],u.[lastLogin],c.[clientId],c.[locationId],c.[fullName],c.[phone],l.[cnName]";
-                pr.SqlOrderBy = @"c.[fullName] asc";
-                pr.SqlTable = @"[Sys_Users] as u,[User_Client] as c,[Sys_Locations] as l";
                 pr.SqlWhere = @"u.[userId]=c.[userId] and c.[locationId]=l.[locationId] and u.[locationId]=l.[locationId] and c.[isDeleted]=0 and u.[userType]='C' and (c.[fullName] like '%'+@msg+'%' or c.[phone] like '%'+@msg+'%')";
             }
 

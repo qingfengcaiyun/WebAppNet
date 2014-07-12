@@ -36,9 +36,9 @@ namespace WedDao.Dao.Info
             if (cateId > 0)
             {
                 pr.CountKey = @"a.[newsId]";
-                pr.SqlFields = @"a.[newsId],a.[cityId],a.[longTitle],a.[titleColor],a.[shortTitle],a.[keywords],a.[readCount],a.[itemIndex],a.[outLink],a.[isTop],a.[topTime],a.[insertTime],a.[updateTime]";
-                pr.SqlOrderBy = @"a.[itemIndex] desc,a.[insertTime] desc";
-                pr.SqlTable = @"[Info_Article] as a, [Info_Relationship] as r";
+                pr.SqlFields = @"[newsId],[cityId],[longTitle],[titleColor],[shortTitle],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime]";
+                pr.SqlOrderBy = @"[itemIndex] desc,[insertTime] desc";
+                pr.SqlTable = @"[Info_News]";
                 pr.SqlWhere = @"a.[newsId]=r.[newsId] and r.[cateId]=@cateId and a.[cityId] in (" + cityId + @") and (a.[longTitle] like '%'+@msg+'%' or a.[shortTitle] like '%'+@msg+'%' or a.[keywords] like '%'+@msg+'%' )";
 
                 this.param.Add("cateId", cateId);
@@ -49,7 +49,7 @@ namespace WedDao.Dao.Info
                 pr.CountKey = @"[newsId]";
                 pr.SqlFields = @"[newsId],[cityId],[longTitle],[titleColor],[shortTitle],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime]";
                 pr.SqlOrderBy = @"[itemIndex] desc,[insertTime] desc";
-                pr.SqlTable = @"[Info_Article]";
+                pr.SqlTable = @"[Info_News]";
                 pr.SqlWhere = @"[cityId] in (" + cityId + @") and ([longTitle] like '%'+@msg+'%' or [shortTitle] like '%'+@msg+'%' or [keywords] like '%'+@msg+'%')";
 
                 this.param.Add("msg", msg);
@@ -74,8 +74,7 @@ namespace WedDao.Dao.Info
 
         public long Insert(Dictionary<string, object> content)
         {
-
-            this.sql = @"insert into [Info_Article] ([cityId],[longTitle],[titleColor],[shortTitle],[content],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime])values(@cityId,@longTitle,@titleColor,@shortTitle,@content,@keywords,@readCount,@itemIndex,@outLink,@isTop,@topTime,@insertTime,@updateTime);select @@IDENTITY AS id;";
+            this.sql = @"insert into [Info_Article] ([cityId],[longTitle],[titleColor],[shortTitle],[content],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime])values(@cityId,@longTitle,@titleColor,@shortTitle,@content,@keywords,@readCount,@itemIndex,@outLink,@isTop,@topTime,@insertTime,@updateTime)";
 
             DateTime now = DateTime.Now;
 

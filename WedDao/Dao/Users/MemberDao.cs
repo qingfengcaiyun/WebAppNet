@@ -69,7 +69,7 @@ namespace WedDao.Dao.Users
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [User_Member] ([userId],[locationId],[fullName],[shortName],[address],[tel],[cellphone],[fax],[qq],[email],[logoUrl],[memo],[insertTime],[updateTime])values(@userId,@locationId,@fullName,@shortName,@address,@tel,@cellphone,@fax,@qq,@email,@logoUrl,@memo,@insertTime,@updateTime);";
+            this.sql = @"insert into [User_Member] ([userId],[locationId],[fullName],[shortName],[address],[tel],[cellphone],[fax],[qq],[email],[logoUrl],[memo],[insertTime],[updateTime])values(@userId,@locationId,@fullName,@shortName,@address,@tel,@cellphone,@fax,@qq,@email,@logoUrl,@memo,@insertTime,@updateTime)";
 
             DateTime now = DateTime.Now;
 

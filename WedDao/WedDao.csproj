@@ -70,6 +70,12 @@
     <Compile Include="Dao\Info\NewsDao.cs" />
     <Compile Include="Dao\Info\CategoryDao.cs" />
     <Compile Include="Dao\Info\RelationshipDao.cs" />
+    <Compile Include="Dao\Renovation\ArticleDao.cs" />
+    <Compile Include="Dao\Renovation\BuildingDao.cs" />
+    <Compile Include="Dao\Renovation\DiaryDao.cs" />
+    <Compile Include="Dao\Renovation\ParameterDao.cs" />
+    <Compile Include="Dao\Renovation\ProcessDao.cs" />
+    <Compile Include="Dao\Renovation\ProjectDao.cs" />
     <Compile Include="Dao\System\AdminDao.cs" />
     <Compile Include="Dao\System\AreaRelationDao.cs" />
     <Compile Include="Dao\System\CustomAreaDao.cs" />
@@ -81,6 +87,7 @@
     <Compile Include="Dao\System\UserFuncDao.cs" />
     <Compile Include="Dao\System\UserRoleDao.cs" />
     <Compile Include="Dao\Users\ClientDao.cs" />
+    <Compile Include="Dao\Users\DesignerDao.cs" />
     <Compile Include="Dao\Users\MemberDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,9 +97,7 @@
       <Name>Glibs</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dao\Renovation\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -70,7 +70,7 @@ namespace WedDao.Dao.Info
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Info_Activity] ([cityId],[actName],[startTime],[endTime],[publicAdpic],[content],[address],[phone],[qq],[keywords],[readCount],[itemIndex])values(@cityId,@actName,@startTime,@endTime,@publicAdpic,@content,@address,@phone,@qq,@keywords,@readCount,@itemIndex);select @@IDENTITY AS id;";
+            this.sql = @"insert into [Info_Activity] ([cityId],[actName],[startTime],[endTime],[publicAdpic],[content],[address],[phone],[qq],[keywords],[readCount],[itemIndex])values(@cityId,@actName,@startTime,@endTime,@publicAdpic,@content,@address,@phone,@qq,@keywords,@readCount,@itemIndex)";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cityId", content["cityId"]);

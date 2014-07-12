@@ -46,7 +46,7 @@ namespace WedDao.Dao.System
 
         public long insert(Dictionary<string, object> content)
         {
-            this.sql = "insert into [Sys_CustomArea] ([cnName],[enName],[itemIndex])values(@cnName,@enName,@itemIndex);";
+            this.sql = @"insert into [Sys_CustomArea] ([cnName],[enName],[itemIndex])values(@cnName,@enName,@itemIndex)";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cnName", content["cnName"]);

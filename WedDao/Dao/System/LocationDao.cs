@@ -17,7 +17,6 @@ namespace WedDao.Dao.System
 
         public Dictionary<string, object> GetOne(int locationId)
         {
-
             this.sql = @"select [locationId],[cnName],[enName],[levelNo],[parentNo],[levelCnName],[levelEnName],[isLeaf] from [Sys_Location] where [locationId]=@locationId";
 
             this.param = new Dictionary<string, object>();
@@ -28,7 +27,6 @@ namespace WedDao.Dao.System
 
         public Dictionary<string, object> GetOne(string levelNo)
         {
-
             this.sql = @"select [locationId],[cnName],[enName],[levelNo],[parentNo],[levelCnName],[levelEnName],[isLeaf] from [Sys_Location] where [levelNo]=@levelNo";
 
             this.param = new Dictionary<string, object>();
