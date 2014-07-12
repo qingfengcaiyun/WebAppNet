@@ -71,6 +71,7 @@
     <Compile Include="Sql\DbUtil.cs" />
     <Compile Include="Sql\JsonDo.cs" />
     <Compile Include="Sql\PageRecords.cs" />
+    <Compile Include="Sql\SqlStringDo.cs" />
     <Compile Include="Util\Cryption.cs" />
     <Compile Include="Util\FileDo.cs" />
     <Compile Include="Util\ImageDo.cs" />
