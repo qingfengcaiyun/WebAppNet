@@ -8,8 +8,8 @@
     <ProjectGuid>{44AE183D-516D-4F05-93F0-F8870B4A0AC2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GLibs</RootNamespace>
-    <AssemblyName>GLibs</AssemblyName>
+    <RootNamespace>Glibs</RootNamespace>
+    <AssemblyName>Glibs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -67,11 +67,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sql\Class1.cs" />
     <Compile Include="Sql\Database.cs" />
     <Compile Include="Sql\DbUtil.cs" />
     <Compile Include="Sql\JsonDo.cs" />
     <Compile Include="Sql\PageRecords.cs" />
-    <Compile Include="Sql\SqlStringDo.cs" />
+    <Compile Include="Sql\SqlBuilder.cs" />
     <Compile Include="Util\Cryption.cs" />
     <Compile Include="Util\FileDo.cs" />
     <Compile Include="Util\ImageDo.cs" />

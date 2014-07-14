@@ -17,7 +17,26 @@ namespace WedDao.Dao.System
 
         public Dictionary<string, object> GetOne(int userId)
         {
-            this.sql = @"select [adminId],[userId],[locationId],[fullName],[phone],[email],[qq],[insertTime],[updateTime] from [Sys_Admin] where [userId]=@userId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlFields = new List<SqlField>();
+            s.SqlFields.Add(new SqlField("adminId"));
+            s.SqlFields.Add(new SqlField("userId"));
+            s.SqlFields.Add(new SqlField("locationId"));
+            s.SqlFields.Add(new SqlField("fullName"));
+            s.SqlFields.Add(new SqlField("phone"));
+            s.SqlFields.Add(new SqlField("email"));
+            s.SqlFields.Add(new SqlField("qq"));
+            s.SqlFields.Add(new SqlField("insertTime"));
+            s.SqlFields.Add(new SqlField("updateTime"));
+
+            s.SqlTable = new List<SqlTable>();
+            s.SqlTable.Add(new SqlTable("Sys_Admin"));
+
+            s.SqlWhere = new List<SqlWhere>();
+            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userId", "=", "@userId"));
+
+            this.sql = s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("@userId", userId);
@@ -27,7 +46,23 @@ namespace WedDao.Dao.System
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [Sys_Admin] set [locationId]=@locationId,[fullName]=@fullName,[phone]=@phone,[email]=@email,[qq]=@qq,[updateTime]=@updateTime where [adminId]=@adminId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlFields = new List<SqlField>();
+            s.SqlFields.Add(new SqlField("locationId"));
+            s.SqlFields.Add(new SqlField("fullName"));
+            s.SqlFields.Add(new SqlField("phone"));
+            s.SqlFields.Add(new SqlField("email"));
+            s.SqlFields.Add(new SqlField("qq"));
+            s.SqlFields.Add(new SqlField("updateTime"));
+
+            s.SqlTable = new List<SqlTable>();
+            s.SqlTable.Add(new SqlTable("Sys_Admin"));
+
+            s.SqlWhere = new List<SqlWhere>();
+            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "adminId", "=", "@adminId"));
+
+            this.sql = s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
 
