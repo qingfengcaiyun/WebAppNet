@@ -17,7 +17,31 @@ namespace WedDao.Dao.Users
 
         public Dictionary<string, object> GetOne(int clientId)
         {
-            this.sql = @"select [clientId],[userId],[locationId],[trueName],[sex],[address],[phone],[qq],[email],[isDeleted],[insertTime],[updateTime] from [User_Client] where [clientId]=@clientId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("User_Client");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("clientId");
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("fullName");
+            s.SqlFields.Add("sex");
+            s.SqlFields.Add("address");
+            s.SqlFields.Add("phone");
+            s.SqlFields.Add("qq");
+            s.SqlFields.Add("email");
+            s.SqlFields.Add("isDeleted");
+            s.SqlFields.Add("insertTime");
+            s.SqlFields.Add("updateTime");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "", "clientId", "=", "@clientId");
+
+            this.sql = s.SqlSelect();
+
+            //this.sql = @"select [clientId],[userId],[locationId],[trueName],[sex],[address],[phone],[qq],[email],[isDeleted],[insertTime],[updateTime] from [User_Client] where [clientId]=@clientId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("clientId", clientId);
@@ -27,18 +51,65 @@ namespace WedDao.Dao.Users
 
         public bool Delete(int userId, int clientId)
         {
-            this.sql = @"update [Sys_Users] set [isDeleted]=1 where [userId]=@userId;update [User_Client] set [isDeleted]=1 where [clientId]=@clientId ";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Users");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("isDeleted");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "", "userid", "=", "@userId");
+
+            this.sql = s.SqlDelete();
+
+            s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("User_Client");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("isDeleted");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "", "clientId", "=", "@clientId");
+
+            this.sql = this.sql + s.SqlDelete();
+
+            //this.sql = @"update [Sys_Users] set [isDeleted]=@isDeleted where [userId]=@userId;update [User_Client] set [isDeleted]=@isDeleted where [clientId]=@clientId ";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", userId);
             this.param.Add("clientId", clientId);
+            this.param.Add("isDeleted", 1);
 
             return this.db.Update(this.sql, this.param);
         }
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [User_Client] ([userId],[locationId],[fullName],[sex],[address],[phone],[qq],[email],[isDeleted],[insertTime],[updateTime])values(@userId,@locationId,@fullName,@sex,@address,@phone,@qq,@email,0,@insertTime,@updateTime)";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("User_Client");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("fullName");
+            s.SqlFields.Add("sex");
+            s.SqlFields.Add("address");
+            s.SqlFields.Add("phone");
+            s.SqlFields.Add("qq");
+            s.SqlFields.Add("email");
+            s.SqlFields.Add("isDeleted");
+            s.SqlFields.Add("insertTime");
+            s.SqlFields.Add("updateTime");
+
+            this.sql = s.SqlInsert();
+
+            //this.sql = @"insert into [User_Client] ([userId],[locationId],[fullName],[sex],[address],[phone],[qq],[email],[isDeleted],[insertTime],[updateTime])values(@userId,@locationId,@fullName,@sex,@address,@phone,@qq,@email,@isDeleted,@insertTime,@updateTime)";
 
             DateTime now = DateTime.Now;
 
@@ -51,6 +122,7 @@ namespace WedDao.Dao.Users
             this.param.Add("phone", content["phone"]);
             this.param.Add("qq", content["qq"]);
             this.param.Add("email", content["email"]);
+            this.param.Add("isDeleted", 0);
             this.param.Add("insertTime", now);
             this.param.Add("updateTime", now);
 
@@ -59,7 +131,28 @@ namespace WedDao.Dao.Users
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [User_Client] set [userId]=@userId,[locationId]=@locationId,[fullName]=@fullName,[sex]=@sex,[address]=@address,[phone]=@phone,[qq]=@qq,[email]=@email,[updateTime]=@updateTime where [clientId]=@clientId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("User_Client");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("fullName");
+            s.SqlFields.Add("sex");
+            s.SqlFields.Add("address");
+            s.SqlFields.Add("phone");
+            s.SqlFields.Add("qq");
+            s.SqlFields.Add("email");
+            s.SqlFields.Add("updateTime");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "", "clientId", "=", "@clientId");
+
+            this.sql = s.SqlUpdate();
+
+            //this.sql = @"update [User_Client] set [userId]=@userId,[locationId]=@locationId,[fullName]=@fullName,[sex]=@sex,[address]=@address,[phone]=@phone,[qq]=@qq,[email]=@email,[updateTime]=@updateTime where [clientId]=@clientId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", content["userId"]);
@@ -78,16 +171,44 @@ namespace WedDao.Dao.Users
 
         public List<Dictionary<string, object>> GetList(String msg, int locationId)
         {
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User", "u");
+            s.SqlTable.Add("User_Client", "c");
+            s.SqlTable.Add("Sys_Locations", "l");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("u", "userId");
+            s.SqlFields.Add("u", "userName");
+            s.SqlFields.Add("u", "lastLogin");
+            s.SqlFields.Add("c", "clientId");
+            s.SqlFields.Add("c", "locationId");
+            s.SqlFields.Add("c", "fullName");
+            s.SqlFields.Add("c", "phone");
+            s.SqlFields.Add("l", "cnName");
+
+            s.SqlOrderBy = new SqlOrderBy();
+            s.SqlOrderBy.Add("c", "fullName", true);
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "u", "userId", "=", "u", "userId");
+            s.SqlWhere.Add("and", "u", "locationId", "=", "l", "locationId");
+            s.SqlWhere.Add("and", "c", "locationId", "=", "l", "locationId");
+            s.SqlWhere.Add("and", "c", "isDeleted", "=", "0");
+            s.SqlWhere.Add("and", "u", "userType", "=", "'C'");
+
             this.param = new Dictionary<string, object>();
             if (locationId > 0)
             {
-                this.sql = @"select u.[userId],u.[userName],u.[lastLogin],c.[clientId],c.[locationId],c.[fullName],c.[phone],l.[cnName] from [Sys_Users] as u,[User_Client] as c,[Sys_Locations] as l where u.[userId]=c.[userId] and c.[locationId]=l.[locationId] and u.[locationId]=l.[locationId] and c.[isDeleted]=0 and u.[userType]='C' and c.[locationId]=@locationId and (c.[fullName] like '%'+@msg+'%' or c.[phone] like '%'+@msg+'%') order by c.[fullName] asc";
+                s.SqlWhere.Add("and", "c", "locationId", "=", "@locationId");
                 this.param.Add("locationId", locationId);
             }
-            else
-            {
-                this.sql = @"select u.[userId],u.[userName],u.[lastLogin],c.[clientId],c.[locationId],c.[fullName],c.[phone],l.[cnName] from [Sys_Users] as u,[User_Client] as c,[Sys_Locations] as l where u.[userId]=c.[userId] and c.[locationId]=l.[locationId] and u.[locationId]=l.[locationId] and c.[isDeleted]=0 and u.[userType]='C' and (c.[fullName] like '%'+@msg+'%' or c.[phone] like '%'+@msg+'%') order by c.[fullName] asc";
-            }
+
+            s.SqlWhere.Add("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            s.SqlWhere.Add("or", "c", "phone", "like", "'%'+@msg+'%')");
+
+            this.sql = s.SqlSelect();
 
             this.param.Add("msg", msg);
 
@@ -96,33 +217,60 @@ namespace WedDao.Dao.Users
 
         public PageRecords GetPage(int pageSize, int pageNo, String msg, int locationId)
         {
-            PageRecords pr = new PageRecords();
-            pr.CurrentPage = pageNo;
-            pr.PageSize = pageSize;
+            SqlBuilder s = new SqlBuilder();
 
-            pr.CountKey = @"c.[clientId]";
-            pr.SqlFields = @"u.[userId],u.[userName],u.[lastLogin],c.[clientId],c.[locationId],c.[fullName],c.[phone],l.[cnName]";
-            pr.SqlOrderBy = @"c.[fullName] asc";
-            pr.SqlTable = @"[Sys_Users] as u,[User_Client] as c,[Sys_Locations] as l";
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User", "u");
+            s.SqlTable.Add("User_Client", "c");
+            s.SqlTable.Add("Sys_Locations", "l");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("u", "userId");
+            s.SqlFields.Add("u", "userName");
+            s.SqlFields.Add("u", "lastLogin");
+            s.SqlFields.Add("c", "clientId");
+            s.SqlFields.Add("c", "locationId");
+            s.SqlFields.Add("c", "fullName");
+            s.SqlFields.Add("c", "phone");
+            s.SqlFields.Add("l", "cnName");
+
+            s.SqlOrderBy = new SqlOrderBy();
+            s.SqlOrderBy.Add("c", "fullName", true);
+
+            s.SqlTagField = new SqlField();
+            s.SqlTagField.Add("c", "clientId");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "u", "userId", "=", "u", "userId");
+            s.SqlWhere.Add("and", "u", "locationId", "=", "l", "locationId");
+            s.SqlWhere.Add("and", "c", "locationId", "=", "l", "locationId");
+            s.SqlWhere.Add("and", "c", "isDeleted", "=", "0");
+            s.SqlWhere.Add("and", "u", "userType", "=", "'C'");
 
             this.param = new Dictionary<string, object>();
 
             if (locationId > 0)
             {
-                pr.SqlWhere = @"u.[userId]=c.[userId] and c.[locationId]=l.[locationId] and u.[locationId]=l.[locationId] and c.[isDeleted]=0 and u.[userType]='C' and c.[locationId]=@locationId and (c.[fullName] like '%'+@msg+'%' or c.[phone] like '%'+@msg+'%')";
-
+                s.SqlWhere.Add("and", "c", "locationId", "=", "@locationId");
                 this.param.Add("locationId", locationId);
             }
-            else
-            {
-                pr.SqlWhere = @"u.[userId]=c.[userId] and c.[locationId]=l.[locationId] and u.[locationId]=l.[locationId] and c.[isDeleted]=0 and u.[userType]='C' and (c.[fullName] like '%'+@msg+'%' or c.[phone] like '%'+@msg+'%')";
-            }
+
+            s.SqlWhere.Add("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            s.SqlWhere.Add("or", "c", "phone", "like", "'%'+@msg+'%')");
 
             this.param.Add("msg", msg);
 
-            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(pr.CountSql, this.param).ToString());
+            PageRecords pr = new PageRecords();
+            pr.CurrentPage = pageNo;
+            pr.PageSize = pageSize;
+
+            this.sql = s.SqlCount();
+
+            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.sql, this.param).ToString());
             pr.SetBaseParam();
-            pr.PageResult = this.db.GetDataTable(pr.QuerySql, this.param);
+
+            this.sql = s.SqlPage();
+            pr.PageResult = this.db.GetDataTable(this.sql, this.param);
 
             return pr;
         }

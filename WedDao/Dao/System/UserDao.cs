@@ -20,22 +20,22 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("userId"));
-            s.SqlFields.Add(new SqlField("userName"));
-            s.SqlFields.Add(new SqlField("userPwd"));
-            s.SqlFields.Add(new SqlField("userType"));
-            s.SqlFields.Add(new SqlField("lastLogin"));
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("isDeleted"));
-            s.SqlFields.Add(new SqlField("isLocked"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("userName");
+            s.SqlFields.Add("userPwd");
+            s.SqlFields.Add("userType");
+            s.SqlFields.Add("lastLogin");
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("isDeleted");
+            s.SqlFields.Add("isLocked");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_User"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userName", "=", "@userName"));
-            s.SqlWhere.Add(new SqlWhere("and", string.Empty, "userPwd", "=", "@userPwd"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "userName", "=", "@userName");
+            s.SqlWhere.Add("and", string.Empty, "userPwd", "=", "@userPwd");
 
             this.sql = s.SqlSelect();
 
@@ -50,21 +50,21 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("userId"));
-            s.SqlFields.Add(new SqlField("userName"));
-            s.SqlFields.Add(new SqlField("userPwd"));
-            s.SqlFields.Add(new SqlField("userType"));
-            s.SqlFields.Add(new SqlField("lastLogin"));
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("isDeleted"));
-            s.SqlFields.Add(new SqlField("isLocked"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("userName");
+            s.SqlFields.Add("userPwd");
+            s.SqlFields.Add("userType");
+            s.SqlFields.Add("lastLogin");
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("isDeleted");
+            s.SqlFields.Add("isLocked");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_User"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userId", "=", "@userId"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 
@@ -78,15 +78,15 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("userPwd"));
-            s.SqlFields.Add(new SqlField("md5Pwd"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("userPwd");
+            s.SqlFields.Add("md5Pwd");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_User"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userId", "=", "@userId"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlUpdate();
 
@@ -102,14 +102,14 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("lastLogin"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("lastLogin");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_User"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userId", "=", "@userId"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlUpdate();
 
@@ -124,12 +124,12 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("userId"));
-            s.SqlFields.Add(new SqlField("md5Pwd"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("md5Pwd");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_User"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_User");
 
             this.sql = s.SqlSelect();
 
@@ -150,14 +150,14 @@ namespace WedDao.Dao.System
 
                 s = new SqlBuilder();
 
-                s.SqlTable = new List<SqlTable>();
-                s.SqlTable.Add(new SqlTable("Sys_User"));
+                s.SqlTable = new SqlTable();
+                s.SqlTable.Add("Sys_User");
 
-                s.SqlFields = new List<SqlField>();
-                s.SqlFields.Add(new SqlField("userPwd"));
+                s.SqlFields = new SqlField();
+                s.SqlFields.Add("userPwd");
 
-                s.SqlWhere = new List<SqlWhere>();
-                s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userId", "=", "@userId"));
+                s.SqlWhere = new SqlWhere();
+                s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
 
                 this.sql = s.SqlUpdate();
 

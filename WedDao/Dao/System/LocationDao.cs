@@ -19,21 +19,21 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("cnName"));
-            s.SqlFields.Add(new SqlField("enName"));
-            s.SqlFields.Add(new SqlField("levelNo"));
-            s.SqlFields.Add(new SqlField("parentNo"));
-            s.SqlFields.Add(new SqlField("levelCnName"));
-            s.SqlFields.Add(new SqlField("levelEnName"));
-            s.SqlFields.Add(new SqlField("isLeaf"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("levelNo");
+            s.SqlFields.Add("parentNo");
+            s.SqlFields.Add("levelCnName");
+            s.SqlFields.Add("levelEnName");
+            s.SqlFields.Add("isLeaf");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_Location"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Location");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "locationId", "=", "@locationId"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "locationId", "=", "@locationId");
 
             this.sql = s.SqlSelect();
 
@@ -47,21 +47,21 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("cnName"));
-            s.SqlFields.Add(new SqlField("enName"));
-            s.SqlFields.Add(new SqlField("levelNo"));
-            s.SqlFields.Add(new SqlField("parentNo"));
-            s.SqlFields.Add(new SqlField("levelCnName"));
-            s.SqlFields.Add(new SqlField("levelEnName"));
-            s.SqlFields.Add(new SqlField("isLeaf"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("levelNo");
+            s.SqlFields.Add("parentNo");
+            s.SqlFields.Add("levelCnName");
+            s.SqlFields.Add("levelEnName");
+            s.SqlFields.Add("isLeaf");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_Location"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Location");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "levelNo", "=", "@levelNo"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "levelNo", "=", "@levelNo");
 
             this.sql = s.SqlSelect();
 
@@ -75,24 +75,24 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("cnName"));
-            s.SqlFields.Add(new SqlField("enName"));
-            s.SqlFields.Add(new SqlField("levelNo"));
-            s.SqlFields.Add(new SqlField("parentNo"));
-            s.SqlFields.Add(new SqlField("levelCnName"));
-            s.SqlFields.Add(new SqlField("levelEnName"));
-            s.SqlFields.Add(new SqlField("isLeaf"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("levelNo");
+            s.SqlFields.Add("parentNo");
+            s.SqlFields.Add("levelCnName");
+            s.SqlFields.Add("levelEnName");
+            s.SqlFields.Add("isLeaf");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_Location"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Location");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "parentNo", "like", "@parentNo+'%'"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "parentNo", "like", "@parentNo+'%'");
 
-            s.SqlOrderBy = new List<SqlOrderBy>();
-            s.SqlOrderBy.Add(new SqlOrderBy("levelNo", true));
+            s.SqlOrderBy = new SqlOrderBy();
+            s.SqlOrderBy.Add("levelNo", true);
 
             this.sql = s.SqlSelect();
 

@@ -16,7 +16,38 @@ namespace WedDao.Dao.System
 
         public List<Dictionary<string, object>> GetList(int roleId)
         {
-            this.sql = @"select [funcName],[funcNo],[funcId] from [Sys_Functions] where [funcId] in (select [funcId] from [Sys_RoleFunc] where [roleId]=@roleId) order by [funcNo] asc";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_RoleFunc");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("funcId");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "", "roleId", "=", "@roleId");
+
+            this.sql = s.SqlSelect();
+
+            s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Functions");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("funcName");
+            s.SqlFields.Add("funcNo");
+            s.SqlFields.Add("funcId");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add("", "", "funcId", "in", "(" + this.sql + ")");
+
+            s.SqlOrderBy = new SqlOrderBy();
+            s.SqlOrderBy.Add("funcNo", true);
+
+            this.sql = s.SqlSelect();
+
+            //this.sql = @"select [funcName],[funcNo],[funcId] from [Sys_Functions] where [funcId] in (select [funcId] from [Sys_RoleFunc] where [roleId]=@roleId) order by [funcNo] asc";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleId", roleId);
@@ -28,7 +59,17 @@ namespace WedDao.Dao.System
         {
             if (funcIds != null && funcIds.Length > 0)
             {
-                this.sql = @"delete from [Sys_RoleFunc] where [roleId]=@roleId;";
+                SqlBuilder s = new SqlBuilder();
+
+                s.SqlTable = new SqlTable();
+                s.SqlTable.Add("Sys_RoleFunc");
+
+                s.SqlWhere = new SqlWhere();
+                s.SqlWhere.Add("", "", "roleId", "=", "@roleId");
+
+                this.sql = s.SqlDelete();
+
+                //this.sql = @"delete from [Sys_RoleFunc] where [roleId]=@roleId;";
 
                 this.param = new Dictionary<string, object>();
                 this.param.Add("roleId", roleId);
@@ -47,7 +88,18 @@ namespace WedDao.Dao.System
                     paramsList.Add(this.param);
                 }
 
-                this.sql = @"insert into [Sys_RoleFunc] ([roleId],[funcId])values(@roleId,@funcId)";
+                s = new SqlBuilder();
+
+                s.SqlTable = new SqlTable();
+                s.SqlTable.Add("Sys_RoleFunc");
+
+                s.SqlFields = new SqlField();
+                s.SqlFields.Add("roleId");
+                s.SqlFields.Add("funcId");
+
+                this.sql = s.SqlInsert();
+
+                //this.sql = @"insert into [Sys_RoleFunc] ([roleId],[funcId])values(@roleId,@funcId)";
                 return this.db.Batch(this.sql, paramsList);
             }
             else

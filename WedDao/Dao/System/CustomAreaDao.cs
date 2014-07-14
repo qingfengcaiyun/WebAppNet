@@ -17,7 +17,23 @@ namespace WedDao.Dao.System
 
         public Dictionary<string, object> GetOne(int areaId)
         {
-            this.sql = @"select [areaId],[cnName],[enName],[itemIndex] from [Sys_CustomArea] where [areaId]=@areaId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_CustomArea");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("areaId");
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("itemIndex");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+
+            this.sql = s.SqlSelect();
+
+            //this.sql = @"select [areaId],[cnName],[enName],[itemIndex] from [Sys_CustomArea] where [areaId]=@areaId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("areaId", areaId);
@@ -27,7 +43,23 @@ namespace WedDao.Dao.System
 
         public List<Dictionary<string, object>> GetList()
         {
-            this.sql = @"select [areaId],[cnName],[enName],[itemIndex] from [Sys_CustomArea] order by [itemIndex] asc";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_CustomArea");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("areaId");
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("itemIndex");
+
+            s.SqlOrderBy = new SqlOrderBy();
+            s.SqlOrderBy.Add("itemIndex", true);
+
+            this.sql = s.SqlSelect();
+
+            //this.sql = @"select [areaId],[cnName],[enName],[itemIndex] from [Sys_CustomArea] order by [itemIndex] asc";
 
             this.param = new Dictionary<string, object>();
 
@@ -36,7 +68,27 @@ namespace WedDao.Dao.System
 
         public Boolean Delete(int areaId)
         {
-            this.sql = @"delete from [Sys_AreaRelation] where [areaId]=@areaId;delete from [Sys_CustomArea] where [areaId]=@areaId;";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_AreaRelation");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+
+            this.sql = s.SqlSelect();
+
+            s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_CustomArea");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+
+            this.sql = this.sql + s.SqlSelect();
+
+            //this.sql = @"delete from [Sys_AreaRelation] where [areaId]=@areaId;delete from [Sys_CustomArea] where [areaId]=@areaId;";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("areaId", areaId);
@@ -44,9 +96,21 @@ namespace WedDao.Dao.System
             return this.db.Update(this.sql, this.param);
         }
 
-        public long insert(Dictionary<string, object> content)
+        public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Sys_CustomArea] ([cnName],[enName],[itemIndex])values(@cnName,@enName,@itemIndex)";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_CustomArea");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("itemIndex");
+
+            this.sql = s.SqlInsert();
+
+            //this.sql = @"insert into [Sys_CustomArea] ([cnName],[enName],[itemIndex])values(@cnName,@enName,@itemIndex)";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cnName", content["cnName"]);
@@ -58,7 +122,22 @@ namespace WedDao.Dao.System
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [Sys_CustomArea] set [cnName]=@cnName,[enName]=@enName,[itemIndex]=@itemIndex where [areaId]=@areaId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_CustomArea");
+
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("cnName");
+            s.SqlFields.Add("enName");
+            s.SqlFields.Add("itemIndex");
+
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+
+            this.sql = s.SqlInsert();
+
+            //this.sql = @"update [Sys_CustomArea] set [cnName]=@cnName,[enName]=@enName,[itemIndex]=@itemIndex where [areaId]=@areaId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cnName", content["cnName"]);

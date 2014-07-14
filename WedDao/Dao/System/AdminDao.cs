@@ -19,22 +19,22 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("adminId"));
-            s.SqlFields.Add(new SqlField("userId"));
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("fullName"));
-            s.SqlFields.Add(new SqlField("phone"));
-            s.SqlFields.Add(new SqlField("email"));
-            s.SqlFields.Add(new SqlField("qq"));
-            s.SqlFields.Add(new SqlField("insertTime"));
-            s.SqlFields.Add(new SqlField("updateTime"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("adminId");
+            s.SqlFields.Add("userId");
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("fullName");
+            s.SqlFields.Add("phone");
+            s.SqlFields.Add("email");
+            s.SqlFields.Add("qq");
+            s.SqlFields.Add("insertTime");
+            s.SqlFields.Add("updateTime");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_Admin"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Admin");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "userId", "=", "@userId"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 
@@ -48,19 +48,19 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new List<SqlField>();
-            s.SqlFields.Add(new SqlField("locationId"));
-            s.SqlFields.Add(new SqlField("fullName"));
-            s.SqlFields.Add(new SqlField("phone"));
-            s.SqlFields.Add(new SqlField("email"));
-            s.SqlFields.Add(new SqlField("qq"));
-            s.SqlFields.Add(new SqlField("updateTime"));
+            s.SqlFields = new SqlField();
+            s.SqlFields.Add("locationId");
+            s.SqlFields.Add("fullName");
+            s.SqlFields.Add("phone");
+            s.SqlFields.Add("email");
+            s.SqlFields.Add("qq");
+            s.SqlFields.Add("updateTime");
 
-            s.SqlTable = new List<SqlTable>();
-            s.SqlTable.Add(new SqlTable("Sys_Admin"));
+            s.SqlTable = new SqlTable();
+            s.SqlTable.Add("Sys_Admin");
 
-            s.SqlWhere = new List<SqlWhere>();
-            s.SqlWhere.Add(new SqlWhere(string.Empty, string.Empty, "adminId", "=", "@adminId"));
+            s.SqlWhere = new SqlWhere();
+            s.SqlWhere.Add(string.Empty, string.Empty, "adminId", "=", "@adminId");
 
             this.sql = s.SqlUpdate();
 
