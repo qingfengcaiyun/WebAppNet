@@ -19,22 +19,19 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("adminId");
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("fullName");
-            s.SqlFields.Add("phone");
-            s.SqlFields.Add("email");
-            s.SqlFields.Add("qq");
-            s.SqlFields.Add("insertTime");
-            s.SqlFields.Add("updateTime");
+            s.AddField("adminId");
+            s.AddField("userId");
+            s.AddField("locationId");
+            s.AddField("fullName");
+            s.AddField("phone");
+            s.AddField("email");
+            s.AddField("qq");
+            s.AddField("insertTime");
+            s.AddField("updateTime");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Admin");
+            s.AddTable("Sys_Admin");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 
@@ -48,19 +45,16 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("fullName");
-            s.SqlFields.Add("phone");
-            s.SqlFields.Add("email");
-            s.SqlFields.Add("qq");
-            s.SqlFields.Add("updateTime");
+            s.AddField("locationId");
+            s.AddField("fullName");
+            s.AddField("phone");
+            s.AddField("email");
+            s.AddField("qq");
+            s.AddField("updateTime");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Admin");
+            s.AddTable("Sys_Admin");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "adminId", "=", "@adminId");
+            s.AddWhere(string.Empty, string.Empty, "adminId", "=", "@adminId");
 
             this.sql = s.SqlUpdate();
 

@@ -20,22 +20,19 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("userName");
-            s.SqlFields.Add("userPwd");
-            s.SqlFields.Add("userType");
-            s.SqlFields.Add("lastLogin");
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("isDeleted");
-            s.SqlFields.Add("isLocked");
+            s.AddField("userId");
+            s.AddField("userName");
+            s.AddField("userPwd");
+            s.AddField("userType");
+            s.AddField("lastLogin");
+            s.AddField("locationId");
+            s.AddField("isDeleted");
+            s.AddField("isLocked");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User");
+            s.AddTable("Sys_User");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "userName", "=", "@userName");
-            s.SqlWhere.Add("and", string.Empty, "userPwd", "=", "@userPwd");
+            s.AddWhere(string.Empty, string.Empty, "userName", "=", "@userName");
+            s.AddWhere("and", string.Empty, "userPwd", "=", "@userPwd");
 
             this.sql = s.SqlSelect();
 
@@ -50,21 +47,18 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("userName");
-            s.SqlFields.Add("userPwd");
-            s.SqlFields.Add("userType");
-            s.SqlFields.Add("lastLogin");
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("isDeleted");
-            s.SqlFields.Add("isLocked");
+            s.AddField("userId");
+            s.AddField("userName");
+            s.AddField("userPwd");
+            s.AddField("userType");
+            s.AddField("lastLogin");
+            s.AddField("locationId");
+            s.AddField("isDeleted");
+            s.AddField("isLocked");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User");
+            s.AddTable("Sys_User");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 
@@ -78,15 +72,12 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userPwd");
-            s.SqlFields.Add("md5Pwd");
+            s.AddField("userPwd");
+            s.AddField("md5Pwd");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User");
+            s.AddTable("Sys_User");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlUpdate();
 
@@ -102,14 +93,11 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("lastLogin");
+            s.AddField("lastLogin");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User");
+            s.AddTable("Sys_User");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlUpdate();
 
@@ -124,12 +112,10 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("md5Pwd");
+            s.AddField("userId");
+            s.AddField("md5Pwd");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User");
+            s.AddTable("Sys_User");
 
             this.sql = s.SqlSelect();
 
@@ -150,14 +136,11 @@ namespace WedDao.Dao.System
 
                 s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_User");
+                s.AddTable("Sys_User");
 
-                s.SqlFields = new SqlField();
-                s.SqlFields.Add("userPwd");
+                s.AddField("userPwd");
 
-                s.SqlWhere = new SqlWhere();
-                s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
+                s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
                 this.sql = s.SqlUpdate();
 

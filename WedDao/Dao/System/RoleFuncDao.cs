@@ -18,32 +18,25 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_RoleFunc");
+            s.AddTable("Sys_RoleFunc");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("funcId");
+            s.AddField("funcId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "roleId", "=", "@roleId");
+            s.AddWhere("", "", "roleId", "=", "@roleId");
 
             this.sql = s.SqlSelect();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Functions");
+            s.AddTable("Sys_Functions");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("funcName");
-            s.SqlFields.Add("funcNo");
-            s.SqlFields.Add("funcId");
+            s.AddField("funcName");
+            s.AddField("funcNo");
+            s.AddField("funcId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "funcId", "in", "(" + this.sql + ")");
+            s.AddWhere("", "", "funcId", "in", "(" + this.sql + ")");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("funcNo", true);
+            s.AddOrderBy("funcNo", true);
 
             this.sql = s.SqlSelect();
 
@@ -61,11 +54,9 @@ namespace WedDao.Dao.System
             {
                 SqlBuilder s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_RoleFunc");
+                s.AddTable("Sys_RoleFunc");
 
-                s.SqlWhere = new SqlWhere();
-                s.SqlWhere.Add("", "", "roleId", "=", "@roleId");
+                s.AddWhere("", "", "roleId", "=", "@roleId");
 
                 this.sql = s.SqlDelete();
 
@@ -90,12 +81,10 @@ namespace WedDao.Dao.System
 
                 s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_RoleFunc");
+                s.AddTable("Sys_RoleFunc");
 
-                s.SqlFields = new SqlField();
-                s.SqlFields.Add("roleId");
-                s.SqlFields.Add("funcId");
+                s.AddField("roleId");
+                s.AddField("funcId");
 
                 this.sql = s.SqlInsert();
 

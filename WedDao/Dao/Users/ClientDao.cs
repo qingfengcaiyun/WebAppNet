@@ -19,25 +19,22 @@ namespace WedDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("User_Client");
+            s.AddTable("User_Client");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("clientId");
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("fullName");
-            s.SqlFields.Add("sex");
-            s.SqlFields.Add("address");
-            s.SqlFields.Add("phone");
-            s.SqlFields.Add("qq");
-            s.SqlFields.Add("email");
-            s.SqlFields.Add("isDeleted");
-            s.SqlFields.Add("insertTime");
-            s.SqlFields.Add("updateTime");
+            s.AddField("clientId");
+            s.AddField("userId");
+            s.AddField("locationId");
+            s.AddField("fullName");
+            s.AddField("sex");
+            s.AddField("address");
+            s.AddField("phone");
+            s.AddField("qq");
+            s.AddField("email");
+            s.AddField("isDeleted");
+            s.AddField("insertTime");
+            s.AddField("updateTime");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "clientId", "=", "@clientId");
+            s.AddWhere("", "", "clientId", "=", "@clientId");
 
             this.sql = s.SqlSelect();
 
@@ -53,27 +50,21 @@ namespace WedDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Users");
+            s.AddTable("Sys_Users");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("isDeleted");
+            s.AddField("isDeleted");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "userid", "=", "@userId");
+            s.AddWhere("", "", "userid", "=", "@userId");
 
             this.sql = s.SqlDelete();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("User_Client");
+            s.AddTable("User_Client");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("isDeleted");
+            s.AddField("isDeleted");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "clientId", "=", "@clientId");
+            s.AddWhere("", "", "clientId", "=", "@clientId");
 
             this.sql = this.sql + s.SqlDelete();
 
@@ -91,21 +82,19 @@ namespace WedDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("User_Client");
+            s.AddTable("User_Client");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("fullName");
-            s.SqlFields.Add("sex");
-            s.SqlFields.Add("address");
-            s.SqlFields.Add("phone");
-            s.SqlFields.Add("qq");
-            s.SqlFields.Add("email");
-            s.SqlFields.Add("isDeleted");
-            s.SqlFields.Add("insertTime");
-            s.SqlFields.Add("updateTime");
+            s.AddField("userId");
+            s.AddField("locationId");
+            s.AddField("fullName");
+            s.AddField("sex");
+            s.AddField("address");
+            s.AddField("phone");
+            s.AddField("qq");
+            s.AddField("email");
+            s.AddField("isDeleted");
+            s.AddField("insertTime");
+            s.AddField("updateTime");
 
             this.sql = s.SqlInsert();
 
@@ -133,22 +122,19 @@ namespace WedDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("User_Client");
+            s.AddTable("User_Client");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("fullName");
-            s.SqlFields.Add("sex");
-            s.SqlFields.Add("address");
-            s.SqlFields.Add("phone");
-            s.SqlFields.Add("qq");
-            s.SqlFields.Add("email");
-            s.SqlFields.Add("updateTime");
+            s.AddField("userId");
+            s.AddField("locationId");
+            s.AddField("fullName");
+            s.AddField("sex");
+            s.AddField("address");
+            s.AddField("phone");
+            s.AddField("qq");
+            s.AddField("email");
+            s.AddField("updateTime");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "clientId", "=", "@clientId");
+            s.AddWhere("", "", "clientId", "=", "@clientId");
 
             this.sql = s.SqlUpdate();
 
@@ -173,40 +159,36 @@ namespace WedDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User", "u");
-            s.SqlTable.Add("User_Client", "c");
-            s.SqlTable.Add("Sys_Locations", "l");
+            s.AddTable("Sys_User", "u");
+            s.AddTable("User_Client", "c");
+            s.AddTable("Sys_Locations", "l");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("u", "userId");
-            s.SqlFields.Add("u", "userName");
-            s.SqlFields.Add("u", "lastLogin");
-            s.SqlFields.Add("c", "clientId");
-            s.SqlFields.Add("c", "locationId");
-            s.SqlFields.Add("c", "fullName");
-            s.SqlFields.Add("c", "phone");
-            s.SqlFields.Add("l", "cnName");
+            s.AddField("u", "userId");
+            s.AddField("u", "userName");
+            s.AddField("u", "lastLogin");
+            s.AddField("c", "clientId");
+            s.AddField("c", "locationId");
+            s.AddField("c", "fullName");
+            s.AddField("c", "phone");
+            s.AddField("l", "cnName");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("c", "fullName", true);
+            s.AddOrderBy("c", "fullName", true);
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "u", "userId", "=", "u", "userId");
-            s.SqlWhere.Add("and", "u", "locationId", "=", "l", "locationId");
-            s.SqlWhere.Add("and", "c", "locationId", "=", "l", "locationId");
-            s.SqlWhere.Add("and", "c", "isDeleted", "=", "0");
-            s.SqlWhere.Add("and", "u", "userType", "=", "'C'");
+            s.AddWhere("", "u", "userId", "=", "u", "userId");
+            s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "c", "isDeleted", "=", "0");
+            s.AddWhere("and", "u", "userType", "=", "'C'");
 
             this.param = new Dictionary<string, object>();
             if (locationId > 0)
             {
-                s.SqlWhere.Add("and", "c", "locationId", "=", "@locationId");
+                s.AddWhere("and", "c", "locationId", "=", "@locationId");
                 this.param.Add("locationId", locationId);
             }
 
-            s.SqlWhere.Add("and", "(c", "fullName", "like", "'%'+@msg+'%'");
-            s.SqlWhere.Add("or", "c", "phone", "like", "'%'+@msg+'%')");
+            s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
 
             this.sql = s.SqlSelect();
 
@@ -219,44 +201,39 @@ namespace WedDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User", "u");
-            s.SqlTable.Add("User_Client", "c");
-            s.SqlTable.Add("Sys_Locations", "l");
+            s.AddTable("Sys_User", "u");
+            s.AddTable("User_Client", "c");
+            s.AddTable("Sys_Locations", "l");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("u", "userId");
-            s.SqlFields.Add("u", "userName");
-            s.SqlFields.Add("u", "lastLogin");
-            s.SqlFields.Add("c", "clientId");
-            s.SqlFields.Add("c", "locationId");
-            s.SqlFields.Add("c", "fullName");
-            s.SqlFields.Add("c", "phone");
-            s.SqlFields.Add("l", "cnName");
+            s.AddField("u", "userId");
+            s.AddField("u", "userName");
+            s.AddField("u", "lastLogin");
+            s.AddField("c", "clientId");
+            s.AddField("c", "locationId");
+            s.AddField("c", "fullName");
+            s.AddField("c", "phone");
+            s.AddField("l", "cnName");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("c", "fullName", true);
+            s.AddOrderBy("c", "fullName", true);
 
-            s.SqlTagField = new SqlField();
-            s.SqlTagField.Add("c", "clientId");
+            s.SetTagField("c", "clientId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "u", "userId", "=", "u", "userId");
-            s.SqlWhere.Add("and", "u", "locationId", "=", "l", "locationId");
-            s.SqlWhere.Add("and", "c", "locationId", "=", "l", "locationId");
-            s.SqlWhere.Add("and", "c", "isDeleted", "=", "0");
-            s.SqlWhere.Add("and", "u", "userType", "=", "'C'");
+            s.AddWhere("", "u", "userId", "=", "u", "userId");
+            s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "c", "isDeleted", "=", "0");
+            s.AddWhere("and", "u", "userType", "=", "'C'");
 
             this.param = new Dictionary<string, object>();
 
             if (locationId > 0)
             {
-                s.SqlWhere.Add("and", "c", "locationId", "=", "@locationId");
+                s.AddWhere("and", "c", "locationId", "=", "@locationId");
                 this.param.Add("locationId", locationId);
             }
 
-            s.SqlWhere.Add("and", "(c", "fullName", "like", "'%'+@msg+'%'");
-            s.SqlWhere.Add("or", "c", "phone", "like", "'%'+@msg+'%')");
+            s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
 
             this.param.Add("msg", msg);
 

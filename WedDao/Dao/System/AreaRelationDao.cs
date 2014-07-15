@@ -18,34 +18,28 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_AreaRelation");
+            s.AddTable("Sys_AreaRelation");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("locationId");
+            s.AddField("locationId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "areaId", "=", "@areaId");
+            s.AddWhere("", "", "areaId", "=", "@areaId");
 
             this.sql = s.SqlSelect();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Location");
+            s.AddTable("Sys_Location");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("locationId");
-            s.SqlFields.Add("cnName");
-            s.SqlFields.Add("enName");
-            s.SqlFields.Add("levelNo");
-            s.SqlFields.Add("parentNo");
-            s.SqlFields.Add("levelCnName");
-            s.SqlFields.Add("levelEnName");
-            s.SqlFields.Add("isLeaf");
+            s.AddField("locationId");
+            s.AddField("cnName");
+            s.AddField("enName");
+            s.AddField("levelNo");
+            s.AddField("parentNo");
+            s.AddField("levelCnName");
+            s.AddField("levelEnName");
+            s.AddField("isLeaf");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "locationId", "in", "(" + this.sql + ")");
+            s.AddWhere("", "", "locationId", "in", "(" + this.sql + ")");
 
             this.sql = s.SqlSelect();
 
@@ -63,11 +57,9 @@ namespace WedDao.Dao.System
             {
                 SqlBuilder s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_AreaRelation");
+                s.AddTable("Sys_AreaRelation");
 
-                s.SqlWhere = new SqlWhere();
-                s.SqlWhere.Add("", "", "areaId", "=", "@areaId");
+                s.AddWhere("", "", "areaId", "=", "@areaId");
 
                 this.sql = s.SqlDelete();
 
@@ -80,12 +72,10 @@ namespace WedDao.Dao.System
 
                 s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_AreaRelation");
+                s.AddTable("Sys_AreaRelation");
 
-                s.SqlFields = new SqlField();
-                s.SqlFields.Add("areaId");
-                s.SqlFields.Add("locationId");
+                s.AddField("areaId");
+                s.AddField("locationId");
 
                 this.sql = s.SqlDelete();
 

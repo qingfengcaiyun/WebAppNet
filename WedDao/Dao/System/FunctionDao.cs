@@ -20,51 +20,41 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_UserRole");
+            s.AddTable("Sys_UserRole");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("roleId");
+            s.AddField("roleId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_RoleFunc");
+            s.AddTable("Sys_RoleFunc");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("funcId");
+            s.AddField("funcId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "roleId", "in", "(" + this.sql + ")");
+            s.AddWhere(string.Empty, string.Empty, "roleId", "in", "(" + this.sql + ")");
 
             this.sql = s.SqlSelect();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Function");
+            s.AddTable("Sys_Function");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("funcId");
-            s.SqlFields.Add("funcName");
-            s.SqlFields.Add("funcNo");
-            s.SqlFields.Add("parentNo");
-            s.SqlFields.Add("funcUrl");
-            s.SqlFields.Add("isLeaf");
-            s.SqlFields.Add("isDeleted");
+            s.AddField("funcId");
+            s.AddField("funcName");
+            s.AddField("funcNo");
+            s.AddField("parentNo");
+            s.AddField("funcUrl");
+            s.AddField("isLeaf");
+            s.AddField("isDeleted");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "isDeleted", "=", "0");
-            s.SqlWhere.Add("and", string.Empty, "parentNo", "like", "@parentNo+'%'");
-            s.SqlWhere.Add("and", string.Empty, "funcId", "in", "(" + this.sql + ")");
+            s.AddWhere(string.Empty, string.Empty, "isDeleted", "=", "0");
+            s.AddWhere("and", string.Empty, "parentNo", "like", "@parentNo+'%'");
+            s.AddWhere("and", string.Empty, "funcId", "in", "(" + this.sql + ")");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("funcNo", true);
+            s.AddOrderBy("funcNo", true);
 
             this.sql = s.SqlSelect();
 
@@ -86,24 +76,20 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Function");
+            s.AddTable("Sys_Function");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("funcId");
-            s.SqlFields.Add("funcName");
-            s.SqlFields.Add("funcNo");
-            s.SqlFields.Add("parentNo");
-            s.SqlFields.Add("funcUrl");
-            s.SqlFields.Add("isLeaf");
-            s.SqlFields.Add("isDeleted");
+            s.AddField("funcId");
+            s.AddField("funcName");
+            s.AddField("funcNo");
+            s.AddField("parentNo");
+            s.AddField("funcUrl");
+            s.AddField("isLeaf");
+            s.AddField("isDeleted");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "isDeleted", "=", "0");
-            s.SqlWhere.Add("and", string.Empty, "parentNo", "like", "@parentNo+'%'");
+            s.AddWhere(string.Empty, string.Empty, "isDeleted", "=", "0");
+            s.AddWhere("and", string.Empty, "parentNo", "like", "@parentNo+'%'");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("funcNo", true);
+            s.AddOrderBy("funcNo", true);
 
             this.sql = s.SqlSelect();
 

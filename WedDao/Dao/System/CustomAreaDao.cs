@@ -19,17 +19,14 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_CustomArea");
+            s.AddTable("Sys_CustomArea");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("areaId");
-            s.SqlFields.Add("cnName");
-            s.SqlFields.Add("enName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("areaId");
+            s.AddField("cnName");
+            s.AddField("enName");
+            s.AddField("itemIndex");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
             this.sql = s.SqlSelect();
 
@@ -45,17 +42,14 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_CustomArea");
+            s.AddTable("Sys_CustomArea");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("areaId");
-            s.SqlFields.Add("cnName");
-            s.SqlFields.Add("enName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("areaId");
+            s.AddField("cnName");
+            s.AddField("enName");
+            s.AddField("itemIndex");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("itemIndex", true);
+            s.AddOrderBy("itemIndex", true);
 
             this.sql = s.SqlSelect();
 
@@ -70,21 +64,17 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_AreaRelation");
+            s.AddTable("Sys_AreaRelation");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
             this.sql = s.SqlSelect();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_CustomArea");
+            s.AddTable("Sys_CustomArea");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
             this.sql = this.sql + s.SqlSelect();
 
@@ -100,13 +90,11 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_CustomArea");
+            s.AddTable("Sys_CustomArea");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("cnName");
-            s.SqlFields.Add("enName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("cnName");
+            s.AddField("enName");
+            s.AddField("itemIndex");
 
             this.sql = s.SqlInsert();
 
@@ -124,16 +112,13 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_CustomArea");
+            s.AddTable("Sys_CustomArea");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("cnName");
-            s.SqlFields.Add("enName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("cnName");
+            s.AddField("enName");
+            s.AddField("itemIndex");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
             this.sql = s.SqlInsert();
 

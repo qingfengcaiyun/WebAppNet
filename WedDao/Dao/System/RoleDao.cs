@@ -18,16 +18,13 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("roleId");
-            s.SqlFields.Add("roleName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("roleId");
+            s.AddField("roleName");
+            s.AddField("itemIndex");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Roles");
+            s.AddTable("Sys_Roles");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
             this.sql = s.SqlSelect();
 
@@ -41,23 +38,19 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("roleId");
-            s.SqlFields.Add("roleName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("roleId");
+            s.AddField("roleName");
+            s.AddField("itemIndex");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Roles");
+            s.AddTable("Sys_Roles");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("itemIndex", true);
+            s.AddOrderBy("itemIndex", true);
 
             this.param = new Dictionary<string, object>();
 
             if (!string.IsNullOrEmpty(msg))
             {
-                s.SqlWhere = new SqlWhere();
-                s.SqlWhere.Add(string.Empty, string.Empty, "roleName", "like", "'%'+@msg+'%'");
+                s.AddWhere(string.Empty, string.Empty, "roleName", "like", "'%'+@msg+'%'");
 
                 this.param.Add("msg", msg);
             }
@@ -71,21 +64,17 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_RoleFunc");
+            s.AddTable("Sys_RoleFunc");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
             this.sql = s.SqlDelete();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Roles");
+            s.AddTable("Sys_Roles");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
             this.sql = this.sql + s.SqlDelete();
 
@@ -99,12 +88,10 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("roleName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("roleName");
+            s.AddField("itemIndex");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Roles");
+            s.AddTable("Sys_Roles");
 
             this.sql = s.SqlInsert();
 
@@ -119,15 +106,12 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("roleName");
-            s.SqlFields.Add("itemIndex");
+            s.AddField("roleName");
+            s.AddField("itemIndex");
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_Roles");
+            s.AddTable("Sys_Roles");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
             this.sql = s.SqlUpdate();
 

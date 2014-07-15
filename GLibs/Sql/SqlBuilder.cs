@@ -1,28 +1,240 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 
 namespace Glibs.Sql
 {
     public class SqlBuilder
     {
-        private SqlTable sqlTable;
-        private SqlField sqlFields;
-        private SqlField sqlTagField;
-        private SqlWhere sqlWhere;
-        private SqlOrderBy sqlOrderBy;
+        private StringBuilder sqlTable;
+        private StringBuilder sqlFields;
+        private StringBuilder sqlTagField;
+        private StringBuilder sqlWhere;
+        private StringBuilder sqlOrderBy;
 
-        public SqlBuilder() { }
+        public SqlBuilder()
+        {
+            this.Clear();
+        }
+
+        public void Clear()
+        {
+            this.sqlTable = new StringBuilder();
+            this.sqlFields = new StringBuilder();
+            this.sqlTagField = new StringBuilder();
+            this.sqlWhere = new StringBuilder();
+            this.sqlOrderBy = new StringBuilder();
+        }
+
+        public void AddTable(string tableName)
+        {
+            if (this.sqlTable.ToString().Length > 0)
+            {
+                this.sqlTable.Append(",");
+            }
+
+            this.sqlTable.Append("[");
+            this.sqlTable.Append(tableName);
+            this.sqlTable.Append("]");
+        }
+
+        public void AddTable(string tableName, string shortName)
+        {
+            if (this.sqlTable.ToString().Length > 0)
+            {
+                this.sqlTable.Append(",");
+            }
+
+            this.sqlTable.Append(shortName);
+            this.sqlTable.Append(".[");
+            this.sqlTable.Append(tableName);
+            this.sqlTable.Append("]");
+        }
+
+        public void ClearTable()
+        {
+            this.sqlTable = new StringBuilder();
+        }
+
+        public void AddOrderBy(string fieldName, bool isAsc)
+        {
+            if (this.sqlOrderBy.ToString().Length > 0)
+            {
+                this.sqlOrderBy.Append(",");
+            }
+
+            this.sqlOrderBy.Append("[");
+            this.sqlOrderBy.Append(fieldName);
+            this.sqlOrderBy.Append("] ");
+
+            if (isAsc)
+            {
+                this.sqlOrderBy.Append("asc");
+            }
+            else
+            {
+                this.sqlOrderBy.Append("desc");
+            }
+        }
+
+        public void AddOrderBy(string shortName, string fieldName, bool isAsc)
+        {
+            if (this.sqlOrderBy.ToString().Length > 0)
+            {
+                this.sqlOrderBy.Append(",");
+            }
+
+            this.sqlTable.Append(shortName);
+            this.sqlTable.Append(".[");
+            this.sqlOrderBy.Append(fieldName);
+            this.sqlOrderBy.Append("] ");
+
+            if (isAsc)
+            {
+                this.sqlOrderBy.Append("asc");
+            }
+            else
+            {
+                this.sqlOrderBy.Append("desc");
+            }
+        }
+
+        public void ClearOrderBy()
+        {
+            this.sqlOrderBy = new StringBuilder();
+        }
+
+        public void AddWhere(string relation, string leftField, string equalStr, string rightField)
+        {
+            if (!string.IsNullOrEmpty(relation))
+            {
+                this.sqlWhere.Append(" ");
+                this.sqlWhere.Append(relation);
+            }
+
+            this.sqlWhere.Append(" [");
+            this.sqlWhere.Append(leftField);
+            this.sqlWhere.Append("] ");
+            this.sqlWhere.Append(equalStr);
+            this.sqlWhere.Append(" [");
+            this.sqlWhere.Append(rightField);
+            this.sqlWhere.Append("] ");
+        }
+
+        public void AddWhere(string relation, string leftTable, string leftField, string equalStr, string rightValue)
+        {
+            this.sqlWhere.Append(" ");
+
+            if (!string.IsNullOrEmpty(relation))
+            {
+                this.sqlWhere.Append(" ");
+                this.sqlWhere.Append(relation);
+            }
+
+            if (!string.IsNullOrEmpty(leftTable))
+            {
+                this.sqlWhere.Append(leftTable);
+                this.sqlWhere.Append(".");
+            }
+
+            this.sqlWhere.Append("[");
+            this.sqlWhere.Append(leftField);
+            this.sqlWhere.Append("] ");
+            this.sqlWhere.Append(equalStr);
+            this.sqlWhere.Append(" ");
+            this.sqlWhere.Append(rightValue);
+        }
+
+        public void AddWhere(string relation, string leftTable, string leftField, string equalStr, string rightTable, string rightField)
+        {
+            this.sqlWhere.Append(" ");
+
+            if (!string.IsNullOrEmpty(relation))
+            {
+                this.sqlWhere.Append(" ");
+                this.sqlWhere.Append(relation);
+            }
+
+            this.sqlWhere.Append(leftTable);
+            this.sqlWhere.Append(".[");
+            this.sqlWhere.Append(leftField);
+            this.sqlWhere.Append("] ");
+            this.sqlWhere.Append(equalStr);
+            this.sqlWhere.Append(" ");
+            this.sqlWhere.Append(rightTable);
+            this.sqlWhere.Append(".[");
+            this.sqlWhere.Append(rightField);
+            this.sqlWhere.Append("]");
+        }
+
+        public void ClearWhere()
+        {
+            this.sqlWhere = new StringBuilder();
+        }
+
+        public void AddField(string fieldName)
+        {
+            if (this.sqlFields.ToString().Length > 0)
+            {
+                this.sqlFields.Append(",");
+            }
+            this.sqlFields.Append("[");
+            this.sqlFields.Append(fieldName);
+            this.sqlFields.Append("]");
+        }
+
+        public void AddField(string shortName, string fieldName)
+        {
+            if (this.sqlFields.ToString().Length > 0)
+            {
+                this.sqlFields.Append(",");
+            }
+
+            this.sqlFields.Append(shortName);
+            this.sqlFields.Append(".[");
+            this.sqlFields.Append(fieldName);
+            this.sqlFields.Append("]");
+        }
+
+        public void ClearField()
+        {
+            this.sqlFields = new StringBuilder();
+        }
+
+        public void SetTagField(string fieldName)
+        {
+            this.sqlTagField = new StringBuilder();
+            this.sqlTagField.Append("[");
+            this.sqlTagField.Append(fieldName);
+            this.sqlTagField.Append("]");
+        }
+
+        public void SetTagField(string shortName, string fieldName)
+        {
+            this.sqlTagField = new StringBuilder();
+            this.sqlTagField.Append(shortName);
+            this.sqlTagField.Append(".[");
+            this.sqlTagField.Append(fieldName);
+            this.sqlTagField.Append("]");
+        }
+
+        public void ClearTagField()
+        {
+            this.sqlTagField = new StringBuilder();
+        }
 
         public string SqlCount()
         {
             StringBuilder str = new StringBuilder();
 
             str.Append("select count(");
-            str.Append(this.sqlTagField.GetString());
+            str.Append(this.sqlTagField.ToString());
             str.Append(") from ");
-            str.Append(this.sqlTable.GetString());
-            str.Append(" ");
-            str.Append(this.sqlWhere.GetString());
+            str.Append(this.sqlTable.ToString());
+
+            if (this.sqlWhere.ToString().Length > 0)
+            {
+                str.Append(" where");
+                str.Append(this.sqlWhere.ToString());
+            }
             str.Append(";");
 
             return str.ToString();
@@ -33,16 +245,25 @@ namespace Glibs.Sql
             StringBuilder str = new StringBuilder();
 
             str.Append("select ");
-            str.Append(this.sqlFields.GetString());
-            str.Append(" from ");
-            str.Append(this.sqlTable.GetString());
-            str.Append(" ");
-            str.Append(this.sqlWhere.GetString());
 
-            if (sqlOrderBy != null)
+            if (this.sqlFields.ToString().Length > 0)
+                str.Append(this.sqlFields.ToString());
+            else
+                str.Append("*");
+
+            str.Append(" from ");
+            str.Append(this.sqlTable.ToString());
+
+            if (this.sqlWhere.ToString().Length > 0)
             {
-                str.Append(" ");
-                str.Append(this.sqlOrderBy.GetString());
+                str.Append(" where");
+                str.Append(this.sqlWhere.ToString());
+            }
+
+            if (this.sqlOrderBy.ToString().Length > 0)
+            {
+                str.Append(" order by ");
+                str.Append(this.sqlOrderBy.ToString());
             }
 
             str.Append(";");
@@ -55,24 +276,38 @@ namespace Glibs.Sql
             StringBuilder str = new StringBuilder();
 
             str.Append("insert into ");
-            str.Append(this.sqlTable.GetString());
-            str.Append(" ");
-            str.Append(this.sqlFields.GetString(false));
-            str.Append(";");
+            str.Append(this.sqlTable.ToString());
+            str.Append(" (");
+            str.Append(this.sqlFields.ToString());
+            str.Append(")values(");
+            str.Append(this.sqlFields.ToString().Replace("[", "@").Replace("]", ""));
+            str.Append(");");
 
             return str.ToString();
         }
 
         public string SqlUpdate()
         {
+            string[] ss = this.sqlFields.ToString().Replace("[", "").Replace("]", "").Split(',');
+
+            StringBuilder f = new StringBuilder();
+
+            foreach (string s in ss)
+            {
+                f.Append(",[");
+                f.Append(s);
+                f.Append("]=@");
+                f.Append(s);
+            }
+
             StringBuilder str = new StringBuilder();
 
             str.Append("update ");
-            str.Append(this.sqlTable.GetString());
+            str.Append(this.sqlTable.ToString());
             str.Append(" set ");
-            str.Append(this.sqlFields.GetString(false));
-            str.Append(" ");
-            str.Append(this.sqlWhere.GetString());
+            str.Append(f.ToString().Substring(1));
+            str.Append(" where");
+            str.Append(this.sqlWhere.ToString());
             str.Append(";");
 
             return str.ToString();
@@ -83,9 +318,9 @@ namespace Glibs.Sql
             StringBuilder str = new StringBuilder();
 
             str.Append("delete from ");
-            str.Append(this.sqlTable.GetString());
-            str.Append(" ");
-            str.Append(this.sqlWhere.GetString());
+            str.Append(this.sqlTable.ToString());
+            str.Append(" where");
+            str.Append(this.sqlWhere.ToString());
             str.Append(";");
 
             return str.ToString();
@@ -96,412 +331,37 @@ namespace Glibs.Sql
             StringBuilder str = new StringBuilder();
 
             str.Append("select top @pageSize ");
-            str.Append(this.sqlFields.GetString());
+            str.Append(this.sqlFields.ToString());
             str.Append(" from ");
-            str.Append(this.sqlTable.GetString());
-            str.Append(" ");
-            str.Append(this.sqlWhere.GetString());
+            str.Append(this.sqlTable.ToString());
+            str.Append(" where");
+            str.Append(this.sqlWhere.ToString());
 
             str.Append(" and ");
-            str.Append(this.sqlTagField.GetString());
+            str.Append(this.sqlTagField.ToString());
             str.Append(" not in (select top @startIndex ");
-            str.Append(this.sqlTagField.GetString());
+            str.Append(this.sqlTagField.ToString());
             str.Append(" from ");
-            str.Append(this.sqlTable.GetString());
-            str.Append(" ");
-            str.Append(this.sqlWhere.GetString());
-            str.Append(" ");
+            str.Append(this.sqlTable.ToString());
+            str.Append(" where ");
+            str.Append(this.sqlWhere.ToString());
 
             if (sqlOrderBy != null)
             {
-                str.Append(this.sqlOrderBy.GetString());
+                str.Append(" order by ");
+                str.Append(this.sqlOrderBy.ToString());
             }
-            str.Append(") ");
+            str.Append(")");
 
             if (sqlOrderBy != null)
             {
-                str.Append(this.sqlOrderBy.GetString());
+                str.Append(" order by ");
+                str.Append(this.sqlOrderBy.ToString());
             }
 
             str.Append(";");
 
             return str.ToString();
-        }
-
-        public SqlTable SqlTable
-        {
-            get { return sqlTable; }
-            set { sqlTable = value; }
-        }
-
-        public SqlField SqlFields
-        {
-            get { return sqlFields; }
-            set { sqlFields = value; }
-        }
-
-        public SqlField SqlTagField
-        {
-            get { return sqlTagField; }
-            set { sqlTagField = value; }
-        }
-
-        public SqlWhere SqlWhere
-        {
-            get { return sqlWhere; }
-            set { sqlWhere = value; }
-        }
-
-        public SqlOrderBy SqlOrderBy
-        {
-            get { return sqlOrderBy; }
-            set { sqlOrderBy = value; }
-        }
-    }
-
-    public class SqlWhere
-    {
-        private List<string> relation;
-        private List<string> leftTable;
-        private List<string> leftField;
-        private List<string> equalStr;
-        private List<string> rightTable;
-        private List<string> rightField;
-
-        private List<string> rightValue;
-
-        public SqlWhere()
-        {
-            this.relation = new List<string>();
-            this.leftTable = new List<string>();
-            this.leftField = new List<string>();
-            this.equalStr = new List<string>();
-            this.rightTable = new List<string>();
-            this.rightField = new List<string>();
-            this.rightValue = new List<string>();
-        }
-
-        public void Add(string relation, string leftField, string equalStr, string rightField)
-        {
-            this.relation.Add(relation);
-            this.leftTable.Add(string.Empty);
-            this.leftField.Add(leftField);
-            this.equalStr.Add(equalStr);
-            this.rightTable.Add(string.Empty);
-            this.rightField.Add(rightField);
-            this.rightValue.Add(string.Empty);
-        }
-
-        public void Add(string relation, string leftTable, string leftField, string equalStr, string rightValue)
-        {
-            this.relation.Add(relation);
-            this.leftTable.Add(leftTable);
-            this.leftField.Add(leftField);
-            this.equalStr.Add(equalStr);
-            this.rightTable.Add(string.Empty);
-            this.rightField.Add(string.Empty);
-            this.rightValue.Add(rightValue);
-        }
-
-        public void Add(string relation, string leftTable, string leftField, string equalStr, string rightTable, string rightField)
-        {
-            this.relation.Add(relation);
-            this.leftTable.Add(leftTable);
-            this.leftField.Add(leftField);
-            this.equalStr.Add(equalStr);
-            this.rightTable.Add(rightTable);
-            this.rightField.Add(rightField);
-            this.rightValue.Add(string.Empty);
-        }
-
-        public string GetString()
-        {
-            if (this.relation.Count > 0)
-            {
-                StringBuilder s = new StringBuilder();
-
-                for (int i = 0, j = this.relation.Count; i < j; i++)
-                {
-                    s.Append(" ");
-
-                    if (!string.IsNullOrEmpty(this.relation[i]))
-                    {
-                        s.Append(this.relation[i]);
-                        s.Append(" ");
-                    }
-
-                    if (!string.IsNullOrEmpty(this.leftTable[i]))
-                    {
-                        s.Append(this.leftTable[i]);
-                        s.Append(".");
-                    }
-
-                    s.Append("[");
-                    s.Append(this.leftField[i]);
-                    s.Append("]");
-                    s.Append(this.equalStr[i]);
-
-
-                    if (!string.IsNullOrEmpty(this.rightTable[i]))
-                    {
-                        s.Append(this.rightTable[i]);
-                        s.Append(".");
-                    }
-
-                    if (string.IsNullOrEmpty(this.rightValue[i]))
-                    {
-                        s.Append("[");
-                        s.Append(this.rightField[i]);
-                        s.Append("]");
-                    }
-                    else
-                    {
-                        s.Append(this.rightValue[i]);
-                    }
-                }
-
-                return "where" + s.ToString();
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-    }
-
-    public class SqlOrderBy
-    {
-        private List<string> shortName;
-        private List<string> fieldName;
-        private List<bool> isAsc;
-
-        public SqlOrderBy()
-        {
-            this.shortName = new List<string>();
-            this.fieldName = new List<string>();
-            this.isAsc = new List<bool>();
-        }
-
-        public void Add(string fieldName, bool isAsc)
-        {
-            this.fieldName.Add(fieldName);
-            this.isAsc.Add(isAsc);
-        }
-
-        public void Add(string shortName, string fieldName, bool isAsc)
-        {
-            this.shortName.Add(shortName);
-            this.fieldName.Add(fieldName);
-            this.isAsc.Add(isAsc);
-        }
-
-        public void Clear()
-        {
-            this.shortName = new List<string>();
-            this.fieldName = new List<string>();
-            this.isAsc = new List<bool>();
-        }
-
-        public string GetString()
-        {
-            if (this.fieldName.Count > 0 && this.fieldName.Count == this.isAsc.Count)
-            {
-                StringBuilder s = new StringBuilder();
-
-                for (int i = 0, j = this.fieldName.Count; i < j; i++)
-                {
-                    s.Append(",");
-                    if (this.shortName.Count == this.shortName.Count)
-                    {
-                        s.Append(this.shortName[i]);
-                        s.Append(".");
-                    }
-
-                    s.Append("[");
-                    s.Append(this.fieldName[i]);
-                    s.Append("] ");
-
-                    if (this.isAsc[i])
-                    {
-                        s.Append("asc");
-                    }
-                    else
-                    {
-                        s.Append("desc");
-                    }
-                }
-
-                return "order by " + s.ToString().Substring(1);
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-    }
-
-    public class SqlTable
-    {
-        private List<string> shortName;
-        private List<string> tableName;
-
-        public SqlTable()
-        {
-            this.shortName = new List<string>();
-            this.tableName = new List<string>();
-        }
-
-        public void Add(string tableName)
-        {
-            this.tableName.Add(tableName);
-        }
-
-        public void Add(string tableName, string shortName)
-        {
-            this.tableName.Add(tableName);
-            this.shortName.Add(shortName);
-        }
-
-        public void Clear()
-        {
-            this.shortName = new List<string>();
-            this.tableName = new List<string>();
-        }
-
-        public string GetString()
-        {
-            StringBuilder s = new StringBuilder();
-
-            for (int i = 0, j = this.tableName.Count; i < j; i++)
-            {
-                s.Append(",");
-
-                if (this.shortName.Count == this.tableName.Count)
-                {
-                    s.Append(this.shortName[i]);
-                    s.Append(".");
-                }
-
-                s.Append("[");
-                s.Append(this.tableName[i]);
-                s.Append("]");
-            }
-
-            return s.ToString().Substring(1);
-        }
-    }
-
-    public class SqlField
-    {
-        private List<string> shortName;
-        private List<string> fieldName;
-
-        public SqlField()
-        {
-            this.shortName = new List<string>();
-            this.fieldName = new List<string>();
-        }
-
-        public void Add(string fieldName)
-        {
-            this.fieldName.Add(fieldName);
-        }
-
-        public void Add(string shortName, string fieldName)
-        {
-            this.fieldName.Add(fieldName);
-            this.shortName.Add(shortName);
-        }
-
-        public void Clear()
-        {
-            this.shortName = new List<string>();
-            this.fieldName = new List<string>();
-        }
-
-        public string GetString()
-        {
-            if (this.fieldName.Count > 0)
-            {
-                StringBuilder s = new StringBuilder();
-
-                if (this.shortName.Count > 0)
-                {
-                    for (int i = 0, j = this.fieldName.Count; i < j; i++)
-                    {
-                        s.Append(",");
-                        s.Append(this.shortName[i]);
-                        s.Append(".[");
-                        s.Append(this.fieldName[i]);
-                        s.Append("]");
-                    }
-                }
-                else
-                {
-                    foreach (string f in fieldName)
-                    {
-                        s.Append(",[");
-                        s.Append(f);
-                        s.Append("]");
-                    }
-                }
-
-                return s.ToString().Substring(1);
-            }
-            else
-            {
-                return "*";
-            }
-        }
-
-        public string GetString(bool isUpdate)
-        {
-            if (isUpdate)
-            {
-                StringBuilder f = new StringBuilder();
-
-                foreach (string t in this.fieldName)
-                {
-                    if (!string.IsNullOrEmpty(f.ToString().Trim()))
-                    {
-                        f.Append(",");
-                    }
-
-                    f.Append("[");
-                    f.Append(t);
-                    f.Append("]=@");
-                    f.Append(t);
-                }
-
-                return f.ToString();
-            }
-            else
-            {
-                StringBuilder f = new StringBuilder();
-                StringBuilder v = new StringBuilder();
-
-                foreach (string t in this.fieldName)
-                {
-                    if (!string.IsNullOrEmpty(f.ToString().Trim()))
-                    {
-                        f.Append(",");
-                    }
-
-                    if (!string.IsNullOrEmpty(v.ToString().Trim()))
-                    {
-                        v.Append(",");
-                    }
-
-                    f.Append("[");
-                    f.Append(t);
-                    f.Append("]");
-
-                    v.Append("@");
-                    v.Append(t);
-                }
-
-                return " (" + f.ToString() + ")values(" + v.ToString() + ")";
-            }
         }
     }
 }

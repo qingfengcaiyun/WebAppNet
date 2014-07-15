@@ -18,33 +18,26 @@ namespace WedDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_UserFunc");
+            s.AddTable("Sys_UserFunc");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
+            s.AddField("userId");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "funcId", "=", "@funcId");
+            s.AddWhere("", "", "funcId", "=", "@funcId");
 
             this.sql = s.SqlSelect();
 
             s = new SqlBuilder();
 
-            s.SqlTable = new SqlTable();
-            s.SqlTable.Add("Sys_User");
+            s.AddTable("Sys_User");
 
-            s.SqlWhere = new SqlWhere();
-            s.SqlWhere.Add("", "", "isDeleted", "=", "0");
-            s.SqlWhere.Add("", "", "userId", "in", "(" + this.sql + ")");
+            s.AddWhere("", "", "isDeleted", "=", "0");
+            s.AddWhere("", "", "userId", "in", "(" + this.sql + ")");
 
-            s.SqlFields = new SqlField();
-            s.SqlFields.Add("userId");
-            s.SqlFields.Add("userName");
-            s.SqlFields.Add("userType");
+            s.AddField("userId");
+            s.AddField("userName");
+            s.AddField("userType");
 
-            s.SqlOrderBy = new SqlOrderBy();
-            s.SqlOrderBy.Add("userName", true);
+            s.AddOrderBy("userName", true);
 
             this.sql = s.SqlSelect();
 
@@ -62,11 +55,9 @@ namespace WedDao.Dao.System
             {
                 SqlBuilder s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_UserRole");
+                s.AddTable("Sys_UserRole");
 
-                s.SqlWhere = new SqlWhere();
-                s.SqlWhere.Add("", "", "roleId", "=", "@roleId");
+                s.AddWhere("", "", "roleId", "=", "@roleId");
 
                 this.sql = s.SqlDelete();
 
@@ -90,12 +81,10 @@ namespace WedDao.Dao.System
 
                 s = new SqlBuilder();
 
-                s.SqlTable = new SqlTable();
-                s.SqlTable.Add("Sys_UserRole");
+                s.AddTable("Sys_UserRole");
 
-                s.SqlFields = new SqlField();
-                s.SqlFields.Add("roleId");
-                s.SqlFields.Add("userId");
+                s.AddField("roleId");
+                s.AddField("userId");
 
                 this.sql = s.SqlInsert();
 
