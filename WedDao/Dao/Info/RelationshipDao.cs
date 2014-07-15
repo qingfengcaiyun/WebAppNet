@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Glibs.Sql;
+using System;
 
 namespace WedDao.Dao.Info
 {
@@ -34,13 +35,13 @@ namespace WedDao.Dao.Info
             return this.db.GetDataValueString(this.sql, this.param);
         }
 
-        public bool SaveList(int[] cateIds, int newsId)
+        public bool SaveList(Int64[] cateIds, Int64 newsId)
         {
             this.sql = @"delete from [Info_Relationship] where [newsId]=@newsId;";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);
-
+            
             this.db.Update(this.sql, this.param);
 
             this.sql = @"insert into [Info_Relationship] ([cateId],[newsId])values(@cateId,@newsId)";

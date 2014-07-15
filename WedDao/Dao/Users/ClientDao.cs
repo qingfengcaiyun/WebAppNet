@@ -78,7 +78,7 @@ namespace WedDao.Dao.Users
             return this.db.Update(this.sql, this.param);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             SqlBuilder s = new SqlBuilder();
 
@@ -246,7 +246,7 @@ namespace WedDao.Dao.Users
             pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.sql, this.param).ToString());
             pr.SetBaseParam();
 
-            this.sql = s.SqlPage();
+            this.sql = s.SqlPage(pr.PageSize, pr.StartIndex);
             pr.PageResult = this.db.GetDataTable(this.sql, this.param);
 
             return pr;

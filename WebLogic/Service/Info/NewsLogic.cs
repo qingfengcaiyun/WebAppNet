@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Glibs.Sql;
 using WedDao.Dao.Info;
 
@@ -32,7 +33,7 @@ namespace WebLogic.Service.Info
             return this.dao.Update(content);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             return this.dao.Insert(content);
         }
@@ -42,7 +43,7 @@ namespace WebLogic.Service.Info
             return this.dao.SetReadCount(newsId);
         }
 
-        public bool SetRelationship(int[] cateIds, int newsId)
+        public bool SetRelationship(long[] cateIds, long newsId)
         {
             return this.rdao.SaveList(cateIds, newsId);
         }

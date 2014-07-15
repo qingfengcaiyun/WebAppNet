@@ -68,7 +68,7 @@ namespace WedDao.Dao.Info
             return this.db.Update(this.sql, this.param);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             this.sql = @"insert into [Info_Activity] ([cityId],[actName],[startTime],[endTime],[publicAdpic],[content],[address],[phone],[qq],[keywords],[readCount],[itemIndex])values(@cityId,@actName,@startTime,@endTime,@publicAdpic,@content,@address,@phone,@qq,@keywords,@readCount,@itemIndex)";
 

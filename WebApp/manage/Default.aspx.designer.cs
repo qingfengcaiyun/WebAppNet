@@ -10,6 +10,6 @@
 namespace WebApp.manage {
     
     
-    public partial class index {
+    public partial class Default {
     }
 }

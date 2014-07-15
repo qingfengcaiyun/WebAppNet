@@ -87,7 +87,7 @@ namespace WedDao.Dao.Users
             return this.db.Update(this.sql, this.param);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             this.sql = @"insert into [User_Designer] ([userId],[locationId],[fullName],[sex],[memberId],[job],[tel],[cellphone],[qq],[email],[photoUrl],[memo],[insertTime],[updateTime],[isDeleted])values(@userId,@locationId,@fullName,@sex,@memberId,@job,@tel,@cellphone,@qq,@email,@photoUrl,@memo,@,@,0)";
 

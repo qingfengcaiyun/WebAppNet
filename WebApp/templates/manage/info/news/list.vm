@@ -18,7 +18,6 @@
     <script type="text/javascript">
         var pageNo = 1;
         var pageSize = 15;
-        var ajaxObj;
         var d;
 
         $(document).ready(function () {
@@ -28,7 +27,7 @@
                 onChange: function (newValue, oldValue) {
                     var n = getNode(newValue);
                     //alert(n.attributes.cateId);
-                    $("#cate").combotree("disable");
+                    //$("#cate").combotree("disable");
                     getPager(n.attributes.cateId);
                 }
             });

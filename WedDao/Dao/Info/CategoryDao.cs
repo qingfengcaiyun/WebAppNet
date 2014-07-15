@@ -51,7 +51,7 @@ namespace WedDao.Dao.Info
             return this.db.Update(this.sql, this.param);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             this.sql = @"update [Info_Category] set [isLeaf]=0 where [cateNo]=@cateNo;insert into [Info_Category] ([cityId],[cateName],[cateNo],[parentNo],[isLeaf])values(@cityId,@cateName,@cateNo,@parentNo,1)";
 

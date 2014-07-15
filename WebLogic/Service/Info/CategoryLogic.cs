@@ -34,7 +34,7 @@ namespace WebLogic.Service.Info
             return this.dao.Update(content);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             return this.dao.Insert(content);
         }

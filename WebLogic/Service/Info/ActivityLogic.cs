@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Glibs.Sql;
 using WedDao.Dao.Info;
+using System;
 
 namespace WebLogic.Service.Info
 {
@@ -39,7 +40,7 @@ namespace WebLogic.Service.Info
             return this.dao.Update(content);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             return this.dao.Insert(content);
         }

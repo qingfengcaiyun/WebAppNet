@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
@@ -221,7 +222,7 @@ namespace Glibs.Sql
             return str.ToString();
         }
 
-        public long Insert(string sql, Dictionary<string, object> param)
+        public Int64 Insert(string sql, Dictionary<string, object> param)
         {
             this.OpenDB();
             this.cmd = this.conn.CreateCommand();
@@ -245,7 +246,7 @@ namespace Glibs.Sql
                 object o = this.cmd.ExecuteScalar();
                 tran.Commit();
 
-                return long.Parse(o.ToString());
+                return Int64.Parse(o.ToString());
             }
             catch
             {

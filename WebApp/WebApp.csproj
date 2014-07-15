@@ -76,10 +76,10 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="manage\Action.aspx" />
+    <Content Include="manage\Default.aspx" />
     <Content Include="manage\FileUpload.aspx" />
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
-    <Content Include="manage\index.aspx" />
     <Content Include="manage\info\category\View.aspx" />
     <Content Include="manage\info\news\Action.aspx" />
     <Content Include="manage\info\news\Detail.aspx" />
@@ -209,19 +209,19 @@
     <Compile Include="manage\Action.aspx.designer.cs">
       <DependentUpon>Action.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="manage\FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="manage\FileUpload.aspx.designer.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="manage\index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="manage\index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\info\category\View.aspx.cs">
       <DependentUpon>View.aspx</DependentUpon>

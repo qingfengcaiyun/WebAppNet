@@ -13,7 +13,7 @@ namespace Glibs.Sql
 
         public static string DictionaryToJSON(Dictionary<string, object> item)
         {
-            if (item.Count > 0)
+            if (item != null && item.Count > 0)
             {
                 StringBuilder str = new StringBuilder();
 
@@ -36,7 +36,7 @@ namespace Glibs.Sql
 
         public static string ListToJSON(List<Dictionary<string, object>> list)
         {
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 StringBuilder str = new StringBuilder();
 
@@ -56,7 +56,7 @@ namespace Glibs.Sql
 
         public static string ListToTreeNodes(List<Dictionary<string, object>> list, string parentNo)
         {
-            if (list.Count > 0)
+            if (list != null && list.Count > 0)
             {
                 if (!RegexDo.IsNumber(parentNo))
                 {

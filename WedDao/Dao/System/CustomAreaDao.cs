@@ -86,7 +86,7 @@ namespace WedDao.Dao.System
             return this.db.Update(this.sql, this.param);
         }
 
-        public long Insert(Dictionary<string, object> content)
+        public Int64 Insert(Dictionary<string, object> content)
         {
             SqlBuilder s = new SqlBuilder();
 

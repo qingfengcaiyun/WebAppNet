@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Glibs.Sql;
+using System;
 
 namespace WedDao.Dao.System
 {
@@ -48,7 +49,7 @@ namespace WedDao.Dao.System
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public bool SaveList(int[] funcIds, int roleId)
+        public bool SaveList(Int64[] funcIds, Int64 roleId)
         {
             if (funcIds != null && funcIds.Length > 0)
             {

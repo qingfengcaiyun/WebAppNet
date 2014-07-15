@@ -323,11 +323,13 @@ namespace Glibs.Sql
             return str.ToString();
         }
 
-        public string SqlPage()
+        public string SqlPage(int pageSize, int startIndex)
         {
             StringBuilder str = new StringBuilder();
 
-            str.Append("select top @pageSize ");
+            str.Append("select top ");
+            str.Append(pageSize);
+            str.Append(" ");
             str.Append(this.sqlFields.ToString());
             str.Append(" from ");
             str.Append(this.sqlTable.ToString());
@@ -336,7 +338,9 @@ namespace Glibs.Sql
 
             str.Append(" and ");
             str.Append(this.sqlTagField.ToString());
-            str.Append(" not in (select top @startIndex ");
+            str.Append(" not in (select top ");
+            str.Append(startIndex);
+            str.Append(" ");
             str.Append(this.sqlTagField.ToString());
             str.Append(" from ");
             str.Append(this.sqlTable.ToString());
