@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Glibs.Sql;
 using Glibs.Util;
 using WebLogic.Service.Info;
+using WebLogic.Service.System;
 
 namespace WebApp.manage.info.article
 {
@@ -19,7 +20,7 @@ namespace WebApp.manage.info.article
 
             switch (action)
             {
-                case "page": rs = Page(); break;
+                case "page": rs = GetPage(); break;
                 case "one": rs = One(); break;
                 default: Session.Abandon(); break;
             }
@@ -27,15 +28,15 @@ namespace WebApp.manage.info.article
             Response.Write(rs);
         }
 
-        private string Page()
+        private string GetPage()
         {
             Dictionary<string, object> cUser = (Dictionary<string, object>)WebPageCore.GetSession("cUser");
 
-            string pageNo = WebPageCore.GetRequest("pageNo");
-            string pageSize = WebPageCore.GetRequest("pageSize");
+            string pageNo = WebPageCore.GetRequest("page");
+            string pageSize = WebPageCore.GetRequest("rows");
             string cateId = WebPageCore.GetRequest("cateId");
             string msg = WebPageCore.GetRequest("msg");
-            string cityId = cUser["locationId"].ToString();
+            string cityId = WebPageCore.GetRequest("cityId");
 
             if (!RegexDo.IsInt32(pageNo))
             {
@@ -46,6 +47,8 @@ namespace WebApp.manage.info.article
             {
                 pageSize = "15";
             }
+
+            cityId = new LocationLogic().GetSubIdArray(Int32.Parse(cityId));
 
             return new NewsLogic().GetPageJson(Int32.Parse(pageSize), Int32.Parse(pageNo), Int32.Parse(cateId), cityId, msg);
         }

@@ -35,37 +35,19 @@
 
             var cateId = $("#cateId").val();
 
-            if (parseInt(cateId) > 0) {
-                getPager(cateId);
-            }
+            getPager(cateId);
         });
 
         function getPager(cateId) {
-            if (ajaxObj) {
-                ajaxObj.abort();
-            }
-
-            var param = {
-                action: "page",
-                pageSize: pageSize,
-                pageNo: pageNo,
-                cateId: cateId,
-                cityId: $("#cityId").val()
-            };
-
-            ajaxObj = jQuery.post(
-                "Action.aspx",
-                param,
-                function (data) {
-                    var d = jQuery.parseJSON(data);
-                    pageNo = parseInt(d.pageNo);
-                    pageSize = parseInt(d.pageSize);
-                    $("#dg").datagrid({
-                        data: d.dataSource
-                    });
-                    $("#cate").combotree("enable");
+            $("#dg").datagrid({
+                url: "Action.aspx",
+                loadMsg: "数据加载中，请稍后……",
+                queryParams: {
+                    action: "page",
+                    cateId: cateId,
+                    cityId: $("#cityId").val()
                 }
-            );
+            });
         }
 
         function add() {
@@ -136,7 +118,8 @@
             <input class="easyui-combotree w100" type="text" style="text-align: center" id="cate" />
         </div>
     </div>
-    <input id="cityId" type="hidden" value="$cityId" /><input id="cateId" type="hidden" value="$cateId" />
+    <input id="cityId" type="hidden" value="$cityId" /><input id="cateId" type="hidden"
+        value="$cateId" />
     <table id="dg" class="easyui-datagrid" title="文章管理" style="width: 1000px; height: 400px"
         data-options="fit:true,fitColumns:true,rownumbers:true,singleSelect:true,pagination:true,toolbar:'#tb'">
         <thead>

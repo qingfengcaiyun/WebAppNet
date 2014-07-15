@@ -43,10 +43,10 @@ namespace Glibs.Sql
                 this.sqlTable.Append(",");
             }
 
-            this.sqlTable.Append(shortName);
-            this.sqlTable.Append(".[");
+            this.sqlTable.Append("[");
             this.sqlTable.Append(tableName);
-            this.sqlTable.Append("]");
+            this.sqlTable.Append("] as ");
+            this.sqlTable.Append(shortName);
         }
 
         public void ClearTable()
@@ -82,8 +82,8 @@ namespace Glibs.Sql
                 this.sqlOrderBy.Append(",");
             }
 
-            this.sqlTable.Append(shortName);
-            this.sqlTable.Append(".[");
+            this.sqlOrderBy.Append(shortName);
+            this.sqlOrderBy.Append(".[");
             this.sqlOrderBy.Append(fieldName);
             this.sqlOrderBy.Append("] ");
 
@@ -104,13 +104,15 @@ namespace Glibs.Sql
 
         public void AddWhere(string relation, string leftField, string equalStr, string rightField)
         {
+            this.sqlWhere.Append(" ");
+
             if (!string.IsNullOrEmpty(relation))
             {
-                this.sqlWhere.Append(" ");
                 this.sqlWhere.Append(relation);
+                this.sqlWhere.Append(" ");
             }
 
-            this.sqlWhere.Append(" [");
+            this.sqlWhere.Append("[");
             this.sqlWhere.Append(leftField);
             this.sqlWhere.Append("] ");
             this.sqlWhere.Append(equalStr);
@@ -125,8 +127,8 @@ namespace Glibs.Sql
 
             if (!string.IsNullOrEmpty(relation))
             {
-                this.sqlWhere.Append(" ");
                 this.sqlWhere.Append(relation);
+                this.sqlWhere.Append(" ");
             }
 
             if (!string.IsNullOrEmpty(leftTable))
@@ -149,8 +151,8 @@ namespace Glibs.Sql
 
             if (!string.IsNullOrEmpty(relation))
             {
-                this.sqlWhere.Append(" ");
                 this.sqlWhere.Append(relation);
+                this.sqlWhere.Append(" ");
             }
 
             this.sqlWhere.Append(leftTable);
@@ -235,7 +237,6 @@ namespace Glibs.Sql
                 str.Append(" where");
                 str.Append(this.sqlWhere.ToString());
             }
-            str.Append(";");
 
             return str.ToString();
         }
@@ -266,8 +267,6 @@ namespace Glibs.Sql
                 str.Append(this.sqlOrderBy.ToString());
             }
 
-            str.Append(";");
-
             return str.ToString();
         }
 
@@ -281,7 +280,7 @@ namespace Glibs.Sql
             str.Append(this.sqlFields.ToString());
             str.Append(")values(");
             str.Append(this.sqlFields.ToString().Replace("[", "@").Replace("]", ""));
-            str.Append(");");
+            str.Append(")");
 
             return str.ToString();
         }
@@ -308,7 +307,6 @@ namespace Glibs.Sql
             str.Append(f.ToString().Substring(1));
             str.Append(" where");
             str.Append(this.sqlWhere.ToString());
-            str.Append(";");
 
             return str.ToString();
         }
@@ -321,7 +319,6 @@ namespace Glibs.Sql
             str.Append(this.sqlTable.ToString());
             str.Append(" where");
             str.Append(this.sqlWhere.ToString());
-            str.Append(";");
 
             return str.ToString();
         }
@@ -343,7 +340,7 @@ namespace Glibs.Sql
             str.Append(this.sqlTagField.ToString());
             str.Append(" from ");
             str.Append(this.sqlTable.ToString());
-            str.Append(" where ");
+            str.Append(" where");
             str.Append(this.sqlWhere.ToString());
 
             if (sqlOrderBy != null)
@@ -358,8 +355,6 @@ namespace Glibs.Sql
                 str.Append(" order by ");
                 str.Append(this.sqlOrderBy.ToString());
             }
-
-            str.Append(";");
 
             return str.ToString();
         }

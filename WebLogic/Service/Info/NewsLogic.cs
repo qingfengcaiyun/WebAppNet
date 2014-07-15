@@ -39,7 +39,7 @@ namespace WebLogic.Service.Info
 
         public bool SetReadCount(int newsId)
         {
-            return this.dao.SetreadCount(newsId);
+            return this.dao.SetReadCount(newsId);
         }
 
         public bool SetRelationship(int[] cateIds, int newsId)

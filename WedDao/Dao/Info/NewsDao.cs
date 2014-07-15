@@ -17,7 +17,28 @@ namespace WedDao.Dao.Info
 
         public Dictionary<string, object> GetOne(int newsId)
         {
-            this.sql = @"select [newsId],[cityId],[longTitle],[titleColor],[shortTitle],[content],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime] from [Info_Article] where [newsId]=@newsId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddTable("Info_News");
+
+            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+
+            s.AddField("n", "newsId");
+            s.AddField("n", "cityId");
+            s.AddField("n", "longTitle");
+            s.AddField("n", "titleColor");
+            s.AddField("n", "shortTitle");
+            s.AddField("n", "content");
+            s.AddField("n", "keywords");
+            s.AddField("n", "readCount");
+            s.AddField("n", "itemIndex");
+            s.AddField("n", "outLink");
+            s.AddField("n", "isTop");
+            s.AddField("n", "topTime");
+            s.AddField("n", "insertTime");
+            s.AddField("n", "updateTime");
+
+            this.sql = s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);
@@ -27,54 +48,142 @@ namespace WedDao.Dao.Info
 
         public PageRecords GetPage(int pageSize, int pageNo, int cateId, string cityId, string msg)
         {
-            PageRecords pr = new PageRecords();
-            pr.CurrentPage = pageNo;
-            pr.PageSize = pageSize;
+            SqlBuilder s = new SqlBuilder();
 
             this.param = new Dictionary<string, object>();
 
             if (cateId > 0)
             {
-                pr.CountKey = @"a.[newsId]";
-                pr.SqlFields = @"[newsId],[cityId],[longTitle],[titleColor],[shortTitle],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime]";
-                pr.SqlOrderBy = @"[itemIndex] desc,[insertTime] desc";
-                pr.SqlTable = @"[Info_News]";
-                pr.SqlWhere = @"a.[newsId]=r.[newsId] and r.[cateId]=@cateId and a.[cityId] in (" + cityId + @") and (a.[longTitle] like '%'+@msg+'%' or a.[shortTitle] like '%'+@msg+'%' or a.[keywords] like '%'+@msg+'%' )";
+                s = new SqlBuilder();
+
+                s.AddTable("Info_Relationship");
+
+                s.AddField("n", "newsId");
+
+                s.AddWhere(string.Empty, string.Empty, "cateId", "=", "@cateId");
+
+                this.sql = s.SqlSelect();
+
+                s = new SqlBuilder();
+
+                s.AddTable("Info_News", "n");
+
+                s.AddField("n", "newsId");
+                s.AddField("n", "cityId");
+                s.AddField("n", "longTitle");
+                s.AddField("n", "titleColor");
+                s.AddField("n", "shortTitle");
+                s.AddField("n", "keywords");
+                s.AddField("n", "readCount");
+                s.AddField("n", "itemIndex");
+                s.AddField("n", "insertTime");
+                s.AddField("n", "updateTime");
+
+                s.SetTagField("n", "newsId");
+
+                s.AddOrderBy("n", "itemIndex", false);
+                s.AddOrderBy("n", "insertTime", false);
+
+                s.AddWhere(string.Empty, "n", "newsId", "in", "(" + this.sql + ")");
+                s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
+                s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
+                s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
+                s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
 
                 this.param.Add("cateId", cateId);
-                this.param.Add("msg", msg);
             }
             else
             {
-                pr.CountKey = @"[newsId]";
-                pr.SqlFields = @"[newsId],[cityId],[longTitle],[titleColor],[shortTitle],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime]";
-                pr.SqlOrderBy = @"[itemIndex] desc,[insertTime] desc";
-                pr.SqlTable = @"[Info_News]";
-                pr.SqlWhere = @"[cityId] in (" + cityId + @") and ([longTitle] like '%'+@msg+'%' or [shortTitle] like '%'+@msg+'%' or [keywords] like '%'+@msg+'%')";
+                s = new SqlBuilder();
 
-                this.param.Add("msg", msg);
+                s.AddTable("Info_News", "n");
+
+                s.AddField("n", "newsId");
+                s.AddField("n", "cityId");
+                s.AddField("n", "longTitle");
+                s.AddField("n", "titleColor");
+                s.AddField("n", "shortTitle");
+                s.AddField("n", "keywords");
+                s.AddField("n", "readCount");
+                s.AddField("n", "itemIndex");
+                s.AddField("n", "insertTime");
+                s.AddField("n", "updateTime");
+
+                s.SetTagField("n", "newsId");
+
+                s.AddOrderBy("n", "itemIndex", false);
+                s.AddOrderBy("n", "insertTime", false);
+
+                s.AddWhere(string.Empty, "n", "cityId", "in", "(" + cityId + ")");
+                s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
+                s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
+                s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
             }
 
-            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(pr.CountSql, this.param).ToString());
+            this.param.Add("msg", msg);
+
+            PageRecords pr = new PageRecords();
+            pr.CurrentPage = pageNo;
+            pr.PageSize = pageSize;
+
+            this.sql = s.SqlCount();
+            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.sql, this.param).ToString());
             pr.SetBaseParam();
-            pr.PageResult = this.db.GetDataTable(pr.QuerySql, this.param);
+
+            this.sql = s.SqlPage();
+            pr.PageResult = this.db.GetDataTable(this.sql, this.param);
 
             return pr;
         }
 
-        public bool Delete(int actId)
+        public bool Delete(int newsId)
         {
-            this.sql = @"delete from [Info_Relationship] where [newsId]=@;delete from [Info_Article] where [newsId]=@;";
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddTable("Info_Relationship");
+
+            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+
+            this.sql = s.SqlDelete();
+
+            s = new SqlBuilder();
+
+            s.AddTable("Info_Article");
+
+            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+
+            this.sql = this.sql + s.SqlDelete();
+
+            //this.sql = @"delete from [Info_Relationship] where [newsId]=@newsId;delete from [Info_Article] where [newsId]=@newsId;";
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("actId", actId);
+            this.param.Add("newsId", newsId);
 
             return this.db.Update(this.sql, this.param);
         }
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Info_Article] ([cityId],[longTitle],[titleColor],[shortTitle],[content],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime])values(@cityId,@longTitle,@titleColor,@shortTitle,@content,@keywords,@readCount,@itemIndex,@outLink,@isTop,@topTime,@insertTime,@updateTime)";
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddTable("Info_News");
+
+            s.AddField("n", "cityId");
+            s.AddField("n", "longTitle");
+            s.AddField("n", "titleColor");
+            s.AddField("n", "shortTitle");
+            s.AddField("n", "content");
+            s.AddField("n", "keywords");
+            s.AddField("n", "itemIndex");
+            s.AddField("n", "outLink");
+            s.AddField("n", "isTop");
+            s.AddField("n", "topTime");
+            s.AddField("n", "insertTime");
+            s.AddField("n", "updateTime");
+
+            this.sql = s.SqlInsert();
+
+            //this.sql = @"insert into [Info_Article] ([cityId],[longTitle],[titleColor],[shortTitle],[content],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime])values(@cityId,@longTitle,@titleColor,@shortTitle,@content,@keywords,@readCount,@itemIndex,@outLink,@isTop,@topTime,@insertTime,@updateTime)";
 
             DateTime now = DateTime.Now;
 
@@ -98,7 +207,27 @@ namespace WedDao.Dao.Info
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [Info_Article] set [cityId]=@cityId,[longTitle]=@longTitle,[titleColor]=@titleColor,[shortTitle]=@shortTitle,[content]=@content,[keywords]=@keywords,[itemIndex]=@itemIndex,[outLink]=@outLink,[isTop]=@isTop,[topTime]=@topTime,[updateTime]=@updateTime where [newsId]=@newsId";
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddTable("Info_News");
+
+            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+
+            s.AddField("n", "cityId");
+            s.AddField("n", "longTitle");
+            s.AddField("n", "titleColor");
+            s.AddField("n", "shortTitle");
+            s.AddField("n", "content");
+            s.AddField("n", "keywords");
+            s.AddField("n", "itemIndex");
+            s.AddField("n", "outLink");
+            s.AddField("n", "isTop");
+            s.AddField("n", "topTime");
+            s.AddField("n", "updateTime");
+
+            this.sql = s.SqlUpdate();
+
+            //this.sql = @"update [Info_Article] set [cityId]=@cityId,[longTitle]=@longTitle,[titleColor]=@titleColor,[shortTitle]=@shortTitle,[content]=@content,[keywords]=@keywords,[itemIndex]=@itemIndex,[outLink]=@outLink,[isTop]=@isTop,[topTime]=@topTime,[updateTime]=@updateTime where [newsId]=@newsId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cityId", content["cityId"]);
@@ -116,9 +245,9 @@ namespace WedDao.Dao.Info
             return this.db.Update(this.sql, this.param);
         }
 
-        public bool SetreadCount(int newsId)
+        public bool SetReadCount(int newsId)
         {
-            this.sql = @"update [Info_Article] set [readCount]=[readCount]+1 where [newsId]=@newsId";
+            this.sql = @"update [Info_News] set [readCount]=[readCount]+1 where [newsId]=@newsId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);

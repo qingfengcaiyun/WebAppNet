@@ -102,7 +102,7 @@ namespace Glibs.Sql
 
         public string PageJSON
         {
-            get { return "{\"currentPage\":\"" + currentPage + "\", \"firstPage\":\"" + firstPage + "\", \"prevPage\":\"" + prevPage + "\", \"nextPage\":\"" + nextPage + "\", \"lastPage\":\"" + lastPage + "\", \"pageSize\":\"" + pageSize + "\", \"recordsCount\":\"" + recordsCount + "\", \"result\":" + JsonDo.ListToJSON(pageResult) + "}"; }
+            get { return "{\"total\":\"" + recordsCount + "\", \"rows\":" + JsonDo.ListToJSON(pageResult) + "}"; }
             set { pageJSON = value; }
         }
 
