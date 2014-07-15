@@ -281,6 +281,7 @@ namespace Glibs.Util
             {
                 return false;
             }
+
             if (Value.Year == 1 && Value.Month == 1 && Value.Day == 1)
             {
                 return true;

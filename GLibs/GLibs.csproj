@@ -34,6 +34,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="LitJSON">
+      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\LitJSON.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\log4net.dll</HintPath>
     </Reference>

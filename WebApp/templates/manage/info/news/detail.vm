@@ -40,7 +40,30 @@
 
         KindEditor.ready(function (K) {
             editor = K.create('textarea[name="content"]', {
-                allowFileManager: true
+                resizeType: 0,
+                    filterMode: false,
+                    allowFileManager: true,
+                    allowImageUpload: true,
+                    fileManagerJson: '../../../uploadAction/file_manager_json.ashx',
+                    uploadJson: '../../../uploadAction/KindeditorUpload.ashx',
+                    resizeMode: 0,
+                    allowPreviewEmoticons: true,
+                    allowUpload: true,
+                    shadowMode: false,
+                    basePath: '../../../',
+                    themesPath: '../../libs/kindeditor/themes/',
+                    pluginsPath: '../../libs/kindeditor/plugins/',
+                    newlineTag: 'br',
+                    items: [
+                        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'cut', 'copy', 'paste',
+                        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '|',
+                        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                        'flash', 'insertfile', 'table', 'hr', 'emoticons', 'pagebreak',
+                        'link', 'unlink'
+                        ]
             });
         });
 
@@ -131,9 +154,18 @@
                 return;
             }
 
+            var picUrl = "";
+            var txt = editor.text();
+            $(txt).each(function () {
+                if ($(this).attr("src") != undefined && IsImage($(this).attr("src"))) {
+                    picUrl = $(this).attr("title");
+                    break;
+                }
+            });
+
             var param = {
                 action: "save",
-                paramsStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
+                paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,picUrl,itemIndex,cateList,outLink",
                 newsId: newsId,
                 longTitle: longTitle,
                 titleColor: titleColor,
@@ -142,16 +174,18 @@
                 topTime: topTime,
                 content: content,
                 keywords: keywords,
+                picUrl: picUrl,
                 itemIndex: itemIndex,
                 cateList: cateList,
                 outLink: outLink
             };
+
             jQuery.post(
                 "Action.aspx",
                 param,
                 function (data) {
-
-                    if (parseInt(data) == 1) {
+                    var d = jQuery.parseJSON(data);
+                    if (parseInt(d.msg) == 1) {
                         jQuery.messager.confirm('保存成功', '你想输入新信息么？', function (r) {
                             if (r) {
                                 window.location.href = "?action=edit&newsId=0";

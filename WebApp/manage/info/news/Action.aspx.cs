@@ -22,7 +22,8 @@ namespace WebApp.manage.info.article
             {
                 case "page": rs = GetPage(); break;
                 case "one": rs = One(); break;
-                default: Session.Abandon(); break;
+                case "save": rs = Save(); break;
+                case "delete": rs = Delete(); break;
             }
 
             Response.Write(rs);
@@ -63,6 +64,8 @@ namespace WebApp.manage.info.article
         private string Save()
         {
             Dictionary<string, object> content = WebPageCore.GetParameters();
+            Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
+            content.Add("cityId", cUser["locationId"]);
 
             if (Int32.Parse(content["newsId"].ToString()) == 0)
             {

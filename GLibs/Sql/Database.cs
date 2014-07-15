@@ -243,14 +243,20 @@ namespace Glibs.Sql
             {
                 tran = this.conn.BeginTransaction();
                 this.cmd.Transaction = tran;
-                object o = this.cmd.ExecuteScalar();
+
+                SqlDataAdapter da = new SqlDataAdapter(this.cmd);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                Dictionary<string, object> row = this.BuildDataRow(ds.Tables[0]);
+
                 tran.Commit();
 
-                return Int64.Parse(o.ToString());
+                return Int64.Parse(row["id"].ToString());
             }
-            catch
+            catch (Exception e)
             {
                 tran.Rollback();
+                Console.Write(e.Message);
                 return 0;
             }
             finally
@@ -285,9 +291,10 @@ namespace Glibs.Sql
 
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 tran.Rollback();
+                Console.Write(e.Message);
                 return false;
             }
             finally
@@ -323,9 +330,10 @@ namespace Glibs.Sql
                 tran.Commit();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 tran.Rollback();
+                Console.Write(e.Message);
                 return false;
             }
             finally

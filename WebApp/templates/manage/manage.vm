@@ -29,7 +29,7 @@
                 param,
                 function (data) { }
             );
-            window.location.href = "index.aspx";
+            window.location.href = "/manage/";
         }
 
         function modpwd() {

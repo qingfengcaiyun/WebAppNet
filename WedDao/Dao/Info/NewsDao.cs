@@ -169,18 +169,20 @@ namespace WedDao.Dao.Info
 
             s.AddTable("Info_News");
 
-            s.AddField("n", "cityId");
-            s.AddField("n", "longTitle");
-            s.AddField("n", "titleColor");
-            s.AddField("n", "shortTitle");
-            s.AddField("n", "content");
-            s.AddField("n", "keywords");
-            s.AddField("n", "itemIndex");
-            s.AddField("n", "outLink");
-            s.AddField("n", "isTop");
-            s.AddField("n", "topTime");
-            s.AddField("n", "insertTime");
-            s.AddField("n", "updateTime");
+            s.AddField("cityId");
+            s.AddField("longTitle");
+            s.AddField("titleColor");
+            s.AddField("shortTitle");
+            s.AddField("content");
+            s.AddField("keywords");
+            s.AddField("picUrl");
+            s.AddField("readCount");
+            s.AddField("itemIndex");
+            s.AddField("outLink");
+            s.AddField("isTop");
+            s.AddField("topTime");
+            s.AddField("insertTime");
+            s.AddField("updateTime");
 
             this.sql = s.SqlInsert();
 
@@ -195,7 +197,8 @@ namespace WedDao.Dao.Info
             this.param.Add("shortTitle", content["shortTitle"]);
             this.param.Add("content", content["content"]);
             this.param.Add("keywords", content["keywords"]);
-            this.param.Add("readCount", content["readCount"]);
+            this.param.Add("picUrl", content["picUrl"]);
+            this.param.Add("readCount", 0);
             this.param.Add("itemIndex", content["itemIndex"]);
             this.param.Add("outLink", content["outLink"]);
             this.param.Add("isTop", content["isTop"]);
@@ -214,17 +217,18 @@ namespace WedDao.Dao.Info
 
             s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
 
-            s.AddField("n", "cityId");
-            s.AddField("n", "longTitle");
-            s.AddField("n", "titleColor");
-            s.AddField("n", "shortTitle");
-            s.AddField("n", "content");
-            s.AddField("n", "keywords");
-            s.AddField("n", "itemIndex");
-            s.AddField("n", "outLink");
-            s.AddField("n", "isTop");
-            s.AddField("n", "topTime");
-            s.AddField("n", "updateTime");
+            s.AddField("cityId");
+            s.AddField("longTitle");
+            s.AddField("titleColor");
+            s.AddField("shortTitle");
+            s.AddField("content");
+            s.AddField("keywords");
+            s.AddField("picUrl");
+            s.AddField("itemIndex");
+            s.AddField("outLink");
+            s.AddField("isTop");
+            s.AddField("topTime");
+            s.AddField("updateTime");
 
             this.sql = s.SqlUpdate();
 
@@ -237,6 +241,7 @@ namespace WedDao.Dao.Info
             this.param.Add("shortTitle", content["shortTitle"]);
             this.param.Add("content", content["content"]);
             this.param.Add("keywords", content["keywords"]);
+            this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("itemIndex", content["itemIndex"]);
             this.param.Add("outLink", content["outLink"]);
             this.param.Add("isTop", content["isTop"]);
