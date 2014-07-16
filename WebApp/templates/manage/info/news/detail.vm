@@ -27,6 +27,7 @@
     <script type="text/javascript" src="../../libs/jquery.bigcolorpicker.js"></script>
     <script type="text/javascript">
         var editor;
+        var fileIds;
         $(document).ready(function () {
             switchTopOption();
             getCateTree();
@@ -41,20 +42,20 @@
         KindEditor.ready(function (K) {
             editor = K.create('textarea[name="content"]', {
                 resizeType: 0,
-                    filterMode: false,
-                    allowFileManager: true,
-                    allowImageUpload: true,
-                    fileManagerJson: '../../../uploadAction/file_manager_json.ashx',
-                    uploadJson: '../../../uploadAction/KindeditorUpload.ashx',
-                    resizeMode: 0,
-                    allowPreviewEmoticons: true,
-                    allowUpload: true,
-                    shadowMode: false,
-                    basePath: '../../../',
-                    themesPath: '../../libs/kindeditor/themes/',
-                    pluginsPath: '../../libs/kindeditor/plugins/',
-                    newlineTag: 'br',
-                    items: [
+                filterMode: false,
+                allowFileManager: true,
+                allowImageUpload: true,
+                fileManagerJson: '../../../uploadAction/file_manager_json.ashx',
+                uploadJson: '../../../uploadAction/upload_json.ashx',
+                resizeMode: 0,
+                allowPreviewEmoticons: true,
+                allowUpload: true,
+                shadowMode: false,
+                basePath: '../../../',
+                themesPath: '../../libs/kindeditor/themes/',
+                pluginsPath: '../../libs/kindeditor/plugins/',
+                newlineTag: 'br',
+                items: [
                         'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'cut', 'copy', 'paste',
                         'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
                         'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
@@ -155,17 +156,18 @@
             }
 
             var picUrl = "";
-            var txt = editor.text();
-            $(txt).each(function () {
-                if ($(this).attr("src") != undefined && IsImage($(this).attr("src"))) {
-                    picUrl = $(this).attr("title");
-                    break;
-                }
-            });
+            var imgs = editor.queryAll("img");
+            if (imgs != undefined && imgs != null && imgs.length > 0) {
+                $(imgs).each(function () {
+                    if ($(this).attr("src") != undefined && isUploadFile($(this).attr("src"))) {
+                        picUrl += "," + $(this).attr("src").toString();
+                    }
+                });
+            }
 
             var param = {
                 action: "save",
-                paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,picUrl,itemIndex,cateList,outLink",
+                paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
                 newsId: newsId,
                 longTitle: longTitle,
                 titleColor: titleColor,
@@ -174,7 +176,8 @@
                 topTime: topTime,
                 content: content,
                 keywords: keywords,
-                picUrl: picUrl,
+                picUrl: picUrl.length > 0 ? picUrl.substr(1) : "",
+                fileIds: fileIds.length > 0 ? fileIds.substr(1) : "",
                 itemIndex: itemIndex,
                 cateList: cateList,
                 outLink: outLink
@@ -252,6 +255,18 @@
                     $("#cate").combotree('loadData', d);
                 }
             );
+        }
+
+        function isUploadFile(filePath) {
+            var extName = filePath.substr(filePath.lastIndexOf(".") + 1);
+            var extFiles = "gif,jpg,jpeg,png,bmp,swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb,doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2".split(',');
+            for (e in extFiles) {
+                if (e.toString() == extName.toString()) {
+                    return true;
+                }
+            }
+
+            return false;
         }
     </script>
 </head>

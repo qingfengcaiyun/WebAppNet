@@ -82,6 +82,7 @@
     <Compile Include="Dao\System\AdminDao.cs" />
     <Compile Include="Dao\System\AreaRelationDao.cs" />
     <Compile Include="Dao\System\CustomAreaDao.cs" />
+    <Compile Include="Dao\System\FileInfoDao.cs" />
     <Compile Include="Dao\System\FunctionDao.cs" />
     <Compile Include="Dao\System\LocationDao.cs" />
     <Compile Include="Dao\System\RoleDao.cs" />

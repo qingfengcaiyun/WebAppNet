@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Glibs.Sql;
 using WedDao.Dao.Info;
+using WedDao.Dao.System;
+using WebLogic.Service.System;
 
 namespace WebLogic.Service.Info
 {
@@ -16,7 +18,7 @@ namespace WebLogic.Service.Info
             this.rdao = new RelationshipDao();
         }
 
-        public Dictionary<string, object> GetOne(int newsId)
+        public Dictionary<string, object> GetOne(Int64 newsId)
         {
             Dictionary<string, object> one = this.dao.GetOne(newsId);
             one.Add("cateList", this.rdao.GetCateList(newsId));
@@ -25,11 +27,41 @@ namespace WebLogic.Service.Info
 
         public bool Delete(int newsId)
         {
+            Dictionary<string, object> item = this.dao.GetOne(newsId);
+
+            string fileIds = item["fileIds"].ToString();
+
+            if (fileIds.Length > 0)
+            {
+                string[] ids = fileIds.Split(',');
+
+                foreach (string id in ids)
+                {
+                    new FileInfoLogic().Delete(Int64.Parse(id));
+                }
+            }
+
             return this.dao.Delete(newsId);
         }
 
         public bool Update(Dictionary<string, object> content)
         {
+            Dictionary<string, object> n = this.GetOne(Int64.Parse(content["newsId"].ToString()));
+
+            if (n["fileIds"].ToString().Trim().Length > 0)
+            {
+                string s = "," + content["fileIds"] + ",";
+                string[] ns = n["fileIds"].ToString().Split(',');
+
+                foreach (string nid in ns)
+                {
+                    if (!s.Contains("," + nid + ","))
+                    {
+                        new FileInfoLogic().Delete(Int64.Parse(nid));
+                    }
+                }
+            }
+
             return this.dao.Update(content);
         }
 

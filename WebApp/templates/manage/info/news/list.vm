@@ -34,7 +34,7 @@
 
             var cateId = $("#cateId").val();
 
-            getPager(cateId);
+            //getPager(cateId);
         });
 
         function getPager(cateId) {

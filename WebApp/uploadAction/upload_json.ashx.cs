@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using LitJson;
+using WebLogic.Service.System;
 
 namespace WebApp.uploadAction
 {
@@ -79,7 +80,7 @@ namespace WebApp.uploadAction
             {
                 Directory.CreateDirectory(dirPath);
             }
-            String ymd = DateTime.Now.ToString("yyyyMMdd", DateTimeFormatInfo.InvariantInfo);
+            String ymd = DateTime.Now.ToString("yyyy/MM/dd", DateTimeFormatInfo.InvariantInfo);
             dirPath += ymd + "/";
             saveUrl += ymd + "/";
             if (!Directory.Exists(dirPath))
@@ -87,12 +88,16 @@ namespace WebApp.uploadAction
                 Directory.CreateDirectory(dirPath);
             }
 
-            String newFileName = DateTime.Now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo) + fileExt;
-            String filePath = dirPath + newFileName;
+            DateTime now = DateTime.Now;
+
+            String newFileName = now.ToString("yyyyMMddHHmmss_ffff", DateTimeFormatInfo.InvariantInfo);
+            String filePath = dirPath + newFileName + fileExt;
 
             imgFile.SaveAs(filePath);
 
-            String fileUrl = saveUrl + newFileName;
+            String fileUrl = saveUrl + newFileName + fileExt;
+
+            new FileInfoLogic().Insert(newFileName, fileExt, fileUrl, dirName, now);
 
             Hashtable hash = new Hashtable();
             hash["error"] = 0;

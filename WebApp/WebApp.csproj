@@ -479,9 +479,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="attached\docs\" />
-    <Folder Include="attached\images\" />
-    <Folder Include="attached\temp\" />
+    <Folder Include="attached\" />
     <Folder Include="manage\libs\kindeditor\attached\" />
     <Folder Include="manage\renovation\" />
     <Folder Include="manage\user\" />

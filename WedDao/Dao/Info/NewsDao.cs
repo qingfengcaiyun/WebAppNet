@@ -15,7 +15,7 @@ namespace WedDao.Dao.Info
             this.db = DbUtil.CreateDatabase();
         }
 
-        public Dictionary<string, object> GetOne(int newsId)
+        public Dictionary<string, object> GetOne(Int64 newsId)
         {
             SqlBuilder s = new SqlBuilder();
 
@@ -29,7 +29,9 @@ namespace WedDao.Dao.Info
             s.AddField("n", "titleColor");
             s.AddField("n", "shortTitle");
             s.AddField("n", "content");
+            s.AddField("n", "fileIds");
             s.AddField("n", "keywords");
+            s.AddField("n", "picUrl");
             s.AddField("n", "readCount");
             s.AddField("n", "itemIndex");
             s.AddField("n", "outLink");
@@ -174,6 +176,7 @@ namespace WedDao.Dao.Info
             s.AddField("titleColor");
             s.AddField("shortTitle");
             s.AddField("content");
+            s.AddField("fileIds");
             s.AddField("keywords");
             s.AddField("picUrl");
             s.AddField("readCount");
@@ -196,6 +199,7 @@ namespace WedDao.Dao.Info
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
             this.param.Add("content", content["content"]);
+            this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("readCount", 0);
@@ -222,6 +226,7 @@ namespace WedDao.Dao.Info
             s.AddField("titleColor");
             s.AddField("shortTitle");
             s.AddField("content");
+            s.AddField("fileIds");
             s.AddField("keywords");
             s.AddField("picUrl");
             s.AddField("itemIndex");
@@ -240,6 +245,7 @@ namespace WedDao.Dao.Info
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
             this.param.Add("content", content["content"]);
+            this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("itemIndex", content["itemIndex"]);

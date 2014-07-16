@@ -25,7 +25,7 @@ namespace WedDao.Dao.Info
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public string GetCateList(int newsId)
+        public string GetCateList(Int64 newsId)
         {
             this.sql = @"select [cateId] from [Info_Relationship] where [newsId]=@newsId";
 

@@ -10,12 +10,7 @@ namespace Glibs.Util
         //文件上传，将缓存文件夹“/attached/temp”中的文件复制到指定分类文件夹中，并删除源文件
         public static bool UploadFile(string fileName, FileType fileType)
         {
-            DateTime now = DateTime.Now;
-
-            string year = string.Format("{0:D4}", now.Year);
-            string month = string.Format("{0:D2}", now.Month);
-            string day = string.Format("{0:D2}", now.Day);
-            string hour = string.Format("{0:D2}", now.Hour);
+            string now = DateTime.Now.ToString("yyyy/MM/dd");
 
             string typeStr = string.Empty;
 
@@ -28,7 +23,7 @@ namespace Glibs.Util
                 default: typeStr = "others"; break;
             }
 
-            string tagDir = "attached/" + typeStr + "/" + year + "/" + month + "/" + day + "/" + hour;
+            string tagDir = "attached/" + now;
 
             string dirPath = WebPageCore.GetMapPath(tagDir);
 

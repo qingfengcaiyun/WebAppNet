@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -24,6 +25,7 @@ namespace WebApp.manage.info.article
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
+                default: rs = GetPage(); break;
             }
 
             Response.Write(rs);
@@ -66,6 +68,40 @@ namespace WebApp.manage.info.article
             Dictionary<string, object> content = WebPageCore.GetParameters();
             Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
             content.Add("cityId", cUser["locationId"]);
+
+            string fileIds = WebPageCore.GetRequest("fileIds");
+            string picUrls = WebPageCore.GetRequest("picUrl");
+            if (string.IsNullOrEmpty(picUrls))
+            {
+                content.Add("picUrl", string.Empty);
+                content.Add("fileIds", string.Empty);
+
+                if (!string.IsNullOrEmpty(fileIds))
+                {
+                    foreach (string id in fileIds.Split(','))
+                    {
+                        new FileInfoLogic().Delete(Int64.Parse(id));
+                    }
+                }
+            }
+            else
+            {
+                string[] pus = picUrls.Split(',');
+
+                content.Add("picUrl", pus[0]);
+                content.Add("fileIds", new FileInfoLogic().GetFileIds(pus));
+
+                if (!string.IsNullOrEmpty(fileIds))
+                {
+                    foreach (string id in fileIds.Split(','))
+                    {
+                        if (!("," + content["fileIds"].ToString() + ",").Contains("," + id + ","))
+                        {
+                            new FileInfoLogic().Delete(Int64.Parse(id));
+                        }
+                    }
+                }
+            }
 
             if (Int32.Parse(content["newsId"].ToString()) == 0)
             {
