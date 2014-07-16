@@ -53,5 +53,10 @@ namespace WebLogic.Service.System
 
             return s.ToString().Substring(1);
         }
+
+        public void ClearFiles()
+        {
+
+        }
     }
 }

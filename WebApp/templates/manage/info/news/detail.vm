@@ -27,7 +27,7 @@
     <script type="text/javascript" src="../../libs/jquery.bigcolorpicker.js"></script>
     <script type="text/javascript">
         var editor;
-        var fileIds;
+
         $(document).ready(function () {
             switchTopOption();
             getCateTree();
@@ -41,13 +41,13 @@
 
         KindEditor.ready(function (K) {
             editor = K.create('textarea[name="content"]', {
-                resizeType: 0,
+                resizeType: 1,
                 filterMode: false,
                 allowFileManager: true,
                 allowImageUpload: true,
                 fileManagerJson: '../../../uploadAction/file_manager_json.ashx',
                 uploadJson: '../../../uploadAction/upload_json.ashx',
-                resizeMode: 0,
+                resizeMode: 1,
                 allowPreviewEmoticons: true,
                 allowUpload: true,
                 shadowMode: false,
@@ -156,14 +156,13 @@
             }
 
             var picUrl = "";
-            var imgs = editor.queryAll("img");
-            if (imgs != undefined && imgs != null && imgs.length > 0) {
-                $(imgs).each(function () {
-                    if ($(this).attr("src") != undefined && isUploadFile($(this).attr("src"))) {
-                        picUrl += "," + $(this).attr("src").toString();
-                    }
-                });
-            }
+            var txt = editor.text();
+            $(txt).each(function () {
+                if ($(this).attr("src") != undefined && isUploadFile($(this).attr("src"))) {
+                    picUrl += "," + $(this).attr("src").toString();
+                }
+            });
+
 
             var param = {
                 action: "save",
@@ -177,7 +176,6 @@
                 content: content,
                 keywords: keywords,
                 picUrl: picUrl.length > 0 ? picUrl.substr(1) : "",
-                fileIds: fileIds.length > 0 ? fileIds.substr(1) : "",
                 itemIndex: itemIndex,
                 cateList: cateList,
                 outLink: outLink

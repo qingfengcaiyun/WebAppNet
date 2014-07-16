@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using LitJson;
 using WebLogic.Service.System;
+using Glibs.Util;
 
 namespace WebApp.uploadAction
 {
@@ -97,7 +98,17 @@ namespace WebApp.uploadAction
 
             String fileUrl = saveUrl + newFileName + fileExt;
 
-            new FileInfoLogic().Insert(newFileName, fileExt, fileUrl, dirName, now);
+            Int64 l = new FileInfoLogic().Insert(newFileName, fileExt, fileUrl, dirName, now);
+
+            object o = WebPageCore.GetSession("fileIds");
+            if (o == null)
+            {
+                WebPageCore.SetSession("fileIds", l);
+            }
+            else
+            {
+                WebPageCore.SetSession("fileIds", o.ToString() + "," + l.ToString());
+            }
 
             Hashtable hash = new Hashtable();
             hash["error"] = 0;

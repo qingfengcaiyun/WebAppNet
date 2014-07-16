@@ -103,6 +103,8 @@ namespace WebApp.manage.info.article
                 }
             }
 
+            WebPageCore.RemoveSession("fileIds");
+
             if (Int32.Parse(content["newsId"].ToString()) == 0)
             {
                 Int64 l = new NewsLogic().Insert(content);
