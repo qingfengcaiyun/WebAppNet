@@ -80,7 +80,7 @@
     <Content Include="Global.asax" />
     <Content Include="manage\Action.aspx" />
     <Content Include="manage\Default.aspx" />
-    <Content Include="manage\FileUpload.aspx" />
+    <Content Include="uploadAction\FileUpload.aspx" />
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
     <Content Include="manage\info\category\View.aspx" />
@@ -88,7 +88,6 @@
     <Content Include="manage\info\news\Detail.aspx" />
     <Content Include="manage\info\news\List.aspx" />
     <Content Include="manage\info\category\Action.aspx" />
-    <Content Include="manage\KEUpload.aspx" />
     <Content Include="manage\libs\easyui\jquery.easyui.min.js" />
     <Content Include="manage\libs\easyui\locale\easyui-lang-zh_CN.js" />
     <Content Include="manage\libs\easyui\themes\default\accordion.css" />
@@ -401,11 +400,11 @@
     <Compile Include="manage\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="manage\FileUpload.aspx.cs">
+    <Compile Include="uploadAction\FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="manage\FileUpload.aspx.designer.cs">
+    <Compile Include="uploadAction\FileUpload.aspx.designer.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\info\category\View.aspx.cs">
@@ -442,13 +441,6 @@
     </Compile>
     <Compile Include="manage\info\category\Action.aspx.designer.cs">
       <DependentUpon>Action.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="manage\KEUpload.aspx.cs">
-      <DependentUpon>KEUpload.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="manage\KEUpload.aspx.designer.cs">
-      <DependentUpon>KEUpload.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\sys\function\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
