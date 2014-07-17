@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Configuration;
 using System.Web;
 using System.Web.SessionState;
@@ -35,17 +35,18 @@ namespace Glibs.Util
 
         public static string GetRequest(string key)
         {
-            string request = string.Empty;
+            HttpRequest request = HttpContext.Current.Request;
+            string r = string.Empty;
 
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Form[key]))
+            if (!string.IsNullOrEmpty(request.Form[key]))
             {
-                request = HttpContext.Current.Request.Form[key];
+                r = request.Form[key];
             }
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.QueryString[key]))
+            if (!string.IsNullOrEmpty(request.QueryString[key]))
             {
-                request = HttpContext.Current.Request.QueryString[key];
+                r = request.QueryString[key];
             }
-            return request;
+            return r;
         }
 
         public static string GetRequestUrl()
@@ -136,59 +137,84 @@ namespace Glibs.Util
         public static object GetApplication(string key)
         {
             HttpApplicationState application = HttpContext.Current.Application;
-            if (application[key] != null)
-            {
-                return application[key];
-            }
-            else
-            {
-                return null;
-            }
-        }
+            NameObjectCollectionBase.KeysCollection keys = application.Keys;
 
-        public static Hashtable GetApplications()
-        {
-            Hashtable applications = null;
-            string key = string.Empty;
-            HttpApplicationState application = HttpContext.Current.Application;
-            int count = application.Count;
-            if (count > 0)
+            if (keys != null && keys.Count > 0)
             {
-                applications = new Hashtable();
-                for (int i = 0; i < count; i++)
+                for (int i = 0, j = keys.Count; i < j; i++)
                 {
-                    key = application.Keys[i];
-                    applications.Add(key, application[key]);
+                    if (string.CompareOrdinal(key, keys.Get(i)) == 0)
+                    {
+                        return application[key];
+                    }
                 }
             }
+
+            return null;
+        }
+
+        public static Dictionary<string, object> GetApplications()
+        {
+            Dictionary<string, object> applications = null;
+            HttpApplicationState application = HttpContext.Current.Application;
+            NameObjectCollectionBase.KeysCollection keys = application.Keys;
+
+            if (keys != null && keys.Count > 0)
+            {
+                applications = new Dictionary<string, object>();
+
+                for (int i = 0, j = keys.Count; i < j; i++)
+                {
+                    applications.Add(keys[i], application[keys[i]]);
+                }
+            }
+
             return applications;
         }
 
         public static void SetApplication(string key, object value)
         {
-            if (HttpContext.Current.Application[key] == null)
+            HttpApplicationState application = HttpContext.Current.Application;
+            NameObjectCollectionBase.KeysCollection keys = application.Keys;
+
+            if (keys != null && keys.Count > 0)
             {
-                HttpContext.Current.Application.Add(key, value);
+                for (int i = 0, j = keys.Count; i < j; i++)
+                {
+                    if (string.CompareOrdinal(key, keys.Get(i)) == 0)
+                    {
+                        application.Remove(key);
+                    }
+                }
             }
-            else
-            {
-                HttpContext.Current.Application.Set(key, value);
-            }
+
+            application.Add(key, value);
         }
 
         public static void RemoveApplication(string key)
         {
-            if (HttpContext.Current.Application[key] != null)
+            HttpApplicationState application = HttpContext.Current.Application;
+            NameObjectCollectionBase.KeysCollection keys = application.Keys;
+
+            if (keys != null && keys.Count > 0)
             {
-                HttpContext.Current.Application.Remove(key);
+                for (int i = 0, j = keys.Count; i < j; i++)
+                {
+                    if (string.CompareOrdinal(key, keys.Get(i)) == 0)
+                    {
+                        application.Remove(key);
+                    }
+                }
             }
         }
 
         public static void ClearApplications()
         {
-            if (HttpContext.Current.Application.Count > 0)
+            HttpApplicationState application = HttpContext.Current.Application;
+
+            if (application.Count > 0)
             {
-                HttpContext.Current.Application.RemoveAll();
+                application.RemoveAll();
             }
         }
 
@@ -196,48 +222,74 @@ namespace Glibs.Util
 
         public static object GetSession(string key)
         {
-            return HttpContext.Current.Session[key];
+            NameObjectCollectionBase.KeysCollection keys = HttpContext.Current.Session.Keys;
+
+            if (keys != null && keys.Count > 0)
+            {
+                for (int i = 0, j = keys.Count; i < j; i++)
+                {
+                    if (string.CompareOrdinal(key, keys.Get(i)) == 0)
+                    {
+                        return HttpContext.Current.Session[key];
+                    }
+                }
+            }
+
+            return null;
         }
 
-        public static Hashtable GetSessions()
+        public static Dictionary<string, object> GetSessions()
         {
             HttpSessionState session = HttpContext.Current.Session;
+            NameObjectCollectionBase.KeysCollection keys = session.Keys;
+            Dictionary<string, object> sessions = null;
 
-            int count = session.Count;
-
-            if (count > 0)
+            if (keys != null && keys.Count > 0)
             {
-                Hashtable sessions = new Hashtable();
-                string key = string.Empty;
-                for (int i = 0; i < count; i++)
+                sessions = new Dictionary<string, object>();
+
+                for (int i = 0, j = keys.Count; i < j; i++)
                 {
-                    key = session.Keys.Get(i);
-                    sessions.Add(key, session[key]);
+                    sessions.Add(keys[i], session[keys[i]]);
                 }
-                return sessions;
             }
-            else
-            {
-                return null;
-            }
+
+            return sessions;
         }
 
         public static void SetSession(string key, object value)
         {
             HttpSessionState session = HttpContext.Current.Session;
-            if (session[key] != null)
+            NameObjectCollectionBase.KeysCollection keys = session.Keys;
+
+            if (keys != null && keys.Count > 0)
             {
-                session.Remove(key);
+                for (int i = 0, j = keys.Count; i < j; i++)
+                {
+                    if (string.CompareOrdinal(key, keys.Get(i)) == 0)
+                    {
+                        session.Remove(key);
+                    }
+                }
             }
+
             session.Add(key, value);
         }
 
         public static void RemoveSession(string key)
         {
             HttpSessionState session = HttpContext.Current.Session;
-            if (session[key] != null)
+            NameObjectCollectionBase.KeysCollection keys = session.Keys;
+
+            if (keys != null && keys.Count > 0)
             {
-                session.Remove(key);
+                for (int i = 0, j = keys.Count; i < j; i++)
+                {
+                    if (string.CompareOrdinal(key, keys.Get(i)) == 0)
+                    {
+                        session.Remove(key);
+                    }
+                }
             }
         }
 

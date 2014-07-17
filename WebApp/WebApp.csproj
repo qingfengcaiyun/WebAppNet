@@ -333,7 +333,7 @@
     <Content Include="manage\libs\kindeditor\plugins\image\images\refresh.png" />
     <Content Include="manage\libs\kindeditor\plugins\insertfile\insertfile.js" />
     <Content Include="manage\libs\kindeditor\plugins\lineheight\lineheight.js" />
-    <Content Include="manage\libs\kindeditor\plugins\link\link.js" />
+    <Content Include="manage\libs\kindeditor\plugins\map\link\link.js" />
     <Content Include="manage\libs\kindeditor\plugins\map\map.html" />
     <Content Include="manage\libs\kindeditor\plugins\map\map.js" />
     <Content Include="manage\libs\kindeditor\plugins\media\media.js" />
@@ -371,6 +371,8 @@
     <None Include="templates\manage\info\news\detail.vm" />
     <None Include="templates\manage\info\news\list.vm" />
     <Content Include="test.aspx" />
+    <Content Include="uploadAction\file_manager_json.aspx" />
+    <Content Include="uploadAction\upload_json.aspx" />
     <Content Include="VerifyCodeAction.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -379,8 +381,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="uploadAction\upload_json.ashx" />
-    <Content Include="uploadAction\file_manager_json.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -464,11 +464,19 @@
     <Compile Include="test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
-    <Compile Include="uploadAction\file_manager_json.ashx.cs">
-      <DependentUpon>file_manager_json.ashx</DependentUpon>
+    <Compile Include="uploadAction\file_manager_json.aspx.cs">
+      <DependentUpon>file_manager_json.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="uploadAction\upload_json.ashx.cs">
-      <DependentUpon>upload_json.ashx</DependentUpon>
+    <Compile Include="uploadAction\file_manager_json.aspx.designer.cs">
+      <DependentUpon>file_manager_json.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="uploadAction\upload_json.aspx.cs">
+      <DependentUpon>upload_json.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="uploadAction\upload_json.aspx.designer.cs">
+      <DependentUpon>upload_json.aspx</DependentUpon>
     </Compile>
     <Compile Include="VerifyCodeAction.aspx.cs">
       <DependentUpon>VerifyCodeAction.aspx</DependentUpon>

@@ -60,7 +60,9 @@ namespace WebApp.manage.info.article
         {
             string newsId = WebPageCore.GetRequest("newsId");
 
-            return JsonDo.DictionaryToJSON(new NewsLogic().GetOne(Int32.Parse(newsId)));
+            Dictionary<string, object> one = new NewsLogic().GetOne(Int32.Parse(newsId));
+
+            return JsonDo.DictionaryToJSON(one);
         }
 
         private string Save()
@@ -69,7 +71,7 @@ namespace WebApp.manage.info.article
             Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
             content.Add("cityId", cUser["locationId"]);
 
-            string fileIds = WebPageCore.GetRequest("fileIds");
+            string fileIds = WebPageCore.GetSession("fileIds") != null ? WebPageCore.GetSession("fileIds").ToString() : string.Empty;
             string picUrls = WebPageCore.GetRequest("picUrl");
             if (string.IsNullOrEmpty(picUrls))
             {

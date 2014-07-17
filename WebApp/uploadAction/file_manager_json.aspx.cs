@@ -5,20 +5,17 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using LitJson;
-using System.Web.Script.Serialization;
 
 namespace WebApp.uploadAction
 {
-    /// <summary>
-    /// file_manager_json 的摘要说明
-    /// </summary>
-    public class file_manager_json : IHttpHandler
+    public partial class file_manager_json : System.Web.UI.Page
     {
-
-        public void ProcessRequest(HttpContext context)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
+            String aspxUrl = Request.Path.Substring(0, Request.Path.LastIndexOf("/") + 1);
 
             //根目录路径，相对路径
             String rootPath = "../attached/";
@@ -32,14 +29,14 @@ namespace WebApp.uploadAction
             String currentDirPath = "";
             String moveupDirPath = "";
 
-            String dirPath = context.Server.MapPath(rootPath);
-            String dirName = context.Request.QueryString["dir"];
+            String dirPath = Server.MapPath(rootPath);
+            String dirName = Request.QueryString["dir"];
             if (!String.IsNullOrEmpty(dirName))
             {
                 if (Array.IndexOf("image,flash,media,file".Split(','), dirName) == -1)
                 {
-                    context.Response.Write("Invalid Directory name.");
-                    context.Response.End();
+                    Response.Write("Invalid Directory name.");
+                    Response.End();
                 }
                 dirPath += dirName + "/";
                 rootUrl += dirName + "/";
@@ -50,7 +47,7 @@ namespace WebApp.uploadAction
             }
 
             //根据path参数，设置各路径和URL
-            String path = context.Request.QueryString["path"];
+            String path = Request.QueryString["path"];
             path = String.IsNullOrEmpty(path) ? "" : path;
             if (path == "")
             {
@@ -68,26 +65,26 @@ namespace WebApp.uploadAction
             }
 
             //排序形式，name or size or type
-            String order = context.Request.QueryString["order"];
+            String order = Request.QueryString["order"];
             order = String.IsNullOrEmpty(order) ? "" : order.ToLower();
 
             //不允许使用..移动到上一级目录
             if (Regex.IsMatch(path, @"\.\."))
             {
-                context.Response.Write("Access is not allowed.");
-                context.Response.End();
+                Response.Write("Access is not allowed.");
+                Response.End();
             }
             //最后一个字符不是/
             if (path != "" && !path.EndsWith("/"))
             {
-                context.Response.Write("Parameter is not valid.");
-                context.Response.End();
+                Response.Write("Parameter is not valid.");
+                Response.End();
             }
             //目录不存在或不是目录
             if (!Directory.Exists(currentPath))
             {
-                context.Response.Write("Directory does not exist.");
-                context.Response.End();
+                Response.Write("Directory does not exist.");
+                Response.End();
             }
 
             //遍历目录取得文件信息
@@ -145,18 +142,10 @@ namespace WebApp.uploadAction
                 hash["datetime"] = file.LastWriteTime.ToString("yyyy-MM-dd HH:mm:ss");
                 dirFileList.Add(hash);
             }
-            context.Response.AddHeader("Content-Type", "application/json; charset=UTF-8");
-            context.Response.Write(JsonMapper.ToJson(result));
-            //context.Response.Write(new JavaScriptSerializer().Serialize(result));
-            context.Response.End();
-        }
-
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
+            Response.AddHeader("Content-Type", "application/json; charset=UTF-8");
+            Response.Write(JsonMapper.ToJson(result));
+            //    Response.Write(new JavaScriptSerializer().Serialize(result));
+            Response.End();
         }
     }
 

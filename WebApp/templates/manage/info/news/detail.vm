@@ -41,12 +41,12 @@
 
         KindEditor.ready(function (K) {
             editor = K.create('textarea[name="content"]', {
-                resizeType: 1,
+                resizeType: 2,
                 filterMode: false,
                 allowFileManager: true,
                 allowImageUpload: true,
-                fileManagerJson: '../../../uploadAction/file_manager_json.ashx',
-                uploadJson: '../../../uploadAction/upload_json.ashx',
+                fileManagerJson: '../../../uploadAction/file_manager_json.aspx',
+                uploadJson: '../../../uploadAction/upload_json.aspx',
                 resizeMode: 1,
                 allowPreviewEmoticons: true,
                 allowUpload: true,
@@ -156,11 +156,15 @@
             }
 
             var picUrl = "";
-            var txt = editor.text();
+            var txt = editor.html();
+            //alert(txt);
             $(txt).each(function () {
                 if ($(this).attr("src") != undefined && isUploadFile($(this).attr("src"))) {
-                    picUrl += "," + $(this).attr("src").toString();
+                    picUrl = picUrl + "," + $(this).attr("src");
+                    //alert(picUrl);
                 }
+
+                //alert($(this).attr("src"));
             });
 
 
@@ -256,15 +260,18 @@
         }
 
         function isUploadFile(filePath) {
+            var b = false;
             var extName = filePath.substr(filePath.lastIndexOf(".") + 1);
+            //alert(extName);
             var extFiles = "gif,jpg,jpeg,png,bmp,swf,flv,mp3,wav,wma,wmv,mid,avi,mpg,asf,rm,rmvb,doc,docx,xls,xlsx,ppt,htm,html,txt,zip,rar,gz,bz2".split(',');
-            for (e in extFiles) {
-                if (e.toString() == extName.toString()) {
-                    return true;
+            for (var i = 0, j = extFiles.length; i < j; i++) {
+                //alert(extFiles[i]);
+                if (extFiles[i].toString() == extName.toString()) {
+                    b = true;
                 }
             }
 
-            return false;
+            return b;
         }
     </script>
 </head>

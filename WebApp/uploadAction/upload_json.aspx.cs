@@ -5,22 +5,19 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Glibs.Util;
 using LitJson;
 using WebLogic.Service.System;
-using Glibs.Util;
 
 namespace WebApp.uploadAction
 {
-    /// <summary>
-    /// upload_json 的摘要说明
-    /// </summary>
-    public class upload_json : IHttpHandler
+    public partial class upload_json : System.Web.UI.Page
     {
-        private HttpContext context;
-
-        public void ProcessRequest(HttpContext context)
+        protected void Page_Load(object sender, EventArgs e)
         {
-            String aspxUrl = context.Request.Path.Substring(0, context.Request.Path.LastIndexOf("/") + 1);
+            String aspxUrl = Request.Path.Substring(0, Request.Path.LastIndexOf("/") + 1);
 
             //文件保存目录路径
             String savePath = "../attached/";
@@ -37,21 +34,20 @@ namespace WebApp.uploadAction
 
             //最大文件大小
             int maxSize = 1000000;
-            this.context = context;
 
-            HttpPostedFile imgFile = context.Request.Files["imgFile"];
+            HttpPostedFile imgFile = Request.Files["imgFile"];
             if (imgFile == null)
             {
                 showError("请选择文件。");
             }
 
-            String dirPath = context.Server.MapPath(savePath);
+            String dirPath = Server.MapPath(savePath);
             if (!Directory.Exists(dirPath))
             {
                 showError("上传目录不存在。");
             }
 
-            String dirName = context.Request.QueryString["dir"];
+            String dirName = Request.QueryString["dir"];
             if (String.IsNullOrEmpty(dirName))
             {
                 dirName = "image";
@@ -98,7 +94,9 @@ namespace WebApp.uploadAction
 
             String fileUrl = saveUrl + newFileName + fileExt;
 
-            Int64 l = new FileInfoLogic().Insert(newFileName, fileExt, fileUrl, dirName, now);
+            String newPath = "/attached/" + dirName + "/" + ymd + "/" + newFileName + fileExt;
+
+            Int64 l = new FileInfoLogic().Insert(newFileName, fileExt.Substring(1), newPath, dirName, now);
 
             object o = WebPageCore.GetSession("fileIds");
             if (o == null)
@@ -113,9 +111,9 @@ namespace WebApp.uploadAction
             Hashtable hash = new Hashtable();
             hash["error"] = 0;
             hash["url"] = fileUrl;
-            context.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
-            context.Response.Write(JsonMapper.ToJson(hash));
-            context.Response.End();
+            Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
+            Response.Write(JsonMapper.ToJson(hash));
+            Response.End();
         }
 
         private void showError(string message)
@@ -123,17 +121,9 @@ namespace WebApp.uploadAction
             Hashtable hash = new Hashtable();
             hash["error"] = 1;
             hash["message"] = message;
-            context.Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
-            context.Response.Write(JsonMapper.ToJson(hash));
-            context.Response.End();
-        }
-
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
+            Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
+            Response.Write(JsonMapper.ToJson(hash));
+            Response.End();
         }
     }
 }
