@@ -1,14 +1,14 @@
 ﻿/*$(document).ready(function() {
-						   navItemAct(); 
-						   inputBg("#EED69A", "#ffffff");
-						   $("#Container").setCenter();
-						   $("#BottonDiv").setFullSize();
-						   });
+navItemAct(); 
+inputBg("#EED69A", "#ffffff");
+$("#Container").setCenter();
+$("#BottonDiv").setFullSize();
+});
 */
-(function($) {
-    $.fn.flashSlider = function(options) {
+(function ($) {
+    $.fn.flashSlider = function (options) {
         var options = $.extend({}, $.fn.flashSlider.defaults, options);
-        this.each(function() {
+        this.each(function () {
             var obj = $(this);
             var curr = 1; //当前索引
             var $img = obj.find("div.ImgTab");
@@ -34,11 +34,11 @@
                 }
                 navbtnhtml += '</div>';
                 obj.append(navbtnhtml);
-                obj.find("#flashnvanum span").hover(function() {
+                obj.find("#flashnvanum span").hover(function () {
                     var num = $(this).html();
                     flash(num, true);
-                }, function() {
-                    timeout = setTimeout(function() {
+                }, function () {
+                    timeout = setTimeout(function () {
                         flash((curr / 1 + 1), false);
                     }, options.pause / 4);
                 });
@@ -54,21 +54,21 @@
                 if (!options.vertical) {
                     p = ((index - 1) * w * -1);
                     $flashelement.animate(
-						{ marginLeft: p },
-						options.speed, options.easing
-					);
+                        { marginLeft: p },
+                        options.speed, options.easing
+                    );
                 } else {
                     p = ((index - 1) * h * -1);
                     $flashelement.animate(
-						{ marginTop: p },
-						options.speed, options.easing
-					);
+                        { marginTop: p },
+                        options.speed, options.easing
+                    );
                 };
                 if (clicked) {
                     clearTimeout(timeout);
                 };
                 if (options.auto && !clicked) {
-                    timeout = setTimeout(function() {
+                    timeout = setTimeout(function () {
                         flash(next, false);
                     }, options.speed + options.pause);
                 };
@@ -77,7 +77,7 @@
             //初始化
             setcurrnum(0);
             if (options.auto) {
-                timeout = setTimeout(function() {
+                timeout = setTimeout(function () {
                     flash(2, false);
                 }, options.pause);
             };
@@ -99,15 +99,15 @@
 function navItemAct() {
     var navItems = $(".NavItem");
     if (navItems.length > 0) {
-        navItems.each(function(i, navItem) {
+        navItems.each(function (i, navItem) {
             $(navItem).hover(
-												function() {
-												    $(navItem).css({ "background-image": "url(imgs/bg_navOn.jpg)", "background-repeat": "repeat-x", "color": "#4a2a19" });
-												},
-												function() {
-												    $(navItem).css({ "background-image": "", "background-repeat": "", "color": "#fff" });
-												}
-												);
+                                                function () {
+                                                    $(navItem).css({ "background-image": "url(imgs/bg_navOn.jpg)", "background-repeat": "repeat-x", "color": "#4a2a19" });
+                                                },
+                                                function () {
+                                                    $(navItem).css({ "background-image": "", "background-repeat": "", "color": "#fff" });
+                                                }
+                                                );
         });
     }
 }
@@ -136,7 +136,7 @@ function DBC2SBC(str, flag) {
 /*
 FloatDiv = function(){
 this.floatDo = function(){
-$("body").prepend("<div id='floatDiv'></div><div></div>");		
+$("body").prepend("<div id='floatDiv'></div><div></div>");        
 var floatDiv = $("#floatDiv");
 floatDiv.css({"line-height":"30px","background-color":"#666","padding":"10px","border":"1px solid #000","z-index":"1000","font-size":"14px","font-weight":"bolder","color":"#FF0","text-align":"center","width":"80px","height":"80px","position":"relative","top":"150px","left":"50px","word-wrap":"break-word"});
 floatDiv.html("<a href='/zsbm'><img src='../imgs/1242230245389.jpg' border='0' title='' /></a>");
@@ -152,8 +152,8 @@ floatDiv.html("<a href='/zsbm'><img src='../imgs/1242230245389.jpg' border='0' t
 *   $('#div1').imgFloat({speed:30,xPos:10,yPos:10});  
 *   $('#div2').imgFloat();   //不给参数默认（speed:10,xPos:0,yPos:0）                      
 */
-(function($) {
-    jQuery.fn.imgFloat = function(options) {
+(function ($) {
+    jQuery.fn.imgFloat = function (options) {
         var own = this;
         var xD = 0;
         var yD = 0;
@@ -162,7 +162,7 @@ floatDiv.html("<a href='/zsbm'><img src='../imgs/1242230245389.jpg' border='0' t
             speed: 10,
             xPos: 0,
             yPos: 0
-        };        
+        };
         jQuery.extend(settings, options);
         var ownTop = settings.xPos;
         var ownLeft = settings.yPos;
@@ -208,13 +208,13 @@ floatDiv.html("<a href='/zsbm'><img src='../imgs/1242230245389.jpg' border='0' t
         }
         var imgHover = setInterval(imgPosition, settings.speed);
         own.hover(
-			function() {
-			    clearInterval(imgHover);
-			},
-        	function() {
-        	    imgHover = setInterval(imgPosition, settings.speed);
-        	}
-		);
+            function () {
+                clearInterval(imgHover);
+            },
+            function () {
+                imgHover = setInterval(imgPosition, settings.speed);
+            }
+        );
     }
 })(jQuery);
 
@@ -234,41 +234,41 @@ function checkHTMLType(id) {
 }
 
 //正则表达式
-RegExpDo = function() {
+RegExpDo = function () {
     this.patrn = "";
 
     //英文字母，大小写
-    this.isEnglish = function(str) {
+    this.isEnglish = function (str) {
         patrn = /^[A-Za-z]+$/;
         return patrn.test(str);
     }
 
     //英文字母，大写
-    this.isUpperEnglish = function(str) {
+    this.isUpperEnglish = function (str) {
         patrn = /^[A-Z]+$/;
         return patrn.test(str);
     }
 
     //英文字母，小写
-    this.isLowerEnglish = function(str) {
+    this.isLowerEnglish = function (str) {
         patrn = /^[a-z]+$/;
         return patrn.test(str);
     }
 
-    //校验用户名：只能输入6-20个字母、数字、下划线	
-    this.isUserName = function(str) {
+    //校验用户名：只能输入6-20个字母、数字、下划线    
+    this.isUserName = function (str) {
         patrn = /^[A-Za-z0-9_]{6,20}$/;
         return patrn.test(str);
     }
 
     //身份证
-    this.isIDCard = function(str) {
+    this.isIDCard = function (str) {
         patrn = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/;
         return patrn.test(str.toUpperCase());
     }
 
     //IP
-    this.isIP = function(str) {
+    this.isIP = function (str) {
         patrn = /(\d+)\.(\d+)\.(\d+)\.(\d+)/;
         if (patrn.test(str)) {
             var ss = str.split(".");
@@ -287,56 +287,56 @@ RegExpDo = function() {
     }
 
     //Email地址
-    this.isEmail = function(str) {
+    this.isEmail = function (str) {
         patrn = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
         return patrn.test(str);
     }
 
     //电话号码
-    this.isPhoneNum = function(str) {
+    this.isPhoneNum = function (str) {
         patrn = /^[+86-]?((\d){3,4}[-])?(\d){5,9}$/;
         return patrn.test(str);
     }
 
-    //校验手机号码：必须以数字开头，除数字外，可含有“-”	
-    this.isCellphoneNum = function(str) {
+    //校验手机号码：必须以数字开头，除数字外，可含有“-”    
+    this.isCellphoneNum = function (str) {
         patrn = /^[+]?(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/;
         return patrn.test(str);
     }
 
     //校验URL
-    this.isUrl = function(str) {
+    this.isUrl = function (str) {
         //var patrn = /^[a-zA-z]+://(\w+(-\w+)*)(\.(\w+(-\w+)*))*(\?\S*)?$/;
         return patrn.test(str);
     }
 
     //校验邮政编码 
-    this.isZipcode = function(str) {
+    this.isZipcode = function (str) {
         patrn = /^[0-9]+$/;
         return patrn.test(str);
     }
 
     //纯数字的字符串
-    this.isNumeric = function(str) {
+    this.isNumeric = function (str) {
         patrn = /^[0-9]+$/;
         return patrn.test(str);
     }
 
-    //校验密码：只能输入6-20个字母、数字、下划线	
-    this.isPassword = function(str) {
+    //校验密码：只能输入6-20个字母、数字、下划线    
+    this.isPassword = function (str) {
         patrn = /^[A-Za-z0-9_]{6,20}$/;
         return patrn.test(str);
     }
 }
 
 //插入div显示信息，在左上角
-MsgBox = function() {
+MsgBox = function () {
     this.left = 10;
     this.boxIndex = 0;
     this.serialIndex = 0;
     this.winWidth = $(window).width();
 
-    this.showMsg = function(msg) {
+    this.showMsg = function (msg) {
         var winWidth = $(window).width();
         var divWidth = winWidth / 9;
         $("body").prepend("<div id='msgShow" + this.serialIndex + "'></div><div></div>");
@@ -358,20 +358,20 @@ MsgBox = function() {
         msgShow.html(msg).show("blind", {}, 600, this.callback(msgShow));
     }
 
-    this.callback = function(m) {
-        setTimeout(function() {
+    this.callback = function (m) {
+        setTimeout(function () {
             //m.removeClass("msgShow").hide().fadeOut();
             m.hide("blind", {}, 500);
         }, 5000);
     }
 
-    this.alertMsg = function(msg) {
+    this.alertMsg = function (msg) {
         $("body").prepend("<div id='alertMsg' title='消息提示！！！'></div><div></div>");
         var alertMsg = $("#alertMsg");
         alertMsg.html(msg).dialog({
             modal: true,
             buttons: {
-                "我知道了！": function() {
+                "我知道了！": function () {
                     $(this).dialog('close').remove();
                 }
             }
@@ -394,12 +394,12 @@ function inputBg(blurColor, focusColor) {
     for (i in inputTypes) {
         objs = $(inputTypes[i]);
         if (objs.length > 0) {
-            objs.each(function(i, obj) {
+            objs.each(function (i, obj) {
                 $(obj).css("background-color", blurColor);
-                $(obj).focus(function() {
+                $(obj).focus(function () {
                     $(obj).css("background-color", focusColor);
                 });
-                $(obj).blur(function() {
+                $(obj).blur(function () {
                     $(obj).css("background-color", blurColor);
                 });
             });
@@ -412,42 +412,42 @@ function clearForm() {
     //文本框
     var txtInput = $(":text");
     if (txtInput.length > 0) {
-        txtInput.each(function(i, obj) {
+        txtInput.each(function (i, obj) {
             $(obj).val("");
         });
     }
     //密码框
     var pwdInput = $(":password");
     if (pwdInput.length > 0) {
-        pwdInput.each(function(i, obj) {
+        pwdInput.each(function (i, obj) {
             $(obj).val("");
         });
     }
     //多选框
     var checkInput = $(":checkbox");
     if (checkInput.length > 0) {
-        checkInput.each(function(i, obj) {
+        checkInput.each(function (i, obj) {
             $(obj).attr("checked", false);
         });
     }
     //单选框
     var radioInput = $(":radio");
     if (radioInput.length > 0) {
-        radioInput.each(function(i, obj) {
+        radioInput.each(function (i, obj) {
             $(obj).attr("checked", false);
         });
     }
     //下拉列表框
     var selectItem = $("select");
     if (selectItem.length > 0) {
-        selectItem.each(function(i, obj) {
+        selectItem.each(function (i, obj) {
             obj.selectedIndex = 0;
         });
     }
     //文本域
     var txtAreas = $("textarea");
     if (txtAreas.length > 0) {
-        txtAreas.each(function(i, obj) {
+        txtAreas.each(function (i, obj) {
             $(obj).html("");
         });
     }
@@ -461,15 +461,15 @@ function clearForm() {
 *   $('#div1').setCenter({w:true,h:fasle});  
 *   $('#div2').setCenter();   //不给参数默认水平方向居中                     
 */
-(function($) {
-    jQuery.fn.setCenter = function(options) {
+(function ($) {
+    jQuery.fn.setCenter = function (options) {
         var own = this;
         var param = {
-            w:true,
-            h:false
+            w: true,
+            h: false
         };
 
-        jQuery.extend(param,options);
+        jQuery.extend(param, options);
         function setPosition() {
             if (param.h) {
                 var lh = own.height();
@@ -498,8 +498,8 @@ function clearForm() {
             }
         }
 
-        $(document).ready(function() { setPosition(); });
-        $(window).resize(function() { setPosition(); });
+        $(document).ready(function () { setPosition(); });
+        $(window).resize(function () { setPosition(); });
     }
 })(jQuery);
 
@@ -510,17 +510,17 @@ function clearForm() {
 *   $('#div1').setFullSize({w:"1000",h:"1000"});  
 *   $('#div2').setFullSize();   //不给参数默认水平方向居中                     
 */
-(function($) {
-    jQuery.fn.setFullSize = function(options) {
+(function ($) {
+    jQuery.fn.setFullSize = function (options) {
         var own = this;
         var param = {
-            w:1000,
-            h:0
+            w: 1000,
+            h: 0
         };
 
-        jQuery.extend(param,options);
+        jQuery.extend(param, options);
         function setSize() {
-            if (param.h!=0) {
+            if (param.h != 0) {
                 var lh = own.height();
                 var wh = $(window).height();
 
@@ -532,7 +532,7 @@ function clearForm() {
                 }
             }
 
-            if (param.w!=0) {
+            if (param.w != 0) {
                 var lw = own.width();
                 var ww = $(window).width();
 
@@ -545,17 +545,17 @@ function clearForm() {
             }
         }
 
-        $(document).ready(function() { setSize(); });
-        $(window).resize(function() { setSize(); });
+        $(document).ready(function () { setSize(); });
+        $(window).resize(function () { setSize(); });
     }
 })(jQuery);
 
 //获取 URL 中传递的参数 
-$.urlParam = function(name){
+$.urlParam = function (name) {
     var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
     if (!results) { return 0; }
     return results[1] || 0;
-} 
+}
 
 
 //Hashtable类
@@ -569,12 +569,12 @@ $('#btnGet').click(function(){
 alert(hashtable.get($('#txtGetKey').val()))
 });
 })*/
-jQuery.Hashtable = function() {
+jQuery.Hashtable = function () {
     this.items = newArray();
     this.itemsCount = 0;
 
     //添加add(key,value) void
-    this.add = function(key, value) {
+    this.add = function (key, value) {
         if (!this.containsKey(key)) {
             this.items[key] = value;
             this.itemsCount++;
@@ -583,14 +583,14 @@ jQuery.Hashtable = function() {
             throw "key '" + key + "' already exists.";
     }
     //读取get(key) string
-    this.get = function(key) {
+    this.get = function (key) {
         if (this.containsKey(key))
             return this.items[key];
         else
             return null;
     }
     // 删除remove(key) void
-    this.remove = function(key) {
+    this.remove = function (key) {
         if (this.containsKey(key)) {
             delete this.items[key];
             this.itemsCount--;
@@ -599,11 +599,11 @@ jQuery.Hashtable = function() {
             throw "key'" + key + "'doesnotexists.";
     }
     //存在键containsKey(key) bool
-    this.containsKey = function(key) {
+    this.containsKey = function (key) {
         return typeof (this.items[key]) != "undefined";
     }
     //存在值containsValue(value) bool
-    this.containsValue = function(value) {
+    this.containsValue = function (value) {
         for (var i in this.items) {
             if (this.items[i] == value)
                 return true;
@@ -611,27 +611,27 @@ jQuery.Hashtable = function() {
         return false;
     }
     //存在键值contains(keyOrValue) bool
-    this.contains = function(keyOrValue) {
+    this.contains = function (keyOrValue) {
         return this.containsKey(keyOrValue) || this.containsValue(keyOrValue);
     }
     //清空clear() void
-    this.clear = function() {
+    this.clear = function () {
         this.items = newArray();
         itemsCount = 0;
     }
     //键值对总数size() int
-    this.size = function() {
+    this.size = function () {
         return this.itemsCount;
     }
     //是否为空isEmpty() bool
-    this.isEmpty = function() {
+    this.isEmpty = function () {
         return this.size() == 0;
     }
 };
 
 //滚动图片
-(function($) {
-    $.fn.marquee = function(o) {
+(function ($) {
+    $.fn.marquee = function (o) {
         //获取滚动内容内各元素相关信息
         o = $.extend({
             speed: parseInt($(this).attr('speed')) || 30, // 滚动速度
@@ -656,7 +656,7 @@ jQuery.Hashtable = function() {
         var width = liWidth * liSize;
         var height = liHeight * liSize;
         if ((o.direction == 'left' && width > divWidth) ||
-			(o.direction == 'up' && height > divHeight)) {
+            (o.direction == 'up' && height > divHeight)) {
             // 元素超出可显示范围才滚动
             if (o.direction == 'left') {
                 ul.width(2 * liSize * liWidth);
@@ -668,9 +668,9 @@ jQuery.Hashtable = function() {
             ul.append(li.clone()); // 复制元素
             mid = setInterval(_marquee, o.speed);
             div.hover(
-				function() { clearInterval(mid); },
-				function() { mid = setInterval(_marquee, o.speed); }
-			);
+                function () { clearInterval(mid); },
+                function () { mid = setInterval(_marquee, o.speed); }
+            );
         }
         function _marquee() {
             // 滚动
@@ -697,15 +697,15 @@ jQuery.Hashtable = function() {
             if (o.pause > 0) {
                 var tempStep = o.step;
                 o.step = 0;
-                setTimeout(function() {
+                setTimeout(function () {
                     o.step = tempStep;
                 }, o.pause);
             }
         }
     };
 })(jQuery);
-$(document).ready(function() {
-    $(".marquee").each(function() {
+$(document).ready(function () {
+    $(".marquee").each(function () {
         $(this).marquee();
     });
 });

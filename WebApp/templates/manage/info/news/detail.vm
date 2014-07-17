@@ -167,7 +167,6 @@
                 //alert($(this).attr("src"));
             });
 
-
             var param = {
                 action: "save",
                 paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
