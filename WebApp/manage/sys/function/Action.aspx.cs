@@ -19,7 +19,6 @@ namespace WebApp.manage.sys.function
             switch (action)
             {
                 case "tree": rs = Tree(); break;
-                default: Session.Abandon(); break;
             }
 
             Response.Write(rs);

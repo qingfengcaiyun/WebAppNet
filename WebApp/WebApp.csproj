@@ -181,6 +181,9 @@
     <Content Include="manage\libs\easyui\themes\icons\sum.png" />
     <Content Include="manage\libs\easyui\themes\icons\undo.png" />
     <Content Include="manage\libs\jquery.js" />
+    <Content Include="manage\sys\webmsg\Action.aspx" />
+    <Content Include="manage\sys\webmsg\View.aspx" />
+    <None Include="templates\manage\sys\webmsg\view.vm" />
     <Content Include="uploadAction\FileUpload.aspx" />
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
@@ -425,6 +428,20 @@
     <Compile Include="manage\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\sys\webmsg\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\sys\webmsg\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\sys\webmsg\View.aspx.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\sys\webmsg\View.aspx.designer.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+    </Compile>
     <Compile Include="uploadAction\FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -517,7 +534,6 @@
     <Folder Include="manage\renovation\" />
     <Folder Include="manage\user\" />
     <Folder Include="templates\manage\renovation\" />
-    <Folder Include="templates\manage\sys\" />
     <Folder Include="templates\manage\user\" />
     <Folder Include="templates\webhtml\" />
     <Folder Include="webhtml\" />

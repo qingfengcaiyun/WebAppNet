@@ -90,6 +90,7 @@
     <Compile Include="Dao\System\UserDao.cs" />
     <Compile Include="Dao\System\UserFuncDao.cs" />
     <Compile Include="Dao\System\UserRoleDao.cs" />
+    <Compile Include="Dao\System\WebMsgDao.cs" />
     <Compile Include="Dao\Users\ClientDao.cs" />
     <Compile Include="Dao\Users\DesignerDao.cs" />
     <Compile Include="Dao\Users\MemberDao.cs" />
