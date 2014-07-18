@@ -19,6 +19,21 @@ namespace WebLogic.Service.Info
             return this.dao.GetOne(cateId);
         }
 
+        public string GetCateIds(string cateNos)
+        {
+            string[] cs = cateNos.Split(',');
+
+            StringBuilder str = new StringBuilder();
+
+            foreach (string c in cs)
+            {
+                str.Append(",");
+                str.Append(this.dao.GetCateId(c));
+            }
+
+            return str.ToString().Substring(1);
+        }
+
         public List<Dictionary<string, object>> GetList(string parentNo)
         {
             return this.dao.GetList(parentNo);
@@ -87,7 +102,7 @@ namespace WebLogic.Service.Info
 
                     str.Append(",{");
                     str.Append("\"id\":\"");
-                    str.Append(temp["cateNo"].ToString());
+                    str.Append(temp["cateId"].ToString());
                     str.Append("\",");
                     str.Append("\"text\":\"");
                     str.Append(temp["cateName"].ToString());
@@ -96,18 +111,11 @@ namespace WebLogic.Service.Info
                     substr = this.GetSubTree(lists, temp["cateNo"].ToString());
                     if (string.IsNullOrEmpty(substr))
                     {
-                        str.Append(",\"attributes\":{");
-                        str.Append("\"cateId\":\"");
-                        str.Append(temp["cateId"].ToString());
-                        str.Append("\",\"url\":\"");
-                        str.Append("info/ArticleAction?cateId="
-                            + temp["cateId"].ToString());
-                        str.Append("\"}}");
+                        str.Append("}");
                     }
                     else
                     {
-                        str.Append(",\"state\":\"closed\",");
-                        str.Append("\"children\":[");
+                        str.Append(",\"children\":[");
                         str.Append(substr);
                         str.Append("]}");
                     }

@@ -54,7 +54,7 @@ namespace WedDao.Dao.Info
 
             this.param = new Dictionary<string, object>();
 
-            if (cateId > 0)
+            if (cateId > 1)
             {
                 s = new SqlBuilder();
 
@@ -151,11 +151,11 @@ namespace WedDao.Dao.Info
 
             s = new SqlBuilder();
 
-            s.AddTable("Info_Article");
+            s.AddTable("Info_News");
 
             s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
 
-            this.sql = this.sql + s.SqlDelete();
+            this.sql = this.sql + ";" + s.SqlDelete() + ";";
 
             //this.sql = @"delete from [Info_Relationship] where [newsId]=@newsId;delete from [Info_Article] where [newsId]=@newsId;";
 

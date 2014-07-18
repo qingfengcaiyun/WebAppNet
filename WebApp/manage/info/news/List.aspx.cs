@@ -18,7 +18,7 @@ namespace WebApp.manage.info.article
 
                 if (!RegexDo.IsInt32(cateId)) 
                 {
-                    cateId = "0";
+                    cateId = "1";
                 }
 
                 Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];

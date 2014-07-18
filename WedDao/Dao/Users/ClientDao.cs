@@ -66,7 +66,7 @@ namespace WedDao.Dao.Users
 
             s.AddWhere("", "", "clientId", "=", "@clientId");
 
-            this.sql = this.sql + s.SqlDelete();
+            this.sql = this.sql + ";" + s.SqlDelete() + ";";
 
             //this.sql = @"update [Sys_Users] set [isDeleted]=@isDeleted where [userId]=@userId;update [User_Client] set [isDeleted]=@isDeleted where [clientId]=@clientId ";
 

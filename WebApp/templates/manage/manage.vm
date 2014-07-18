@@ -173,7 +173,7 @@
     </script>
 </head>
 <body class="easyui-layout">
-    <div data-options="region:'north',split:true" title="欢迎使用装修人人通管理系统" style="height: 100px;">
+    <div region="north" split="true" title="欢迎使用装修人人通管理系统" style="height: 100px;">
         <div style="float: left; width: 240px; height: 60px;">
             <img src="imgs/logo.jpg" width="240" height="60" border="0" alt="欢迎使用装修人人通管理系统" title="欢迎使用装修人人通管理系统" /></div>
         <div style="float: right; width: auto; height: 30px; line-height: 30px; font-weight: bold;">
@@ -181,19 +181,20 @@
                 href="javascript:void(0);" onclick="modpwd()">修改密码</a>&nbsp;&nbsp;<a href="javascript:void(0);"
                     onclick="logout()">退出</a>&nbsp;&nbsp;</div>
     </div>
-    <div data-options="region:'west',split:true" title="装修人人通管理系统" style="width: 200px;
-        padding1: 1px; overflow: hidden;">
+    <div region="west" split="true" title="装修人人通管理系统" style="width: 200px; padding1: 1px;
+        overflow: hidden;">
         <ul id="funcTree" class="easyui-tree">
         </ul>
     </div>
-    <div data-options="region:'center'" style="overflow: hidden;">
-        <div id="tabs" class="easyui-tabs" data-options="fit:true,border:false">
+    <div region="center" style="overflow: hidden;">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false">
             <div title="管理首页" style="padding: 20px; overflow: hidden; _display: inline">
             </div>
         </div>
     </div>
-    <div id="pwd" class="easyui-window" data-options="shadow:true,modal:true,minimizable:false,maximizable:false,closable:true,closed:true,collapsible:false,resizable:false,iconCls:'icon-blank'"
-        title="密码修改" style="width: 370px; height: 280px;">
+    <div id="pwd" class="easyui-window" shadow="true" modal="true" minimizable="false"
+        maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
+        iconcls="icon-blank" title="密码修改" style="width: 370px; height: 280px;">
         <table width="350" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <th width="100">
@@ -211,8 +212,8 @@
                     原密码：
                 </td>
                 <td class="algL">
-                    <input type="password" id="oldpwd" class="easyui-validatebox textbox w200" value=""
-                        data-options="required:true" />
+                    <input type="password" id="oldpwd" class="easyui-validatebox textbox txtInput w200"
+                        value="" required="true" />
                 </td>
                 <td>
                     &nbsp;
@@ -223,8 +224,8 @@
                     新密码：
                 </td>
                 <td class="algL">
-                    <input type="password" id="newpwd" class="easyui-validatebox textbox w200" value=""
-                        data-options="required:true" />
+                    <input type="password" id="newpwd" class="easyui-validatebox textbox txtInput w200"
+                        value="" required="true" />
                 </td>
                 <td>
                     &nbsp;
@@ -235,8 +236,8 @@
                     重复新密码：
                 </td>
                 <td class="algL">
-                    <input type="password" id="repwd" class="easyui-validatebox textbox w200" value=""
-                        data-options="required:true" />
+                    <input type="password" id="repwd" class="easyui-validatebox textbox txtInput w200"
+                        value="" required="true" />
                 </td>
                 <td>
                     &nbsp;
@@ -247,7 +248,8 @@
                     验证码：
                 </td>
                 <td class="algL">
-                    <input type="text" id="code" class="easyui-validatebox textbox w80" value="" data-options="required:true" />
+                    <input type="text" id="code" class="easyui-validatebox textbox txtInput w80" value=""
+                        required="true" />
                 </td>
                 <td>
                     &nbsp;
@@ -269,8 +271,8 @@
                     &nbsp;
                 </td>
                 <td class="algL">
-                    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:void(0)"
-                        onclick="savepwd()">&nbsp;保存&nbsp;</a>
+                    <a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)" onclick="savepwd()">
+                        &nbsp;保存&nbsp;</a>
                 </td>
                 <td>
                     &nbsp;
@@ -289,8 +291,9 @@
             </tr>
         </table>
     </div>
-    <div id="privateInfo" class="easyui-window" data-options="shadow:true,modal:true,minimizable:false,maximizable:false,closable:true,closed:true,collapsible:false,resizable:false,iconCls:'icon-blank'"
-        title="个人信息设置" style="width: 400px; height: 360px;">
+    <div id="privateInfo" class="easyui-window" shadow="true" modal="true" minimizable="false"
+        maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
+        iconcls="icon-blank" title="个人信息设置" style="width: 400px; height: 360px;">
         <table width="350" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <th width="100">
@@ -396,8 +399,8 @@
                     &nbsp;
                 </td>
                 <td class="algL">
-                    <a class="easyui-linkbutton" data-options="iconCls:'icon-save'" href="javascript:void(0)"
-                        onclick="savePrivate()">&nbsp;保存&nbsp;</a>
+                    <a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)" onclick="savePrivate()">
+                        &nbsp;保存&nbsp;</a>
                 </td>
                 <td>
                     &nbsp;

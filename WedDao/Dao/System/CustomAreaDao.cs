@@ -76,7 +76,7 @@ namespace WedDao.Dao.System
 
             s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
-            this.sql = this.sql + s.SqlSelect();
+            this.sql = this.sql + ";" + s.SqlSelect();
 
             //this.sql = @"delete from [Sys_AreaRelation] where [areaId]=@areaId;delete from [Sys_CustomArea] where [areaId]=@areaId;";
 

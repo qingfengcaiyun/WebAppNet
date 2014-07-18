@@ -203,23 +203,28 @@ namespace Glibs.Sql
                 }
             }
 
-            SqlDataReader sdr = this.cmd.ExecuteReader();
-            StringBuilder str = new StringBuilder();
+            SqlDataAdapter da = new SqlDataAdapter(this.cmd);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
 
-            int i = 0;
-            while (sdr.NextResult())
+            string rs = string.Empty;
+            DataTable dt = ds.Tables[0];
+            if (dt.Rows.Count > 0)
             {
-                if (i > 0)
+                StringBuilder str = new StringBuilder();
+
+                for (int l = 0, k = dt.Rows.Count; l < k; l++)
                 {
                     str.Append(",");
+                    str.Append(dt.Rows[l][0].ToString()); ;
                 }
-                str.Append(sdr[0].ToString());
 
-                i++;
+                rs = str.ToString().Substring(1);
             }
 
             this.CloseDB();
-            return str.ToString();
+
+            return rs;
         }
 
         public Int64 Insert(string sql, Dictionary<string, object> param)

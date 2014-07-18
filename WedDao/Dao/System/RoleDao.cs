@@ -77,7 +77,7 @@ namespace WedDao.Dao.System
 
             s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
-            this.sql = this.sql + s.SqlDelete();
+            this.sql = this.sql + ";" + s.SqlDelete() + ";";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleId", roleId);

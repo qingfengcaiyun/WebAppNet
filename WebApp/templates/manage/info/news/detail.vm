@@ -29,7 +29,8 @@
         var editor;
 
         $(document).ready(function () {
-            switchTopOption();
+
+            switchTopOption(0);
             getCateTree();
             getOne();
 
@@ -68,30 +69,16 @@
             });
         });
 
-        function switchTopOption() {
-            var b = $("#topSwitch").slider('getValue');
-            if (parseInt(b) == 1) {
+        function switchTopOption(v) {
+            var b = $("#isTop").val(v);
+            if (parseInt(v) == 1) {
                 $("#topTimeDiv").show();
-                $("#top1").css({
-                    'color': 'black',
-                    'font-weight': 'normal'
-                });
-                $("#top2").css({
-                    'color': 'red',
-                    'font-weight': 'bold'
-                });
-                $("#isTop").val(true);
+                $("#topYes").show();
+                $("#topNo").hide();
             } else {
                 $("#topTimeDiv").hide();
-                $("#top2").css({
-                    'color': 'black',
-                    'font-weight': 'normal'
-                });
-                $("#top1").css({
-                    'color': 'red',
-                    'font-weight': 'bold'
-                });
-                $("#isTop").val(false);
+                $("#topYes").hide();
+                $("#topNo").show();
             }
         }
 
@@ -107,8 +94,8 @@
             var cateId;
             if (n.length > 0) {
                 for (var i = 0; i < n.length; i++) {
-                    cateList = cateList + "," + n[i].attributes.cateId;
-                    cateId = n[i].attributes.cateId;
+                    cateList = cateList + "," + n[i].id;
+                    cateId = n[i].id;
                 }
                 cateList = cateList.substr(1);
             }
@@ -221,25 +208,19 @@
                         $("#itemIndex").val(d.itemIndex);
                         $("#cateList").val(d.cateList);
                         $("#outLink").val(d.outLink);
+                        $("#isTop").val(d.isTop);
 
                         editor.html(d.content);
 
-                        if (d.isTop.toString() == "true") {
-                            $("#topSwitch").slider("setValue", "1");
+                        if (d.isTop.toString() == "1") {
                             $("#topTime").datetimebox("setValue", d.topTime.toString());
-                        } else {
-                            $("#topSwitch").slider("setValue", "0");
                         }
-                        switchTopOption();
+
+                        switchTopOption(d.isTop);
 
                         var c = d.cateList.toString().split(',');
-                        var l = [];
 
-                        for (var i = 0; i < c.length; i++) {
-                            l.push(parseInt(c[i]));
-                        }
-
-                        $("#cate").combotree("setValues", l);
+                        $('#cate').combotree('setValues', c);
                     }
                 );
             }
@@ -253,6 +234,7 @@
                 },
                 function (data) {
                     var d = jQuery.parseJSON(data);
+                    //alert(data);
                     $("#cate").combotree('loadData', d);
                 }
             );
@@ -275,15 +257,17 @@
     </script>
 </head>
 <body>
-    <div class="easyui-panel" title="&nbsp;文章编辑" data-options="fit:true">
+    <div class="easyui-panel" title="&nbsp;文章编辑" fit="true">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td width="100" class="algR">
                     完整标题：
                 </td>
                 <td width="">
-                    <input class="easyui-validatebox textbox w400" type="text" id="longTitle" data-options="required:true" />&nbsp;<input
-                        class="txtInput w80 algC" type="text" id="titleColor" value="标题颜色" readonly="readonly" />
+                    <input class="easyui-validatebox textbox txtInput w400" type="text" id="longTitle"
+                        required="true" />
+                    &nbsp;
+                    <input class="txtInput w80 algC" type="text" id="titleColor" value="标题颜色" readonly="readonly" />
                 </td>
             </tr>
             <tr>
@@ -291,7 +275,7 @@
                     简化标题：
                 </td>
                 <td>
-                    <input class="easyui-validatebox textbox w300" type="text" id="shortTitle" />
+                    <input class="easyui-validatebox textbox txtInput w300" type="text" id="shortTitle" />
                 </td>
             </tr>
             <tr>
@@ -299,7 +283,9 @@
                     文章分类：
                 </td>
                 <td>
-                    <input class="easyui-combotree w300" data-options="required:true" multiple id="cate" />
+                    <select class="easyui-combotree txtInput" required="true" style="width: 300px" multiple="true"
+                        id="cate">
+                    </select>
                 </td>
             </tr>
             <tr>
@@ -315,9 +301,10 @@
                     置顶：
                 </td>
                 <td>
-                    <span id="top1" class="top">否</span><span class="top">
-                        <input class="easyui-slider" id="topSwitch" style="width: 20px" data-options="step:1,min:0,max:1,value:0,onComplete:switchTopOption" />
-                    </span><span id="top2" class="top">是</span> <span id="topTimeDiv" class="top">该文章置顶截止：
+                    <span id="topNo" class="top"><a class="easyui-linkbutton" iconcls="icon-no" href="javascript:void(0)"
+                        onclick="switchTopOption(1)">&nbsp;不置顶</a></span><span id="topYes" class="top"><a
+                            class="easyui-linkbutton" iconcls="icon-ok" href="javascript:void(0)" onclick="switchTopOption(0)">&nbsp;置顶</a></span>
+                    <span id="topTimeDiv" class="top">该文章置顶截止：
                         <input class="easyui-datetimebox" value="10/11/2012 2:3:56" style="width: 200px;"
                             id="topTime" />
                     </span>
@@ -328,8 +315,8 @@
                     关键词：
                 </td>
                 <td>
-                    <input class="easyui-validatebox textbox w300" type="text" id="keywords" value=""
-                        data-options="required:true" />
+                    <input class="easyui-validatebox textbox txtInput w300" type="text" id="keywords"
+                        value="" required="true" />
                 </td>
             </tr>
             <tr>
@@ -337,8 +324,8 @@
                     排序值：
                 </td>
                 <td>
-                    <input class="easyui-validatebox textbox w80" type="text" id="itemIndex" value="1000"
-                        data-options="required:true" />
+                    <input class="easyui-validatebox textbox txtInput w80" type="text" id="itemIndex"
+                        value="1000" required="true" />
                 </td>
             </tr>
             <tr>
@@ -365,8 +352,8 @@
                 </td>
                 <td>
                     <input type="hidden" id="isTop" value="" />
-                    <input type="hidden" id="newsId" value="$newsId" /><input type="hidden" id="cateList"
-                        value="" />
+                    <input type="hidden" id="newsId" value="$newsId" />
+                    <input type="hidden" id="cateList" value="" />
                 </td>
             </tr>
         </table>

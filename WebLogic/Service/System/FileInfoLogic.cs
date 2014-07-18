@@ -26,16 +26,23 @@ namespace WebLogic.Service.System
         {
             Dictionary<string, object> f = this.dao.GetOne(fileId);
 
-            string filePath = WebPageCore.GetMapPath(f["filePath"].ToString() + f["fileName"].ToString() + "." + f["extName"].ToString());
-
-            if (File.Exists(filePath))
+            if (f != null && f.Count > 0)
             {
-                File.Delete(filePath);
+                string filePath = WebPageCore.GetMapPath(f["filePath"].ToString() + f["fileName"].ToString() + "." + f["extName"].ToString());
+
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+
+                this.dao.Delete(fileId);
+
+                return File.Exists(filePath);
             }
-
-            this.dao.Delete(fileId);
-
-            return File.Exists(filePath);
+            else
+            {
+                return true;
+            }
         }
 
         public string GetFileIds(string[] filePaths)

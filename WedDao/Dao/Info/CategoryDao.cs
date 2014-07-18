@@ -26,6 +26,16 @@ namespace WedDao.Dao.Info
             return this.db.GetDataRow(this.sql, this.param);
         }
 
+        public string GetCateId(string cateNo)
+        {
+            this.sql = @"select [cateId] from [Info_Category] where [cateNo]=@cateNo";
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("cateNo", cateNo);
+
+            return this.db.GetDataValue(this.sql, this.param).ToString();
+        }
+
         public List<Dictionary<string, object>> GetList(string parentNo)
         {
             if (!RegexDo.IsNumber(parentNo))
