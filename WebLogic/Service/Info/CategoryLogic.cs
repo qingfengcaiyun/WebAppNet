@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WedDao.Dao.Info;
+using WebDao.Dao.Info;
 
 namespace WebLogic.Service.Info
 {

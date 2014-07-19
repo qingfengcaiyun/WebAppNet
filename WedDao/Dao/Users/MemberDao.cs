@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Glibs.Sql;
 
-namespace WedDao.Dao.Users
+namespace WebDao.Dao.Users
 {
     public class MemberDao
     {

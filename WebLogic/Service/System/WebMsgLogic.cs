@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using WedDao.Dao.System;
 using Glibs.Sql;
+using WebDao.Dao.System;
 
 namespace WebLogic.Service.System
 {

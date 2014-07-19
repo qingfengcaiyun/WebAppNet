@@ -3,18 +3,18 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>基本信息编辑</title>
-    <link href="../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
-    <link href="../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
-    <link href="../../libs/global.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         td
         {
             height: 30px;
         }
     </style>
-    <script type="text/javascript" src="../../libs/jquery.js"></script>
-    <script type="text/javascript" src="../../libs/easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../../libs/jquery.js"></script>
+    <script type="text/javascript" src="../../../libs/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             getOne();

@@ -2,7 +2,7 @@
 using Glibs.Sql;
 using System;
 
-namespace WedDao.Dao.System
+namespace WebDao.Dao.System
 {
     public class UserFuncDao
     {

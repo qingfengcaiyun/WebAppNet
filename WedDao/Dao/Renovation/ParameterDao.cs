@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Glibs.Sql;
 
-namespace WedDao.Dao.Renovation
+namespace WebDao.Dao.Renovation
 {
     public class ParameterDao
     {

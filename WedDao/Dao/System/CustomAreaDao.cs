@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Glibs.Sql;
 
-namespace WedDao.Dao.System
+namespace WebDao.Dao.System
 {
     public class CustomAreaDao
     {

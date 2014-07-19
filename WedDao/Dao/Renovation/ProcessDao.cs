@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Glibs.Sql;
 using Glibs.Util;
 
-namespace WedDao.Dao.Renovation
+namespace WebDao.Dao.Renovation
 {
     public class ProcessDao
     {

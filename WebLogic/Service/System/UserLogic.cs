@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using Glibs.Util;
-using WedDao.Dao.System;
+using WebDao.Dao.System;
 
 namespace WebLogic.Service.System
 {

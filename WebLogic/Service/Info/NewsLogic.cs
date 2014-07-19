@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Glibs.Sql;
-using WedDao.Dao.Info;
-using WedDao.Dao.System;
+using WebDao.Dao.Info;
 using WebLogic.Service.System;
 
 namespace WebLogic.Service.Info

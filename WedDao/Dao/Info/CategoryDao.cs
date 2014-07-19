@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Glibs.Sql;
 using Glibs.Util;
 
-namespace WedDao.Dao.Info
+namespace WebDao.Dao.Info
 {
     public class CategoryDao
     {

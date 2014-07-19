@@ -2,7 +2,7 @@
 using Glibs.Sql;
 using System;
 
-namespace WedDao.Dao.Info
+namespace WebDao.Dao.Info
 {
     public class RelationshipDao
     {

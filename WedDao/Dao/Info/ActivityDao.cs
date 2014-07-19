@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Glibs.Sql;
 
-namespace WedDao.Dao.Info
+namespace WebDao.Dao.Info
 {
     public class ActivityDao
     {
