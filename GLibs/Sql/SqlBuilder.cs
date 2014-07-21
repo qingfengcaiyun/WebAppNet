@@ -9,6 +9,7 @@ namespace Glibs.Sql
         private StringBuilder sqlTagField;
         private StringBuilder sqlWhere;
         private StringBuilder sqlOrderBy;
+        private StringBuilder sqlIncrease;
 
         public SqlBuilder()
         {
@@ -22,6 +23,7 @@ namespace Glibs.Sql
             this.sqlTagField = new StringBuilder();
             this.sqlWhere = new StringBuilder();
             this.sqlOrderBy = new StringBuilder();
+            this.sqlIncrease = new StringBuilder();
         }
 
         public void AddTable(string tableName)
@@ -196,9 +198,68 @@ namespace Glibs.Sql
             this.sqlFields.Append("]");
         }
 
+        public void AddField(string shortName, string fieldName, string nickName)
+        {
+            if (this.sqlFields.ToString().Length > 0)
+            {
+                this.sqlFields.Append(",");
+            }
+
+            this.sqlFields.Append(shortName);
+            this.sqlFields.Append(".[");
+            this.sqlFields.Append(fieldName);
+            this.sqlFields.Append("] as ");
+            this.sqlFields.Append(nickName);
+        }
+
         public void ClearField()
         {
             this.sqlFields = new StringBuilder();
+        }
+
+        public void AddIncrease(string fieldName, int num)
+        {
+            if (this.sqlIncrease.ToString().Length > 0)
+            {
+                this.sqlIncrease.Append(",");
+            }
+            this.sqlIncrease.Append("[");
+            this.sqlIncrease.Append(fieldName);
+            this.sqlIncrease.Append("]=[");
+            this.sqlIncrease.Append(fieldName);
+            this.sqlIncrease.Append("]");
+            if (num > 0)
+            {
+                this.sqlIncrease.Append("+");
+            }
+            this.sqlIncrease.Append(num);
+        }
+
+        public void AddIncrease(string shortName, string fieldName, int num)
+        {
+            if (this.sqlIncrease.ToString().Length > 0)
+            {
+                this.sqlIncrease.Append(",");
+            }
+
+            this.sqlIncrease.Append(shortName);
+            this.sqlIncrease.Append(".[");
+            this.sqlIncrease.Append(fieldName);
+            this.sqlIncrease.Append("]=");
+            this.sqlIncrease.Append(shortName);
+            this.sqlIncrease.Append(".[");
+            this.sqlIncrease.Append(fieldName);
+            this.sqlIncrease.Append("]");
+            if (num > 0)
+            {
+                this.sqlIncrease.Append("+");
+            }
+            this.sqlIncrease.Append(num);
+        }
+
+        public void ClearIncrease()
+        {
+            this.sqlIncrease = new StringBuilder();
         }
 
         public void SetTagField(string fieldName)
@@ -305,6 +366,20 @@ namespace Glibs.Sql
             str.Append(this.sqlTable.ToString());
             str.Append(" set ");
             str.Append(f.ToString().Substring(1));
+            str.Append(" where");
+            str.Append(this.sqlWhere.ToString());
+
+            return str.ToString();
+        }
+
+        public string SqlIncrease()
+        {
+            StringBuilder str = new StringBuilder();
+
+            str.Append("update ");
+            str.Append(this.sqlTable.ToString());
+            str.Append(" set ");
+            str.Append(this.sqlIncrease.ToString());
             str.Append(" where");
             str.Append(this.sqlWhere.ToString());
 

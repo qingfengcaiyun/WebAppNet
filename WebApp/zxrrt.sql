@@ -148,6 +148,7 @@ create table [User_Member](
 	[fax] [nvarchar](255) NOT NULL,
 	[qq] [nvarchar](255) NOT NULL,
 	[email] [nvarchar](255) NOT NULL,
+	[transit] [nvarchar](1000),
 	[logoUrl] [nvarchar](255) NOT NULL,
 	[memo] [text],
 	[isDeleted] [bit] NOT NULL,
@@ -221,20 +222,32 @@ create table [Renovation_Process](
 
 create table [Renovation_Project](
 	[projectId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[memberId] [bigint] not null FOREIGN KEY REFERENCES [User_Member]([memberId]),
+	[designerId] [bigint] not null FOREIGN KEY REFERENCES [User_Designer]([designerId]),
 	[cityId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
 	[regionId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
 	[buildingId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Renovation_Building]([buildingId]),
-	[styleId] [int] NOT NULL FOREIGN KEY REFERENCES [Renovation_Parameter]([paramId]),
-	[houseId] [int] NOT NULL FOREIGN KEY REFERENCES [Renovation_Parameter]([paramId]),
-	[memberId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Member]([memberId]),
-	[roomId] [int] NOT NULL FOREIGN KEY REFERENCES [Renovation_Parameter]([paramId]),
-	[priceId] [int] NOT NULL FOREIGN KEY REFERENCES [Renovation_Parameter]([paramId]),
 	[pName] [nvarchar](255) NOT NULL,
 	[clientId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Client]([clientId]),
-	[typeId] [int] NOT NULL FOREIGN KEY REFERENCES [Renovation_Parameter]([paramId]),
+	[isClosed] [bit] not null,
 	[startTime] [datetime],
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
+);
+
+create table [Renovation_ProjectParam](
+	[pptId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[projectId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Renovation_Project]([projectId]),
+	[paramId] [int] NOT NULL FOREIGN KEY REFERENCES [Renovation_Parameter]([paramId])
+);
+
+create table [Renovation_ProjectPic](
+	[ppcId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[projectId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Renovation_Project]([projectId]),
+	[fileId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Sys_FileInfo]([fileId]),
+	[memo] [text],
+	[itemIndex] [int] NOT NULL,
+	[insertTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
 
 create table [Renovation_Diary](
@@ -271,31 +284,6 @@ create table [Renovation_Article](
 	[outLink] [nvarchar](500) NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
-);
-
-create table [Renovation_Works](
-	[workId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	[memberId] [bigint] not null,
-	[longTitle] [nvarchar](255) NOT NULL,
-	[shortTitle] [nvarchar](255) NOT NULL,
-	[memo] [text],
-	[keywords] [nvarchar](255) NOT NULL,
-	[readCount] [bigint] NOT NULL,
-	[isTop] [bit] NOT NULL,
-	[topTime] [datetime] NOT NULL DEFAULT GETDATE(),
-	[itemIndex] [int] NOT NULL,
-	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
-	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
-);
-
-create table [Renovation_WorkPic](
-	[wpId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	[workId] [bigint] NOT NULL,
-	[fileId] [bigint] NOT NULL,
-	[memo] [text],
-	[readCount] [bigint] NOT NULL,
-	[itemIndex] [int] NOT NULL,
-	[insertTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
 
 create table [Info_Activity](
@@ -384,7 +372,6 @@ INSERT INTO [Sys_Role] ([roleName], [itemIndex]) VALUES ('市级编辑', 5);
 INSERT INTO [Sys_Role] ([roleName], [itemIndex]) VALUES ('装修公司', 6);
 INSERT INTO [Sys_Role] ([roleName], [itemIndex]) VALUES ('设计师', 7);
 INSERT INTO [Sys_Role] ([roleName], [itemIndex]) VALUES ('装修业主', 8);
-
 GO
 
 INSERT INTO [Sys_User] ([userName], [userPwd], [md5Pwd], [userType] ,[locationId], [isDeleted], [isLocked]) VALUES ('root', '7b6d6976e6cabfad25457b25b3b02d8146ff6db198852f7100490243d821bed442b3376ceb8e2990500eb3d5eb53d877156e28bf4f1fad152110b0ae5598ec70', '63a9f0ea7bb98050796b649e85481845', 'A', 1, 0, 0);
@@ -394,7 +381,6 @@ INSERT INTO [Sys_User] ([userName], [userPwd], [md5Pwd], [userType] ,[locationId
 INSERT INTO [Sys_User] ([userName], [userPwd], [md5Pwd], [userType] ,[locationId], [isDeleted], [isLocked]) VALUES ('member', '8002b7685dbaef4ea39e490b393c75b75e494e22e6752ed408c61d51e1ba09c689016fdac118d4d7a1a623055096f57789fa02b90ab4c339288c4ef014b6c00a', 'e10adc3949ba59abbe56e057f20f883e','M', 6, 0, 0);
 INSERT INTO [Sys_User] ([userName], [userPwd], [md5Pwd], [userType] ,[locationId], [isDeleted], [isLocked]) VALUES ('designer', '8002b7685dbaef4ea39e490b393c75b75e494e22e6752ed408c61d51e1ba09c689016fdac118d4d7a1a623055096f57789fa02b90ab4c339288c4ef014b6c00a','e10adc3949ba59abbe56e057f20f883e', 'D', 6, 0, 0);
 INSERT INTO [Sys_User] ([userName], [userPwd], [md5Pwd], [userType] ,[locationId], [isDeleted], [isLocked]) VALUES ('client', '8002b7685dbaef4ea39e490b393c75b75e494e22e6752ed408c61d51e1ba09c689016fdac118d4d7a1a623055096f57789fa02b90ab4c339288c4ef014b6c00a','e10adc3949ba59abbe56e057f20f883e', 'C', 6, 0, 0);
-
 GO
 
 INSERT INTO [Sys_UserRole]([userId], [roleId])VALUES (1, 1);
@@ -402,15 +388,18 @@ INSERT INTO [Sys_UserRole]([userId], [roleId])VALUES (2, 2);
 INSERT INTO [Sys_UserRole]([userId], [roleId])VALUES (3, 3);
 INSERT INTO [Sys_UserRole]([userId], [roleId])VALUES (4, 4);
 GO
+
 INSERT INTO [Sys_Admin] ([userId], [locationId], [fullName], [phone], [email], [qq])VALUES (1, 1, '根管理员', '13857861942', '23586037@qq.com', '23586037');
 INSERT INTO [Sys_Admin] ([userId], [locationId], [fullName], [phone], [email], [qq])VALUES (2, 3, '系统管理员', '13857861942', '23586037@qq.com', '23586037');
 INSERT INTO [Sys_Admin] ([userId], [locationId], [fullName], [phone], [email], [qq])VALUES (3, 5, '区域管理员', '13857861942', '23586037@qq.com', '23586037');
 INSERT INTO [Sys_Admin] ([userId], [locationId], [fullName], [phone], [email], [qq])VALUES (4, 5, '网站编辑', '13857861942', '23586037@qq.com', '23586037');
 GO
+
 INSERT INTO [User_Member] ([userId], [locationId], [fullName], [shortName], [address], [tel], [cellphone], [fax], [qq], [email], [logoUrl], [memo], [isDeleted]) VALUES (5, 6, '装修公司', '装修公司', '地址', '电话', '手机', '传真', '35246464', 'email@123.com', 'logoUrl', 'memo,memo', 0);
 INSERT INTO [User_Designer] ([userId], [locationId], [fullName], [sex], [memberId], [job], [tel], [cellphone], [qq], [email], [photoUrl], [memo], [isDeleted]) VALUES (6, 6, '设计师', '女', 1, '高级设计师', '28829089', '13453536565', '35246464', '123@123.cn', 'photoUrl', 'memo,memo', 0);
 INSERT INTO [User_Client] ([userId], [locationId], [fullName], [sex], [address], [phone], [qq], [email], [isDeleted]) VALUES (7, 6, '装修业主', '女', '地址', '电话', '352464640', '123@123.cn', 0);
 GO
+
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('资讯活动', '001', '0', '', 0, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('信息管理', '002', '0', '', 0, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('账户项目', '003', '0', '', 0, 0);
@@ -440,6 +429,7 @@ INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('地域管理', '004007', '004', 'sys/location/View.aspx', 1, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('基本信息', '004008', '004', 'sys/webmsg/View.aspx', 1, 0);
 GO
+
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 1);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 2);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 3);
@@ -466,75 +456,77 @@ INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 23);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 24);
 GO
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('收房准备中', '001', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('装修准备中', '002', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('拆改/隐蔽工程', '003', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('泥瓦工程', '004', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('木工工程', '005', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('油漆工程', '006', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('安装/收尾工程', '007', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('软装进行中', '008', '0', 0);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('即将入住', '009', '0', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('全部流程', '001', '0', 0);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('收房小常识', '001001', '001', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('交房流程', '001002', '001', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('相关法规文件', '001003', '001', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('收房准备中', '001001', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('装修准备中', '001002', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('拆改/隐蔽工程', '001003', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('泥瓦工程', '001004', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('木工工程', '001005', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('油漆工程', '001006', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('安装/收尾工程', '001007', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('软装进行中', '001008', '001', 0);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('即将入住', '001009', '001', 0);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('装修小常识', '002001', '002', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('定设计/装修方案', '002002', '002', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('配置资金预算', '002003', '002', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('选择装修公司', '002004', '002', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('签订装修合同', '002005', '002', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('相关法规文件', '002006', '002', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('收房小常识', '001001001', '001001', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('交房流程', '001001002', '001001', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('相关法规文件', '001001003', '001001', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('结构拆改', '003001', '003', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('水管', '003002', '003', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('强弱电/开关插座', '003003', '003', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('拆改施工验收', '003004', '003', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('装修小常识', '001002001', '001002', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('定设计/装修方案', '001002002', '001002', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('配置资金预算', '001002003', '001002', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('选择装修公司', '001002004', '001002', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('签订装修合同', '001002005', '001002', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('相关法规文件', '001002006', '001002', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('瓷砖', '004001', '004', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('石材', '004002', '004', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('泥瓦施工验收', '004003', '004', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('结构拆改', '001003001', '001003', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('水管', '001003002', '001003', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('强弱电/开关插座', '001003003', '001003', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('拆改施工验收', '001003004', '001003', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('板材', '005001', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('龙骨', '005002', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('顶角/踢脚线', '005003', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('石膏制品', '005004', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('胶黏剂/胶水', '005005', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('铝合金/不锈钢', '005006', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('玻璃', '005007', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('铁艺制品', '005008', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('扣板', '005009', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('门窗', '005010', '005', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('木工施工验收', '005011', '005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('瓷砖', '001004001', '001004', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('石材', '001004002', '001004', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('泥瓦施工验收', '001004003', '001004', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('壁纸/壁布', '006001', '006', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('涂料/油漆', '006002', '006', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('油漆施工验收', '006003', '006', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('板材', '001005001', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('龙骨', '001005002', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('顶角/踢脚线', '001005003', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('石膏制品', '001005004', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('胶黏剂/胶水', '001005005', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('铝合金/不锈钢', '001005006', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('玻璃', '001005007', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('铁艺制品', '001005008', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('扣板', '001005009', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('门窗', '001005010', '001005', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('木工施工验收', '001005011', '001005', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('木地板', '007001', '007', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('地毯', '007002', '007', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('灯具', '007003', '007', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('洁具', '007004', '007', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('龙头五金配件', '007005', '007', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('家电', '007006', '007', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('安装施工验收', '007007', '007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('壁纸/壁布', '001006001', '001006', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('涂料/油漆', '001006002', '001006', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('油漆施工验收', '001006003', '001006', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('家具', '008001', '008', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('布艺', '008002', '008', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('壁饰/工艺品', '008003', '008', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('花卉', '008004', '008', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('木地板', '001007001', '001007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('地毯', '001007002', '001007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('灯具', '001007003', '001007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('洁具', '001007004', '001007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('龙头五金配件', '001007005', '001007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('家电', '001007006', '001007', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('安装施工验收', '001007007', '001007', 1);
 
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('环保检测', '009001', '009', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('搬家搬场', '009001', '009', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('保洁', '009001', '009', 1);
-INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('装修风水', '009001', '009', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('家具', '001008001', '001008', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('布艺', '001008002', '001008', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('壁饰/工艺品', '001008003', '001008', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('花卉', '001008004', '001008', 1);
 
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('环保检测', '001009001', '001009', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('搬家搬场', '001009001', '001009', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('保洁', '001009001', '001009', 1);
+INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('装修风水', '001009001', '001009', 1);
+GO
 /*
 	paramKey: PriceLevel,RoomType,HouseType,Space,Style,Type,TimeTable,ServiceItem,PartItem
 	paramName: 预算，套型，户型，空间，装修风格，装修方式，开工时间，服务项目，局部位置
 */
-GO
+
 INSERT INTO [Renovation_Parameter] ([locationId], [paramName], [paramKey], [paramValue], [itemIndex]) VALUES (5, '预算', 'PriceLevel', '2万以下', 10);
 INSERT INTO [Renovation_Parameter] ([locationId], [paramName], [paramKey], [paramValue], [itemIndex]) VALUES (5, '预算', 'PriceLevel', '2-3万', 20);
 INSERT INTO [Renovation_Parameter] ([locationId], [paramName], [paramKey], [paramValue], [itemIndex]) VALUES (5, '预算', 'PriceLevel', '3-4万', 30);
@@ -702,5 +694,4 @@ INSERT INTO [Info_Category] ([cityId], [cateName], [cateNo], [parentNo], [isLeaf
 INSERT INTO [Info_Category] ([cityId], [cateName], [cateNo], [parentNo], [isLeaf]) VALUES (5, '行业动态', '001004', '001', 1);
 INSERT INTO [Info_Category] ([cityId], [cateName], [cateNo], [parentNo], [isLeaf]) VALUES (5, '样板美图', '001005', '001', 1);
 INSERT INTO [Info_Category] ([cityId], [cateName], [cateNo], [parentNo], [isLeaf]) VALUES (5, '人才招聘', '001006', '001', 1);
-
 go

@@ -79,8 +79,6 @@
     <Compile Include="Dao\Renovation\ParameterDao.cs" />
     <Compile Include="Dao\Renovation\ProcessDao.cs" />
     <Compile Include="Dao\Renovation\ProjectDao.cs" />
-    <Compile Include="Dao\Renovation\WorkPicDao.cs" />
-    <Compile Include="Dao\Renovation\WorksDao.cs" />
     <Compile Include="Dao\System\AdminDao.cs" />
     <Compile Include="Dao\System\AreaRelationDao.cs" />
     <Compile Include="Dao\System\CustomAreaDao.cs" />

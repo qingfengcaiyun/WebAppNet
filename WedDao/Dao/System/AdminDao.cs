@@ -19,19 +19,23 @@ namespace WebDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.AddField("adminId");
-            s.AddField("userId");
-            s.AddField("locationId");
-            s.AddField("fullName");
-            s.AddField("phone");
-            s.AddField("email");
-            s.AddField("qq");
-            s.AddField("insertTime");
-            s.AddField("updateTime");
+            s.AddTable("Sys_Admin", "a");
+            s.AddTable("Sys_User", "u");
 
-            s.AddTable("Sys_Admin");
+            s.AddField("u", "userName");
+            s.AddField("u", "lastLogin");
+            s.AddField("a", "adminId");
+            s.AddField("a", "userId");
+            s.AddField("a", "locationId");
+            s.AddField("a", "fullName");
+            s.AddField("a", "phone");
+            s.AddField("a", "email");
+            s.AddField("a", "qq");
+            s.AddField("a", "insertTime");
+            s.AddField("a", "updateTime");
 
-            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddWhere(string.Empty, "u", "userId", "=", "a", "userId");
+            s.AddWhere("and", "a", "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 

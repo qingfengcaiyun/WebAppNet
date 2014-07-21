@@ -73,6 +73,7 @@
     <Compile Include="Service\Info\ActivityLogic.cs" />
     <Compile Include="Service\Info\CategoryLogic.cs" />
     <Compile Include="Service\Info\NewsLogic.cs" />
+    <Compile Include="Service\Renovation\ProjectLogic.cs" />
     <Compile Include="Service\System\FileInfoLogic.cs" />
     <Compile Include="Service\System\FunctionLogic.cs" />
     <Compile Include="Service\System\LocationLogic.cs" />
@@ -90,7 +91,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Service\Renovation\" />
     <Folder Include="Service\Users\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

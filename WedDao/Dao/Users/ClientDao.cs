@@ -19,26 +19,28 @@ namespace WebDao.Dao.Users
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.AddTable("User_Client");
+            s.AddTable("User_Client", "c");
+            s.AddTable("Sys_User", "u");
 
-            s.AddField("clientId");
-            s.AddField("userId");
-            s.AddField("locationId");
-            s.AddField("fullName");
-            s.AddField("sex");
-            s.AddField("address");
-            s.AddField("phone");
-            s.AddField("qq");
-            s.AddField("email");
-            s.AddField("isDeleted");
-            s.AddField("insertTime");
-            s.AddField("updateTime");
+            s.AddField("u", "userName");
+            s.AddField("u", "lastLogin");
+            s.AddField("c", "clientId");
+            s.AddField("c", "userId");
+            s.AddField("c", "locationId");
+            s.AddField("c", "fullName");
+            s.AddField("c", "sex");
+            s.AddField("c", "address");
+            s.AddField("c", "phone");
+            s.AddField("c", "qq");
+            s.AddField("c", "email");
+            s.AddField("c", "isDeleted");
+            s.AddField("c", "insertTime");
+            s.AddField("c", "updateTime");
 
-            s.AddWhere("", "", "clientId", "=", "@clientId");
+            s.AddWhere("", "u", "userId", "=", "c", "userId");
+            s.AddWhere("and", "c", "clientId", "=", "@clientId");
 
             this.sql = s.SqlSelect();
-
-            //this.sql = @"select [clientId],[userId],[locationId],[trueName],[sex],[address],[phone],[qq],[email],[isDeleted],[insertTime],[updateTime] from [User_Client] where [clientId]=@clientId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("clientId", clientId);
@@ -56,7 +58,7 @@ namespace WebDao.Dao.Users
 
             s.AddWhere("", "", "userid", "=", "@userId");
 
-            this.sql = s.SqlDelete();
+            this.sql = s.SqlUpdate();
 
             s = new SqlBuilder();
 
@@ -66,9 +68,7 @@ namespace WebDao.Dao.Users
 
             s.AddWhere("", "", "clientId", "=", "@clientId");
 
-            this.sql = this.sql + ";" + s.SqlDelete() + ";";
-
-            //this.sql = @"update [Sys_Users] set [isDeleted]=@isDeleted where [userId]=@userId;update [User_Client] set [isDeleted]=@isDeleted where [clientId]=@clientId ";
+            this.sql = this.sql + ";" + s.SqlUpdate() + ";";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", userId);
@@ -97,8 +97,6 @@ namespace WebDao.Dao.Users
             s.AddField("updateTime");
 
             this.sql = s.SqlInsert();
-
-            //this.sql = @"insert into [User_Client] ([userId],[locationId],[fullName],[sex],[address],[phone],[qq],[email],[isDeleted],[insertTime],[updateTime])values(@userId,@locationId,@fullName,@sex,@address,@phone,@qq,@email,@isDeleted,@insertTime,@updateTime)";
 
             DateTime now = DateTime.Now;
 
@@ -137,8 +135,6 @@ namespace WebDao.Dao.Users
             s.AddWhere("", "", "clientId", "=", "@clientId");
 
             this.sql = s.SqlUpdate();
-
-            //this.sql = @"update [User_Client] set [userId]=@userId,[locationId]=@locationId,[fullName]=@fullName,[sex]=@sex,[address]=@address,[phone]=@phone,[qq]=@qq,[email]=@email,[updateTime]=@updateTime where [clientId]=@clientId";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", content["userId"]);
