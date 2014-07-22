@@ -8,6 +8,7 @@ namespace WebDao.Dao.System
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public WebMsgDao()
         {
@@ -16,7 +17,15 @@ namespace WebDao.Dao.System
 
         public Dictionary<string, object> GetMsgs()
         {
-            this.sql = @"select [msgId],[msgKey],[msgValue] from [Sys_WebMsg]";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_WebMsg");
+
+            this.s.AddField("msgId");
+            this.s.AddField("msgKey");
+            this.s.AddField("msgValue");
+
+            this.sql = this.s.SqlSelect();
 
             List<Dictionary<string, object>> list = this.db.GetDataTable(this.sql, null);
 
@@ -41,23 +50,33 @@ namespace WebDao.Dao.System
         {
             if (msgs != null && msgs.Count > 0)
             {
-                this.sql = @"delete from [Sys_WebMsg]";
+                this.s = new SqlBuilder();
+
+                this.s.AddTable("Sys_WebMsg");
+
+                this.sql = this.s.SqlDelete();
 
                 this.db.Update(this.sql, null);
 
-                this.sql = @"insert into [Sys_WebMsg] ([msgKey],[msgValue])values(@msgKey,@msgValue)";
+                this.s = new SqlBuilder();
+
+                this.s.AddTable("Sys_WebMsg");
+
+                this.s.AddField("msgKey");
+                this.s.AddField("msgValue");
+
+                this.sql = this.s.SqlInsert();
 
                 List<Dictionary<string, object>> paramList = new List<Dictionary<string, object>>();
-                Dictionary<string, object> param = null;
 
                 foreach (KeyValuePair<string, object> kv in msgs)
                 {
-                    param = new Dictionary<string, object>();
+                    this.param = new Dictionary<string, object>();
 
-                    param.Add("msgKey", kv.Key);
-                    param.Add("msgValue", kv.Value);
+                    this.param.Add("msgKey", kv.Key);
+                    this.param.Add("msgValue", kv.Value);
 
-                    paramList.Add(param);
+                    paramList.Add(this.param);
                 }
 
                 this.db.Batch(this.sql, paramList);

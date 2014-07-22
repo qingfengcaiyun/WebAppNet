@@ -10,6 +10,7 @@ namespace WebDao.Dao.Info
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public CategoryDao()
         {
@@ -18,7 +19,24 @@ namespace WebDao.Dao.Info
 
         public Dictionary<string, object> GetOne(int cateId)
         {
-            this.sql = @"select [cateId],[cityId],[cateName],[cateNo],[parentNo],[isLeaf] from [Info_Category] where [cateId]=@cateId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category", "c");
+            this.s.AddTable("Sys_Location", "l");
+
+            this.s.AddField("l", "cnName");
+
+            this.s.AddField("c", "cateId");
+            this.s.AddField("c", "cityId");
+            this.s.AddField("c", "cateName");
+            this.s.AddField("c", "cateNo");
+            this.s.AddField("c", "parentNo");
+            this.s.AddField("c", "isLeaf");
+
+            this.s.AddWhere("", "l", "locationId", "=", "c", "cityId");
+            this.s.AddWhere("and", "c", "cateId", "=", "@cateId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cateId", cateId);
@@ -28,7 +46,15 @@ namespace WebDao.Dao.Info
 
         public string GetCateId(string cateNo)
         {
-            this.sql = @"select [cateId] from [Info_Category] where [cateNo]=@cateNo";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category");
+
+            this.s.AddField("cateId");
+
+            this.s.AddWhere("", "", "cateNo", "=", "@cateNo");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cateNo", cateNo);
@@ -38,12 +64,31 @@ namespace WebDao.Dao.Info
 
         public List<Dictionary<string, object>> GetList(string parentNo)
         {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category", "c");
+            this.s.AddTable("Sys_Location", "l");
+
+            this.s.AddField("l", "cnName");
+
+            this.s.AddField("c", "cateId");
+            this.s.AddField("c", "cityId");
+            this.s.AddField("c", "cateName");
+            this.s.AddField("c", "cateNo");
+            this.s.AddField("c", "parentNo");
+            this.s.AddField("c", "isLeaf");
+
+            this.s.AddWhere("", "l", "locationId", "=", "c", "cityId");
+            this.s.AddWhere("and", "c", "parentNo", "like", "@parentNo+'%'");
+
+            this.s.AddOrderBy("c", "cateNo", true);
+
+            this.sql = this.s.SqlSelect();
+
             if (!RegexDo.IsNumber(parentNo))
             {
                 parentNo = "0";
             }
-
-            this.sql = @"select [cateId],[cityId],[cateName],[cateNo],[parentNo],[isLeaf] from [Info_Category] where [parentNo] like @parentNo+'%' order by [cateNo] asc";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("parentNo", parentNo);
@@ -53,7 +98,29 @@ namespace WebDao.Dao.Info
 
         public bool Delete(int cateId)
         {
-            this.sql = @"delete from [Info_Relationship] where [cateId] in (select [cateId] from [Info_Category] where [cateNo] like (select [cateNo] from [Info_Category] where [cateId]=@cateId)+'%' ); delete from [Info_Category] where [cateNo] like (select [cateNo] from [Info_Category] where [cateId]=@cateId)+'%' );";
+            this.s = new SqlBuilder();
+            this.s.AddTable("Info_Category");
+            this.s.AddField("cateNo");
+            this.s.AddWhere("", "", "cateId", "=", "@cateId");
+            string cateNos = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+            this.s.AddTable("Info_Category");
+            this.s.AddField("cateId");
+            this.s.AddWhere("", "", "cateNo", "like", "(" + cateNos + ")+'%'");
+            string cateIds = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+            this.s.AddTable("Info_Relationship");
+            this.s.AddWhere("", "", "cateId", "in", "(" + cateIds + ")");
+
+            this.sql = this.s.SqlDelete();
+
+            this.s = new SqlBuilder();
+            this.s.AddTable("Info_Category");
+            this.s.AddWhere("", "", "cateNo", "like", "(" + cateNos + ")+'%'");
+
+            this.sql = this.sql + ";" + this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cateId", cateId);
@@ -63,13 +130,38 @@ namespace WebDao.Dao.Info
 
         public Int64 Insert(Dictionary<string, object> content)
         {
-            this.sql = @"update [Info_Category] set [isLeaf]=0 where [cateNo]=@cateNo;insert into [Info_Category] ([cityId],[cateName],[cateNo],[parentNo],[isLeaf])values(@cityId,@cateName,@cateNo,@parentNo,1)";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category");
+            this.s.AddField("isLeaf");
+            this.s.AddWhere("", "", "cateNo", "=", "@parentNo");
+
+            this.sql = this.s.SqlUpdate();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("isLeaf", 0);
+            this.param.Add("parentNo", content["parentNo"]);
+
+            this.db.Update(this.sql, this.param);
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category");
+
+            this.s.AddField("cityId");
+            this.s.AddField("cateName");
+            this.s.AddField("cateNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("isLeaf");
+
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cityId", content["cityId"]);
             this.param.Add("cateName", content["cateName"]);
             this.param.Add("cateNo", content["cateNo"]);
             this.param.Add("parentNo", content["parentNo"]);
+            this.param.Add("isLeaf", 1);
 
             return this.db.Insert(this.sql, this.param);
         }
@@ -103,15 +195,46 @@ namespace WebDao.Dao.Info
                         paramList.Add(this.param);
                     }
 
-                    this.sql = @"update [Info_Category] set [cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
+                    this.s = new SqlBuilder();
+
+                    this.s.AddTable("Info_Category");
+
+                    this.s.AddField("cateNo");
+                    this.s.AddField("parentNo");
+
+                    this.s.AddWhere("", "", "cateId", "=", "@cateId");
+
+                    this.sql = this.s.SqlUpdate();
 
                     this.db.Batch(this.sql, paramList);
                 }
             }
 
-            this.sql = @"update [Info_Category] set [isLeaf]=0 where [cateNo]=@parentNo;update [Info_Category] set [cityId]=@cityId,[cateName]=@cateName,[cateNo]=@cateNo,[parentNo]=@parentNo where [cateId]=@cateId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category");
+
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere("", "", "cateNo", "=", "@parentNo");
+
+            this.sql = this.s.SqlUpdate();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Category");
+
+            this.s.AddField("cityId");
+            this.s.AddField("cateName");
+            this.s.AddField("cateNo");
+            this.s.AddField("parentNo");
+
+            this.s.AddWhere("", "", "cateId", "=", "@cateId");
+
+            this.sql = this.sql + ";" + this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
+            this.param.Add("isLeaf", 0);
             this.param.Add("cateNo", content["cateNo"]);
             this.param.Add("parentNo", content["parentNo"]);
             this.param.Add("cityId", content["cityId"]);

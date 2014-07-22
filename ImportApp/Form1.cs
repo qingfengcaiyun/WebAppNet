@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Glibs.Sql;
+using WebLogic.Service.Users;
 
 namespace ImportApp
 {
@@ -16,9 +18,17 @@ namespace ImportApp
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ImportCompany_Click(object sender, EventArgs e)
         {
+            string filePath = SelectTextBox1.Text;
 
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            MemberLogic m = new MemberLogic();
+            DesignerLogic d = new DesignerLogic();
         }
     }
 }

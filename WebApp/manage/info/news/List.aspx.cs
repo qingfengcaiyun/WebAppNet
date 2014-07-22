@@ -6,7 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
 
-namespace WebApp.manage.info.article
+namespace WebApp.manage.info.news
 {
     public partial class List : System.Web.UI.Page
     {
@@ -26,7 +26,15 @@ namespace WebApp.manage.info.article
                 content.Add("cityId", cUser["locationId"]);
                 content.Add("cateId", cateId);
 
-                Response.Write(VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/manage/info/news", content));
+                string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
+
+                string className = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName;
+                className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
+
+                Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, content));
+
+                //Response.Write(VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/manage/info/news", content));
             }
         }
     }

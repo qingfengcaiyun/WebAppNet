@@ -9,6 +9,7 @@ namespace WebDao.Dao.Renovation
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public ArticleDao()
         {
@@ -17,7 +18,30 @@ namespace WebDao.Dao.Renovation
 
         public Dictionary<string, object> GetOne(int raId)
         {
-            this.sql = @"select [raId],[processId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime] from [Renovation_Article] where [raId]=@raId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article", "a");
+            this.s.AddTable("Renovation_Process", "p");
+
+            this.s.AddField("p", "processName");
+
+            this.s.AddField("a", "raId");
+            this.s.AddField("a", "processId");
+            this.s.AddField("a", "longTitle");
+            this.s.AddField("a", "shortTitle");
+            this.s.AddField("a", "content");
+            this.s.AddField("a", "keywords");
+            this.s.AddField("a", "picUrl");
+            this.s.AddField("a", "itemIndex");
+            this.s.AddField("a", "outLink");
+            this.s.AddField("a", "isTop");
+            this.s.AddField("a", "topTime");
+            this.s.AddField("a", "insertTime");
+            this.s.AddField("a", "updateTime");
+
+            this.s.AddWhere("", "a", "raId", "=", "@raId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("raId", raId);
@@ -25,56 +49,132 @@ namespace WebDao.Dao.Renovation
             return this.db.GetDataRow(this.sql, this.param);
         }
 
-        public List<Dictionary<string, object>> getList(string msg, int processId)
+        public List<Dictionary<string, object>> GetList(string msg, int processId)
         {
-            this.sql = @"select [raId],[processId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime] from [Renovation_Article] where ([longTitle] like '%'+@msg+'%' or [shortTitle] like '%'+@msg+'%' ) order by [endTime] desc";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processNo");
+
+            this.s.AddWhere("", "", "processId", "=", "@processId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processId");
+
+            this.s.AddWhere("", "", "processNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article", "a");
+            this.s.AddTable("Renovation_Process", "p");
+
+            this.s.AddField("p", "processName");
+
+            this.s.AddField("a", "raId");
+            this.s.AddField("a", "processId");
+            this.s.AddField("a", "longTitle");
+            this.s.AddField("a", "shortTitle");
+            this.s.AddField("a", "content");
+            this.s.AddField("a", "keywords");
+            this.s.AddField("a", "picUrl");
+            this.s.AddField("a", "itemIndex");
+            this.s.AddField("a", "outLink");
+            this.s.AddField("a", "isTop");
+            this.s.AddField("a", "topTime");
+            this.s.AddField("a", "insertTime");
+            this.s.AddField("a", "updateTime");
+
+            this.s.AddWhere("", "(a", "longTitle", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "a", "shortTitle", "like", "'%'+@msg+'%')");
+            this.s.AddWhere("and", "a", "processId", "int", "(" + this.sql + ")");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("msg", msg);
+            this.param.Add("processId", processId);
 
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public PageRecords getPage(int pageSize, int pageNo, int cateId, int processId, string msg)
+        public PageRecords getPage(int pageSize, int pageNo, int processId, string msg)
         {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processNo");
+
+            this.s.AddWhere("", "", "processId", "=", "@processId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processId");
+
+            this.s.AddWhere("", "", "processNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article", "a");
+            this.s.AddTable("Renovation_Process", "p");
+
+            this.s.AddField("p", "processName");
+
+            this.s.AddField("a", "raId");
+            this.s.AddField("a", "processId");
+            this.s.AddField("a", "longTitle");
+            this.s.AddField("a", "shortTitle");
+            this.s.AddField("a", "content");
+            this.s.AddField("a", "keywords");
+            this.s.AddField("a", "picUrl");
+            this.s.AddField("a", "itemIndex");
+            this.s.AddField("a", "outLink");
+            this.s.AddField("a", "isTop");
+            this.s.AddField("a", "topTime");
+            this.s.AddField("a", "insertTime");
+            this.s.AddField("a", "updateTime");
+
+            this.s.AddWhere("", "(a", "longTitle", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "a", "shortTitle", "like", "'%'+@msg+'%')");
+            this.s.AddWhere("and", "a", "processId", "int", "(" + this.sql + ")");
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("processId", processId);
+            this.param.Add("msg", msg);
+
             PageRecords pr = new PageRecords();
             pr.CurrentPage = pageNo;
             pr.PageSize = pageSize;
 
-            this.param = new Dictionary<string, object>();
-
-            if (cateId > 0)
-            {
-                pr.CountKey = @"a.[raId]";
-                pr.SqlFields = @"a.[raId],a.[processId],a.[longTitle],a.[shortTitle],a.[keywords],a.[readCount],a.[itemIndex],a.[outLink],a.[isTop],a.[topTime],a.[insertTime],a.[updateTime]";
-                pr.SqlOrderBy = @"a.[itemIndex] desc,a.[insertTime] desc";
-                pr.SqlTable = @"[Renovation_Article] as a, [Renovation_Process] as r";
-                pr.SqlWhere = @"a.[raId]=r.[raId] and r.[cateId]=@cateId and a.[processId]=@processId and (a.[longTitle] like '%'+@msg+'%' or a.[shortTitle] like '%'+@msg+'%' or a.[keywords] like '%'+@msg+'%' )";
-
-                this.param.Add("cateId", cateId);
-            }
-            else
-            {
-                pr.CountKey = @"[raId]";
-                pr.SqlFields = @"[raId],[processId],[longTitle],[shortTitle],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime]";
-                pr.SqlOrderBy = @"[itemIndex] desc,[insertTime] desc";
-                pr.SqlTable = @"[Renovation_Article]";
-                pr.SqlWhere = @"[processId]=@processId and ([longTitle] like '%'+@msg+'%' or [shortTitle] like '%'+@msg+'%' or [keywords] like '%'+@msg+'%' )";
-            }
-
-            this.param.Add("processId", processId);
-            this.param.Add("msg", msg);
-
-            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(pr.CountSql, this.param).ToString());
+            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.s.SqlCount(), this.param).ToString());
             pr.SetBaseParam();
-            pr.PageResult = this.db.GetDataTable(pr.QuerySql, this.param);
+
+            pr.PageResult = this.db.GetDataTable(this.s.SqlPage(pr.PageSize, pr.StartIndex), this.param);
 
             return pr;
         }
 
         public bool Delete(int raId)
         {
-            this.sql = @"delete from [Renovation_Article] where [raId]=@raId;";
+            this.s = new SqlBuilder();
+            this.s.AddTable("Renovation_Article");
+            this.s.AddWhere("", "", "raId", "=", "@raId");
+
+            this.sql = this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("raId", raId);
@@ -84,7 +184,25 @@ namespace WebDao.Dao.Renovation
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Renovation_Article] ([processId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime])values(@processId,@longTitle,@shortTitle,@content,@keywords,@picUrl,@readCount,@itemIndex,@outLink,@isTop,@topTime,@insertTime,@updateTime)";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article");
+
+            this.s.AddField("processId");
+            this.s.AddField("longTitle");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("readCount");
+            this.s.AddField("itemIndex");
+            this.s.AddField("outLink");
+            this.s.AddField("isTop");
+            this.s.AddField("topTime");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
+
+            this.sql = this.s.SqlInsert();
 
             DateTime now = DateTime.Now;
 
@@ -108,7 +226,25 @@ namespace WebDao.Dao.Renovation
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [Renovation_Article] set [processId]=@processId,[longTitle]=@longTitle,[shortTitle]=@shortTitle,[content]=@content,[keywords]=@keywords,[picUrl]=@picUrl,[itemIndex]=@itemIndex,[outLink]=@outLink,[isTop]=@isTop,[topTime]=@topTime,[updateTime]=@updateTime where [raId]=@raId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article");
+
+            this.s.AddField("processId");
+            this.s.AddField("longTitle");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("itemIndex");
+            this.s.AddField("outLink");
+            this.s.AddField("isTop");
+            this.s.AddField("topTime");
+            this.s.AddField("updateTime");
+
+            this.s.AddWhere("", "", "raId", "=", "@raId");
+
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("processId", content["processId"]);
@@ -117,7 +253,6 @@ namespace WebDao.Dao.Renovation
             this.param.Add("content", content["content"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
-            this.param.Add("readCount", content["readCount"]);
             this.param.Add("itemIndex", content["itemIndex"]);
             this.param.Add("outLink", content["outLink"]);
             this.param.Add("isTop", content["isTop"]);
@@ -128,14 +263,24 @@ namespace WebDao.Dao.Renovation
             return this.db.Update(this.sql, this.param);
         }
 
-        public bool SetReadCount(int raId)
+        public int SetReadCount(int raId)
         {
-            this.sql = @"update [Renovation_Article] set [readCount]=[readCount]+1 where [raId]=@raId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article");
+
+            this.s.AddField("readCount");
+
+            this.s.AddIncrease("readCount", 1);
+
+            this.s.AddWhere(string.Empty, string.Empty, "raId", "=", "@raId");
+
+            this.sql = this.s.SqlIncrease() + ";" + this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("raId", raId);
 
-            return this.db.Update(this.sql, this.param);
+            return (int)this.db.GetDataValue(this.sql, this.param);
         }
     }
 }

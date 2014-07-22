@@ -185,7 +185,25 @@ namespace WebDao.Dao.Renovation
 
         public bool Delete(long projectId)
         {
-            this.sql = @"delete from [Renovation_Project] where [projectId]=@projectId;delete from [Renovation_ProjectParam] where [projectId]=@projectId;delete from [Renovation_ProjectPic] where [projectId]=@projectId;";
+            this.s = new SqlBuilder();
+
+            this.s.AddWhere(string.Empty, string.Empty, "projectId", "=", "@projectId");
+
+            this.s.AddTable("Renovation_ProjectPic");
+
+            this.sql = this.s.SqlDelete();
+
+            this.s.ClearTable();
+
+            this.s.AddTable("Renovation_ProjectParam");
+
+            this.sql = this.sql + ";" + this.s.SqlDelete();
+
+            this.s.ClearTable();
+
+            this.s.AddTable("Renovation_Project");
+
+            this.sql = this.sql + ";" + this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("projectId", projectId);
@@ -427,22 +445,24 @@ namespace WebDao.Dao.Renovation
             return this.db.Update(this.sql, this.param);
         }
 
-        public bool SetReadCount(long projectId)
+        public int SetReadCount(long projectId)
         {
             this.s = new SqlBuilder();
 
             this.s.AddTable("Renovation_Project");
 
+            this.s.AddField("readCount");
+
             this.s.AddIncrease("readCount", 1);
 
             this.s.AddWhere(string.Empty, string.Empty, "projectId", "=", "@projectId");
 
-            this.sql = this.s.SqlIncrease();
+            this.sql = this.s.SqlIncrease() + ";" + this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("projectId", projectId);
 
-            return this.db.Update(this.sql, this.param);
+            return (int)this.db.GetDataValue(this.sql, this.param);
         }
     }
 }

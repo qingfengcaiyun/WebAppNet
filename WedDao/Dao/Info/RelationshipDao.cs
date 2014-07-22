@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Glibs.Sql;
-using System;
 
 namespace WebDao.Dao.Info
 {
@@ -9,6 +9,7 @@ namespace WebDao.Dao.Info
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public RelationshipDao()
         {
@@ -17,7 +18,20 @@ namespace WebDao.Dao.Info
 
         public List<Dictionary<string, object>> GetList(int newsId)
         {
-            this.sql = @"select [cateId],[newsId],[isPrimary] from [Info_Relationship] where [newsId]=@newsId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Relationship", "r");
+            this.s.AddTable("Info_Category", "c");
+
+            this.s.AddField("c", "cateName");
+
+            this.s.AddField("r", "cateId");
+            this.s.AddField("r", "newsId");
+
+            this.s.AddWhere("", "r", "cateId", "=", "c", "cateId");
+            this.s.AddWhere("and", "r", "newsId", "=", "@newsId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);
@@ -27,7 +41,13 @@ namespace WebDao.Dao.Info
 
         public string GetCateList(Int64 newsId)
         {
-            this.sql = @"select [cateId] from [Info_Relationship] where [newsId]=@newsId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_Relationship");
+            this.s.AddField("cateId");
+            this.s.AddWhere("", "", "newsId", "=", "@newsId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);
@@ -39,7 +59,11 @@ namespace WebDao.Dao.Info
         {
             if (newsId > 0)
             {
-                this.sql = @"delete from [Info_Relationship] where [newsId]=@newsId;";
+                this.s = new SqlBuilder();
+                this.s.AddTable("Info_Relationship");
+                this.s.AddWhere("", "", "newsId", "=", "@newsId");
+
+                this.sql = this.s.SqlDelete();
 
                 this.param = new Dictionary<string, object>();
                 this.param.Add("newsId", newsId);
@@ -49,7 +73,12 @@ namespace WebDao.Dao.Info
 
             if (cateIds.Length > 0)
             {
-                this.sql = @"insert into [Info_Relationship] ([cateId],[newsId])values(@cateId,@newsId)";
+                this.s = new SqlBuilder();
+                this.s.AddTable("Info_Relationship");
+                this.s.AddField("cateId");
+                this.s.AddField("newsId");
+
+                this.sql = this.s.SqlInsert();
                 List<Dictionary<string, object>> paramList = new List<Dictionary<string, object>>();
 
                 for (int i = 0, j = cateIds.Length; i < j; i++)

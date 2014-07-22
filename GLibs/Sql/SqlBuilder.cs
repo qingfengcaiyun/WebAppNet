@@ -293,7 +293,7 @@ namespace Glibs.Sql
             str.Append(") from ");
             str.Append(this.sqlTable.ToString());
 
-            if (this.sqlWhere.ToString().Length > 0)
+            if (this.sqlWhere.Length > 0)
             {
                 str.Append(" where");
                 str.Append(this.sqlWhere.ToString());
@@ -316,13 +316,13 @@ namespace Glibs.Sql
             str.Append(" from ");
             str.Append(this.sqlTable.ToString());
 
-            if (this.sqlWhere.ToString().Length > 0)
+            if (this.sqlWhere.Length > 0)
             {
                 str.Append(" where");
                 str.Append(this.sqlWhere.ToString());
             }
 
-            if (this.sqlOrderBy.ToString().Length > 0)
+            if (this.sqlOrderBy.Length > 0)
             {
                 str.Append(" order by ");
                 str.Append(this.sqlOrderBy.ToString());
@@ -366,8 +366,11 @@ namespace Glibs.Sql
             str.Append(this.sqlTable.ToString());
             str.Append(" set ");
             str.Append(f.ToString().Substring(1));
-            str.Append(" where");
-            str.Append(this.sqlWhere.ToString());
+            if (this.sqlWhere.Length > 0)
+            {
+                str.Append(" where");
+                str.Append(this.sqlWhere.ToString());
+            }
 
             return str.ToString();
         }
@@ -380,8 +383,11 @@ namespace Glibs.Sql
             str.Append(this.sqlTable.ToString());
             str.Append(" set ");
             str.Append(this.sqlIncrease.ToString());
-            str.Append(" where");
-            str.Append(this.sqlWhere.ToString());
+            if (this.sqlWhere.Length > 0)
+            {
+                str.Append(" where");
+                str.Append(this.sqlWhere.ToString());
+            }
 
             return str.ToString();
         }
@@ -392,9 +398,11 @@ namespace Glibs.Sql
 
             str.Append("delete from ");
             str.Append(this.sqlTable.ToString());
-            str.Append(" where");
-            str.Append(this.sqlWhere.ToString());
-
+            if (this.sqlWhere.Length > 0)
+            {
+                str.Append(" where");
+                str.Append(this.sqlWhere.ToString());
+            }
             return str.ToString();
         }
 

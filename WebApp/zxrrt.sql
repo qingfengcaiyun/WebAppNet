@@ -300,6 +300,7 @@ create table [Info_Activity](
 	[qq] [nvarchar](20) NOT NULL,
 	[keywords] [nvarchar](255) NOT NULL,
 	[readCount] [int] NOT NULL,
+	[isClosed] [bit] NOT null,
 	[itemIndex] [int] NOT NULL
 );
 

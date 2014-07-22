@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace WebApp
 {
@@ -26,9 +28,32 @@ namespace WebApp
 
             //Response.Write(Server.MapPath("attached"));
 
-            string str = "001001003001001002";
-            int i = str.IndexOf("001");
-            Response.Write(i);
+            //string str = "001001003001001002";
+            //int i = str.IndexOf("001");
+            //Response.Write(i);
+
+            string str = "";
+            //取得当前方法命名空间
+            str += "命名空间名:" + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace + "\n";
+            //取得当前方法类全名 包括命名空间
+            str += "类名:" + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName + "\n";
+            //取得当前方法名
+            str += "方法名:" + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n";
+            str += "\n";
+
+            StackTrace ss = new StackTrace(true);
+            MethodBase mb = ss.GetFrame(1).GetMethod();
+            //取得父方法命名空间
+            str += mb.DeclaringType.Namespace + "\n";
+            //取得父方法类名
+            str += mb.DeclaringType.Name + "\n";
+            //取得父方法类全名
+            str += mb.DeclaringType.FullName + "\n";
+            //取得父方法名
+            str += mb.Name + "\n";
+
+
+            Response.Write(str);
         }
     }
 }

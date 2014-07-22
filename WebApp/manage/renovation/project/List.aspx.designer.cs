@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApp.manage.info.news {
+namespace WebApp.manage.renovation.project {
     
     
     public partial class List {

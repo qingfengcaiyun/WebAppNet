@@ -9,6 +9,7 @@ namespace WebDao.Dao.Renovation
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public DiaryDao()
         {
@@ -17,7 +18,52 @@ namespace WebDao.Dao.Renovation
 
         public Dictionary<string, object> GetOne(int diaryId)
         {
-            this.sql = @"select [diaryId],[locationId],[userId],[clientId],[memberId],[processId],[projectId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[insertTime],[updateTime] from [Renovation_Diary] where [diaryId]=@diaryId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Diary", "d");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("User_Member", "m");
+            this.s.AddTable("Renovation_Process", "proc");
+            this.s.AddTable("Renovation_Project", "proj");
+
+            this.s.AddField("l", "cnName");
+
+            this.s.AddField("u", "userName");
+
+            this.s.AddField("c", "fullName", "client");
+
+            this.s.AddField("m", "fullName", "member");
+
+            this.s.AddField("proc", "processName");
+
+            this.s.AddField("proj", "pName");
+
+            this.s.AddField("d", "diaryId");
+            this.s.AddField("d", "locationId");
+            this.s.AddField("d", "userId");
+            this.s.AddField("d", "clientId");
+            this.s.AddField("d", "memberId");
+            this.s.AddField("d", "processId");
+            this.s.AddField("d", "projectId");
+            this.s.AddField("d", "longTitle");
+            this.s.AddField("d", "shortTitle");
+            this.s.AddField("d", "content");
+            this.s.AddField("d", "keywords");
+            this.s.AddField("d", "picUrl");
+            this.s.AddField("d", "insertTime");
+            this.s.AddField("d", "updateTime");
+
+            this.s.AddWhere("", "d", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "d", "userId", "=", "u", "userId");
+            this.s.AddWhere("and", "d", "clientId", "=", "c", "clientId");
+            this.s.AddWhere("and", "d", "memberId", "=", "m", "memberId");
+            this.s.AddWhere("and", "d", "processId", "=", "proc", "processId");
+            this.s.AddWhere("and", "d", "projectId", "=", "proj", "projectId");
+            this.s.AddWhere("and", "d", "diaryId", "=", "@diaryId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("diaryId", diaryId);
@@ -27,7 +73,56 @@ namespace WebDao.Dao.Renovation
 
         public List<Dictionary<string, object>> GetList(string msg, int locationId)
         {
-            this.sql = @"select [diaryId],[locationId],[userId],[clientId],[memberId],[processId],[projectId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[insertTime],[updateTime] from [Renovation_Diary] where [locationId]=@locationId and ([longTitle] like '%'+@msg+'%' or [shortTitle] like '%'+@msg+'%' ) order by [insertTime] desc";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Diary", "d");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("User_Member", "m");
+            this.s.AddTable("Renovation_Process", "proc");
+            this.s.AddTable("Renovation_Project", "proj");
+
+            this.s.AddField("l", "cnName");
+
+            this.s.AddField("u", "userName");
+
+            this.s.AddField("c", "fullName", "client");
+
+            this.s.AddField("m", "fullName", "member");
+
+            this.s.AddField("proc", "processName");
+
+            this.s.AddField("proj", "pName");
+
+            this.s.AddField("d", "diaryId");
+            this.s.AddField("d", "locationId");
+            this.s.AddField("d", "userId");
+            this.s.AddField("d", "clientId");
+            this.s.AddField("d", "memberId");
+            this.s.AddField("d", "processId");
+            this.s.AddField("d", "projectId");
+            this.s.AddField("d", "longTitle");
+            this.s.AddField("d", "shortTitle");
+            this.s.AddField("d", "content");
+            this.s.AddField("d", "keywords");
+            this.s.AddField("d", "picUrl");
+            this.s.AddField("d", "insertTime");
+            this.s.AddField("d", "updateTime");
+
+            this.s.AddWhere("", "d", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "d", "userId", "=", "u", "userId");
+            this.s.AddWhere("and", "d", "clientId", "=", "c", "clientId");
+            this.s.AddWhere("and", "d", "memberId", "=", "m", "memberId");
+            this.s.AddWhere("and", "d", "processId", "=", "proc", "processId");
+            this.s.AddWhere("and", "d", "projectId", "=", "proj", "projectId");
+            this.s.AddWhere("and", "d", "locationId", "=", "@locationId");
+            this.s.AddWhere("and", "(d", "longTitle", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "d", "shortTitle", "like", "'%'+@msg+'%')");
+
+            this.s.AddOrderBy("d", "insertTime", false);
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("locationId", locationId);
@@ -38,30 +133,82 @@ namespace WebDao.Dao.Renovation
 
         public PageRecords GetPage(int pageSize, int pageNo, int locationId, string msg)
         {
-            PageRecords pr = new PageRecords();
-            pr.CurrentPage = pageNo;
-            pr.PageSize = pageSize;
+            this.s = new SqlBuilder();
 
-            pr.CountKey = @"[diaryId]";
-            pr.SqlFields = @"[diaryId],[locationId],[userId],[clientId],[memberId],[processId],[projectId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[insertTime],[updateTime]";
-            pr.SqlOrderBy = @"[insertTime] desc";
-            pr.SqlTable = @"[Renovation_Diary]";
-            pr.SqlWhere = @"[locationId]=@locationId and ([longTitle] like '%'+@msg+'%' or [shortTitle] like '%'+@msg+'%' )";
+            this.s.AddTable("Renovation_Diary", "d");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("User_Member", "m");
+            this.s.AddTable("Renovation_Process", "proc");
+            this.s.AddTable("Renovation_Project", "proj");
+
+            this.s.SetTagField("d", "diaryId");
+
+            this.s.AddField("l", "cnName");
+
+            this.s.AddField("u", "userName");
+
+            this.s.AddField("c", "fullName", "client");
+
+            this.s.AddField("m", "fullName", "member");
+
+            this.s.AddField("proc", "processName");
+
+            this.s.AddField("proj", "pName");
+
+            this.s.AddField("d", "diaryId");
+            this.s.AddField("d", "locationId");
+            this.s.AddField("d", "userId");
+            this.s.AddField("d", "clientId");
+            this.s.AddField("d", "memberId");
+            this.s.AddField("d", "processId");
+            this.s.AddField("d", "projectId");
+            this.s.AddField("d", "longTitle");
+            this.s.AddField("d", "shortTitle");
+            this.s.AddField("d", "content");
+            this.s.AddField("d", "keywords");
+            this.s.AddField("d", "picUrl");
+            this.s.AddField("d", "insertTime");
+            this.s.AddField("d", "updateTime");
+
+            this.s.AddWhere("", "d", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "d", "userId", "=", "u", "userId");
+            this.s.AddWhere("and", "d", "clientId", "=", "c", "clientId");
+            this.s.AddWhere("and", "d", "memberId", "=", "m", "memberId");
+            this.s.AddWhere("and", "d", "processId", "=", "proc", "processId");
+            this.s.AddWhere("and", "d", "projectId", "=", "proj", "projectId");
+            this.s.AddWhere("and", "d", "locationId", "=", "@locationId");
+            this.s.AddWhere("and", "(d", "longTitle", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "d", "shortTitle", "like", "'%'+@msg+'%')");
+
+            this.s.AddOrderBy("d", "insertTime", false);
 
             this.param = new Dictionary<string, object>();
             this.param.Add("locationId", locationId);
             this.param.Add("msg", msg);
 
-            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(pr.CountSql, this.param).ToString());
+            PageRecords pr = new PageRecords();
+            pr.CurrentPage = pageNo;
+            pr.PageSize = pageSize;
+
+            pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.s.SqlCount(), this.param).ToString());
             pr.SetBaseParam();
-            pr.PageResult = this.db.GetDataTable(pr.QuerySql, this.param);
+
+            pr.PageResult = this.db.GetDataTable(this.s.SqlPage(pr.PageSize, pr.StartIndex), this.param);
 
             return pr;
         }
 
         public bool Delete(int diaryId)
         {
-            this.sql = @"delete from [Renovation_Diary] where [diaryId]=@diaryId;";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Diary");
+
+            this.s.AddWhere("", "", "diaryId", "=", "@diaryId");
+
+            this.sql = this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("diaryId", diaryId);
@@ -71,7 +218,26 @@ namespace WebDao.Dao.Renovation
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Renovation_Diary] ([locationId],[userId],[clientId],[memberId],[processId],[projectId],[longTitle],[shortTitle],[content],[keywords],[picUrl],[readCount],[insertTime],[updateTime])values(@locationId,@userId,@clientId,@memberId,@processId,@projectId,@longTitle,@shortTitle,@content,@keywords,@picUrl,@readCount,@insertTime,@updateTime)";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Diary");
+
+            this.s.AddField("locationId");
+            this.s.AddField("userId");
+            this.s.AddField("clientId");
+            this.s.AddField("memberId");
+            this.s.AddField("processId");
+            this.s.AddField("projectId");
+            this.s.AddField("longTitle");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("readCount");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
+
+            this.sql = this.s.SqlInsert();
 
             DateTime now = DateTime.Now;
 
@@ -96,7 +262,28 @@ namespace WebDao.Dao.Renovation
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [Renovation_Diary] set [locationId]=@locationId,[userId]=@userId,[clientId]=@clientId,[memberId]=@memberId,[processId]=@processId,[projectId]=@projectId,[longTitle]=@longTitle,[shortTitle]=@shortTitle,[content]=@content,[keywords]=@keywords,[picUrl]=@picUrl,[updateTime]=@updateTime where [diaryId]=@diaryId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Diary");
+
+            this.s.AddField("locationId");
+            this.s.AddField("userId");
+            this.s.AddField("clientId");
+            this.s.AddField("memberId");
+            this.s.AddField("processId");
+            this.s.AddField("projectId");
+            this.s.AddField("longTitle");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("readCount");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
+
+            this.s.AddWhere("", "", "diaryId", "=", "@diaryId");
+
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("locationId", content["locationId"]);
@@ -117,14 +304,24 @@ namespace WebDao.Dao.Renovation
             return this.db.Update(this.sql, this.param);
         }
 
-        public bool SetReadCount(int diaryId)
+        public int SetReadCount(int diaryId)
         {
-            this.sql = @"update [Renovation_Diary] set [readCount]=[readCount]+1 where [diaryId]=@diaryId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Diary");
+
+            this.s.AddField("readCount");
+
+            this.s.AddIncrease("readCount", 1);
+
+            this.s.AddWhere(string.Empty, string.Empty, "diaryId", "=", "@diaryId");
+
+            this.sql = this.s.SqlIncrease() + ";" + this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("diaryId", diaryId);
 
-            return this.db.Update(this.sql, this.param);
+            return (int)this.db.GetDataValue(this.sql, this.param);
         }
     }
 }

@@ -24,7 +24,11 @@ namespace WebApp.manage
                     content.Add("lastLogin", cUser["lastLogin"]);
                     content.Add("userName", cUser["userName"]);
 
-                    Response.Write(VelocityDo.BuildStringByTemplate("manage.vm", @"~/templates/manage", content));
+
+                    string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+                    nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
+
+                    Response.Write(VelocityDo.BuildStringByTemplate("manage.vm", @"~/templates/" + nameSpace, content));
                 }
                 else
                 {

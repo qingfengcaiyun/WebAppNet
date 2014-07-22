@@ -10,7 +10,7 @@ using Glibs.Util;
 using WebLogic.Service.Info;
 using WebLogic.Service.System;
 
-namespace WebApp.manage.info.article
+namespace WebApp.manage.info.news
 {
     public partial class Action : System.Web.UI.Page
     {

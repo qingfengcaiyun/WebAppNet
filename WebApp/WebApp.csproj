@@ -182,6 +182,9 @@
     <Content Include="libs\easyui\themes\icons\sum.png" />
     <Content Include="libs\easyui\themes\icons\undo.png" />
     <Content Include="libs\jquery.js" />
+    <Content Include="manage\renovation\project\Action.aspx" />
+    <Content Include="manage\renovation\project\Detail.aspx" />
+    <Content Include="manage\renovation\project\List.aspx" />
     <Content Include="manage\sys\webmsg\Action.aspx" />
     <Content Include="manage\sys\webmsg\View.aspx" />
     <Content Include="zxrrt.sql" />
@@ -430,6 +433,27 @@
     <Compile Include="manage\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\renovation\project\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\project\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\project\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\project\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\project\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\project\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="manage\sys\webmsg\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -535,7 +559,6 @@
     <Folder Include="client\" />
     <Folder Include="designer\" />
     <Folder Include="libs\kindeditor\attached\" />
-    <Folder Include="manage\renovation\" />
     <Folder Include="manage\user\" />
     <Folder Include="member\" />
     <Folder Include="templates\client\" />

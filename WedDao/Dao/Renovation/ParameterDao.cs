@@ -8,6 +8,7 @@ namespace WebDao.Dao.Renovation
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public ParameterDao()
         {
@@ -16,7 +17,23 @@ namespace WebDao.Dao.Renovation
 
         public Dictionary<string, object> getOne(int paramId)
         {
-            this.sql = @"select [paramId],[locationId],[paramName],[paramKey],[paramValue],[itemIndex] from [Renovation_Parameters] where [paramId]=@paramId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Parameters", "p");
+            this.s.AddTable("Sys_Location", "l");
+
+            this.s.AddField("l", "cnName");
+            this.s.AddField("p", "paramId");
+            this.s.AddField("p", "locationId");
+            this.s.AddField("p", "paramName");
+            this.s.AddField("p", "paramKey");
+            this.s.AddField("p", "paramValue");
+            this.s.AddField("p", "itemIndex");
+
+            this.s.AddWhere("", "l", "locationId", "=", "p", "locationId");
+            this.s.AddWhere("and", "p", "paramId", "=", "@paramId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("paramId", paramId);
@@ -26,16 +43,36 @@ namespace WebDao.Dao.Renovation
 
         public List<Dictionary<string, object>> GetList(string paramKey)
         {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Parameters", "p");
+            this.s.AddTable("Sys_Location", "l");
+
+            this.s.AddField("l", "cnName");
+            this.s.AddField("p", "paramId");
+            this.s.AddField("p", "locationId");
+            this.s.AddField("p", "paramName");
+            this.s.AddField("p", "paramKey");
+            this.s.AddField("p", "paramValue");
+            this.s.AddField("p", "itemIndex");
+
+            this.s.AddWhere("", "l", "locationId", "=", "p", "locationId");
+
             this.param = new Dictionary<string, object>();
+
             if (string.IsNullOrEmpty(paramKey))
             {
-                this.sql = @"select [paramId],[locationId],[paramName],[paramKey],[paramValue],[itemIndex] from [Renovation_Parameters] order by [paramKey] asc,[itemIndex] desc";
+                this.s.AddOrderBy("p", "paramKey", true);
             }
             else
             {
-                this.sql = @"select [paramId],[locationId],[paramName],[paramKey],[paramValue],[itemIndex] from [Renovation_Parameters] where [paramKey]=@paramKey order by [itemIndex] desc";
+                this.s.AddWhere("and", "p", "paramKey", "=", "@paramKey");
                 this.param.Add("paramKey", paramKey);
             }
+
+            this.s.AddOrderBy("p", "itemIndex", false);
+
+            this.sql = this.s.SqlSelect();
 
             return this.db.GetDataTable(this.sql, this.param);
         }
@@ -59,21 +96,43 @@ namespace WebDao.Dao.Renovation
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"insert into [Renovation_Parameters] ([locationId],[paramName],[paramKey],[paramValue],[itemIndex])values(@locationId,@paramName,@paramKey,@paramValue,@itemIndex)";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Parameters");
+
+            this.s.AddField("locationId");
+            this.s.AddField("paramName");
+            this.s.AddField("paramKey");
+            this.s.AddField("paramValue");
+            this.s.AddField("itemIndex");
+
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("locationId", content["locationId"]);
-            this.param.Add("locationId", content["paramName"]);
-            this.param.Add("locationId", content["paramKey"]);
-            this.param.Add("locationId", content["paramValue"]);
-            this.param.Add("locationId", content["itemIndex"]);
+            this.param.Add("paramName", content["paramName"]);
+            this.param.Add("paramKey", content["paramKey"]);
+            this.param.Add("paramValue", content["paramValue"]);
+            this.param.Add("itemIndex", content["itemIndex"]);
 
             return this.db.Insert(this.sql, this.param);
         }
 
         public bool Update(Dictionary<string, object> content)
         {
-            this.sql = @"update [Renovation_Parameters] set [locationId]=@locationId,[paramName]=@paramName,[paramKey]=@paramKey,[paramValue]=@paramValue,[itemIndex]=@itemIndex where [paramId]=@paramId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Parameters");
+
+            this.s.AddField("locationId");
+            this.s.AddField("paramName");
+            this.s.AddField("paramKey");
+            this.s.AddField("paramValue");
+            this.s.AddField("itemIndex");
+
+            this.s.AddWhere("", "", "paramId", "=", "@paramId");
+
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("locationId", content["locationId"]);

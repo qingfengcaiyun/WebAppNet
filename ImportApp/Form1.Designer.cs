@@ -30,14 +30,13 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.ClearCompany = new System.Windows.Forms.Button();
-            this.CompanyList1 = new System.Windows.Forms.ComboBox();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.SelectTextBox1 = new System.Windows.Forms.TextBox();
-            this.SelectCompany = new System.Windows.Forms.Button();
-            this.ImportCompany = new System.Windows.Forms.Button();
             this.Msg1 = new System.Windows.Forms.TextBox();
+            this.ImportCompany = new System.Windows.Forms.Button();
+            this.SelectCompany = new System.Windows.Forms.Button();
+            this.SelectTextBox1 = new System.Windows.Forms.TextBox();
+            this.CompanyList1 = new System.Windows.Forms.ComboBox();
+            this.ClearCompany = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.Msg2 = new System.Windows.Forms.TextBox();
             this.ImportProduct = new System.Windows.Forms.Button();
             this.SelectProduct = new System.Windows.Forms.Button();
@@ -49,6 +48,7 @@
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -86,6 +86,63 @@
             this.tabPage1.Text = "公司信息";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // Msg1
+            // 
+            this.Msg1.BackColor = System.Drawing.SystemColors.Info;
+            this.Msg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Msg1.Location = new System.Drawing.Point(7, 59);
+            this.Msg1.Multiline = true;
+            this.Msg1.Name = "Msg1";
+            this.Msg1.ReadOnly = true;
+            this.Msg1.Size = new System.Drawing.Size(587, 339);
+            this.Msg1.TabIndex = 5;
+            // 
+            // ImportCompany
+            // 
+            this.ImportCompany.Location = new System.Drawing.Point(484, 32);
+            this.ImportCompany.Name = "ImportCompany";
+            this.ImportCompany.Size = new System.Drawing.Size(110, 21);
+            this.ImportCompany.TabIndex = 4;
+            this.ImportCompany.Text = "导入公司信息文件";
+            this.ImportCompany.UseVisualStyleBackColor = true;
+            this.ImportCompany.Click += new System.EventHandler(this.ImportCompany_Click);
+            // 
+            // SelectCompany
+            // 
+            this.SelectCompany.Location = new System.Drawing.Point(368, 32);
+            this.SelectCompany.Name = "SelectCompany";
+            this.SelectCompany.Size = new System.Drawing.Size(110, 21);
+            this.SelectCompany.TabIndex = 3;
+            this.SelectCompany.Text = "选择公司信息文件";
+            this.SelectCompany.UseVisualStyleBackColor = true;
+            // 
+            // SelectTextBox1
+            // 
+            this.SelectTextBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.SelectTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.SelectTextBox1.Location = new System.Drawing.Point(6, 32);
+            this.SelectTextBox1.Name = "SelectTextBox1";
+            this.SelectTextBox1.ReadOnly = true;
+            this.SelectTextBox1.Size = new System.Drawing.Size(356, 21);
+            this.SelectTextBox1.TabIndex = 2;
+            // 
+            // CompanyList1
+            // 
+            this.CompanyList1.FormattingEnabled = true;
+            this.CompanyList1.Location = new System.Drawing.Point(6, 6);
+            this.CompanyList1.Name = "CompanyList1";
+            this.CompanyList1.Size = new System.Drawing.Size(482, 20);
+            this.CompanyList1.TabIndex = 1;
+            // 
+            // ClearCompany
+            // 
+            this.ClearCompany.Location = new System.Drawing.Point(494, 6);
+            this.ClearCompany.Name = "ClearCompany";
+            this.ClearCompany.Size = new System.Drawing.Size(100, 20);
+            this.ClearCompany.TabIndex = 0;
+            this.ClearCompany.Text = "清除公司信息";
+            this.ClearCompany.UseVisualStyleBackColor = true;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.Msg2);
@@ -101,66 +158,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "作品信息";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // ClearCompany
-            // 
-            this.ClearCompany.Location = new System.Drawing.Point(494, 6);
-            this.ClearCompany.Name = "ClearCompany";
-            this.ClearCompany.Size = new System.Drawing.Size(100, 20);
-            this.ClearCompany.TabIndex = 0;
-            this.ClearCompany.Text = "清除公司信息";
-            this.ClearCompany.UseVisualStyleBackColor = true;
-            // 
-            // CompanyList1
-            // 
-            this.CompanyList1.FormattingEnabled = true;
-            this.CompanyList1.Location = new System.Drawing.Point(6, 6);
-            this.CompanyList1.Name = "CompanyList1";
-            this.CompanyList1.Size = new System.Drawing.Size(482, 20);
-            this.CompanyList1.TabIndex = 1;
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // SelectTextBox1
-            // 
-            this.SelectTextBox1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.SelectTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.SelectTextBox1.Location = new System.Drawing.Point(6, 32);
-            this.SelectTextBox1.Name = "SelectTextBox1";
-            this.SelectTextBox1.ReadOnly = true;
-            this.SelectTextBox1.Size = new System.Drawing.Size(356, 21);
-            this.SelectTextBox1.TabIndex = 2;
-            // 
-            // SelectCompany
-            // 
-            this.SelectCompany.Location = new System.Drawing.Point(368, 32);
-            this.SelectCompany.Name = "SelectCompany";
-            this.SelectCompany.Size = new System.Drawing.Size(110, 21);
-            this.SelectCompany.TabIndex = 3;
-            this.SelectCompany.Text = "选择公司信息文件";
-            this.SelectCompany.UseVisualStyleBackColor = true;
-            // 
-            // ImportCompany
-            // 
-            this.ImportCompany.Location = new System.Drawing.Point(484, 32);
-            this.ImportCompany.Name = "ImportCompany";
-            this.ImportCompany.Size = new System.Drawing.Size(110, 21);
-            this.ImportCompany.TabIndex = 4;
-            this.ImportCompany.Text = "导入公司信息文件";
-            this.ImportCompany.UseVisualStyleBackColor = true;
-            // 
-            // Msg1
-            // 
-            this.Msg1.BackColor = System.Drawing.SystemColors.Info;
-            this.Msg1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Msg1.Location = new System.Drawing.Point(7, 59);
-            this.Msg1.Multiline = true;
-            this.Msg1.Name = "Msg1";
-            this.Msg1.ReadOnly = true;
-            this.Msg1.Size = new System.Drawing.Size(587, 339);
-            this.Msg1.TabIndex = 5;
             // 
             // Msg2
             // 
@@ -263,6 +260,10 @@
             this.tabPage7.Text = "设计师页面";
             this.tabPage7.UseVisualStyleBackColor = true;
             // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -271,6 +272,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "网站信息导入操作";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

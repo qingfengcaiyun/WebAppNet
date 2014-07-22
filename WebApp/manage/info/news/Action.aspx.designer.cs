@@ -7,7 +7,7 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApp.manage.info.article {
+namespace WebApp.manage.info.news {
     
     
     public partial class Action {

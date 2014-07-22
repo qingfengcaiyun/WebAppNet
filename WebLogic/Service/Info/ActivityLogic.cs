@@ -21,13 +21,13 @@ namespace WebLogic.Service.Info
 
         public string GetPageJson(int pageNo, int pageSize, int locationId, string msg)
         {
-            PageRecords pr = this.dao.GetPage(pageSize, pageNo, locationId, msg);
+            PageRecords pr = this.dao.GetPage(pageSize, pageNo, locationId.ToString(), msg);
             return pr.PageJSON;
         }
 
         public PageRecords GetPage(int pageNo, int pageSize, int locationId, string msg)
         {
-            return this.dao.GetPage(pageSize, pageNo, locationId, msg);
+            return this.dao.GetPage(pageSize, pageNo, locationId.ToString(), msg);
         }
 
         public bool Delete(int actId)

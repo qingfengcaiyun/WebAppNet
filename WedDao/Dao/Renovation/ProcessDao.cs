@@ -10,6 +10,7 @@ namespace WebDao.Dao.Renovation
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public ProcessDao()
         {
@@ -18,7 +19,19 @@ namespace WebDao.Dao.Renovation
 
         public Dictionary<string, object> GetOne(int processId)
         {
-            this.sql = @"select [processId],[processName],[processNo],[parentNo],[isLeaf] from [Renovation_Process] where [processId]=@processId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processId");
+            this.s.AddField("processName");
+            this.s.AddField("processNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere("", "", "processId", "=", "@processId");
+
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("processId", processId);
@@ -28,12 +41,26 @@ namespace WebDao.Dao.Renovation
 
         public List<Dictionary<string, object>> GetList(string parentNo)
         {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processId");
+            this.s.AddField("processName");
+            this.s.AddField("processNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere("", "", "parentNo", "like", "@parentNo+'%'");
+
+            this.s.AddOrderBy("processNo", true);
+
+            this.sql = this.s.SqlSelect();
+
             if (!RegexDo.IsNumber(parentNo))
             {
                 parentNo = "0";
             }
-
-            this.sql = @"select [processId],[processName],[processNo],[parentNo],[isLeaf] from [Renovation_Process] where [parentNo] like @parentNo+'%' order by [processNo] asc";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("parentNo", parentNo);
@@ -43,7 +70,27 @@ namespace WebDao.Dao.Renovation
 
         public bool Delete(int processId)
         {
-            this.sql = @"update [Renovation_Article] set [processId]=0 where [processId]=@processId;delete from [Renovation_Process] where [processId]=@processId;";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processNo");
+
+            this.s.AddWhere("", "", "processId", "=", "@processId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processId");
+
+            this.s.AddWhere("", "", "processNo", "like", "(" + this.sql + ")+'%'");
+
+            string processIds = this.s.SqlSelect();
+
+            this.sql = @"update [Renovation_Article] set [processId]=0 where [processId] in (" + processIds + @");delete from [Renovation_Process] where [processId] in (" + processIds + @");";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("processId", processId);
@@ -53,12 +100,37 @@ namespace WebDao.Dao.Renovation
 
         public long Insert(Dictionary<string, object> content)
         {
-            this.sql = @"update [Renovation_Process] set [isLeaf]=0 where [processNo]=@parentNo; insert into [Renovation_Process] ([processName],[processNo],[parentNo],[isLeaf])values(@processName,@processNo,@parentNo,1)";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere("", "", "processNo", "=", "@processNo");
+
+            this.sql = this.s.SqlUpdate();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("isLeaf", 0);
+
+            this.db.Update(this.sql, this.param);
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processName");
+            this.s.AddField("processNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("isLeaf");
+
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("parentNo", content["parentNo"]);
             this.param.Add("processName", content["processName"]);
             this.param.Add("parentNo", content["parentNo"]);
+            this.param.Add("isLeaf", 1);
 
             return this.db.Insert(this.sql, this.param);
         }
@@ -90,18 +162,49 @@ namespace WebDao.Dao.Renovation
                         paramList.Add(this.param);
                     }
 
-                    this.sql = @"update [Renovation_Process] set [processNo]=@processNo,[parentNo]=@parentNo where [processId]=@processId";
+                    this.s = new SqlBuilder();
+
+                    this.s.AddTable("Renovation_Process");
+
+                    this.s.AddField("processName");
+                    this.s.AddField("processNo");
+                    this.s.AddField("parentNo");
+
+                    this.s.AddWhere("", "", "processId", "=", "@processId");
+
+                    this.sql = this.s.SqlUpdate();
                     this.db.Batch(this.sql, paramList);
                 }
             }
 
-            this.sql = @"update [Renovation_Process] set [isLeaf]=0 where [processNo]=@parentNo;update [Renovation_Process] set [processName]=@processName,[processNo]=@processNo,[parentNo]=@parentNo where [processId]=@processId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere("", "", "processNo", "=", "@processNo");
+
+            this.sql = this.s.SqlUpdate();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Process");
+
+            this.s.AddField("processName");
+            this.s.AddField("processNo");
+            this.s.AddField("parentNo");
+
+            this.s.AddWhere("", "", "processId", "=", "@processId");
+
+            this.sql = this.sql + ";" + this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("parentNo", content["parentNo"]);
             this.param.Add("processName", content["processName"]);
             this.param.Add("processNo", content["processNo"]);
             this.param.Add("processId", content["processId"]);
+            this.param.Add("isLeaf", 0);
 
             return this.db.Update(this.sql, this.param);
         }

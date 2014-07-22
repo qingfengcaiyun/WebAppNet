@@ -14,7 +14,10 @@ namespace WebApp.manage
         {
             if (!Page.IsPostBack)
             {
-                Response.Write(VelocityDo.BuildStringByTemplate("login.vm", @"~/templates/manage/", null));
+                string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
+
+                Response.Write(VelocityDo.BuildStringByTemplate("login.vm", @"~/templates/" + nameSpace, null));
             }
         }
     }

@@ -40,9 +40,6 @@
     <Reference Include="LitJSON">
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\LitJSON.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="NPOI">
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.dll</HintPath>
     </Reference>

@@ -9,6 +9,7 @@ namespace WebDao.Dao.Info
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public NewsDao()
         {
@@ -17,30 +18,30 @@ namespace WebDao.Dao.Info
 
         public Dictionary<string, object> GetOne(Int64 newsId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Info_News");
+            this.s.AddTable("Info_News");
 
-            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+            this.s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
 
-            s.AddField("newsId");
-            s.AddField("cityId");
-            s.AddField("longTitle");
-            s.AddField("titleColor");
-            s.AddField("shortTitle");
-            s.AddField("content");
-            s.AddField("fileIds");
-            s.AddField("keywords");
-            s.AddField("picUrl");
-            s.AddField("readCount");
-            s.AddField("itemIndex");
-            s.AddField("outLink");
-            s.AddField("isTop");
-            s.AddField("topTime");
-            s.AddField("insertTime");
-            s.AddField("updateTime");
+            this.s.AddField("newsId");
+            this.s.AddField("cityId");
+            this.s.AddField("longTitle");
+            this.s.AddField("titleColor");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("fileIds");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("readCount");
+            this.s.AddField("itemIndex");
+            this.s.AddField("outLink");
+            this.s.AddField("isTop");
+            this.s.AddField("topTime");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);
@@ -50,76 +51,74 @@ namespace WebDao.Dao.Info
 
         public PageRecords GetPage(int pageSize, int pageNo, int cateId, string cityId, string msg)
         {
-            SqlBuilder s = new SqlBuilder();
-
             this.param = new Dictionary<string, object>();
 
             if (cateId > 1)
             {
-                s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Info_Relationship");
+                this.s.AddTable("Info_Relationship");
 
-                s.AddField("newsId");
+                this.s.AddField("newsId");
 
-                s.AddWhere(string.Empty, string.Empty, "cateId", "=", "@cateId");
+                this.s.AddWhere(string.Empty, string.Empty, "cateId", "=", "@cateId");
 
                 this.sql = s.SqlSelect();
 
-                s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Info_News", "n");
+                this.s.AddTable("Info_News", "n");
 
-                s.AddField("n", "newsId");
-                s.AddField("n", "cityId");
-                s.AddField("n", "longTitle");
-                s.AddField("n", "titleColor");
-                s.AddField("n", "shortTitle");
-                s.AddField("n", "keywords");
-                s.AddField("n", "readCount");
-                s.AddField("n", "itemIndex");
-                s.AddField("n", "insertTime");
-                s.AddField("n", "updateTime");
+                this.s.AddField("n", "newsId");
+                this.s.AddField("n", "cityId");
+                this.s.AddField("n", "longTitle");
+                this.s.AddField("n", "titleColor");
+                this.s.AddField("n", "shortTitle");
+                this.s.AddField("n", "keywords");
+                this.s.AddField("n", "readCount");
+                this.s.AddField("n", "itemIndex");
+                this.s.AddField("n", "insertTime");
+                this.s.AddField("n", "updateTime");
 
-                s.SetTagField("n", "newsId");
+                this.s.SetTagField("n", "newsId");
 
-                s.AddOrderBy("n", "itemIndex", false);
-                s.AddOrderBy("n", "insertTime", false);
+                this.s.AddOrderBy("n", "itemIndex", false);
+                this.s.AddOrderBy("n", "insertTime", false);
 
-                s.AddWhere(string.Empty, "n", "newsId", "in", "(" + this.sql + ")");
-                s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
-                s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
-                s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
-                s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
+                this.s.AddWhere(string.Empty, "n", "newsId", "in", "(" + this.sql + ")");
+                this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
+                this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
+                this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
+                this.s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
 
                 this.param.Add("cateId", cateId);
             }
             else
             {
-                s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Info_News", "n");
+                this.s.AddTable("Info_News", "n");
 
-                s.AddField("n", "newsId");
-                s.AddField("n", "cityId");
-                s.AddField("n", "longTitle");
-                s.AddField("n", "titleColor");
-                s.AddField("n", "shortTitle");
-                s.AddField("n", "keywords");
-                s.AddField("n", "readCount");
-                s.AddField("n", "itemIndex");
-                s.AddField("n", "insertTime");
-                s.AddField("n", "updateTime");
+                this.s.AddField("n", "newsId");
+                this.s.AddField("n", "cityId");
+                this.s.AddField("n", "longTitle");
+                this.s.AddField("n", "titleColor");
+                this.s.AddField("n", "shortTitle");
+                this.s.AddField("n", "keywords");
+                this.s.AddField("n", "readCount");
+                this.s.AddField("n", "itemIndex");
+                this.s.AddField("n", "insertTime");
+                this.s.AddField("n", "updateTime");
 
                 s.SetTagField("n", "newsId");
 
-                s.AddOrderBy("n", "itemIndex", false);
-                s.AddOrderBy("n", "insertTime", false);
+                this.s.AddOrderBy("n", "itemIndex", false);
+                this.s.AddOrderBy("n", "insertTime", false);
 
-                s.AddWhere(string.Empty, "n", "cityId", "in", "(" + cityId + ")");
-                s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
-                s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
-                s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
+                this.s.AddWhere(string.Empty, "n", "cityId", "in", "(" + cityId + ")");
+                this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
+                this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
+                this.s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
             }
 
             this.param.Add("msg", msg);
@@ -128,11 +127,11 @@ namespace WebDao.Dao.Info
             pr.CurrentPage = pageNo;
             pr.PageSize = pageSize;
 
-            this.sql = s.SqlCount();
+            this.sql = this.s.SqlCount();
             pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.sql, this.param).ToString());
             pr.SetBaseParam();
 
-            this.sql = s.SqlPage(pr.PageSize, pr.StartIndex);
+            this.sql = this.s.SqlPage(pr.PageSize, pr.StartIndex);
 
             pr.PageResult = this.db.GetDataTable(this.sql, this.param);
 
@@ -141,21 +140,21 @@ namespace WebDao.Dao.Info
 
         public bool Delete(int newsId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Info_Relationship");
+            this.s.AddTable("Info_Relationship");
 
-            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+            this.s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
 
-            this.sql = s.SqlDelete();
+            this.sql = this.s.SqlDelete();
 
-            s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Info_News");
+            this.s.AddTable("Info_News");
 
-            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+            this.s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
 
-            this.sql = this.sql + ";" + s.SqlDelete() + ";";
+            this.sql = this.sql + ";" + this.s.SqlDelete() + ";";
 
             //this.sql = @"delete from [Info_Relationship] where [newsId]=@newsId;delete from [Info_Article] where [newsId]=@newsId;";
 
@@ -167,27 +166,27 @@ namespace WebDao.Dao.Info
 
         public Int64 Insert(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Info_News");
+            this.s.AddTable("Info_News");
 
-            s.AddField("cityId");
-            s.AddField("longTitle");
-            s.AddField("titleColor");
-            s.AddField("shortTitle");
-            s.AddField("content");
-            s.AddField("fileIds");
-            s.AddField("keywords");
-            s.AddField("picUrl");
-            s.AddField("readCount");
-            s.AddField("itemIndex");
-            s.AddField("outLink");
-            s.AddField("isTop");
-            s.AddField("topTime");
-            s.AddField("insertTime");
-            s.AddField("updateTime");
+            this.s.AddField("cityId");
+            this.s.AddField("longTitle");
+            this.s.AddField("titleColor");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("fileIds");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("readCount");
+            this.s.AddField("itemIndex");
+            this.s.AddField("outLink");
+            this.s.AddField("isTop");
+            this.s.AddField("topTime");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
 
-            this.sql = s.SqlInsert();
+            this.sql = this.s.SqlInsert();
 
             //this.sql = @"insert into [Info_Article] ([cityId],[longTitle],[titleColor],[shortTitle],[content],[keywords],[readCount],[itemIndex],[outLink],[isTop],[topTime],[insertTime],[updateTime])values(@cityId,@longTitle,@titleColor,@shortTitle,@content,@keywords,@readCount,@itemIndex,@outLink,@isTop,@topTime,@insertTime,@updateTime)";
 
@@ -215,27 +214,27 @@ namespace WebDao.Dao.Info
 
         public bool Update(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Info_News");
+            this.s.AddTable("Info_News");
 
-            s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+            this.s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
 
-            s.AddField("cityId");
-            s.AddField("longTitle");
-            s.AddField("titleColor");
-            s.AddField("shortTitle");
-            s.AddField("content");
-            s.AddField("fileIds");
-            s.AddField("keywords");
-            s.AddField("picUrl");
-            s.AddField("itemIndex");
-            s.AddField("outLink");
-            s.AddField("isTop");
-            s.AddField("topTime");
-            s.AddField("updateTime");
+            this.s.AddField("cityId");
+            this.s.AddField("longTitle");
+            this.s.AddField("titleColor");
+            this.s.AddField("shortTitle");
+            this.s.AddField("content");
+            this.s.AddField("fileIds");
+            this.s.AddField("keywords");
+            this.s.AddField("picUrl");
+            this.s.AddField("itemIndex");
+            this.s.AddField("outLink");
+            this.s.AddField("isTop");
+            this.s.AddField("topTime");
+            this.s.AddField("updateTime");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             //this.sql = @"update [Info_Article] set [cityId]=@cityId,[longTitle]=@longTitle,[titleColor]=@titleColor,[shortTitle]=@shortTitle,[content]=@content,[keywords]=@keywords,[itemIndex]=@itemIndex,[outLink]=@outLink,[isTop]=@isTop,[topTime]=@topTime,[updateTime]=@updateTime where [newsId]=@newsId";
 
@@ -257,14 +256,24 @@ namespace WebDao.Dao.Info
             return this.db.Update(this.sql, this.param);
         }
 
-        public bool SetReadCount(int newsId)
+        public int SetReadCount(int newsId)
         {
-            this.sql = @"update [Info_News] set [readCount]=[readCount]+1 where [newsId]=@newsId";
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_News");
+
+            this.s.AddField("readCount");
+
+            this.s.AddIncrease("readCount", 1);
+
+            this.s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+
+            this.sql = this.s.SqlIncrease() + ";" + this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("newsId", newsId);
 
-            return this.db.Update(this.sql, this.param);
+            return (int)this.db.GetDataValue(this.sql, this.param);
         }
     }
 }

@@ -5,31 +5,28 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
-using WebLogic.Service.System;
 
-namespace WebApp.manage.info.news
+namespace WebApp.manage.renovation.project
 {
-    public partial class Detail : System.Web.UI.Page
+    public partial class List : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                object o = WebPageCore.GetSession("fileIds");
+                string cateId = WebPageCore.GetRequest("cateId");
 
-                if (o != null)
+                if (!RegexDo.IsInt32(cateId))
                 {
-                    foreach (string id in o.ToString().Split(','))
-                    {
-                        new FileInfoLogic().Delete(Int64.Parse(id));
-                    }
-
-                    WebPageCore.RemoveSession("fileIds");
+                    cateId = "1";
                 }
 
-                string newsId = WebPageCore.GetRequest("newsId");
+                Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
                 Dictionary<string, object> content = new Dictionary<string, object>();
-                content.Add("newsId", newsId);
+                content.Add("cityId", cUser["locationId"]);
+                content.Add("cateId", cateId);
+
+
 
                 string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
                 nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
