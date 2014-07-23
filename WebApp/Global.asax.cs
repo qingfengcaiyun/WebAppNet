@@ -43,18 +43,20 @@ namespace WebApp
             // InProc 时，才会引发 Session_End 事件。如果会话模式设置为 StateServer 
             // 或 SQLServer，则不会引发该事件。
 
-            object o = WebPageCore.GetSession("fileIds");
-
-            if (o != null)
+            if (Session != null)
             {
-                foreach (string id in o.ToString().Split(','))
-                {
-                    new FileInfoLogic().Delete(Int64.Parse(id));
-                }
+                object o = Session["fileIds"];
 
-                WebPageCore.RemoveSession("fileIds");
+                if (o != null)
+                {
+                    foreach (string id in o.ToString().Split(','))
+                    {
+                        new FileInfoLogic().Delete(Int64.Parse(id));
+                    }
+
+                    Session.Remove("fileIds");
+                }
             }
         }
-
     }
 }

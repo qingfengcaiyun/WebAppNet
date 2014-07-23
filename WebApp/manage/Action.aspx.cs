@@ -23,7 +23,7 @@ namespace WebApp.manage
                 case "getAdmin": rs = GetAdmin(); break;
                 case "saveAdmin": rs = SaveAdmin(); break;
                 case "modPwd": rs = ModPwd(); break;
-                default: Logout(); break;
+                case "logout": rs = Logout(); break;
             }
 
             Response.Write(rs);
@@ -55,9 +55,10 @@ namespace WebApp.manage
             return JsonDo.Message(msg);
         }
 
-        private void Logout()
+        private string Logout()
         {
             Session.Abandon();
+            return JsonDo.Message("1");
         }
 
         private string GetAdmin()

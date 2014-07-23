@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>文章管理</title>
+    <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../../libs/jquery.js"></script>
+    <script type="text/javascript" src="../../../libs/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initTreeGrid();
+            //bindData();
+        });
+
+        function initTreeGrid() {
+            $('#dg').treegrid({
+                title: "流程管理",
+                height: $(window).height(),
+                url: 'Action.aspx',
+                rownumbers: true,
+                animate: true,
+                fitColumns: true,
+                idField: 'processNo',
+                treeField: 'processName',
+                columns: [[
+                    { title: '流程名称', field: 'processName', editor: 'text', width: 300 },
+                    { title: '流程序号', field: 'processNo', editor: 'text', width: 100 },
+                    { title: '上级序号', field: 'parentNo', editor: 'text', width: 100 }
+                ]],
+                toolbar: [{
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: addNode
+                }, '-', {
+                    text: '删除',
+                    iconCls: 'icon-cut',
+                    handler: delNode
+                }, '-', {
+                    text: '编辑',
+                    iconCls: 'icon-edit',
+                    handler: editNode
+                }, {
+                    text: '保存',
+                    iconCls: 'icon-save',
+                    handler: saveNode
+                }, {
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: cancelNode
+                }]
+            });
+        }
+
+        function bindData() {
+            var param = { action: 'tree' };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var d = jQuery.parseJSON(data);
+                    $('#dg').treegrid('loadData', d);
+                }
+            );
+        }
+
+        function editNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('beginEdit', node.processNo);
+            }
+        }
+
+        function cancelNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('cancelEdit', node.processNo);
+            }
+        }
+
+        function saveNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('endEdit', node.processNo);
+            }
+        }
+
+        function addNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('endEdit', node.processNo);
+            }
+        }
+
+        function delNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                var param = { action: "delete", processNo: node.processNo };
+
+                jQuery.post(
+                    "Action.aspx",
+                    param,
+                    function (data) {
+                        var d = jQuery.parseJSON(data);
+
+                        if (parseInt(d.msg) == 1) {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作成功，将刷新数据！！！',
+                                'info',
+                                function () {
+                                    $('#dg').treegrid('reload');
+                                }
+                            );
+                        } else {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作失败！！！',
+                                'error'
+                            );
+                        }
+                    }
+                );
+            }
+        }
+    </script>
+</head>
+<body>
+    <table id="dg">
+    </table>
+</body>
+</html>

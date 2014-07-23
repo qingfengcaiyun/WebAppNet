@@ -220,6 +220,8 @@ namespace Glibs.Util
 
         /** Session **/
 
+
+
         public static object GetSession(string key)
         {
             if (HttpContext.Current.Session != null && HttpContext.Current.Session.Keys.Count > 0)

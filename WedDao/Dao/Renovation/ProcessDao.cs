@@ -68,32 +68,29 @@ namespace WebDao.Dao.Renovation
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public bool Delete(int processId)
+        public bool Delete(string processNo)
         {
             this.s = new SqlBuilder();
-
             this.s.AddTable("Renovation_Process");
-
-            this.s.AddField("processNo");
-
-            this.s.AddWhere("", "", "processId", "=", "@processId");
-
-            this.sql = this.s.SqlSelect();
-
-            this.s = new SqlBuilder();
-
-            this.s.AddTable("Renovation_Process");
-
             this.s.AddField("processId");
-
-            this.s.AddWhere("", "", "processNo", "like", "(" + this.sql + ")+'%'");
-
+            this.s.AddWhere("", "", "processNo", "like", "@processNo+'%'");
             string processIds = this.s.SqlSelect();
 
-            this.sql = @"update [Renovation_Article] set [processId]=0 where [processId] in (" + processIds + @");delete from [Renovation_Process] where [processId] in (" + processIds + @");";
+            this.s = new SqlBuilder();
+            this.s.AddTable("Renovation_Article");
+            this.s.AddField("processId");
+            this.s.AddWhere("", "", "processId", "int", "(" + processIds + ")");
+
+            this.sql = this.s.SqlUpdate();
+
+            this.s = new SqlBuilder();
+            this.s.AddTable("Renovation_Process");
+            this.s.AddWhere("", "", "processNo", "like", "@processNo+'%'");
+
+            this.sql = this.sql + ";" + this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("processId", processId);
+            this.param.Add("processNo", processNo);
 
             return this.db.Update(this.sql, this.param);
         }

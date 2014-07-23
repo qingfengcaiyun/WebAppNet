@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using WebDao.Dao.Renovation;
+using System;
 
 namespace WebLogic.Service.Renovation
 {
@@ -33,14 +34,29 @@ namespace WebLogic.Service.Renovation
 
                 for (int i = 0, j = list.Count; i < j; i++)
                 {
-                    s.Append(",{\"processNo\":\"");
-                    s.Append(list[i]["processNo"].ToString());
-                    s.Append("\",\"processName\":\"");
+                    s.Append(",{\"processNo\":");
+                    s.Append(Int32.Parse(list[i]["processNo"].ToString()));
+                    s.Append(",\"processName\":\"");
                     s.Append(list[i]["processName"].ToString());
-                    s.Append("\",\"processId\":\"");
+                    s.Append("\",\"processId\":");
                     s.Append(list[i]["processId"].ToString());
-                    s.Append("\",\"_parentId\":");
-                    s.Append(list[i]["parentNo"].ToString());
+                    s.Append(",\"parentNo\":");
+                    s.Append(Int32.Parse(list[i]["parentNo"].ToString()));
+
+                    if (string.CompareOrdinal(parentNo, list[i]["parentNo"].ToString()) != 0)
+                    {
+                        s.Append(",\"_parentId\":");
+                        s.Append(Int32.Parse(list[i]["parentNo"].ToString()));
+                    }
+
+                    if (!Boolean.Parse(list[i]["isLeaf"].ToString()))
+                    {
+                        if (string.CompareOrdinal(parentNo, list[i]["parentNo"].ToString()) != 0)
+                        {
+                            s.Append(",\"state\": \"closed\"");
+                        }
+                    }
+
                     s.Append("}");
                 }
 
@@ -62,9 +78,9 @@ namespace WebLogic.Service.Renovation
             return this.dao.Update(content);
         }
 
-        public bool Delete(int processId)
+        public bool Delete(string processNo)
         {
-            return this.dao.Delete(processId);
+            return this.dao.Delete(processNo);
         }
     }
 }

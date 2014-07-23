@@ -189,6 +189,7 @@
     <Content Include="manage\renovation\project\List.aspx" />
     <Content Include="manage\sys\webmsg\Action.aspx" />
     <Content Include="manage\sys\webmsg\View.aspx" />
+    <None Include="templates\manage\renovation\process\view.vm" />
     <Content Include="zxrrt.sql" />
     <None Include="templates\manage\sys\webmsg\view.vm" />
     <Content Include="uploadAction\FileUpload.aspx" />
@@ -579,7 +580,6 @@
     <Folder Include="member\" />
     <Folder Include="templates\client\" />
     <Folder Include="templates\designer\" />
-    <Folder Include="templates\manage\renovation\process\" />
     <Folder Include="templates\manage\renovation\project\" />
     <Folder Include="templates\manage\user\" />
     <Folder Include="templates\member\" />
