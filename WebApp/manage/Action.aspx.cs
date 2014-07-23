@@ -64,8 +64,6 @@ namespace WebApp.manage
         {
             Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
             Dictionary<string, object> admin = new UserLogic().GetAdminByUserId(Int32.Parse(cUser["userId"].ToString()));
-            admin.Add("userName", cUser["userName"]);
-            admin.Add("location", new LocationLogic().GetOne(Int32.Parse(admin["locationId"].ToString()))["cnName"]);
 
             return JsonDo.DictionaryToJSON(admin);
         }

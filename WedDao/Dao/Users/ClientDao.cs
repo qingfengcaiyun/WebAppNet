@@ -21,7 +21,9 @@ namespace WebDao.Dao.Users
 
             s.AddTable("User_Client", "c");
             s.AddTable("Sys_User", "u");
+            s.AddTable("Sys_Location", "l");
 
+            s.AddField("l", "cnName", "location");
             s.AddField("u", "userName");
             s.AddField("u", "lastLogin");
             s.AddField("c", "clientId");
@@ -37,7 +39,8 @@ namespace WebDao.Dao.Users
             s.AddField("c", "insertTime");
             s.AddField("c", "updateTime");
 
-            s.AddWhere("", "u", "userId", "=", "c", "userId");
+            s.AddWhere("", "u", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "u", "userId", "=", "c", "userId");
             s.AddWhere("and", "c", "clientId", "=", "@clientId");
 
             this.sql = s.SqlSelect();
@@ -166,7 +169,7 @@ namespace WebDao.Dao.Users
             s.AddField("c", "locationId");
             s.AddField("c", "fullName");
             s.AddField("c", "phone");
-            s.AddField("l", "cnName");
+            s.AddField("l", "cnName", "location");
 
             s.AddOrderBy("c", "fullName", true);
 
@@ -208,7 +211,7 @@ namespace WebDao.Dao.Users
             s.AddField("c", "locationId");
             s.AddField("c", "fullName");
             s.AddField("c", "phone");
-            s.AddField("l", "cnName");
+            s.AddField("l", "cnName", "location");
 
             s.AddOrderBy("c", "fullName", true);
 

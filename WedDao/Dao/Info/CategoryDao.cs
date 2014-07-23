@@ -24,7 +24,7 @@ namespace WebDao.Dao.Info
             this.s.AddTable("Info_Category", "c");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
 
             this.s.AddField("c", "cateId");
             this.s.AddField("c", "cityId");
@@ -69,7 +69,7 @@ namespace WebDao.Dao.Info
             this.s.AddTable("Info_Category", "c");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
 
             this.s.AddField("c", "cateId");
             this.s.AddField("c", "cityId");

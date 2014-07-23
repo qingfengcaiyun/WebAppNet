@@ -69,7 +69,7 @@ namespace WebLogic.Service.Info
             return this.dao.Insert(content);
         }
 
-        public bool SetReadCount(int newsId)
+        public int SetReadCount(int newsId)
         {
             return this.dao.SetReadCount(newsId);
         }

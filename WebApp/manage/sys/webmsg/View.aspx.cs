@@ -14,7 +14,15 @@ namespace WebApp.manage.sys.webmsg
         {
             if (!Page.IsPostBack)
             {
-                Response.Write(VelocityDo.BuildStringByTemplate("view.vm", @"~/templates/manage/sys/webmsg", null));
+                string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
+
+                string className = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName;
+                className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
+
+                Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, null));
+
+                //Response.Write(VelocityDo.BuildStringByTemplate("view.vm", @"~/templates/manage/sys/webmsg", null));
             }
         }
     }

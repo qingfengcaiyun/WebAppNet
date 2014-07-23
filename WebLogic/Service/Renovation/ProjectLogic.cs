@@ -43,7 +43,7 @@ namespace WebLogic.Service.Renovation
             return this.dao.Update(content, paramIds, fileIds);
         }
 
-        public bool SetReadCount(long projectId)
+        public int SetReadCount(long projectId)
         {
             return this.dao.SetReadCount(projectId);
         }

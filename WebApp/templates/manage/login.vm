@@ -97,10 +97,10 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="150" height="30" class="algR bolder">
+                        <td width="140" height="30" class="algR bolder">
                             用户名：
                         </td>
-                        <td width="170">
+                        <td width="180">
                             <input name="userName" type="text" class="easyui-validatebox textbox txtInput" id="userName"
                                 required="true" validtype="length[1,20]" />
                         </td>

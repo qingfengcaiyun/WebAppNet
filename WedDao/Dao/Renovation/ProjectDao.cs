@@ -20,22 +20,42 @@ namespace WebDao.Dao.Renovation
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Renovation_Project");
+            this.s.AddTable("Renovation_Project", "p");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Renovation_Building", "b");
+            this.s.AddTable("User_Member", "m");
+            this.s.AddTable("User_Designer", "d");
+            this.s.AddTable("User_Client", "c");
 
-            this.s.AddWhere(string.Empty, string.Empty, "projectId", "=", "@projectId");
+            this.s.AddField("l", "cnName", "location");
 
-            this.s.AddField("projectId");
-            this.s.AddField("cityId");
-            this.s.AddField("regionId");
-            this.s.AddField("buildingId");
-            this.s.AddField("memberId");
-            this.s.AddField("designerId");
-            this.s.AddField("pName");
-            this.s.AddField("clientId");
-            this.s.AddField("isClosed");
-            this.s.AddField("startTime");
-            this.s.AddField("insertTime");
-            this.s.AddField("updateTime");
+            this.s.AddField("b", "buildingsName");
+
+            this.s.AddField("m", "fullName", "member");
+
+            this.s.AddField("d", "fullName", "designer");
+
+            this.s.AddField("c", "fullName", "client");
+
+            this.s.AddField("p", "projectId");
+            this.s.AddField("p", "cityId");
+            this.s.AddField("p", "regionId");
+            this.s.AddField("p", "buildingId");
+            this.s.AddField("p", "memberId");
+            this.s.AddField("p", "designerId");
+            this.s.AddField("p", "pName");
+            this.s.AddField("p", "clientId");
+            this.s.AddField("p", "isClosed");
+            this.s.AddField("p", "startTime");
+            this.s.AddField("p", "insertTime");
+            this.s.AddField("p", "updateTime");
+
+            this.s.AddWhere("", "p", "regionId", "=", "l", "locationId");
+            this.s.AddWhere("and", "p", "buildingId", "=", "b", "buildingId");
+            this.s.AddWhere("and", "p", "memberId", "=", "m", "memberId");
+            this.s.AddWhere("and", "p", "designerId", "=", "d", "designerId");
+            this.s.AddWhere("and", "p", "clientId", "=", "c", "clientId");
+            this.s.AddWhere("and", "p", "projectId", "=", "@projectId");
 
             this.sql = this.s.SqlSelect();
 
@@ -96,7 +116,7 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddField("p", "pName");
             this.s.AddField("b", "buildingsName");
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
             this.s.AddField("m", "fullName", "member");
             this.s.AddField("d", "fullName", "designer");
             this.s.AddField("p", "isClosed");
@@ -141,7 +161,7 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddField("p", "pName");
             this.s.AddField("b", "buildingsName");
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
             this.s.AddField("m", "fullName", "member");
             this.s.AddField("d", "fullName", "designer");
             this.s.AddField("p", "isClosed");

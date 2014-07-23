@@ -222,10 +222,10 @@ namespace Glibs.Util
 
         public static object GetSession(string key)
         {
-            NameObjectCollectionBase.KeysCollection keys = HttpContext.Current.Session.Keys;
-
-            if (keys != null && keys.Count > 0)
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session.Keys.Count > 0)
             {
+                NameObjectCollectionBase.KeysCollection keys = HttpContext.Current.Session.Keys;
+
                 for (int i = 0, j = keys.Count; i < j; i++)
                 {
                     if (string.CompareOrdinal(key, keys.Get(i)) == 0)
@@ -240,12 +240,13 @@ namespace Glibs.Util
 
         public static Dictionary<string, object> GetSessions()
         {
-            HttpSessionState session = HttpContext.Current.Session;
-            NameObjectCollectionBase.KeysCollection keys = session.Keys;
             Dictionary<string, object> sessions = null;
 
-            if (keys != null && keys.Count > 0)
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session.Keys.Count > 0)
             {
+                HttpSessionState session = HttpContext.Current.Session;
+                NameObjectCollectionBase.KeysCollection keys = session.Keys;
+
                 sessions = new Dictionary<string, object>();
 
                 for (int i = 0, j = keys.Count; i < j; i++)
@@ -259,11 +260,11 @@ namespace Glibs.Util
 
         public static void SetSession(string key, object value)
         {
-            HttpSessionState session = HttpContext.Current.Session;
-            NameObjectCollectionBase.KeysCollection keys = session.Keys;
-
-            if (keys != null && keys.Count > 0)
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session.Keys.Count > 0)
             {
+                HttpSessionState session = HttpContext.Current.Session;
+                NameObjectCollectionBase.KeysCollection keys = session.Keys;
+
                 for (int i = 0, j = keys.Count; i < j; i++)
                 {
                     if (string.CompareOrdinal(key, keys.Get(i)) == 0)
@@ -271,18 +272,18 @@ namespace Glibs.Util
                         session.Remove(key);
                     }
                 }
-            }
 
-            session.Add(key, value);
+                session.Add(key, value);
+            }
         }
 
         public static void RemoveSession(string key)
         {
-            HttpSessionState session = HttpContext.Current.Session;
-            NameObjectCollectionBase.KeysCollection keys = session.Keys;
-
-            if (keys != null && keys.Count > 0)
+            if (HttpContext.Current.Session != null && HttpContext.Current.Session.Keys.Count > 0)
             {
+                HttpSessionState session = HttpContext.Current.Session;
+                NameObjectCollectionBase.KeysCollection keys = session.Keys;
+
                 for (int i = 0, j = keys.Count; i < j; i++)
                 {
                     if (string.CompareOrdinal(key, keys.Get(i)) == 0)

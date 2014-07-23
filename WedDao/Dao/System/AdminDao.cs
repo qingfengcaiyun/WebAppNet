@@ -21,9 +21,13 @@ namespace WebDao.Dao.System
 
             s.AddTable("Sys_Admin", "a");
             s.AddTable("Sys_User", "u");
+            s.AddTable("Sys_Location", "l");
 
             s.AddField("u", "userName");
             s.AddField("u", "lastLogin");
+
+            s.AddField("l", "cnName", "location");
+
             s.AddField("a", "adminId");
             s.AddField("a", "userId");
             s.AddField("a", "locationId");
@@ -35,6 +39,7 @@ namespace WebDao.Dao.System
             s.AddField("a", "updateTime");
 
             s.AddWhere(string.Empty, "u", "userId", "=", "a", "userId");
+            s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
             s.AddWhere("and", "a", "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();

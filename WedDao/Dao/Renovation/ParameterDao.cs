@@ -22,7 +22,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddTable("Renovation_Parameters", "p");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
             this.s.AddField("p", "paramId");
             this.s.AddField("p", "locationId");
             this.s.AddField("p", "paramName");
@@ -48,7 +48,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddTable("Renovation_Parameters", "p");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
             this.s.AddField("p", "paramId");
             this.s.AddField("p", "locationId");
             this.s.AddField("p", "paramName");

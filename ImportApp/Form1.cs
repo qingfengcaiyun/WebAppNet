@@ -6,8 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Glibs.Sql;
-using WebLogic.Service.Users;
 
 namespace ImportApp
 {
@@ -27,8 +25,8 @@ namespace ImportApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            MemberLogic m = new MemberLogic();
-            DesignerLogic d = new DesignerLogic();
+            //MemberLogic m = new MemberLogic();
+            //DesignerLogic d = new DesignerLogic();
         }
     }
 }

@@ -20,26 +20,30 @@ namespace WebDao.Dao.Info
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Info_News");
+            this.s.AddTable("Info_News", "n");
+            this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddWhere(string.Empty, string.Empty, "newsId", "=", "@newsId");
+            this.s.AddField("l", "cnName", "location");
 
-            this.s.AddField("newsId");
-            this.s.AddField("cityId");
-            this.s.AddField("longTitle");
-            this.s.AddField("titleColor");
-            this.s.AddField("shortTitle");
-            this.s.AddField("content");
-            this.s.AddField("fileIds");
-            this.s.AddField("keywords");
-            this.s.AddField("picUrl");
-            this.s.AddField("readCount");
-            this.s.AddField("itemIndex");
-            this.s.AddField("outLink");
-            this.s.AddField("isTop");
-            this.s.AddField("topTime");
-            this.s.AddField("insertTime");
-            this.s.AddField("updateTime");
+            this.s.AddField("n", "newsId");
+            this.s.AddField("n", "cityId");
+            this.s.AddField("n", "longTitle");
+            this.s.AddField("n", "titleColor");
+            this.s.AddField("n", "shortTitle");
+            this.s.AddField("n", "content");
+            this.s.AddField("n", "fileIds");
+            this.s.AddField("n", "keywords");
+            this.s.AddField("n", "picUrl");
+            this.s.AddField("n", "readCount");
+            this.s.AddField("n", "itemIndex");
+            this.s.AddField("n", "outLink");
+            this.s.AddField("n", "isTop");
+            this.s.AddField("n", "topTime");
+            this.s.AddField("n", "insertTime");
+            this.s.AddField("n", "updateTime");
+
+            this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
+            this.s.AddWhere("and", "n", "newsId", "=", "@newsId");
 
             this.sql = this.s.SqlSelect();
 
@@ -68,6 +72,9 @@ namespace WebDao.Dao.Info
                 this.s = new SqlBuilder();
 
                 this.s.AddTable("Info_News", "n");
+                this.s.AddTable("Sys_Location", "l");
+
+                this.s.AddField("l", "cnName", "location");
 
                 this.s.AddField("n", "newsId");
                 this.s.AddField("n", "cityId");
@@ -85,7 +92,8 @@ namespace WebDao.Dao.Info
                 this.s.AddOrderBy("n", "itemIndex", false);
                 this.s.AddOrderBy("n", "insertTime", false);
 
-                this.s.AddWhere(string.Empty, "n", "newsId", "in", "(" + this.sql + ")");
+                this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
+                this.s.AddWhere("and", "n", "newsId", "in", "(" + this.sql + ")");
                 this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
                 this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
                 this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
@@ -98,6 +106,9 @@ namespace WebDao.Dao.Info
                 this.s = new SqlBuilder();
 
                 this.s.AddTable("Info_News", "n");
+                this.s.AddTable("Sys_Location", "l");
+
+                this.s.AddField("l", "cnName", "location");
 
                 this.s.AddField("n", "newsId");
                 this.s.AddField("n", "cityId");
@@ -115,7 +126,8 @@ namespace WebDao.Dao.Info
                 this.s.AddOrderBy("n", "itemIndex", false);
                 this.s.AddOrderBy("n", "insertTime", false);
 
-                this.s.AddWhere(string.Empty, "n", "cityId", "in", "(" + cityId + ")");
+                this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
+                this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
                 this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
                 this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
                 this.s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");

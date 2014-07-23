@@ -20,19 +20,23 @@ namespace WebDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.AddField("userId");
-            s.AddField("userName");
-            s.AddField("userPwd");
-            s.AddField("userType");
-            s.AddField("lastLogin");
-            s.AddField("locationId");
-            s.AddField("isDeleted");
-            s.AddField("isLocked");
+            s.AddTable("Sys_User", "u");
+            s.AddTable("Sys_Location", "l");
 
-            s.AddTable("Sys_User");
+            s.AddField("u", "userId");
+            s.AddField("u", "userName");
+            s.AddField("u", "userPwd");
+            s.AddField("u", "userType");
+            s.AddField("u", "lastLogin");
+            s.AddField("u", "locationId");
+            s.AddField("u", "isDeleted");
+            s.AddField("u", "isLocked");
 
-            s.AddWhere(string.Empty, string.Empty, "userName", "=", "@userName");
-            s.AddWhere("and", string.Empty, "userPwd", "=", "@userPwd");
+            s.AddField("l", "cnName", "location");
+
+            s.AddWhere("", "u", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "u", "userName", "=", "@userName");
+            s.AddWhere("and", "u", "userPwd", "=", "@userPwd");
 
             this.sql = s.SqlSelect();
 
@@ -47,18 +51,22 @@ namespace WebDao.Dao.System
         {
             SqlBuilder s = new SqlBuilder();
 
-            s.AddField("userId");
-            s.AddField("userName");
-            s.AddField("userPwd");
-            s.AddField("userType");
-            s.AddField("lastLogin");
-            s.AddField("locationId");
-            s.AddField("isDeleted");
-            s.AddField("isLocked");
+            s.AddTable("Sys_User", "u");
+            s.AddTable("Sys_Location", "l");
 
-            s.AddTable("Sys_User");
+            s.AddField("u", "userId");
+            s.AddField("u", "userName");
+            s.AddField("u", "userPwd");
+            s.AddField("u", "userType");
+            s.AddField("u", "lastLogin");
+            s.AddField("u", "locationId");
+            s.AddField("u", "isDeleted");
+            s.AddField("u", "isLocked");
 
-            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
+            s.AddField("l", "cnName", "location");
+
+            s.AddWhere("", "u", "locationId", "=", "l", "locationId");
+            s.AddWhere("and", "u", "userId", "=", "@userId");
 
             this.sql = s.SqlSelect();
 

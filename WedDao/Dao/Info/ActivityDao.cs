@@ -23,7 +23,8 @@ namespace WebDao.Dao.Info
             this.s.AddTable("Info_Activity", "a");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
+
             this.s.AddField("a", "actId");
             this.s.AddField("a", "cityId");
             this.s.AddField("a", "actName");
@@ -59,7 +60,8 @@ namespace WebDao.Dao.Info
             this.s.AddTable("Info_Activity", "a");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
+
             this.s.AddField("a", "actId");
             this.s.AddField("a", "cityId");
             this.s.AddField("a", "actName");
@@ -107,7 +109,8 @@ namespace WebDao.Dao.Info
 
             this.s.SetTagField("a", "actId");
 
-            this.s.AddField("l", "cnName");
+            this.s.AddField("l", "cnName", "location");
+
             this.s.AddField("a", "actId");
             this.s.AddField("a", "cityId");
             this.s.AddField("a", "actName");

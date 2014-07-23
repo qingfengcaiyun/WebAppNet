@@ -146,7 +146,7 @@
                 添加</a> <a href="#" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="edit()">
                     编辑</a> <a href="#" class="easyui-linkbutton" iconcls="icon-cut" plain="true" onclick="del()">
                         删除</a>
-            <select class="easyui-combotree txtInput" required="true" id="cate">
+            <select class="easyui-combotree txtInput" panelHeight="140" required="true" id="cate">
             </select>
         </div>
     </div>
