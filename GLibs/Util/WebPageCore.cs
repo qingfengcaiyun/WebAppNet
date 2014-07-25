@@ -325,7 +325,7 @@ namespace Glibs.Util
                 {
                     for (int i = 0, j = paramList.Length; i < j; i++)
                     {
-                        content.Add(paramList[i], GetRequest(paramList[i]));
+                        content.Add(paramList[i].Trim(), GetRequest(paramList[i].Trim()));
                     }
                 }
                 return content;

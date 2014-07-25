@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>流程管理</title>
+    <title>分类管理</title>
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
@@ -22,18 +22,18 @@
 
         function initTreeGrid() {
             $('#dg').treegrid({
-                title: "流程管理",
+                title: "分类管理",
                 height: $(window).height(),
                 url: 'Action.aspx',
                 rownumbers: true,
                 animate: true,
                 fitColumns: true,
                 loadMsg: "数据载入中……稍等！",
-                idField: 'processId',
-                treeField: 'processName',
+                idField: 'cateId',
+                treeField: 'cateName',
                 columns: [[
-                    { title: '流程名称', field: 'processName', editor: 'text', width: 300 },
-                    { title: '流程序号', field: 'processNo', editor: 'text', width: 100 },
+                    { title: '分类名称', field: 'cateName', editor: 'text', width: 300 },
+                    { title: '分类序号', field: 'cateNo', editor: 'text', width: 100 },
                     { title: '上级序号', field: 'parentNo', editor: 'text', width: 100 }
                 ]],
                 toolbar: [{
@@ -76,29 +76,30 @@
         function editNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('beginEdit', node.processId);
+                $('#dg').treegrid('beginEdit', node.cateId);
             }
         }
 
         function cancelNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('cancelEdit', node.processId);
+                $('#dg').treegrid('cancelEdit', node.cateId);
             }
         }
 
         function updateNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('endEdit', node.processId);
+                $('#dg').treegrid('endEdit', node.cateId);
 
                 var param = {
                     action: "save",
-                    paramStr: "processId,processName,processNo,parentNo",
-                    processId: node.processId,
-                    processName: node.processName,
-                    processNo: node.processNo,
-                    parentNo: node.parentNo
+                    paramStr: "cateId,cateName,cateNo,parentNo,cityId",
+                    cateId: node.cateId,
+                    cateName: node.cateName,
+                    cateNo: node.cateNo,
+                    parentNo: node.parentNo,
+                    cityId: $("#cityId").val()
                 };
 
                 jQuery.post(
@@ -131,10 +132,10 @@
         function addNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $("#parentName").html(node.processName);
-                $("#parentNo").html(node.processNo);
-                $("#processName").val("");
-                $("#processNo").val("");
+                $("#parentName").html(node.cateName);
+                $("#parentNo").html(node.cateNo);
+                $("#cateName").val("");
+                $("#cateNo").val("");
                 $("#newform").window("open");
             } else {
                 jQuery.messager.alert(
@@ -148,11 +149,12 @@
         function insertNode() {
             var param = {
                 action: "save",
-                paramStr: "parentNo,processName,processNo,processId",
-                processName: $("#processName").val(),
-                processNo: $("#processNo").val(),
+                paramStr: "parentNo,cateName,cateNo,cateId,cityId",
+                cateName: $("#cateName").val(),
+                cateNo: $("#cateNo").val(),
                 parentNo: $("#parentNo").html(),
-                processId: 0
+                cateId: 0,
+                cityId: $("#cityId").val()
             };
 
             jQuery.post(
@@ -163,7 +165,6 @@
                     if (parseInt(m.msg) == 1) {
                         $("#newform").window("close");
                         jQuery.messager.alert('信息', '保存信息成功！', 'info', function () { $('#dg').treegrid('reload'); });
-
                     } else {
                         $("#newform").window("close");
                         jQuery.messager.alert('错误', '保存信息失败！建议重新登录，再次修改信息！', 'error');
@@ -175,7 +176,7 @@
         function delNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                var param = { action: "delete", processNo: node.processNo };
+                var param = { action: "delete", cateNo: node.cateNo };
 
                 jQuery.post(
                     "Action.aspx",
@@ -225,7 +226,7 @@
             </tr>
             <tr>
                 <td class="algR">
-                    父级流程：
+                    父级分类：
                 </td>
                 <td class="algL">
                     <span id="parentName"></span>
@@ -247,10 +248,10 @@
             </tr>
             <tr>
                 <td class="algR">
-                    流程名称：
+                    分类名称：
                 </td>
                 <td class="algL">
-                    <input type="text" id="processName" class="easyui-validatebox textbox txtInput w200"
+                    <input type="text" id="cateName" class="easyui-validatebox textbox txtInput w200"
                         value="" required="true" />
                 </td>
                 <td>
@@ -259,11 +260,11 @@
             </tr>
             <tr>
                 <td class="algR">
-                    流程序号：
+                    分类序号：
                 </td>
                 <td class="algL">
-                    <input type="text" id="processNo" class="easyui-validatebox textbox txtInput w100"
-                        value="" required="true" />
+                    <input type="text" id="cateNo" class="easyui-validatebox textbox txtInput w100" value=""
+                        required="true" />
                 </td>
                 <td>
                     &nbsp;
@@ -283,7 +284,7 @@
             </tr>
             <tr>
                 <td>
-                    &nbsp;
+                    <input type="hidden" id="cityId" value="$cityId" />
                 </td>
                 <td>
                     &nbsp;

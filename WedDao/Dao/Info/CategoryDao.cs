@@ -96,34 +96,28 @@ namespace WebDao.Dao.Info
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public bool Delete(int cateId)
+        public bool Delete(string cateNo)
         {
             this.s = new SqlBuilder();
             this.s.AddTable("Info_Category");
-            this.s.AddField("cateNo");
-            this.s.AddWhere("", "", "cateId", "=", "@cateId");
-            string cateNos = this.s.SqlSelect();
-
-            this.s = new SqlBuilder();
-            this.s.AddTable("Info_Category");
             this.s.AddField("cateId");
-            this.s.AddWhere("", "", "cateNo", "like", "(" + cateNos + ")+'%'");
-            string cateIds = this.s.SqlSelect();
+            this.s.AddWhere("", "", "cateNo", "like", "@cateNo+'%'");
+            this.sql = this.s.SqlSelect();
 
             this.s = new SqlBuilder();
             this.s.AddTable("Info_Relationship");
-            this.s.AddWhere("", "", "cateId", "in", "(" + cateIds + ")");
+            this.s.AddWhere("", "", "cateId", "in", "(" + this.sql + ")");
 
             this.sql = this.s.SqlDelete();
 
             this.s = new SqlBuilder();
             this.s.AddTable("Info_Category");
-            this.s.AddWhere("", "", "cateNo", "like", "(" + cateNos + ")+'%'");
+            this.s.AddWhere("", "", "cateNo", "like", "@cateNo+'%'");
 
             this.sql = this.sql + ";" + this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("cateId", cateId);
+            this.param.Add("cateNo", cateNo);
 
             return this.db.Update(this.sql, this.param);
         }

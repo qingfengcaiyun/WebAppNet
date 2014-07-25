@@ -31,7 +31,7 @@ namespace WebApp.manage.renovation.process
 
         private string Tree()
         {
-            return new ProcessLogic().GetTree("0");
+            return new ProcessLogic().GetTreeGrid("0");
         }
 
         private string One()
@@ -60,7 +60,7 @@ namespace WebApp.manage.renovation.process
 
             if (RegexDo.IsInt32(processNo))
             {
-                return JsonDo.Message(new ProcessLogic().Delete("00" + processNo) ? "1" : "0");
+                return JsonDo.Message(new ProcessLogic().Delete(processNo) ? "1" : "0");
             }
             else
             {

@@ -99,5 +99,114 @@ namespace WebLogic.Service.System
                 return string.Empty;
             }
         }
+
+        public string GetTreeGrid(string parentNo)
+        {
+            List<Dictionary<string, object>> list = this.dao.GetList(parentNo);
+
+            Dictionary<string, List<Dictionary<string, object>>> tlist = new Dictionary<string, List<Dictionary<string, object>>>();
+
+            if (list != null && list.Count > 0)
+            {
+                string keyName = "";
+
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    keyName = list[i]["parentNo"].ToString();
+
+                    if (tlist.ContainsKey(keyName))
+                    {
+                        tlist[keyName].Add(list[i]);
+                    }
+                    else
+                    {
+                        tlist.Add(keyName, new List<Dictionary<string, object>>());
+                        tlist[keyName].Add(list[i]);
+                    }
+                }
+            }
+
+            return "{\"total\":" + list.Count + ", \"rows\":[" + this.GetSubTreeGrid(tlist, parentNo) + "]}";
+        }
+
+        private string GetSubTreeGrid(Dictionary<string, List<Dictionary<string, object>>> tlist, string parentNo)
+        {
+            List<Dictionary<string, object>> list = tlist.ContainsKey(parentNo) ? tlist[parentNo] : null;
+
+            if (list != null && list.Count > 0)
+            {
+                Dictionary<string, object> temp = null;
+                string substr = "";
+
+                StringBuilder str = new StringBuilder();
+
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+
+                    str.Append(",{");
+                    str.Append("\"funcId\":");
+                    str.Append(temp["funcId"].ToString());
+                    str.Append(",\"funcName\":\"");
+                    str.Append(temp["funcName"].ToString());
+                    str.Append("\",\"funcNo\":\"");
+                    str.Append(temp["funcNo"].ToString());
+                    str.Append("\",\"funcUrl\":\"");
+                    str.Append(temp["funcUrl"].ToString());
+                    str.Append("\",\"parentNo\":\"");
+                    str.Append(temp["parentNo"].ToString());
+
+                    if (!Boolean.Parse(list[i]["isLeaf"].ToString()))
+                    {
+                        str.Append("\",\"state\":\"closed");
+                    }
+
+                    str.Append("\"");
+
+                    substr = this.GetSubTreeGrid(tlist, temp["funcNo"].ToString());
+                    if (string.IsNullOrEmpty(substr))
+                    {
+                        str.Append("}");
+                    }
+                    else
+                    {
+                        str.Append(",\"children\":[");
+                        str.Append(substr);
+                        str.Append("]}");
+                    }
+                }
+
+                return str.ToString().Substring(1);
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        public Dictionary<string, object> GetOne(int funcId)
+        {
+            return this.dao.GetOne(funcId);
+        }
+
+        public List<Dictionary<string, object>> GetList(string parentNo)
+        {
+            return this.dao.GetList(parentNo);
+        }
+
+        public long Insert(Dictionary<string, object> content)
+        {
+            return this.dao.Insert(content);
+        }
+
+        public bool Update(Dictionary<string, object> content)
+        {
+            return this.dao.Update(content);
+        }
+
+        public bool Delete(string funcNo)
+        {
+            return this.dao.Delete(funcNo);
+        }
     }
 }

@@ -79,7 +79,7 @@ namespace WebDao.Dao.Renovation
             this.s = new SqlBuilder();
             this.s.AddTable("Renovation_Article");
             this.s.AddField("processId");
-            this.s.AddWhere("", "", "processId", "int", "(" + processIds + ")");
+            this.s.AddWhere("", "", "processId", "in", "(" + processIds + ")");
 
             this.sql = this.s.SqlUpdate();
 
@@ -91,6 +91,7 @@ namespace WebDao.Dao.Renovation
 
             this.param = new Dictionary<string, object>();
             this.param.Add("processNo", processNo);
+            this.param.Add("processId", 0);
 
             return this.db.Update(this.sql, this.param);
         }
@@ -108,6 +109,7 @@ namespace WebDao.Dao.Renovation
             this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
+            this.param.Add("processNo", content["processNo"]);
             this.param.Add("isLeaf", 0);
 
             this.db.Update(this.sql, this.param);
@@ -124,7 +126,7 @@ namespace WebDao.Dao.Renovation
             this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("parentNo", content["parentNo"]);
+            this.param.Add("processNo", content["processNo"]);
             this.param.Add("processName", content["processName"]);
             this.param.Add("parentNo", content["parentNo"]);
             this.param.Add("isLeaf", 1);

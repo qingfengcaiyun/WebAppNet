@@ -24,9 +24,9 @@ namespace WebLogic.Service.Renovation
             return this.dao.GetList(parentNo);
         }
 
-        public string GetTree(string parentNo)
+        public string GetTreeGrid(string parentNo)
         {
-            List<Dictionary<string, object>> list = this.GetList(parentNo);
+            List<Dictionary<string, object>> list = this.dao.GetList(parentNo);
 
             Dictionary<string, List<Dictionary<string, object>>> tlist = new Dictionary<string, List<Dictionary<string, object>>>();
 
@@ -55,10 +55,10 @@ namespace WebLogic.Service.Renovation
                 }
             }
 
-            return "{\"total\":" + list.Count + ", \"rows\":[" + this.GetSubTree(tlist, parentNo) + "]}";
+            return "{\"total\":" + list.Count + ", \"rows\":[" + this.GetSubTreeGrid(tlist, parentNo) + "]}";
         }
 
-        private string GetSubTree(Dictionary<string, List<Dictionary<string, object>>> tlist, string parentNo)
+        private string GetSubTreeGrid(Dictionary<string, List<Dictionary<string, object>>> tlist, string parentNo)
         {
             List<Dictionary<string, object>> list = tlist.ContainsKey(parentNo) ? tlist[parentNo] : null;
 
@@ -90,7 +90,7 @@ namespace WebLogic.Service.Renovation
 
                     str.Append("\"");
 
-                    substr = this.GetSubTree(tlist, temp["processNo"].ToString());
+                    substr = this.GetSubTreeGrid(tlist, temp["processNo"].ToString());
                     if (string.IsNullOrEmpty(substr))
                     {
                         str.Append("}");

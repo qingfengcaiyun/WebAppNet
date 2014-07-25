@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>流程管理</title>
+    <title>功能管理</title>
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
@@ -22,19 +22,19 @@
 
         function initTreeGrid() {
             $('#dg').treegrid({
-                title: "流程管理",
+                title: "功能管理",
                 height: $(window).height(),
                 url: 'Action.aspx',
                 rownumbers: true,
                 animate: true,
                 fitColumns: true,
-                loadMsg: "数据载入中……稍等！",
-                idField: 'processId',
-                treeField: 'processName',
+                idField: 'funcId',
+                treeField: 'funcName',
                 columns: [[
-                    { title: '流程名称', field: 'processName', editor: 'text', width: 300 },
-                    { title: '流程序号', field: 'processNo', editor: 'text', width: 100 },
-                    { title: '上级序号', field: 'parentNo', editor: 'text', width: 100 }
+                    { title: '功能名称', field: 'funcName', editor: 'text', width: 200 },
+                    { title: '功能序号', field: 'funcNo', editor: 'text', width: 100 },
+                    { title: '上级序号', field: 'parentNo', editor: 'text', width: 100 },
+                    { title: '功能链接', field: 'funcUrl', editor: 'text', width: 600 }
                 ]],
                 toolbar: [{
                     text: '添加',
@@ -76,29 +76,35 @@
         function editNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('beginEdit', node.processId);
+                $('#dg').treegrid('beginEdit', node.funcId);
             }
         }
 
         function cancelNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('cancelEdit', node.processId);
+                $('#dg').treegrid('cancelEdit', node.funcId);
             }
         }
 
         function updateNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('endEdit', node.processId);
+                $('#dg').treegrid('endEdit', node.funcId);
+
+                alert(node.funcId);
+                alert(node.funcName);
+                alert(node.funcNo);
+                alert(node.parentNo);
 
                 var param = {
                     action: "save",
-                    paramStr: "processId,processName,processNo,parentNo",
-                    processId: node.processId,
-                    processName: node.processName,
-                    processNo: node.processNo,
-                    parentNo: node.parentNo
+                    paramStr: "funcId,funcName,funcNo,parentNo,funcUrl",
+                    funcId: node.funcId,
+                    funcName: node.funcName,
+                    funcNo: node.funcNo,
+                    parentNo: node.parentNo,
+                    funcUrl: node.funcUrl
                 };
 
                 jQuery.post(
@@ -131,15 +137,16 @@
         function addNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $("#parentName").html(node.processName);
-                $("#parentNo").html(node.processNo);
-                $("#processName").val("");
-                $("#processNo").val("");
+                $("#parentName").html(node.funcName);
+                $("#parentNo").html(node.funcNo);
+                $("#funcName").val("");
+                $("#funcNo").val("");
+                $("#funcUrl").val("");
                 $("#newform").window("open");
             } else {
                 jQuery.messager.alert(
                     '注意！！！',
-                    '请选择父级分类！！！',
+                    '请选择父级功能！！！',
                     'info'
                 );
             }
@@ -148,11 +155,12 @@
         function insertNode() {
             var param = {
                 action: "save",
-                paramStr: "parentNo,processName,processNo,processId",
-                processName: $("#processName").val(),
-                processNo: $("#processNo").val(),
+                paramStr: "parentNo,funcName,funcNo,funcId,funcUrl",
+                funcName: $("#funcName").val(),
+                funcNo: $("#funcNo").val(),
                 parentNo: $("#parentNo").html(),
-                processId: 0
+                funcUrl: $("#funcUrl").val(),
+                funcId: 0
             };
 
             jQuery.post(
@@ -163,7 +171,6 @@
                     if (parseInt(m.msg) == 1) {
                         $("#newform").window("close");
                         jQuery.messager.alert('信息', '保存信息成功！', 'info', function () { $('#dg').treegrid('reload'); });
-
                     } else {
                         $("#newform").window("close");
                         jQuery.messager.alert('错误', '保存信息失败！建议重新登录，再次修改信息！', 'error');
@@ -175,7 +182,7 @@
         function delNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                var param = { action: "delete", processNo: node.processNo };
+                var param = { action: "delete", funcNo: node.funcNo };
 
                 jQuery.post(
                     "Action.aspx",
@@ -210,8 +217,8 @@
     </div>
     <div id="newform" class="easyui-window" shadow="true" modal="true" minimizable="false"
         maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
-        iconcls="icon-blank" title="分类添加" style="width: 370px; height: 260px;">
-        <table width="350" border="0" cellspacing="0" cellpadding="0">
+        iconcls="icon-blank" title="功能添加" style="width: 500px; height: 300px;">
+        <table width="480" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <th width="100">
                     &nbsp;
@@ -225,7 +232,7 @@
             </tr>
             <tr>
                 <td class="algR">
-                    父级流程：
+                    父级功能：
                 </td>
                 <td class="algL">
                     <span id="parentName"></span>
@@ -247,10 +254,10 @@
             </tr>
             <tr>
                 <td class="algR">
-                    流程名称：
+                    功能名称：
                 </td>
                 <td class="algL">
-                    <input type="text" id="processName" class="easyui-validatebox textbox txtInput w200"
+                    <input type="text" id="funcName" class="easyui-validatebox textbox txtInput w200"
                         value="" required="true" />
                 </td>
                 <td>
@@ -259,10 +266,22 @@
             </tr>
             <tr>
                 <td class="algR">
-                    流程序号：
+                    功能序号：
                 </td>
                 <td class="algL">
-                    <input type="text" id="processNo" class="easyui-validatebox textbox txtInput w100"
+                    <input type="text" id="funcNo" class="easyui-validatebox textbox txtInput w100" value=""
+                        required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    功能链接：
+                </td>
+                <td class="algL">
+                    <input type="text" id="funcUrl" class="easyui-validatebox textbox txtInput w300"
                         value="" required="true" />
                 </td>
                 <td>

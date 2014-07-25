@@ -14,9 +14,17 @@ namespace WebApp.manage.info.category
         {
             if (!Page.IsPostBack)
             {
+                Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
                 Dictionary<string, object> content = new Dictionary<string, object>();
+                content.Add("cityId", cUser["locationId"]);
 
-                Response.Write(VelocityDo.BuildStringByTemplate("view.vm", @"~/templates/manage/info/category", content));
+                string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
+
+                string className = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName;
+                className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
+
+                Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, content));
             }
         }
     }
