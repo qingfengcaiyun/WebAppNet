@@ -147,6 +147,7 @@
                     var m = jQuery.parseJSON(data);
                     $("#funcTree").tree({
                         animate: true,
+                        //dnd: true,
                         data: m,
                         onClick: function (node) {
                             if ($('#funcTree').tree('isLeaf', node.target)) {

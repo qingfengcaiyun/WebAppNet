@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using WebDao.Dao.Renovation;
-using System;
 
 namespace WebLogic.Service.Renovation
 {
@@ -28,43 +28,86 @@ namespace WebLogic.Service.Renovation
         {
             List<Dictionary<string, object>> list = this.GetList(parentNo);
 
+            Dictionary<string, List<Dictionary<string, object>>> tlist = new Dictionary<string, List<Dictionary<string, object>>>();
+
             if (list != null && list.Count > 0)
             {
-                StringBuilder s = new StringBuilder();
+                string keyName = "";
 
                 for (int i = 0, j = list.Count; i < j; i++)
                 {
-                    s.Append(",{\"processNo\":");
-                    s.Append(Int32.Parse(list[i]["processNo"].ToString()));
-                    s.Append(",\"processName\":\"");
-                    s.Append(list[i]["processName"].ToString());
-                    s.Append("\",\"processId\":");
-                    s.Append(list[i]["processId"].ToString());
-                    s.Append(",\"parentNo\":");
-                    s.Append(Int32.Parse(list[i]["parentNo"].ToString()));
+                    keyName = list[i]["parentNo"].ToString();
 
-                    if (string.CompareOrdinal(parentNo, list[i]["parentNo"].ToString()) != 0)
+                    if (!Boolean.Parse(list[i]["isLeaf"].ToString()) && string.CompareOrdinal(parentNo, list[i]["parentNo"].ToString()) != 0)
                     {
-                        s.Append(",\"_parentId\":");
-                        s.Append(Int32.Parse(list[i]["parentNo"].ToString()));
+                        list[i].Add("state", "closed");
                     }
 
-                    if (!Boolean.Parse(list[i]["isLeaf"].ToString()))
+                    if (tlist.ContainsKey(keyName))
                     {
-                        if (string.CompareOrdinal(parentNo, list[i]["parentNo"].ToString()) != 0)
-                        {
-                            s.Append(",\"state\": \"closed\"");
-                        }
+                        tlist[keyName].Add(list[i]);
+                    }
+                    else
+                    {
+                        tlist.Add(keyName, new List<Dictionary<string, object>>());
+                        tlist[keyName].Add(list[i]);
+                    }
+                }
+            }
+
+            return "{\"total\":" + list.Count + ", \"rows\":[" + this.GetSubTree(tlist, parentNo) + "]}";
+        }
+
+        private string GetSubTree(Dictionary<string, List<Dictionary<string, object>>> tlist, string parentNo)
+        {
+            List<Dictionary<string, object>> list = tlist.ContainsKey(parentNo) ? tlist[parentNo] : null;
+
+            if (list != null && list.Count > 0)
+            {
+                Dictionary<string, object> temp = null;
+                string substr = "";
+
+                StringBuilder str = new StringBuilder();
+
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+
+                    str.Append(",{");
+                    str.Append("\"processId\":");
+                    str.Append(temp["processId"].ToString());
+                    str.Append(",\"processName\":\"");
+                    str.Append(temp["processName"].ToString());
+                    str.Append("\",\"processNo\":\"");
+                    str.Append(temp["processNo"].ToString());
+                    str.Append("\",\"parentNo\":\"");
+                    str.Append(temp["parentNo"].ToString());
+
+                    if (temp.ContainsKey("state"))
+                    {
+                        str.Append("\",\"state\":\"closed");
                     }
 
-                    s.Append("}");
+                    str.Append("\"");
+
+                    substr = this.GetSubTree(tlist, temp["processNo"].ToString());
+                    if (string.IsNullOrEmpty(substr))
+                    {
+                        str.Append("}");
+                    }
+                    else
+                    {
+                        str.Append(",\"children\":[");
+                        str.Append(substr);
+                        str.Append("]}");
+                    }
                 }
 
-                return "{\"total\":" + list.Count.ToString() + ",\"rows\":[" + s.ToString().Substring(1) + "]}";
+                return str.ToString().Substring(1);
             }
             else
             {
-                return "{\"total\":0,\"rows\":[]}";
+                return "";
             }
         }
 

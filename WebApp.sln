@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDao", "WedDao\WebDao.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebLogic", "WebLogic\WebLogic.csproj", "{D9EF6C81-E8DB-4A97-9F90-035BD9E1FBE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImportApp", "ImportApp\ImportApp.csproj", "{F27309F6-8D15-45BA-9492-5C52B375F54B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,16 +59,6 @@ Global
 		{D9EF6C81-E8DB-4A97-9F90-035BD9E1FBE1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D9EF6C81-E8DB-4A97-9F90-035BD9E1FBE1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{D9EF6C81-E8DB-4A97-9F90-035BD9E1FBE1}.Release|x86.ActiveCfg = Release|Any CPU
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Debug|x86.ActiveCfg = Debug|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Debug|x86.Build.0 = Debug|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Release|Any CPU.ActiveCfg = Release|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Release|Mixed Platforms.Build.0 = Release|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Release|x86.ActiveCfg = Release|x86
-		{F27309F6-8D15-45BA-9492-5C52B375F54B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

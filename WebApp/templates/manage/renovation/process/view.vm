@@ -23,7 +23,7 @@
                 rownumbers: true,
                 animate: true,
                 fitColumns: true,
-                idField: 'processNo',
+                idField: 'processId',
                 treeField: 'processName',
                 columns: [[
                     { title: '流程名称', field: 'processName', editor: 'text', width: 300 },
@@ -70,29 +70,103 @@
         function editNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('beginEdit', node.processNo);
+                $('#dg').treegrid('beginEdit', node.processId);
             }
         }
 
         function cancelNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('cancelEdit', node.processNo);
+                $('#dg').treegrid('cancelEdit', node.processId);
             }
         }
 
         function saveNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('endEdit', node.processNo);
+                $('#dg').treegrid('endEdit', node.processId);
+
+                alert(node.processId);
+                alert(node.processName);
+                alert(node.processNo);
+                alert(node.parentNo);
+
+                var param = {
+                    action: "save",
+                    paramStr: "processId, processName, processNo, parentNo",
+                    processId: node.processId,
+                    processName: node.processName,
+                    processNo: node.processNo,
+                    parentNo: node.parentNo
+                };
+
+                jQuery.post(
+                    "Action.aspx",
+                    param,
+                    function (data) {
+                        var d = jQuery.parseJSON(data);
+
+                        if (parseInt(d.msg) == 1) {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作成功，将刷新数据！！！',
+                                'info',
+                                function () {
+                                    $('#dg').treegrid('reload');
+                                }
+                            );
+                        } else {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作失败！！！',
+                                'error'
+                            );
+                        }
+                    }
+                );
             }
         }
 
         function addNode() {
             var node = $('#dg').treegrid('getSelected');
             if (node) {
-                $('#dg').treegrid('endEdit', node.processNo);
+                $("#parentName").html(node.processName);
+                $("#parentNo").html(node.processNo);
+                $("#processName").val("");
+                $("#processNo").val("");
+                $("#newProcess").window("open");
+            } else {
+                jQuery.messager.alert(
+                    '注意！！！',
+                    '请选择父级分类！！！',
+                    'info'
+                );
             }
+        }
+
+        function submitNode() {
+            var param = {
+                action: "submitNode",
+                paramStr: "parentNo,processName,processNo",
+                processName: $("#processName").val(),
+                processNo: $("#processNo").val(),
+                parentNo: $("#parentNo").html()
+            };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var m = jQuery.parseJSON(data);
+                    if (parseInt(m.msg) == 1) {
+                        $("#newProcess").window("close");
+                        jQuery.messager.alert('信息', '保存信息成功！');
+                    } else {
+                        $("#newProcess").window("close");
+                        jQuery.messager.alert('错误', '保存信息失败！建议重新登录，再次修改信息！', 'error');
+                    }
+                }
+            );
         }
 
         function delNode() {
@@ -129,7 +203,93 @@
     </script>
 </head>
 <body>
-    <table id="dg">
-    </table>
+    <div id="dg">
+    </div>
+    <div id="newProcess" class="easyui-window" shadow="true" modal="true" minimizable="false"
+        maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
+        iconcls="icon-blank" title="分类添加" style="width: 370px; height: 280px;">
+        <table width="350" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="100">
+                    &nbsp;
+                </th>
+                <th width="210">
+                    &nbsp;
+                </th>
+                <th width="40">
+                    &nbsp;
+                </th>
+            </tr>
+            <tr>
+                <td class="algR">
+                    父级流程：
+                </td>
+                <td class="algL">
+                    <span id="parentName"></span>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    父级序号：
+                </td>
+                <td class="algL">
+                    <span id="parentNo"></span>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    流程名称：
+                </td>
+                <td class="algL">
+                    <input type="text" id="processName" class="easyui-validatebox textbox txtInput w200"
+                        value="" required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    流程序号：
+                </td>
+                <td class="algL">
+                    <input type="text" id="processNo" class="easyui-validatebox textbox txtInput w100"
+                        value="" required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="algL">
+                    <a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)" onclick="submitNode()">
+                        &nbsp;保存&nbsp;</a>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
