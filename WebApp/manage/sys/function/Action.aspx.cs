@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Glibs.Sql;
 using Glibs.Util;
 using WebLogic.Service.System;
-using Glibs.Sql;
 
 namespace WebApp.manage.sys.function
 {

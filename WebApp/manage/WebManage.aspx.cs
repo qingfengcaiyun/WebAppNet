@@ -18,7 +18,7 @@ namespace WebApp.manage
                 if (WebPageCore.GetSession("cUser") != null)
                 {
                     Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-                    Dictionary<string, object> admin = new UserLogic().GetAdminByUserId(Int32.Parse(cUser["userId"].ToString()));
+                    Dictionary<string, object> admin = new AdminLogic().GetOne(Int32.Parse(cUser["userId"].ToString()));
                     Dictionary<string, object> content = new Dictionary<string, object>();
                     content.Add("fullName", admin["fullName"]);
                     content.Add("lastLogin", cUser["lastLogin"]);

@@ -9,11 +9,9 @@ namespace WebLogic.Service.System
     public class UserLogic
     {
         private UserDao uDao = null;
-        private AdminDao aDao = null;
 
         public UserLogic()
         {
-            this.aDao = new AdminDao();
             this.uDao = new UserDao();
         }
 
@@ -47,16 +45,6 @@ namespace WebLogic.Service.System
         public bool UpdatePwds()
         {
             return this.uDao.UpdateUserPwds();
-        }
-
-        public Dictionary<string, object> GetAdminByUserId(int userId)
-        {
-            return this.aDao.GetOne(userId);
-        }
-
-        public bool SaveAdmin(Dictionary<string, object> content)
-        {
-            return this.aDao.Update(content);
         }
     }
 }

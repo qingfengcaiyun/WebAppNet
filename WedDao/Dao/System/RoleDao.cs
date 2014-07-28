@@ -23,7 +23,7 @@ namespace WebDao.Dao.System
             s.AddField("roleName");
             s.AddField("itemIndex");
 
-            s.AddTable("Sys_Roles");
+            s.AddTable("Sys_Role");
 
             s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
@@ -43,7 +43,7 @@ namespace WebDao.Dao.System
             s.AddField("roleName");
             s.AddField("itemIndex");
 
-            s.AddTable("Sys_Roles");
+            s.AddTable("Sys_Role");
 
             s.AddOrderBy("itemIndex", true);
 
@@ -73,7 +73,7 @@ namespace WebDao.Dao.System
 
             s = new SqlBuilder();
 
-            s.AddTable("Sys_Roles");
+            s.AddTable("Sys_Role");
 
             s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
@@ -92,7 +92,7 @@ namespace WebDao.Dao.System
             s.AddField("roleName");
             s.AddField("itemIndex");
 
-            s.AddTable("Sys_Roles");
+            s.AddTable("Sys_Role");
 
             this.sql = s.SqlInsert();
 
@@ -110,7 +110,7 @@ namespace WebDao.Dao.System
             s.AddField("roleName");
             s.AddField("itemIndex");
 
-            s.AddTable("Sys_Roles");
+            s.AddTable("Sys_Role");
 
             s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 

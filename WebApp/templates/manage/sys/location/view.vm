@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>地域管理</title>
+    <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        #newform td
+        {
+            height: 30px;
+        }
+    </style>
+    <script type="text/javascript" src="../../../libs/jquery.js"></script>
+    <script type="text/javascript" src="../../../libs/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initTreeGrid();
+        });
+
+        function initTreeGrid() {
+            $('#dg').treegrid({
+                title: "地域管理",
+                height: $(window).height(),
+                url: 'Action.aspx',
+                rownumbers: true,
+                animate: true,
+                fitColumns: true,
+                idField: 'locationId',
+                treeField: 'cnName',
+                columns: [[
+                    { title: '地域名称', field: 'cnName', editor: 'text', width: 200 },
+                    { title: '英文名称', field: 'enName', editor: 'text', width: 200 },
+                    { title: '地域序号', field: 'levelNo', editor: 'text', width: 200 },
+                    { title: '上级序号', field: 'parentNo', editor: 'text', width: 200 },
+                    { title: '地域级别', field: 'levelCnName', editor: 'text', width: 200 },
+                    { title: '英文级别', field: 'levelEnName', editor: 'text', width: 200 }
+                ]],
+                toolbar: [{
+                    text: '添加',
+                    iconCls: 'icon-add',
+                    handler: addNode
+                }, '-', {
+                    text: '删除',
+                    iconCls: 'icon-cut',
+                    handler: delNode
+                }, '-', {
+                    text: '编辑',
+                    iconCls: 'icon-edit',
+                    handler: editNode
+                }, {
+                    text: '保存',
+                    iconCls: 'icon-save',
+                    handler: updateNode
+                }, {
+                    text: '取消',
+                    iconCls: 'icon-cancel',
+                    handler: cancelNode
+                }]
+            });
+        }
+
+        function bindData() {
+            var param = { action: 'tree' };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var d = jQuery.parseJSON(data);
+                    $('#dg').treegrid('loadData', d);
+                }
+            );
+        }
+
+        function editNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('beginEdit', node.locationId);
+            }
+        }
+
+        function cancelNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('cancelEdit', node.locationId);
+            }
+        }
+
+        function updateNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $('#dg').treegrid('endEdit', node.locationId);
+
+                var param = {
+                    action: "save",
+                    paramStr: "locationId,cnName,enName,levelNo,parentNo,levelCnName,levelEnName",
+                    locationId: node.locationId,
+                    cnName: node.cnName,
+                    enName: node.enName,
+                    levelNo: node.levelNo,
+                    parentNo: node.parentNo,
+                    levelCnName: node.levelCnName,
+                    levelEnName: node.levelEnName
+                };
+
+                jQuery.post(
+                    "Action.aspx",
+                    param,
+                    function (data) {
+                        var d = jQuery.parseJSON(data);
+
+                        if (parseInt(d.msg) == 1) {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作成功，将刷新数据！！！',
+                                'info',
+                                function () {
+                                    $('#dg').treegrid('reload');
+                                }
+                            );
+                        } else {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作失败！！！',
+                                'error'
+                            );
+                        }
+                    }
+                );
+            }
+        }
+
+        function addNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                $("#parentName").html(node.funcName);
+                $("#parentNo").html(node.funcNo);
+                $("#funcName").val("");
+                $("#funcNo").val("");
+                $("#funcUrl").val("");
+                $("#newform").window("open");
+            } else {
+                jQuery.messager.alert(
+                    '注意！！！',
+                    '请选择父级地域！！！',
+                    'info'
+                );
+            }
+        }
+
+        function insertNode() {
+            var param = {
+                action: "save",
+                paramStr: "locationId,cnName,enName,levelNo,parentNo,levelCnName,levelEnName",
+                locationId: 0,
+                cnName: $("#cnName").val(),
+                enName: $("#enName").val(),
+                levelNo: $("#levelNo").val(),
+                parentNo: $("#parentNo").html(),
+                levelCnName: $("#levelCnName").val(),
+                levelEnName: $("#levelEnName").val()
+            };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var m = jQuery.parseJSON(data);
+                    if (parseInt(m.msg) == 1) {
+                        $("#newform").window("close");
+                        jQuery.messager.alert('信息', '保存信息成功！', 'info', function () { $('#dg').treegrid('reload'); });
+                    } else {
+                        $("#newform").window("close");
+                        jQuery.messager.alert('错误', '保存信息失败！建议重新登录，再次修改信息！', 'error');
+                    }
+                }
+            );
+        }
+
+        function delNode() {
+            var node = $('#dg').treegrid('getSelected');
+            if (node) {
+                var param = { action: "delete", levelNo: node.levelNo };
+
+                jQuery.post(
+                    "Action.aspx",
+                    param,
+                    function (data) {
+                        var d = jQuery.parseJSON(data);
+
+                        if (parseInt(d.msg) == 1) {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作成功，将刷新数据！！！',
+                                'info',
+                                function () {
+                                    $('#dg').treegrid('reload');
+                                }
+                            );
+                        } else {
+                            jQuery.messager.alert(
+                                '信息！！！',
+                                '操作失败！！！',
+                                'error'
+                            );
+                        }
+                    }
+                );
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="dg">
+    </div>
+    <div id="newform" class="easyui-window" shadow="true" modal="true" minimizable="false"
+        maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
+        iconcls="icon-blank" title="地域添加" style="width: 300px; height: 300px;">
+        <table width="280" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="100">
+                    &nbsp;
+                </th>
+                <th width="210">
+                    &nbsp;
+                </th>
+                <th width="40">
+                    &nbsp;
+                </th>
+            </tr>
+            <tr>
+                <td class="algR">
+                    父级地域：
+                </td>
+                <td class="algL">
+                    <span id="parentName"></span>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    父级序号：
+                </td>
+                <td class="algL">
+                    <span id="parentNo"></span>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    地域名称：
+                </td>
+                <td class="algL">
+                    <input type="text" id="cnName" class="easyui-validatebox textbox txtInput w100" value=""
+                        required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    英文名称：
+                </td>
+                <td class="algL">
+                    <input type="text" id="enName" class="easyui-validatebox textbox txtInput w100" value=""
+                        required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    地域序号：
+                </td>
+                <td class="algL">
+                    <input type="text" id="levelNo" class="easyui-validatebox textbox txtInput w100"
+                        value="" required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    地域级别：
+                </td>
+                <td class="algL">
+                    <input type="text" id="levelCnName" class="easyui-validatebox textbox txtInput w100"
+                        value="" required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    英文级别：
+                </td>
+                <td class="algL">
+                    <input type="text" id="levelEnName" class="easyui-validatebox textbox txtInput w100"
+                        value="" required="true" />
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td class="algL">
+                    <a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)" onclick="insertNode()">
+                        &nbsp;保存&nbsp;</a>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

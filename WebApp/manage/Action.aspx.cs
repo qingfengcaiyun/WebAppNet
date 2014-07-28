@@ -64,7 +64,7 @@ namespace WebApp.manage
         private string GetAdmin()
         {
             Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-            Dictionary<string, object> admin = new UserLogic().GetAdminByUserId(Int32.Parse(cUser["userId"].ToString()));
+            Dictionary<string, object> admin = new AdminLogic().GetOne(Int32.Parse(cUser["userId"].ToString()));
 
             return JsonDo.DictionaryToJSON(admin);
         }
@@ -72,13 +72,13 @@ namespace WebApp.manage
         private string SaveAdmin()
         {
             Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-            Dictionary<string, object> admin = new UserLogic().GetAdminByUserId(Int32.Parse(cUser["userId"].ToString()));
+            Dictionary<string, object> admin = new AdminLogic().GetOne(Int32.Parse(cUser["userId"].ToString()));
             Dictionary<string, object> content = WebPageCore.GetParameters();
 
             content.Add("adminId", admin["adminId"]);
             content.Add("locationId", admin["locationId"]);
 
-            return JsonDo.Message(new UserLogic().SaveAdmin(content) ? "1" : "0");
+            return JsonDo.Message(new AdminLogic().Update(content) ? "1" : "0");
         }
 
         public string ModPwd()

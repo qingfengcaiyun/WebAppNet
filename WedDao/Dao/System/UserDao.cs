@@ -159,5 +159,115 @@ namespace WebDao.Dao.System
                 return false;
             }
         }
+
+        public long Insert(Dictionary<string, object> content)
+        {
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddField("userName");
+            s.AddField("userPwd");
+            s.AddField("md5Pwd");
+            s.AddField("userType");
+            s.AddField("lastLogin");
+            s.AddField("locationId");
+            s.AddField("isDeleted");
+            s.AddField("isLocked");
+            s.AddField("insertTime");
+            s.AddField("updateTime");
+
+            s.AddTable("Sys_User");
+
+            this.sql = s.SqlInsert();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("userName", content["userName"]);
+            this.param.Add("userPwd", content["userPwd"]);
+            this.param.Add("md5Pwd", content["md5Pwd"]);
+            this.param.Add("userType", content["userType"]);
+            this.param.Add("lastLogin", DateTime.Now);
+            this.param.Add("locationId", content["qq"]);
+            this.param.Add("isDeleted", 0);
+            this.param.Add("isLocked", 0);
+            this.param.Add("insertTime", DateTime.Now);
+            this.param.Add("updateTime", DateTime.Now);
+
+            return this.db.Insert(this.sql, this.param);
+        }
+
+        public bool Update(Dictionary<string, object> content)
+        {
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddField("userName");
+            s.AddField("userPwd");
+            s.AddField("md5Pwd");
+            s.AddField("userType");
+            s.AddField("locationId");
+            s.AddField("updateTime");
+
+            s.AddTable("Sys_User");
+
+            s.AddWhere("", "", "userId", "=", "@userId");
+
+            this.sql = s.SqlUpdate();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("userName", content["userName"]);
+            this.param.Add("userPwd", content["userPwd"]);
+            this.param.Add("md5Pwd", content["md5Pwd"]);
+            this.param.Add("userType", content["userType"]);
+            this.param.Add("locationId", content["locationId"]);
+            this.param.Add("updateTime", DateTime.Now);
+            this.param.Add("userId", content["userId"]);
+
+            return this.db.Update(this.sql, this.param);
+        }
+
+        public bool Delete(int userId)
+        {
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddField("isDeleted");
+
+            s.AddTable("Sys_User");
+
+            s.AddWhere("", "", "userId", "=", "@userId");
+
+            this.sql = s.SqlUpdate();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("isDeleted", 1);
+            this.param.Add("userId", userId);
+
+            return this.db.Update(this.sql, this.param);
+        }
+
+        public bool SetLocked(int userId, bool isLock)
+        {
+            SqlBuilder s = new SqlBuilder();
+
+            s.AddField("isLocked");
+
+            s.AddTable("Sys_User");
+
+            s.AddWhere("", "", "userId", "=", "@userId");
+
+            this.sql = s.SqlUpdate();
+
+            this.param = new Dictionary<string, object>();
+
+            if (isLock)
+            {
+                this.param.Add("isLocked", 1);
+            }
+            else
+            {
+                this.param.Add("isLocked", 0);
+            }
+
+            this.param.Add("userId", userId);
+
+            return this.db.Update(this.sql, this.param);
+        }
     }
 }

@@ -5,6 +5,8 @@
     <title>基本信息编辑</title>
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
+    <link href="../../../libs/kindeditor/themes/default/default.css" rel="stylesheet"
+        type="text/css" />
     <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         td
@@ -15,19 +17,51 @@
     <script type="text/javascript" src="../../../libs/jquery.js"></script>
     <script type="text/javascript" src="../../../libs/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="../../../libs/kindeditor/kindeditor-all.js"></script>
+    <script type="text/javascript" src="../../../libs/kindeditor/lang/zh_CN.js"></script>
     <script type="text/javascript">
+        var editor;
+
+        KindEditor.ready(function (K) {
+            editor = K.create('textarea[id="memo"]', {
+                resizeType: 2,
+                filterMode: false,
+                allowFileManager: true,
+                allowImageUpload: true,
+                fileManagerJson: '../../../uploadAction/file_manager_json.aspx',
+                uploadJson: '../../../uploadAction/upload_json.aspx',
+                resizeMode: 1,
+                allowPreviewEmoticons: true,
+                allowUpload: true,
+                shadowMode: false,
+                basePath: '../../../',
+                themesPath: '../../libs/kindeditor/themes/',
+                pluginsPath: '../../libs/kindeditor/plugins/',
+                newlineTag: 'br',
+                items: [
+                        'source', '|', 'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste',
+                        'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
+                        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+                        'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '|',
+                        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                        'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+                        'flash', 'insertfile', 'table', 'hr', 'emoticons', 'pagebreak',
+                        'link', 'unlink'
+                        ]
+            });
+        });
+
         $(document).ready(function () {
             getOne();
         });
 
         function save() {
-
             var paramStr = "fullName,shortName,keywords,memo,address,phone,webUrl,webNo";
 
             var fullName = $("#fullName").val();
             var shortName = $("#shortName").val();
             var keywords = $("#keywords").val();
-            var memo = $("#memo").val();
+            var memo = editor.html();
             var address = $("#address").val();
             var phone = $("#phone").val();
             var webUrl = $("#webUrl").val();
@@ -74,7 +108,7 @@
                         $("#fullName").val(d.fullName);
                         $("#shortName").val(d.shortName);
                         $("#keywords").val(d.keywords);
-                        $("#memo").val(d.memo);
+                        editor.html(d.memo);
                         $("#webUrl").val(d.webUrl);
                         $("#phone").val(d.phone);
                         $("#webNo").val(d.webNo);

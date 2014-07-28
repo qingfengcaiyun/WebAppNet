@@ -32,6 +32,7 @@ namespace WebApp
             //int i = str.IndexOf("001");
             //Response.Write(i);
 
+            /*
             string str = "";
             //取得当前方法命名空间
             str += "命名空间名:" + System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace + "\n";
@@ -51,9 +52,9 @@ namespace WebApp
             str += mb.DeclaringType.FullName + "\n";
             //取得父方法名
             str += mb.Name + "\n";
+            */
 
-
-            Response.Write(str);
+            //Response.Write(WebPageCore.GetClassName());
         }
     }
 }

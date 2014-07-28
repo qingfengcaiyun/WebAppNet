@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -12,15 +13,16 @@ namespace WebApp.manage.renovation.project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Dictionary<string, object> content = new Dictionary<string, object>();
+            if (!Page.IsPostBack)
+            {
+                string nameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
+                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
 
-            string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
-            nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
+                string className = MethodBase.GetCurrentMethod().DeclaringType.FullName;
+                className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
 
-            string className = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.FullName;
-            className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
-
-            Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, content));
+                Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, null));
+            }
         }
     }
 }
