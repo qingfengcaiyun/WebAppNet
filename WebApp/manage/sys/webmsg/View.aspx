@@ -1,1 +1,1 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="View.aspx.cs" Inherits="WebApp.manage.sys.webmsg.View" %>
+﻿<%@ Page Language="C#" CodePage="65001" AutoEventWireup="true" CodeBehind="View.aspx.cs" Inherits="WebApp.manage.sys.webmsg.View" %>

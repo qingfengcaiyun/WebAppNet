@@ -35,8 +35,8 @@
                 allowUpload: true,
                 shadowMode: false,
                 basePath: '../../../',
-                themesPath: '../../libs/kindeditor/themes/',
-                pluginsPath: '../../libs/kindeditor/plugins/',
+                themesPath: '../../../libs/kindeditor/themes/',
+                pluginsPath: '../../../libs/kindeditor/plugins/',
                 newlineTag: 'br',
                 items: [
                         'source', '|', 'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste',
