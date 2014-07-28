@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using NVelocity;
 using NVelocity.App;
 using NVelocity.Runtime;
@@ -8,7 +10,7 @@ namespace Glibs.Util
 {
     public class VelocityDo
     {
-        public static string BuildStringByTemplate(string templateFile, string templateDir, Dictionary<string, object> content)
+        public static string BuildStringByTemplate(string templateFile, string templateDir, Hashtable content)
         {
             VelocityEngine vltEngine = new VelocityEngine();
             string dir = WebPageCore.GetMapPath(templateDir);
@@ -25,9 +27,9 @@ namespace Glibs.Util
 
             if (content != null && content.Count > 0)
             {
-                foreach (KeyValuePair<string, object> kv in content)
+                foreach (DictionaryEntry de in content)
                 {
-                    context.Put(kv.Key, kv.Value);
+                    context.Put(de.Key.ToString(), de.Value);
                 }
             }
 
@@ -70,6 +72,32 @@ namespace Glibs.Util
             }
 
             return strs;
+        }
+
+        public static List<Dictionary<string, string>> ListToVelocity(List<Dictionary<string, object>> srcList)
+        {
+            List<Dictionary<string, string>> tagList = new List<Dictionary<string, string>>();
+
+            if (srcList != null && srcList.Count > 0)
+            {
+                Dictionary<string, object> stemp = null;
+                Dictionary<string, string> ttemp = null;
+
+                for (int i = 0; i < srcList.Count; i++)
+                {
+                    ttemp = new Dictionary<string, string>();
+                    stemp = srcList[i];
+
+                    foreach (KeyValuePair<string, object> kv in stemp)
+                    {
+                        ttemp.Add(kv.Key.ToString(), kv.Value.ToString());
+                    }
+
+                    tagList.Add(ttemp);
+                }
+            }
+
+            return tagList;
         }
     }
 }

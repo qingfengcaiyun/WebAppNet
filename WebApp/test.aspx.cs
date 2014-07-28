@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using Glibs.Util;
 using System.Diagnostics;
 using System.Reflection;
+using System.Collections;
+using WebLogic.Service.System;
 
 namespace WebApp
 {
@@ -55,6 +57,24 @@ namespace WebApp
             */
 
             //Response.Write(WebPageCore.GetClassName());
+
+
+            List<Dictionary<string, object>> locals = new LocationLogic().GetList("001001001001001001");
+
+            List<string> l = new List<string>();
+
+            if (locals != null && locals.Count > 0)
+            {
+                for (int i = 0; i < locals.Count; i++)
+                {
+                    l.Add(locals[i]["cnName"].ToString());
+                }
+            }
+
+            Hashtable content = new Hashtable();
+            content.Add("regions", locals);
+
+            Response.Write(VelocityDo.BuildStringByTemplate("test.vm", @"~/templates/", content));
         }
     }
 }

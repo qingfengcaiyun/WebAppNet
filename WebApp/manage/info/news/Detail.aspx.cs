@@ -7,6 +7,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
 using WebLogic.Service.System;
+using System.Collections;
 
 namespace WebApp.manage.info.news
 {
@@ -29,7 +30,7 @@ namespace WebApp.manage.info.news
                 }
 
                 string newsId = WebPageCore.GetRequest("newsId");
-                Dictionary<string, object> content = new Dictionary<string, object>();
+                Hashtable content = new Hashtable();
                 content.Add("newsId", newsId);
 
                 string nameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;

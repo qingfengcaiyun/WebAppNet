@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
 using WebLogic.Service.System;
+using System.Collections;
 
 namespace WebApp.manage
 {
@@ -19,7 +20,7 @@ namespace WebApp.manage
                 {
                     Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
                     Dictionary<string, object> admin = new AdminLogic().GetOne(Int32.Parse(cUser["userId"].ToString()));
-                    Dictionary<string, object> content = new Dictionary<string, object>();
+                    Hashtable content = new Hashtable();
                     content.Add("fullName", admin["fullName"]);
                     content.Add("lastLogin", cUser["lastLogin"]);
                     content.Add("userName", cUser["userName"]);

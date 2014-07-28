@@ -55,7 +55,8 @@
     <Reference Include="NPOI.OpenXmlFormats">
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
-    <Reference Include="NVelocity">
+    <Reference Include="NVelocity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NVelocity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -200,6 +201,29 @@
     <None Include="templates\manage\sys\function\view.vm" />
     <None Include="templates\manage\sys\role\list.vm" />
     <None Include="templates\manage\sys\location\view.vm" />
+    <None Include="templates\test.vm" />
+    <None Include="templates\webhtml\index.vm" />
+    <Content Include="webhtml\css\global.css" />
+    <Content Include="webhtml\css\gstyles.css" />
+    <Content Include="webhtml\img\logo.jpg" />
+    <Content Include="webhtml\img\process.jpg" />
+    <Content Include="webhtml\img\process_1.jpg" />
+    <Content Include="webhtml\img\process_11.jpg" />
+    <Content Include="webhtml\img\process_12.jpg" />
+    <Content Include="webhtml\img\process_2.jpg" />
+    <Content Include="webhtml\img\process_21.jpg" />
+    <Content Include="webhtml\img\process_22.jpg" />
+    <Content Include="webhtml\img\process_23.jpg" />
+    <Content Include="webhtml\img\process_24.jpg" />
+    <Content Include="webhtml\img\process_25.jpg" />
+    <Content Include="webhtml\img\process_3.jpg" />
+    <Content Include="webhtml\img\process_31.jpg" />
+    <Content Include="webhtml\img\process_32.jpg" />
+    <Content Include="webhtml\img\process_bg.jpg" />
+    <Content Include="webhtml\index.aspx" />
+    <Content Include="webhtml\js\glibs.js" />
+    <Content Include="webhtml\js\jquery.js" />
+    <Content Include="webhtml\js\jquery.md5.js" />
     <Content Include="zxrrt.sql" />
     <None Include="templates\manage\sys\webmsg\view.vm" />
     <Content Include="uploadAction\FileUpload.aspx" />
@@ -615,6 +639,13 @@
     <Compile Include="VerifyCodeAction.aspx.designer.cs">
       <DependentUpon>VerifyCodeAction.aspx</DependentUpon>
     </Compile>
+    <Compile Include="webhtml\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="webhtml\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="attached\" />
@@ -628,8 +659,6 @@
     <Folder Include="templates\manage\renovation\project\" />
     <Folder Include="templates\manage\user\" />
     <Folder Include="templates\member\" />
-    <Folder Include="templates\webhtml\" />
-    <Folder Include="webhtml\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GLibs\Glibs.csproj">

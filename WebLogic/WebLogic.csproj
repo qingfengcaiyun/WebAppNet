@@ -52,7 +52,8 @@
     <Reference Include="NPOI.OpenXmlFormats">
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
-    <Reference Include="NVelocity">
+    <Reference Include="NVelocity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NVelocity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -73,6 +74,7 @@
     <Compile Include="Service\Info\ActivityLogic.cs" />
     <Compile Include="Service\Info\CategoryLogic.cs" />
     <Compile Include="Service\Info\NewsLogic.cs" />
+    <Compile Include="Service\Renovation\ParameterLogic.cs" />
     <Compile Include="Service\Renovation\ProcessLogic.cs" />
     <Compile Include="Service\Renovation\ProjectLogic.cs" />
     <Compile Include="Service\System\AdminLogic.cs" />

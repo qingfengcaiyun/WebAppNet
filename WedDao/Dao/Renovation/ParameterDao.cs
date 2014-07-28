@@ -15,11 +15,11 @@ namespace WebDao.Dao.Renovation
             this.db = DbUtil.CreateDatabase();
         }
 
-        public Dictionary<string, object> getOne(int paramId)
+        public Dictionary<string, object> GetOne(int paramId)
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Renovation_Parameters", "p");
+            this.s.AddTable("Renovation_Parameter", "p");
             this.s.AddTable("Sys_Location", "l");
 
             this.s.AddField("l", "cnName", "location");
@@ -45,7 +45,7 @@ namespace WebDao.Dao.Renovation
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Renovation_Parameters", "p");
+            this.s.AddTable("Renovation_Parameter", "p");
             this.s.AddTable("Sys_Location", "l");
 
             this.s.AddField("l", "cnName", "location");
@@ -80,13 +80,13 @@ namespace WebDao.Dao.Renovation
         public List<Dictionary<string, object>> GetParamTypeList()
         {
             this.param = new Dictionary<string, object>();
-            this.sql = @"select distinct [paramName],[paramKey] from [Renovation_Parameters] order by [paramKey] asc";
+            this.sql = @"select distinct [paramName],[paramKey] from [Renovation_Parameter] order by [paramKey] asc";
             return this.db.GetDataTable(this.sql, this.param);
         }
 
         public bool Delete(int paramId)
         {
-            this.sql = @"delete from [Renovation_Parameters] where [paramId]=@paramId;";
+            this.sql = @"delete from [Renovation_Parameter] where [paramId]=@paramId;";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("paramId", paramId);
@@ -98,7 +98,7 @@ namespace WebDao.Dao.Renovation
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Renovation_Parameters");
+            this.s.AddTable("Renovation_Parameter");
 
             this.s.AddField("locationId");
             this.s.AddField("paramName");
@@ -122,7 +122,7 @@ namespace WebDao.Dao.Renovation
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Renovation_Parameters");
+            this.s.AddTable("Renovation_Parameter");
 
             this.s.AddField("locationId");
             this.s.AddField("paramName");

@@ -340,20 +340,7 @@ create table [Info_Relationship](
 
 GO
 
-INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('memo', '一、网站简介
-       装修人人通是装修装饰行业垂直性服务平台，是实用性最强的装修服务网站。汇集海量装修信息，提供各大品牌装修公司、独立设计师、优秀施工队三种选择方式，同时提供建材企业信息等。拥有明显的区域优势，能更全面更深入更有效地为业主提供针对性强的理想信息及服务。装修人人通真正做到以业主为服务中心，为业主提供免费装修装饰招标信息发布，百分百人工审核，支持线上沟通。
-       二、网站特色
-       装修人人通致力于为装修业主提供真实可靠的高口碑装修公司，功能性强，全心全意为广大业主提供装修一条龙服务。网站具有以下特色：
-        特色一：以业主为服务中心，竭诚提供装修一条龙服务
-        免费发布装修装饰招标信息，提供验房、量房、设计、施工、验收、购买建材等装修相关的一条龙服务。
-        特色二：为装修及建材公司等提供更低成本更高效果的宣传服务
-        以更低的营销成本，更佳的形象展示，将优秀的装修装饰公司、优质的建材产品推荐给广大业主。
-        特色三：严格把关装修公司或队伍，建材企业的网站入驻加盟
-        坚决杜绝差口碑，乱收费，差做工，假宣传的公司或个人，从源头上解决服务差的团队，为广大业主把好装修的第一关。
-        特色四：提供让人放心的第三方保障服务
-        专业行业资讯，准确对接供应商和第三方保障服务，让业主能更轻松更方便地知道装修，找到适合的装饰公司和建材商品，更重要的是业主能额外享受我们第三方免费提供的保障服务。
-        三、网站宗旨
-       装修人人通主要提供装修相关的行业资讯，装修招标，装修知识，装修图片，装修公司或团队，设计团队，建材团购，免费验房，装修监理等服务。网站以一心一意为广大业主提供一条龙服务，让菜鸟业主轻松应对潜规则遍布、价格紊乱、工期不明朗的装修问题为网站服务立足宗旨，让装修人人通成为装饰家居中最大的垂直商业领域的佼佼者。');
+INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('memo', '一、网站简介 装修人人通是装修装饰行业垂直性服务平台，是实用性最强的装修服务网站。汇集海量装修信息，提供各大品牌装修公司、独立设计师、优秀施工队三种选择方式，同时提供建材企业信息等。拥有明显的区域优势，能更全面更深入更有效地为业主提供针对性强的理想信息及服务。装修人人通真正做到以业主为服务中心，为业主提供免费装修装饰招标信息发布，百分百人工审核，支持线上沟通。       二、网站特色       装修人人通致力于为装修业主提供真实可靠的高口碑装修公司，功能性强，全心全意为广大业主提供装修一条龙服务。网站具有以下特色：特色一：以业主为服务中心，竭诚提供装修一条龙服务        免费发布装修装饰招标信息，提供验房、量房、设计、施工、验收、购买建材等装修相关的一条龙服务。 特色二：为装修及建材公司等提供更低成本更高效果的宣传服务 以更低的营销成本，更佳的形象展示，将优秀的装修装饰公司、优质的建材产品推荐给广大业主。        特色三：严格把关装修公司或队伍，建材企业的网站入驻加盟 坚决杜绝差口碑，乱收费，差做工，假宣传的公司或个人，从源头上解决服务差的团队，为广大业主把好装修的第一关。        特色四：提供让人放心的第三方保障服务 专业行业资讯，准确对接供应商和第三方保障服务，让业主能更轻松更方便地知道装修，找到适合的装饰公司和建材商品，更重要的是业主能额外享受我们第三方免费提供的保障服务。        三、网站宗旨       装修人人通主要提供装修相关的行业资讯，装修招标，装修知识，装修图片，装修公司或团队，设计团队，建材团购，免费验房，装修监理等服务。网站以一心一意为广大业主提供一条龙服务，让菜鸟业主轻松应对潜规则遍布、价格紊乱、工期不明朗的装修问题为网站服务立足宗旨，让装修人人通成为装饰家居中最大的垂直商业领域的佼佼者。');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('fullName', '装修人人通');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('shortName', '装修人人通');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('keywords', '宁波装修，宁波办公室装修，宁波厂房装修，宁波装饰，宁波装修公司，宁波装修网，宁波装修公司排名，宁波哪家装修公司好，宁波家庭装修，宁波二手房装修，宁波精装修楼盘，宁波店面装修……');
@@ -478,6 +465,30 @@ INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 21);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 22);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 23);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 24);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 1);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 2);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 3);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 4);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 5);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 6);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 7);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 8);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 9);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 10);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 11);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 12);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 13);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 14);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 15);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 16);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 17);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 18);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 19);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 20);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 21);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 22);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 23);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 24);
 GO
 
 INSERT INTO [Renovation_Process] ([processName], [processNo], [parentNo], [isLeaf]) VALUES ('全部流程', '001', '0', 0);

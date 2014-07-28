@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
+using System.Collections;
 
 namespace WebApp.manage.renovation.project
 {
@@ -23,11 +24,9 @@ namespace WebApp.manage.renovation.project
                 }
 
                 Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-                Dictionary<string, object> content = new Dictionary<string, object>();
+                Hashtable content = new Hashtable();
                 content.Add("cityId", cUser["locationId"]);
                 content.Add("cateId", cateId);
-
-
 
                 string nameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
                 nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');

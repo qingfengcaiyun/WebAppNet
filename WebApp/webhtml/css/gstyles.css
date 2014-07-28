@@ -1,0 +1,105 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+	margin: 0;
+	padding: 0;
+}
+fieldset, img {
+	border: 0;
+}
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var, optgroup {
+	font-style: normal;
+	font-weight: normal;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-size: 100%;
+	font-weight: normal;
+}
+abbr, acronym {
+	border: 0;
+	font-variant: normal;
+}
+input, button, textarea, select, optgroup, option {
+	font-family: inherit;
+	font-size: inherit;
+	font-style: inherit;
+	font-weight: inherit;
+}
+code, kbd, samp, tt {
+	font-size: 100%;
+}
+/*@purpose To enable resizing for IE */
+/*@branch For IE6-Win, IE7-Win */
+input, button, textarea, select {
+ *font-size: 100%;
+}
+body {
+	line-height: 1.5;
+}
+ol, ul {
+	list-style: none;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+caption, th {
+	text-align: left;
+}
+sup, sub {
+	font-size: 100%;
+	vertical-align: baseline;
+}
+/* remember to highlight anchors and inserts somehow! */
+:link, :visited, ins {
+	text-decoration: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+/******透明效果******/
+.opacity {
+	filter:alpha(opacity=10);       /* IE */
+	-moz-opacity:0.9;              /* Moz + FF */
+	opacity: 0.9;           /* 支持CSS3的浏览器（FF 1.5也支持）*/
+}
+/******图片轮换******/
+#slider ul, #slider li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+#flashnvanum {
+	bottom: 30px;
+	position: absolute;
+	right: 10px;
+	width: 110px;
+}
+#flashnvanum span {
+	background: transparent url(../imgs/flashbutton.gif) no-repeat scroll -15px 0;
+	color: #472D16;
+	cursor: pointer;
+	float: left;
+	font-family: Arial;
+	font-size: 12px;
+	height: 15px;
+	line-height: 15px;
+	margin: 1px;
+	text-align: center;
+	width: 15px;
+	font-weight:bold;
+}
+#flashnvanum span.on {
+	background: transparent url(../imgs/flashbutton.gif) no-repeat scroll 0 0;
+	color: #FFFFFF;
+	height: 15px;
+	line-height: 15px;
+	width: 15px;
+}

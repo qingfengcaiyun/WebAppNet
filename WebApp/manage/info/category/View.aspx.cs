@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
+using System.Collections;
 
 namespace WebApp.manage.info.category
 {
@@ -16,7 +17,7 @@ namespace WebApp.manage.info.category
             if (!Page.IsPostBack)
             {
                 Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-                Dictionary<string, object> content = new Dictionary<string, object>();
+                Hashtable content = new Hashtable();
                 content.Add("cityId", cUser["locationId"]);
 
                 string nameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
