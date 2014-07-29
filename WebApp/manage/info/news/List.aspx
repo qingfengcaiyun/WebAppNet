@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="WebApp.manage.info.news.List" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -147,7 +148,7 @@
                 添加</a> <a href="#" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="edit()">
                     编辑</a> <a href="#" class="easyui-linkbutton" iconcls="icon-cut" plain="true" onclick="del()">
                         删除</a>
-            <select class="easyui-combotree txtInput" panelHeight="140" required="true" id="cate">
+            <select class="easyui-combotree txtInput" panelheight="140" required="true" id="cate">
             </select>
         </div>
     </div>

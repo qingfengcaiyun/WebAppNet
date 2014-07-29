@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Detail.aspx.cs" Inherits="WebApp.manage.info.news.Detail" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -287,8 +288,8 @@
                     文章分类：
                 </td>
                 <td>
-                    <select class="easyui-combotree txtInput" required="true" style="width: 300px" panelHeight="140" multiple="true"
-                        id="cate">
+                    <select class="easyui-combotree txtInput" required="true" style="width: 300px" panelheight="140"
+                        multiple="true" id="cate">
                     </select>
                 </td>
             </tr>

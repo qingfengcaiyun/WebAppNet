@@ -278,6 +278,7 @@ create table [Renovation_Article](
 	[keywords] [nvarchar](255) NOT NULL,
 	[picUrl] [nvarchar](255) NOT NULL,
 	[readCount] [bigint] NOT NULL,
+	[fileIds] [nvarchar](500),
 	[isTop] [bit] NOT NULL,
 	[topTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[itemIndex] [int] NOT NULL,

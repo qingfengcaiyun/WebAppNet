@@ -105,7 +105,7 @@ namespace WebDao.Dao.Renovation
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public PageRecords getPage(int pageSize, int pageNo, int processId, string msg)
+        public PageRecords GetPage(int pageSize, int pageNo, int processId, string msg)
         {
             this.s = new SqlBuilder();
 

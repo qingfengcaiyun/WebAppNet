@@ -11,7 +11,6 @@ namespace WebApp.manage.renovation.article
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

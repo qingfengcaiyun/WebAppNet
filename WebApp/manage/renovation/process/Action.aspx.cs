@@ -23,15 +23,20 @@ namespace WebApp.manage.renovation.process
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
-                default: rs = Tree(); break;
+                default: rs = TreeGrid(); break;
             }
 
             Response.Write(rs);
         }
 
-        private string Tree()
+        private string TreeGrid()
         {
             return new ProcessLogic().GetTreeGrid("0");
+        }
+
+        private string Tree()
+        {
+            return new ProcessLogic().GetTree("0");
         }
 
         private string One()

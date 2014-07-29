@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Detail.aspx.cs" Inherits="WebApp.manage.renovation.article.Detail" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -32,8 +33,8 @@
 
         $(document).ready(function () {
 
+            getProcessTree();
             switchTopOption(0);
-            getCateTree();
             getOne();
 
             $("#titleColor").bigColorpicker(function (el, color) {
@@ -59,7 +60,7 @@
                 pluginsPath: '../../../libs/kindeditor/plugins/',
                 newlineTag: 'br',
                 items: [
-                        'source', '|', 'undo', 'redo', '|', 'preview', 'print', 'template', 'cut', 'copy', 'paste',
+                        'source', '|', 'undo', 'redo', '|', 'preview', 'template', 'cut', 'copy', 'paste',
                         'plainpaste', 'wordpaste', '|', 'justifyleft', 'justifycenter', 'justifyright',
                         'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
                         'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '|',
@@ -84,23 +85,11 @@
             }
         }
 
-        function preview() {
-            jQuery.messager.alert('嘻嘻', '模板还未做完！');
-        }
-
         function save() {
             //cateList
-            var t = $("#cate").combotree('tree');
-            var n = t.tree('getChecked');
-            var cateList = "";
-            var cateId;
-            if (n.length > 0) {
-                for (var i = 0; i < n.length; i++) {
-                    cateList = cateList + "," + n[i].id;
-                    cateId = n[i].id;
-                }
-                cateList = cateList.substr(1);
-            }
+            var t = $("#process").combotree('tree');
+            var n = t.tree('getSelected');
+            var processId = n.processId;
 
             var longTitle = $("#longTitle").val();
 
@@ -117,7 +106,7 @@
             var itemIndex = $("#itemIndex").val();
             var outLink = $("#outLink").val();
 
-            var newsId = $("#newsId").val();
+            var raId = $("#raId").val();
 
             if (longTitle == null) {
                 jQuery.messager.alert('错误', '请输入长标题！', 'error');
@@ -126,6 +115,7 @@
             }
             if (editor.text() == null) {
                 jQuery.messager.alert('错误', '请输入内容', 'error');
+                editor.focus();
                 return;
             }
             if (keywords == null) {
@@ -138,9 +128,9 @@
                 $("#itemIndex").focus();
                 return;
             }
-            if (cateList == "") {
+            if (processId == "") {
                 jQuery.messager.alert('错误', '请选择文章分类！！', 'error');
-                $("#cate").focus();
+                $("#process").focus();
                 return;
             }
 
@@ -158,8 +148,8 @@
 
             var param = {
                 action: "save",
-                paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
-                newsId: newsId,
+                paramStr: "raId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,processId,outLink",
+                raId: raId,
                 longTitle: longTitle,
                 titleColor: titleColor,
                 shortTitle: shortTitle,
@@ -169,7 +159,7 @@
                 keywords: keywords,
                 picUrl: picUrl.length > 0 ? picUrl.substr(1) : "",
                 itemIndex: itemIndex,
-                cateList: cateList,
+                processId: processId,
                 outLink: outLink
             };
 
@@ -183,7 +173,7 @@
                             if (r) {
                                 window.location.href = "?action=edit&newsId=0";
                             } else {
-                                window.location.href = "List.aspx?cateId=" + cateId;
+                                window.location.href = "List.aspx?raId=" + cateId;
                             }
                         });
                     } else {
@@ -195,13 +185,13 @@
         }
 
         function getOne() {
-            var newsId = $("#newsId").val();
-            if (parseInt(newsId) > 0) {
+            var raId = $("#raId").val();
+            if (parseInt(raId) > 0) {
                 jQuery.post(
                     "Action.aspx",
                     {
                         action: "one",
-                        newsId: newsId
+                        raId: raId
                     },
                     function (data) {
                         var d = eval(data);
@@ -209,7 +199,6 @@
                         $("#shortTitle").val(d.shortTitle);
                         $("#keywords").val(d.keywords);
                         $("#itemIndex").val(d.itemIndex);
-                        $("#cateList").val(d.cateList);
                         $("#outLink").val(d.outLink);
                         $("#isTop").val(d.isTop);
 
@@ -221,26 +210,24 @@
 
                         switchTopOption(d.isTop);
 
-                        var c = d.cateList.toString().split(',');
-
-                        $('#cate').combotree('setValues', c);
+                        $('#process').combotree('setValue', c.processId);
                     },
                     'json'
                 );
             }
         }
 
-        function getCateTree() {
+        function getProcessTree() {
             jQuery.post(
-                "../category/Action.aspx",
+                "../process/Action.aspx",
                 {
                     action: "tree"
                 },
                 function (data) {
-                    var d = jQuery.parseJSON(data);
-                    //alert(data);
-                    $("#cate").combotree('loadData', d);
-                }
+                    var d = eval(data);
+                    $("#process").combotree('loadData', d);
+                },
+                'json'
             );
         }
 
@@ -287,8 +274,7 @@
                     文章分类：
                 </td>
                 <td>
-                    <select class="easyui-combotree txtInput" required="true" style="width: 300px" panelHeight="140" multiple="true"
-                        id="cate">
+                    <select class="easyui-combotree txtInput" required="true" id="process">
                     </select>
                 </td>
             </tr>
@@ -356,8 +342,7 @@
                 </td>
                 <td>
                     <input type="hidden" id="isTop" value="" />
-                    <input type="hidden" id="newsId" value="<%=newsId %>" />
-                    <input type="hidden" id="cateList" value="" />
+                    <input type="hidden" id="raId" value="<%=raId %>" />
                 </td>
             </tr>
         </table>
