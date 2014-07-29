@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Detail.aspx.cs" Inherits="WebApp.manage.renovation.article.Detail" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -176,7 +177,7 @@
                 "Action.aspx",
                 param,
                 function (data) {
-                    var d = jQuery.parseJSON(data);
+                    var d = eval(data);
                     if (parseInt(d.msg) == 1) {
                         jQuery.messager.confirm('保存成功', '你想输入新信息么？', function (r) {
                             if (r) {
@@ -188,7 +189,8 @@
                     } else {
                         jQuery.messager.alert('错误', '保存失败！', 'error');
                     }
-                }
+                },
+                'json'
             );
         }
 
@@ -202,7 +204,7 @@
                         newsId: newsId
                     },
                     function (data) {
-                        var d = jQuery.parseJSON(data);
+                        var d = eval(data);
                         $("#longTitle").val(d.longTitle);
                         $("#shortTitle").val(d.shortTitle);
                         $("#keywords").val(d.keywords);
@@ -222,7 +224,8 @@
                         var c = d.cateList.toString().split(',');
 
                         $('#cate').combotree('setValues', c);
-                    }
+                    },
+                    'json'
                 );
             }
         }
@@ -353,7 +356,7 @@
                 </td>
                 <td>
                     <input type="hidden" id="isTop" value="" />
-                    <input type="hidden" id="newsId" value="$newsId" />
+                    <input type="hidden" id="newsId" value="<%=newsId %>" />
                     <input type="hidden" id="cateList" value="" />
                 </td>
             </tr>

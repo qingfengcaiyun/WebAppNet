@@ -22,7 +22,7 @@ namespace Glibs.Sql
                     str.Append(",\"");
                     str.Append(kv.Key);
                     str.Append("\":\"");
-                    str.Append(kv.Value.ToString());
+                    str.Append(kv.Value.ToString().Replace("\n", "\\n").Replace("\r", "\\r"));
                     str.Append("\"");
                 }
 

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Glibs.Util;
 
 namespace WebApp.manage.sys.webmsg
 {
@@ -13,16 +11,6 @@ namespace WebApp.manage.sys.webmsg
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                string nameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
-                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
-
-                string className = MethodBase.GetCurrentMethod().DeclaringType.FullName;
-                className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
-
-                Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, null));
-            }
         }
     }
 }

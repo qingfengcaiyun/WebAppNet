@@ -23,6 +23,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <ExcludeApp_Data>true</ExcludeApp_Data>
+    <PublishDatabases>true</PublishDatabases>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -184,6 +188,9 @@
     <Content Include="libs\easyui\themes\icons\sum.png" />
     <Content Include="libs\easyui\themes\icons\undo.png" />
     <Content Include="libs\jquery.js" />
+    <Content Include="manage\renovation\article\Action.aspx" />
+    <Content Include="manage\renovation\article\Detail.aspx" />
+    <Content Include="manage\renovation\article\List.aspx" />
     <Content Include="manage\renovation\process\Action.aspx" />
     <Content Include="manage\renovation\process\View.aspx" />
     <Content Include="manage\renovation\project\Action.aspx" />
@@ -196,11 +203,6 @@
     <Content Include="manage\sys\role\List.aspx" />
     <Content Include="manage\sys\webmsg\Action.aspx" />
     <Content Include="manage\sys\webmsg\View.aspx" />
-    <None Include="templates\manage\renovation\process\view.vm" />
-    <None Include="templates\manage\info\category\view.vm" />
-    <None Include="templates\manage\sys\function\view.vm" />
-    <None Include="templates\manage\sys\role\list.vm" />
-    <None Include="templates\manage\sys\location\view.vm" />
     <None Include="templates\test.vm" />
     <None Include="templates\webhtml\index.vm" />
     <Content Include="webhtml\css\global.css" />
@@ -225,7 +227,6 @@
     <Content Include="webhtml\js\jquery.js" />
     <Content Include="webhtml\js\jquery.md5.js" />
     <Content Include="zxrrt.sql" />
-    <None Include="templates\manage\sys\webmsg\view.vm" />
     <Content Include="uploadAction\FileUpload.aspx" />
     <Content Include="manage\imgs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
@@ -434,12 +435,8 @@
     <Content Include="libs\kindeditor\themes\qq\editor.gif" />
     <Content Include="libs\kindeditor\themes\qq\qq.css" />
     <Content Include="libs\kindeditor\themes\simple\simple.css" />
-    <None Include="templates\manage\login.vm" />
     <Content Include="manage\sys\function\Action.aspx" />
     <Content Include="manage\WebManage.aspx" />
-    <None Include="templates\manage\manage.vm" />
-    <None Include="templates\manage\info\news\detail.vm" />
-    <None Include="templates\manage\info\news\list.vm" />
     <Content Include="test.aspx" />
     <Content Include="uploadAction\file_manager_json.aspx" />
     <Content Include="uploadAction\upload_json.aspx" />
@@ -469,6 +466,27 @@
     </Compile>
     <Compile Include="manage\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\article\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\article\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\article\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\article\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\article\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\article\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\renovation\process\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
@@ -656,8 +674,6 @@
     <Folder Include="member\" />
     <Folder Include="templates\client\" />
     <Folder Include="templates\designer\" />
-    <Folder Include="templates\manage\renovation\project\" />
-    <Folder Include="templates\manage\user\" />
     <Folder Include="templates\member\" />
   </ItemGroup>
   <ItemGroup>

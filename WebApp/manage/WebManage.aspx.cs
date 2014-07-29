@@ -6,12 +6,15 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
 using WebLogic.Service.System;
-using System.Collections;
 
 namespace WebApp.manage
 {
     public partial class WebManage : System.Web.UI.Page
     {
+        public string fullName;
+        public string lastLogin;
+        public string userName;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -20,15 +23,10 @@ namespace WebApp.manage
                 {
                     Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
                     Dictionary<string, object> admin = new AdminLogic().GetOne(Int32.Parse(cUser["userId"].ToString()));
-                    Hashtable content = new Hashtable();
-                    content.Add("fullName", admin["fullName"]);
-                    content.Add("lastLogin", cUser["lastLogin"]);
-                    content.Add("userName", cUser["userName"]);
 
-                    string nameSpace = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType.Namespace;
-                    nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
-
-                    Response.Write(VelocityDo.BuildStringByTemplate("manage.vm", @"~/templates/" + nameSpace, content));
+                    this.fullName = admin["fullName"].ToString();
+                    this.lastLogin = cUser["lastLogin"].ToString();
+                    this.userName = cUser["userName"].ToString();
                 }
                 else
                 {

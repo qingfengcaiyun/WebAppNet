@@ -264,6 +264,7 @@ namespace WebDao.Dao.Info
             this.param.Add("isTop", content["isTop"]);
             this.param.Add("topTime", content["topTime"]);
             this.param.Add("updateTime", DateTime.Now);
+            this.param.Add("newsId", content["newsId"]);
 
             return this.db.Update(this.sql, this.param);
         }
