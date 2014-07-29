@@ -29,7 +29,7 @@ namespace WebDao.Dao.System
 
             s = new SqlBuilder();
 
-            s.AddTable("Sys_Functions");
+            s.AddTable("Sys_Function");
 
             s.AddField("funcName");
             s.AddField("funcNo");
@@ -71,11 +71,11 @@ namespace WebDao.Dao.System
 
                 List<Dictionary<string, object>> paramsList = new List<Dictionary<string, object>>();
 
-                for (int i = 0, j = funcIds.Length; i < j; i++)
+                for (int i = 1, j = funcIds.Length; i < j; i++)
                 {
                     this.param = new Dictionary<string, object>();
                     this.param.Add("roleId", roleId);
-                    this.param.Add("roleId", funcIds[i]);
+                    this.param.Add("funcId", funcIds[i]);
 
                     paramsList.Add(this.param);
                 }

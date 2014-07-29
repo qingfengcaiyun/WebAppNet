@@ -19,12 +19,18 @@ namespace WebApp.manage.sys.role
 
             switch (action)
             {
+                case "tree": rs = Tree(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
                 default: rs = DataGrid(); break;
             }
 
             Response.Write(rs);
+        }
+
+        private string Tree()
+        {
+            return new RoleLogic().GetTree();
         }
 
         private string DataGrid()

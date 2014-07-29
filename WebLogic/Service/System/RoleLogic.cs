@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WebDao.Dao.System;
+using System.Text;
 
 namespace WebLogic.Service.System
 {
@@ -36,6 +37,36 @@ namespace WebLogic.Service.System
         public bool Update(Dictionary<string, object> content)
         {
             return this.dao.Update(content);
+        }
+
+        public String GetTree()
+        {
+            List<Dictionary<string, object>> list = this.dao.GetList("");
+
+            if (list != null && list.Count > 0)
+            {
+                Dictionary<string, object> temp = null;
+                StringBuilder str = new StringBuilder();
+
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+
+                    str.Append(",{");
+                    str.Append("\"id\":\"");
+                    str.Append(temp["roleId"].ToString());
+                    str.Append("\",");
+                    str.Append("\"text\":\"");
+                    str.Append(temp["roleName"].ToString());
+                    str.Append("\"}");
+                }
+
+                return "[" + str.ToString().Substring(1) + "]";
+            }
+            else
+            {
+                return "[]";
+            }
         }
     }
 }

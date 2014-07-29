@@ -69,7 +69,7 @@ namespace WebLogic.Service.System
 
                     str.Append(",{");
                     str.Append("\"id\":\"");
-                    str.Append(temp["funcNo"].ToString());
+                    str.Append(temp["funcId"].ToString());
                     str.Append("\",");
                     str.Append("\"text\":\"");
                     str.Append(temp["funcName"].ToString());

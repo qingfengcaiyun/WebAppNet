@@ -82,6 +82,7 @@
     <Compile Include="Service\System\FileInfoLogic.cs" />
     <Compile Include="Service\System\FunctionLogic.cs" />
     <Compile Include="Service\System\LocationLogic.cs" />
+    <Compile Include="Service\System\RoleFuncLogic.cs" />
     <Compile Include="Service\System\RoleLogic.cs" />
     <Compile Include="Service\System\UserLogic.cs" />
     <Compile Include="Service\System\WebMsgLogic.cs" />
