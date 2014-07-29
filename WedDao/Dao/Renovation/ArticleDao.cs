@@ -82,7 +82,6 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("a", "processId");
             this.s.AddField("a", "longTitle");
             this.s.AddField("a", "shortTitle");
-            this.s.AddField("a", "content");
             this.s.AddField("a", "keywords");
             this.s.AddField("a", "picUrl");
             this.s.AddField("a", "itemIndex");
@@ -94,7 +93,10 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddWhere("", "(a", "longTitle", "like", "'%'+@msg+'%'");
             this.s.AddWhere("or", "a", "shortTitle", "like", "'%'+@msg+'%')");
-            this.s.AddWhere("and", "a", "processId", "int", "(" + this.sql + ")");
+            this.s.AddWhere("and", "a", "processId", "in", "(" + this.sql + ")");
+
+            this.s.AddOrderBy("a", "itemIndex", false);
+            this.s.AddOrderBy("a", "insertTime", false);
 
             this.sql = this.s.SqlSelect();
 
@@ -132,13 +134,14 @@ namespace WebDao.Dao.Renovation
             this.s.AddTable("Renovation_Article", "a");
             this.s.AddTable("Renovation_Process", "p");
 
+            this.s.SetTagField("a", "raId");
+
             this.s.AddField("p", "processName");
 
             this.s.AddField("a", "raId");
             this.s.AddField("a", "processId");
             this.s.AddField("a", "longTitle");
             this.s.AddField("a", "shortTitle");
-            this.s.AddField("a", "content");
             this.s.AddField("a", "keywords");
             this.s.AddField("a", "picUrl");
             this.s.AddField("a", "itemIndex");
@@ -148,9 +151,13 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("a", "insertTime");
             this.s.AddField("a", "updateTime");
 
-            this.s.AddWhere("", "(a", "longTitle", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("", "a", "processId", "=", "p", "processId");
+            this.s.AddWhere("and", "(a", "longTitle", "like", "'%'+@msg+'%'");
             this.s.AddWhere("or", "a", "shortTitle", "like", "'%'+@msg+'%')");
-            this.s.AddWhere("and", "a", "processId", "int", "(" + this.sql + ")");
+            this.s.AddWhere("and", "a", "processId", "in", "(" + this.sql + ")");
+
+            this.s.AddOrderBy("a", "itemIndex", false);
+            this.s.AddOrderBy("a", "insertTime", false);
 
             this.param = new Dictionary<string, object>();
             this.param.Add("processId", processId);
@@ -190,11 +197,13 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddField("processId");
             this.s.AddField("longTitle");
+            this.s.AddField("titleColor");
             this.s.AddField("shortTitle");
             this.s.AddField("content");
             this.s.AddField("keywords");
             this.s.AddField("picUrl");
             this.s.AddField("readCount");
+            this.s.AddField("fileIds");
             this.s.AddField("itemIndex");
             this.s.AddField("outLink");
             this.s.AddField("isTop");
@@ -209,11 +218,13 @@ namespace WebDao.Dao.Renovation
             this.param = new Dictionary<string, object>();
             this.param.Add("processId", content["processId"]);
             this.param.Add("longTitle", content["longTitle"]);
+            this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
             this.param.Add("content", content["content"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
-            this.param.Add("readCount", content["readCount"]);
+            this.param.Add("readCount", 0);
+            this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("itemIndex", content["itemIndex"]);
             this.param.Add("outLink", content["outLink"]);
             this.param.Add("isTop", content["isTop"]);
@@ -232,10 +243,12 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddField("processId");
             this.s.AddField("longTitle");
+            this.s.AddField("titleColor");
             this.s.AddField("shortTitle");
             this.s.AddField("content");
             this.s.AddField("keywords");
             this.s.AddField("picUrl");
+            this.s.AddField("fileIds");
             this.s.AddField("itemIndex");
             this.s.AddField("outLink");
             this.s.AddField("isTop");
@@ -249,10 +262,12 @@ namespace WebDao.Dao.Renovation
             this.param = new Dictionary<string, object>();
             this.param.Add("processId", content["processId"]);
             this.param.Add("longTitle", content["longTitle"]);
+            this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
             this.param.Add("content", content["content"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
+            this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("itemIndex", content["itemIndex"]);
             this.param.Add("outLink", content["outLink"]);
             this.param.Add("isTop", content["isTop"]);

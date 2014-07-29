@@ -70,7 +70,7 @@ namespace WebDao.Dao.Renovation
                 this.param.Add("paramKey", paramKey);
             }
 
-            this.s.AddOrderBy("p", "itemIndex", false);
+            this.s.AddOrderBy("p", "itemIndex", true);
 
             this.sql = this.s.SqlSelect();
 

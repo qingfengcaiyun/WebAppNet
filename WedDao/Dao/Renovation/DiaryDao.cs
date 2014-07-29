@@ -104,7 +104,6 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("d", "projectId");
             this.s.AddField("d", "longTitle");
             this.s.AddField("d", "shortTitle");
-            this.s.AddField("d", "content");
             this.s.AddField("d", "keywords");
             this.s.AddField("d", "picUrl");
             this.s.AddField("d", "insertTime");
@@ -166,7 +165,6 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("d", "projectId");
             this.s.AddField("d", "longTitle");
             this.s.AddField("d", "shortTitle");
-            this.s.AddField("d", "content");
             this.s.AddField("d", "keywords");
             this.s.AddField("d", "picUrl");
             this.s.AddField("d", "insertTime");

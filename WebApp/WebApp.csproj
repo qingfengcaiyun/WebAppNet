@@ -191,6 +191,8 @@
     <Content Include="manage\renovation\article\Action.aspx" />
     <Content Include="manage\renovation\article\Detail.aspx" />
     <Content Include="manage\renovation\article\List.aspx" />
+    <Content Include="manage\renovation\parameter\Action.aspx" />
+    <Content Include="manage\renovation\parameter\List.aspx" />
     <Content Include="manage\renovation\process\Action.aspx" />
     <Content Include="manage\renovation\process\View.aspx" />
     <Content Include="manage\renovation\project\Action.aspx" />
@@ -199,6 +201,8 @@
     <Content Include="manage\sys\function\View.aspx" />
     <Content Include="manage\sys\location\Action.aspx" />
     <Content Include="manage\sys\location\View.aspx" />
+    <Content Include="manage\sys\rolefunc\Action.aspx" />
+    <Content Include="manage\sys\rolefunc\List.aspx" />
     <Content Include="manage\sys\role\Action.aspx" />
     <Content Include="manage\sys\role\List.aspx" />
     <Content Include="manage\sys\webmsg\Action.aspx" />
@@ -488,6 +492,20 @@
     <Compile Include="manage\renovation\article\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\renovation\parameter\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\parameter\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\parameter\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\parameter\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="manage\renovation\process\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -543,6 +561,20 @@
     </Compile>
     <Compile Include="manage\sys\location\View.aspx.designer.cs">
       <DependentUpon>View.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\sys\rolefunc\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\sys\rolefunc\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\sys\rolefunc\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\sys\rolefunc\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\sys\role\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>

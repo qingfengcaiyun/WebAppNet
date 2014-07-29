@@ -68,7 +68,6 @@ namespace WebDao.Dao.Info
             this.s.AddField("a", "startTime");
             this.s.AddField("a", "endTime");
             this.s.AddField("a", "publicAdpic");
-            this.s.AddField("a", "content");
             this.s.AddField("a", "address");
             this.s.AddField("a", "phone");
             this.s.AddField("a", "qq");
@@ -117,7 +116,6 @@ namespace WebDao.Dao.Info
             this.s.AddField("a", "startTime");
             this.s.AddField("a", "endTime");
             this.s.AddField("a", "publicAdpic");
-            this.s.AddField("a", "content");
             this.s.AddField("a", "address");
             this.s.AddField("a", "phone");
             this.s.AddField("a", "qq");

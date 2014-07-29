@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>文章编辑</title>
+    <title>装修知识</title>
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/kindeditor/themes/default/default.css" rel="stylesheet"
@@ -32,7 +32,6 @@
         var editor;
 
         $(document).ready(function () {
-
             getProcessTree();
             switchTopOption(0);
             getOne();
@@ -89,7 +88,10 @@
             //cateList
             var t = $("#process").combotree('tree');
             var n = t.tree('getSelected');
-            var processId = n.processId;
+
+            var processId = n.id;
+
+            //alert(processId);
 
             var longTitle = $("#longTitle").val();
 
@@ -171,9 +173,9 @@
                     if (parseInt(d.msg) == 1) {
                         jQuery.messager.confirm('保存成功', '你想输入新信息么？', function (r) {
                             if (r) {
-                                window.location.href = "?action=edit&newsId=0";
+                                window.location.href = "?action=edit&raId=0";
                             } else {
-                                window.location.href = "List.aspx?raId=" + cateId;
+                                window.location.href = "List.aspx?processId=" + processId;
                             }
                         });
                     } else {
@@ -195,6 +197,9 @@
                     },
                     function (data) {
                         var d = eval(data);
+
+                        alert(data.longTitle);
+
                         $("#longTitle").val(d.longTitle);
                         $("#shortTitle").val(d.shortTitle);
                         $("#keywords").val(d.keywords);
@@ -210,7 +215,7 @@
 
                         switchTopOption(d.isTop);
 
-                        $('#process').combotree('setValue', c.processId);
+                        $('#process').combotree('setValue', d.processId);
                     },
                     'json'
                 );
@@ -248,7 +253,7 @@
     </script>
 </head>
 <body>
-    <div class="easyui-panel" title="&nbsp;文章编辑" fit="true">
+    <div class="easyui-panel" title="&nbsp;装修知识" fit="true">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td width="100" class="algR">
@@ -274,7 +279,8 @@
                     文章分类：
                 </td>
                 <td>
-                    <select class="easyui-combotree txtInput" required="true" id="process">
+                    <select class="easyui-combotree txtInput" required="true" panelwidth="200" panelheight="200"
+                        id="process">
                     </select>
                 </td>
             </tr>

@@ -94,11 +94,6 @@
             if (node) {
                 $('#dg').treegrid('endEdit', node.funcId);
 
-                alert(node.funcId);
-                alert(node.funcName);
-                alert(node.funcNo);
-                alert(node.parentNo);
-
                 var param = {
                     action: "save",
                     paramStr: "funcId,funcName,funcNo,parentNo,funcUrl",

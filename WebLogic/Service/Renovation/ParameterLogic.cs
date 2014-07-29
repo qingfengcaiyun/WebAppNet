@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using WebDao.Dao.Renovation;
 
 namespace WebLogic.Service.Renovation
@@ -25,6 +26,31 @@ namespace WebLogic.Service.Renovation
         public List<Dictionary<string, object>> GetParamTypeList()
         {
             return this.dao.GetParamTypeList();
+        }
+
+        public string GetParamTypeJson()
+        {
+            List<Dictionary<string, object>> list = this.dao.GetParamTypeList();
+
+            if (list != null && list.Count > 0)
+            {
+                StringBuilder s = new StringBuilder();
+
+                foreach (Dictionary<string, object> item in list)
+                {
+                    s.Append(",{\"id\":\"");
+                    s.Append(item["paramKey"].ToString());
+                    s.Append("\",\"text\":\"");
+                    s.Append(item["paramName"].ToString());
+                    s.Append("\"}");
+                }
+
+                return s.Length > 0 ? "[" + s.ToString().Substring(1) + "]" : "[]";
+            }
+            else
+            {
+                return "[]";
+            }
         }
 
         public bool Delete(int paramId)

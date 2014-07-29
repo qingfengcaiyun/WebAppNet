@@ -84,6 +84,10 @@
             $("#code").val("");
             $("#userName").focus();
         }
+
+        function newCode() {
+            $("#codeImg").attr("src", "/VerifyCodeAction.aspx?id=" + Math.random());
+        }
     </script>
 </head>
 <body>
@@ -92,7 +96,7 @@
         title="欢迎使用装修人人通管理系统" style="width: 440px; height: 310px; padding: 5px; background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
-                <table width="400" border="0" cellspacing="0" cellpadding="0">
+                <table width="380" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td height="60" colspan="3" class="algC">
                             <img src="imgs/logo.jpg" width="240" height="60" />
@@ -128,7 +132,7 @@
                         </td>
                         <td>
                             <input name="code" type="text" class="easyui-validatebox textbox txtInput" id="code"
-                                style="width: 5em;" size="5" maxlength="4" required="true" />
+                                style="width: 5em;" size="5" maxlength="4" required="true" /><a href="javascript:void(0)" onclick="newCode()">看不清，换一张</a></span>
                         </td>
                         <td>
                             &nbsp;
@@ -138,7 +142,8 @@
                         <td height="60">
                         </td>
                         <td colspan="2">
-                            &nbsp;<img id="codeImg" src="/VerifyCodeAction.aspx" width="60" height="30" />
+                            &nbsp;<img id="codeImg" src="/VerifyCodeAction.aspx" width="60" height="30" /><span
+                                style="height: 60px; line-height: 60px;">
                         </td>
                     </tr>
                 </table>

@@ -197,7 +197,7 @@ create table [Renovation_Parameter](
 	[paramName] [nvarchar](255) NOT NULL,
 	[paramKey] [nvarchar](255) NOT NULL,
 	[paramValue] [nvarchar](255) NOT NULL,
-	[itemIndex] [int] NOT NULL	
+	[itemIndex] [int] NOT NULL
 );
 /*
 	paramKey: PriceLevel,RoomType,HouseType,Space,Style,Type,TimeTable,ServiceItem

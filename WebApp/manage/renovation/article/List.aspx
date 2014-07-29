@@ -8,12 +8,6 @@
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        td
-        {
-            height: 30px;
-        }
-    </style>
     <script type="text/javascript" src="../../../libs/jquery.js"></script>
     <script type="text/javascript" src="../../../libs/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -26,7 +20,7 @@
         $(document).ready(function () {
             //$('#dg').setFullSize({ w: "1000", h: "1000" });
             initDataGrid();
-            getCateTree();
+            getProcessTree();
 
             $("#process").combotree({
                 onChange: function (newValue, oldValue) {
@@ -86,7 +80,7 @@
             }
         }
 
-        function getCateTree() {
+        function getProcessTree() {
             var param = { action: "tree" }
             jQuery.post(
                 "../process/Action.aspx",
@@ -134,7 +128,8 @@
                 添加</a> <a href="#" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="edit()">
                     编辑</a> <a href="#" class="easyui-linkbutton" iconcls="icon-cut" plain="true" onclick="del()">
                         删除</a>
-            <select class="easyui-combotree txtInput" panelheight="140" required="true" id="process">
+            <select class="easyui-combotree txtInput" panelwidth="200" panelheight="200" required="true"
+                id="process">
             </select>
         </div>
     </div>
