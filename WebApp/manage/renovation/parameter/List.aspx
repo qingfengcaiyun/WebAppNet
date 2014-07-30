@@ -22,6 +22,9 @@
         var d;
 
         $(document).ready(function () {
+            initForm();
+
+            initBtn();
             initDataGrid();
             getParamType();
 
@@ -127,6 +130,18 @@
         }
 
         function getParamType() {
+            $("#paramType").combotree({
+                required: true,
+                panelWidth: 200,
+                panelHeight: 200
+            });
+
+            $("#paramTypes").combotree({
+                required: true,
+                panelWidth: 200,
+                panelHeight: 200
+            });
+
             var param = { action: "tree" }
             jQuery.post(
                 "Action.aspx",
@@ -154,24 +169,53 @@
                 ]]
             });
         }
+
+        function initBtn() {
+            $("#btnAdd").linkbutton({
+                iconCls: 'icon-add',
+                plain: true
+            });
+
+            $("#btnEdit").linkbutton({
+                iconCls: 'icon-edit',
+                plain: true
+            });
+
+            $("#btnDel").linkbutton({
+                iconCls: 'icon-cut',
+                plain: true
+            });
+        }
+
+        function initForm() {
+            $("#newform").window({
+                title: "分类添加",
+                iconCls: 'icon-blank',
+                shadow: true,
+                modal: true,
+                minimizable: false,
+                maximizable: false,
+                closable: true,
+                closed: true,
+                collapsible: true,
+                resizable: true
+            });
+        }
+
     </script>
 </head>
 <body>
     <div id="tb" style="padding: 5px; height: auto">
         <div style="margin-bottom: 5px">
-            <a href="#" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add()">
-                添加</a> <a href="#" class="easyui-linkbutton" iconcls="icon-edit" plain="true" onclick="edit()">
-                    编辑</a> <a href="#" class="easyui-linkbutton" iconcls="icon-cut" plain="true" onclick="del()">
-                        删除</a>
-            <select class="easyui-combotree txtInput" panelwidth="200" id="paramType">
+            <a href="#" id="btnAdd" onclick="add()">添加</a> <a href="#" id="btnEdit" onclick="edit()">
+                编辑</a> <a href="#" id="btnDel" onclick="del()">删除</a>
+            <select class="easyui-combotree txtInput" style="width: 200px;" id="paramType">
             </select>
         </div>
     </div>
     <table id="dg">
     </table>
-    <div id="newform" class="easyui-window" shadow="true" modal="true" minimizable="false"
-        maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
-        iconcls="icon-blank" title="分类添加" style="width: 370px; height: 260px;">
+    <div id="newform" style="width: 370px; height: 260px;">
         <table width="350" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <th width="100">
@@ -189,7 +233,7 @@
                     参数分类：
                 </td>
                 <td class="algL">
-                    <select class="easyui-combotree txtInput" panelheight="140" required="true" id="paramTypes">
+                    <select class="easyui-combotree txtInput" style="width: 200px;" id="paramTypes">
                     </select>
                 </td>
                 <td>

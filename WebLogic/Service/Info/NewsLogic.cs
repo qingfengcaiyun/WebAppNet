@@ -9,18 +9,16 @@ namespace WebLogic.Service.Info
     public class NewsLogic
     {
         private NewsDao dao = null;
-        private RelationshipDao rdao = null;
 
         public NewsLogic()
         {
             this.dao = new NewsDao();
-            this.rdao = new RelationshipDao();
         }
 
         public Dictionary<string, object> GetOne(Int64 newsId)
         {
             Dictionary<string, object> one = this.dao.GetOne(newsId);
-            one.Add("cateList", this.rdao.GetCateList(newsId));
+            one["content"] = one["content"].ToString().Replace('\"', '\'');
             return one;
         }
 
@@ -74,14 +72,41 @@ namespace WebLogic.Service.Info
             return this.dao.SetReadCount(newsId);
         }
 
-        public bool SetRelationship(long[] cateIds, long newsId)
+        public bool SetCheck(string newsIds)
         {
-            return this.rdao.SaveList(cateIds, newsId);
+            return this.dao.SetCheck(newsIds);
         }
 
         public string GetPageJson(int pageSize, int pageNo, int cateId, string cityId, string msg)
         {
             PageRecords pr = this.dao.GetPage(pageSize, pageNo, cateId, cityId, msg);
+
+            List<Dictionary<string, object>> list = pr.PageResult;
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Dictionary<string, object> item in list)
+                {
+                    if (Boolean.Parse(item["isTop"].ToString()))
+                    {
+                        item.Add("topStr", "<span style='color:red'>是</span>");
+                    }
+                    else
+                    {
+                        item.Add("topStr", "否");
+                    }
+
+                    if (Boolean.Parse(item["isChecked"].ToString()))
+                    {
+                        item.Add("checkStr", "是");
+                    }
+                    else
+                    {
+                        item.Add("checkStr", "<span style='color:red'>否</span>");
+                    }
+                }
+            }
+
             return pr.PageJSON;
         }
 

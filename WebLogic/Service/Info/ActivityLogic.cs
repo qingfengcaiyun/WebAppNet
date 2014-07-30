@@ -16,7 +16,11 @@ namespace WebLogic.Service.Info
 
         public Dictionary<string, object> GetOne(int actId)
         {
-            return this.dao.GetOne(actId);
+            Dictionary<string, object> one = this.dao.GetOne(actId);
+
+            one["content"] = one["content"].ToString().Replace('\"', '\'');
+
+            return one;
         }
 
         public string GetPageJson(int pageNo, int pageSize, int locationId, string msg)
@@ -44,5 +48,7 @@ namespace WebLogic.Service.Info
         {
             return this.dao.Insert(content);
         }
+
+
     }
 }

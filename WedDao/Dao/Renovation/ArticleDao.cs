@@ -36,6 +36,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("a", "outLink");
             this.s.AddField("a", "isTop");
             this.s.AddField("a", "topTime");
+            this.s.AddField("a", "isChecked");
             this.s.AddField("a", "insertTime");
             this.s.AddField("a", "updateTime");
 
@@ -88,6 +89,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("a", "outLink");
             this.s.AddField("a", "isTop");
             this.s.AddField("a", "topTime");
+            this.s.AddField("a", "isChecked");
             this.s.AddField("a", "insertTime");
             this.s.AddField("a", "updateTime");
 
@@ -148,6 +150,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("a", "outLink");
             this.s.AddField("a", "isTop");
             this.s.AddField("a", "topTime");
+            this.s.AddField("a", "isChecked");
             this.s.AddField("a", "insertTime");
             this.s.AddField("a", "updateTime");
 
@@ -208,6 +211,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("outLink");
             this.s.AddField("isTop");
             this.s.AddField("topTime");
+            this.s.AddField("isChecked");
             this.s.AddField("insertTime");
             this.s.AddField("updateTime");
 
@@ -220,7 +224,7 @@ namespace WebDao.Dao.Renovation
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", content["content"]);
+            this.param.Add("content", content["content"].ToString().Replace('\"', '\''));
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("readCount", 0);
@@ -229,6 +233,7 @@ namespace WebDao.Dao.Renovation
             this.param.Add("outLink", content["outLink"]);
             this.param.Add("isTop", content["isTop"]);
             this.param.Add("topTime", content["topTime"]);
+            this.param.Add("isChecked", 0);
             this.param.Add("insertTime", now);
             this.param.Add("updateTime", now);
 
@@ -264,7 +269,7 @@ namespace WebDao.Dao.Renovation
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", content["content"]);
+            this.param.Add("content", content["content"].ToString().Replace('\"', '\''));
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("fileIds", content["fileIds"]);
@@ -296,6 +301,24 @@ namespace WebDao.Dao.Renovation
             this.param.Add("raId", raId);
 
             return (int)this.db.GetDataValue(this.sql, this.param);
+        }
+
+        public bool SetCheck(string raIds)
+        {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article");
+
+            this.s.AddField("isChecked");
+
+            this.s.AddWhere(string.Empty, string.Empty, "raIds", "in", "(" + raIds + ")");
+
+            this.sql = this.s.SqlUpdate();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("isChecked", 1);
+
+            return this.db.Update(this.sql, this.param);
         }
     }
 }

@@ -614,116 +614,19 @@
                             <col width="65%" />
                             <col width="15%" />
                         </colgroup>
-                        <tr class="bg1">
+                        #foreach($item in $newsList)
+                        <tr class="$item.cls">
                             <td height="30">
-                                【分类1分类1】
+                                【$item.cateName】
                             </td>
                             <td>
-                                标题标题
+                                $item.longTitle
                             </td>
                             <td>
-                                2014-5-6
+                                $item.insertTime
                             </td>
                         </tr>
-                        <tr class="bg2">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg1">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg2">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg1">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg2">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg1">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg2">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg1">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
-                        <tr class="bg2">
-                            <td height="30">
-                                【分类1分类1】
-                            </td>
-                            <td>
-                                标题标题
-                            </td>
-                            <td>
-                                2014-5-6
-                            </td>
-                        </tr>
+                        #end
                     </table>
                 </div>
                 <div class="PageHalf">

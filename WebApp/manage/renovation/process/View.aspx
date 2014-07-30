@@ -19,6 +19,7 @@
     <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            initForm();
             initTreeGrid();
         });
 
@@ -205,14 +206,27 @@
                 );
             }
         }
+
+        function initForm() {
+            $("#newform").window({
+                title: "分类添加",
+                iconCls: 'icon-blank',
+                shadow: true,
+                modal: true,
+                minimizable: false,
+                maximizable: false,
+                closable: true,
+                closed: true,
+                collapsible: true,
+                resizable: true
+            });
+        }
     </script>
 </head>
 <body>
     <div id="dg">
     </div>
-    <div id="newform" class="easyui-window" shadow="true" modal="true" minimizable="false"
-        maximizable="false" closable="true" closed="true" collapsible="false" resizable="false"
-        iconcls="icon-blank" title="分类添加" style="width: 370px; height: 260px;">
+    <div id="newform" style="width: 370px; height: 260px;">
         <table width="350" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <th width="100">

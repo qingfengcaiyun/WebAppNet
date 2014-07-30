@@ -188,6 +188,9 @@
     <Content Include="libs\easyui\themes\icons\sum.png" />
     <Content Include="libs\easyui\themes\icons\undo.png" />
     <Content Include="libs\jquery.js" />
+    <Content Include="manage\info\activity\Action.aspx" />
+    <Content Include="manage\info\activity\Detail.aspx" />
+    <Content Include="manage\info\activity\List.aspx" />
     <Content Include="manage\renovation\article\Action.aspx" />
     <Content Include="manage\renovation\article\Detail.aspx" />
     <Content Include="manage\renovation\article\List.aspx" />
@@ -208,7 +211,9 @@
     <Content Include="manage\sys\webmsg\Action.aspx" />
     <Content Include="manage\sys\webmsg\View.aspx" />
     <None Include="templates\test.vm" />
-    <None Include="templates\webhtml\index.vm" />
+    <Content Include="templates\index.vm" />
+    <Content Include="manage\webhtml\Action.aspx" />
+    <Content Include="manage\webhtml\View.aspx" />
     <Content Include="webhtml\css\global.css" />
     <Content Include="webhtml\css\gstyles.css" />
     <Content Include="webhtml\img\logo.jpg" />
@@ -226,7 +231,6 @@
     <Content Include="webhtml\img\process_31.jpg" />
     <Content Include="webhtml\img\process_32.jpg" />
     <Content Include="webhtml\img\process_bg.jpg" />
-    <Content Include="webhtml\index.aspx" />
     <Content Include="webhtml\js\glibs.js" />
     <Content Include="webhtml\js\jquery.js" />
     <Content Include="webhtml\js\jquery.md5.js" />
@@ -471,6 +475,27 @@
     <Compile Include="manage\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\info\activity\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\info\activity\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\info\activity\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\info\activity\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\info\activity\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\info\activity\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="manage\renovation\article\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -604,6 +629,20 @@
     <Compile Include="manage\sys\webmsg\View.aspx.designer.cs">
       <DependentUpon>View.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\webhtml\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\webhtml\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\webhtml\View.aspx.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\webhtml\View.aspx.designer.cs">
+      <DependentUpon>View.aspx</DependentUpon>
+    </Compile>
     <Compile Include="uploadAction\FileUpload.aspx.cs">
       <DependentUpon>FileUpload.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -688,13 +727,6 @@
     </Compile>
     <Compile Include="VerifyCodeAction.aspx.designer.cs">
       <DependentUpon>VerifyCodeAction.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="webhtml\index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="webhtml\index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

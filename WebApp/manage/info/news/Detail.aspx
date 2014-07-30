@@ -92,16 +92,8 @@
         function save() {
             //cateList
             var t = $("#cate").combotree('tree');
-            var n = t.tree('getChecked');
-            var cateList = "";
+            var n = t.tree('getSelected');
             var cateId;
-            if (n.length > 0) {
-                for (var i = 0; i < n.length; i++) {
-                    cateList = cateList + "," + n[i].id;
-                    cateId = n[i].id;
-                }
-                cateList = cateList.substr(1);
-            }
 
             var longTitle = $("#longTitle").val();
 
@@ -125,6 +117,13 @@
                 $("#longTitle").focus();
                 return;
             }
+            if (n == null) {
+                jQuery.messager.alert('错误', '请选择文章分类！！', 'error');
+                $("#cate").focus();
+                return;
+            } else {
+                cateId = n.id;
+            }
             if (editor.text() == null) {
                 jQuery.messager.alert('错误', '请输入内容', 'error');
                 return;
@@ -139,27 +138,19 @@
                 $("#itemIndex").focus();
                 return;
             }
-            if (cateList == "") {
-                jQuery.messager.alert('错误', '请选择文章分类！！', 'error');
-                $("#cate").focus();
-                return;
-            }
+
 
             var picUrl = "";
             var txt = editor.html();
-            //alert(txt);
             $(txt).each(function () {
                 if ($(this).attr("src") != undefined && isUploadFile($(this).attr("src"))) {
                     picUrl = picUrl + "," + $(this).attr("src");
-                    //alert(picUrl);
                 }
-
-                //alert($(this).attr("src"));
             });
 
             var param = {
                 action: "save",
-                paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateList,outLink",
+                paramStr: "newsId,longTitle,titleColor,shortTitle,isTop,topTime,content,keywords,itemIndex,cateId,outLink",
                 newsId: newsId,
                 longTitle: longTitle,
                 titleColor: titleColor,
@@ -170,7 +161,7 @@
                 keywords: keywords,
                 picUrl: picUrl.length > 0 ? picUrl.substr(1) : "",
                 itemIndex: itemIndex,
-                cateList: cateList,
+                cateId: cateId,
                 outLink: outLink
             };
 
@@ -210,7 +201,6 @@
                         $("#shortTitle").val(d.shortTitle);
                         $("#keywords").val(d.keywords);
                         $("#itemIndex").val(d.itemIndex);
-                        $("#cateList").val(d.cateList);
                         $("#outLink").val(d.outLink);
                         $("#isTop").val(d.isTop);
 
@@ -222,9 +212,7 @@
 
                         switchTopOption(d.isTop);
 
-                        var c = d.cateList.toString().split(',');
-
-                        $('#cate').combotree('setValues', c);
+                        $('#cate').combotree('setValue', d.cateId);
                     },
                     'json'
                 );
@@ -232,6 +220,12 @@
         }
 
         function getCateTree() {
+            $("#cate").combotree({
+                required: true,
+                panelWidth: 150,
+                panelHeight: 150
+            });
+
             jQuery.post(
                 "../category/Action.aspx",
                 {
@@ -239,7 +233,6 @@
                 },
                 function (data) {
                     var d = jQuery.parseJSON(data);
-                    //alert(data);
                     $("#cate").combotree('loadData', d);
                 }
             );
@@ -288,8 +281,7 @@
                     文章分类：
                 </td>
                 <td>
-                    <select class="easyui-combotree txtInput" required="true" style="width: 300px" panelheight="140"
-                        multiple="true" id="cate">
+                    <select class="easyui-combotree txtInput" style="width: 150px" id="cate">
                     </select>
                 </td>
             </tr>

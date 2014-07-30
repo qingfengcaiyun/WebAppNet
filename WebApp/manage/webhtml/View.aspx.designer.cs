@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApp.webhtml {
+namespace WebApp.manage.webhtml {
     
     
-    public partial class index {
+    public partial class View {
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Glibs.Sql;
 using WebDao.Dao.Renovation;
 
@@ -15,7 +16,11 @@ namespace WebLogic.Service.Renovation
 
         public Dictionary<string, object> GetOne(int raId)
         {
-            return this.dao.GetOne(raId);
+            Dictionary<string, object> one = this.dao.GetOne(raId);
+
+            one["content"] = one["content"].ToString().Replace('\"', '\'');
+
+            return one;
         }
 
         public List<Dictionary<string, object>> GetList(string msg, int processId)
@@ -30,7 +35,35 @@ namespace WebLogic.Service.Renovation
 
         public string GetPageJson(int pageSize, int pageNo, int processId, string msg)
         {
-            return this.dao.GetPage(pageSize, pageNo, processId, msg).PageJSON;
+            PageRecords pr = this.dao.GetPage(pageSize, pageNo, processId, msg);
+
+            List<Dictionary<string, object>> list = pr.PageResult;
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Dictionary<string, object> item in list)
+                {
+                    if (Boolean.Parse(item["isTop"].ToString()))
+                    {
+                        item.Add("topStr", "<span style='color:red'>是</span>");
+                    }
+                    else
+                    {
+                        item.Add("topStr", "否");
+                    }
+
+                    if (Boolean.Parse(item["isChecked"].ToString()))
+                    {
+                        item.Add("checkStr", "是");
+                    }
+                    else
+                    {
+                        item.Add("checkStr", "<span style='color:red'>否</span>");
+                    }
+                }
+            }
+
+            return pr.PageJSON;
         }
 
         public bool Delete(int raId)
@@ -51,6 +84,11 @@ namespace WebLogic.Service.Renovation
         public int SetReadCount(int raId)
         {
             return this.dao.SetReadCount(raId);
+        }
+
+        public bool SetCheck(string raIds)
+        {
+            return this.dao.SetCheck(raIds);
         }
     }
 }

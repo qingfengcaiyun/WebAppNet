@@ -84,8 +84,6 @@ namespace WebDao.Dao.System
 
             this.sql = this.s.SqlSelect();
 
-            //this.sql = @"select [funcId],[funcName],[funcNo],[parentNo],[funcUrl],[isLeaf],[isDeleted] from [Sys_Function] where [isDeleted]=0 and [parentNo] like @parentNo+'%' and [funcId] in (select [funcId] from [Sys_RoleFunc] where [roleId] in (select [roleId] from [Sys_UserRole] where [userId]=@userId)) order by [funcNo] asc";
-
             if (!RegexDo.IsNumber(parentNo))
             {
                 parentNo = "0";

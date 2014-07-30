@@ -109,23 +109,7 @@ namespace WebApp.manage.info.news
 
             if (Int32.Parse(content["newsId"].ToString()) == 0)
             {
-                Int64 l = new NewsLogic().Insert(content);
-
-                if (l > 0)
-                {
-                    string[] cs = content["cateList"].ToString().Split(',');
-
-                    Int64[] cl = new Int64[cs.Length];
-
-                    for (int i = 0; i < cs.Length; i++)
-                    {
-                        cl[i] = Int64.Parse(cs[i]);
-                    }
-
-                    new NewsLogic().SetRelationship(cl, l);
-                }
-
-                return JsonDo.Message(l > 0 ? "1" : "0");
+                return JsonDo.Message(new NewsLogic().Insert(content) > 0 ? "1" : "0");
             }
             else
             {

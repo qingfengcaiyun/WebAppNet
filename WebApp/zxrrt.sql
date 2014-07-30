@@ -264,6 +264,7 @@ create table [Renovation_Diary](
 	[keywords] [nvarchar](255) NOT NULL,
 	[picUrl] [nvarchar](255) NOT NULL,
 	[readCount] [bigint] NOT NULL,
+	[isChecked] [bit] not null,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
@@ -283,6 +284,7 @@ create table [Renovation_Article](
 	[topTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[itemIndex] [int] NOT NULL,
 	[outLink] [nvarchar](500) NOT NULL,
+	[isChecked] [bit] not null,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
@@ -301,6 +303,7 @@ create table [Info_Activity](
 	[qq] [nvarchar](20) NOT NULL,
 	[keywords] [nvarchar](255) NOT NULL,
 	[readCount] [int] NOT NULL,
+	[isChecked] [bit] not null,
 	[isClosed] [bit] NOT null,
 	[itemIndex] [int] NOT NULL
 );
@@ -316,6 +319,7 @@ create table [Info_Category](
 
 create table [Info_News](
 	[newsId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[cateId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Info_Category]([cateId]),
 	[cityId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
 	[longTitle] [nvarchar](255) NOT NULL,
 	[titleColor] [nchar](7) NOT NULL,
@@ -329,14 +333,9 @@ create table [Info_News](
 	[outLink] [nvarchar](500) NOT NULL,
 	[isTop] [bit] NOT NULL,
 	[topTime] [datetime] NOT NULL DEFAULT GETDATE(),
+	[isChecked] [bit] not null,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
-);
-
-create table [Info_Relationship](
-	[irId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	[cateId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Info_Category]([cateId]),
-	[newsId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Info_News]([newsId])
 );
 
 GO
@@ -416,6 +415,7 @@ INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('信息管理', '002', '0', '', 0, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('账户项目', '003', '0', '', 0, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('系统设置', '004', '0', '', 0, 0);
+INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('页面管理', '005', '0', '', 0, 0);
 
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('活动管理', '001001', '001', 'info/activity/List.aspx', 1, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('资讯管理', '001002', '001', 'info/news/List.aspx', 1, 0);
@@ -440,6 +440,8 @@ INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('用户功能分配', '004006', '004', 'sys/userfunc/List.aspx', 1, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('地域管理', '004007', '004', 'sys/location/View.aspx', 1, 0);
 INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('基本信息', '004008', '004', 'sys/webmsg/View.aspx', 1, 0);
+
+INSERT INTO [Sys_Function] ([funcName], [funcNo], [parentNo], [funcUrl], [isLeaf], [isDeleted]) VALUES ('静态页面操作', '005001', '005', 'webhtml/View.aspx', 1, 0);
 GO
 
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 1);
@@ -466,6 +468,8 @@ INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 21);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 22);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 23);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 24);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 25);
+INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (1, 26);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 1);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 2);
 INSERT INTO [Sys_RoleFunc]([roleId], [funcId]) VALUES (2, 3);

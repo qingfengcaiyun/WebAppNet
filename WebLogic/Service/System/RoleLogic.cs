@@ -43,7 +43,7 @@ namespace WebLogic.Service.System
         {
             List<Dictionary<string, object>> list = this.dao.GetList("");
 
-            if (list != null && list.Count > 0)
+            if (list != null && list.Count > 1)
             {
                 Dictionary<string, object> temp = null;
                 StringBuilder str = new StringBuilder();
