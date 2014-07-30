@@ -25,10 +25,31 @@ namespace WebApp.manage.webhtml
             switch (action)
             {
                 case "index": rs = IndexPage(); break;
+                case "process": rs = ProcessPage(); break;
+
                 default: rs = "嘿嘿！你怎么看到我的？？？"; break;
             }
 
             Response.Write(rs);
+        }
+
+        private bool WriteHtml(string htmlStr, string dirPath, string fileName)
+        {
+            if (!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            string filePath = dirPath + "/" + fileName;
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            File.WriteAllText(filePath, htmlStr, Encoding.UTF8);
+
+            return File.Exists(filePath);
         }
 
         private string IndexPage()
@@ -43,16 +64,26 @@ namespace WebApp.manage.webhtml
             content.Add("regions", regions);
 
             string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates", content);
-            string filePath = Server.MapPath(@"~/webhtml/index.html");
+            string dirPath = Server.MapPath(@"~/webhtml");
+            string fileName = @"index.html";
 
-            if (File.Exists(filePath))
-            {
-                File.Delete(filePath);
-            }
+            return JsonDo.Message(WriteHtml(htmlStr, dirPath, fileName) ? "1" : "0");
+        }
 
-            File.WriteAllText(filePath, htmlStr, Encoding.UTF8);
+        private string ProcessPage()
+        {
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs();
+            List<Dictionary<string, object>> list = new ProcessLogic().GetListWebHtml();
 
-            return JsonDo.Message(File.Exists(filePath) ? "1" : "0");
+            Hashtable content = new Hashtable();
+            content.Add("webmsg", msgs);
+            content.Add("list", list);
+
+            string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates/process", content);
+            string dirPath = Server.MapPath(@"~/webhtml/process");
+            string fileName = @"index.html";
+
+            return JsonDo.Message(WriteHtml(htmlStr, dirPath, fileName) ? "1" : "0");
         }
     }
 }

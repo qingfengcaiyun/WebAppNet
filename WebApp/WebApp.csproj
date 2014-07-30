@@ -215,6 +215,7 @@
     <Content Include="templates\index.vm" />
     <Content Include="manage\webhtml\Action.aspx" />
     <Content Include="manage\webhtml\View.aspx" />
+    <Content Include="templates\process\index.vm" />
     <Content Include="webhtml\css\global.css" />
     <Content Include="webhtml\css\gstyles.css" />
     <Content Include="webhtml\img\logo.jpg" />

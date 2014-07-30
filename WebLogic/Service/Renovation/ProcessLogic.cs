@@ -200,5 +200,42 @@ namespace WebLogic.Service.Renovation
         {
             return this.dao.Delete(processNo);
         }
+
+        public List<Dictionary<string, object>> GetListWebHtml()
+        {
+            List<Dictionary<string, object>> list = this.dao.GetList("001");
+            Dictionary<string, object> temp = null;
+            Dictionary<string, List<Dictionary<string, object>>> lists = new Dictionary<string, List<Dictionary<string, object>>>();
+            String key = "";
+            if (list.Count > 0)
+            {
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+                    key = temp["parentNo"].ToString();
+                    if (lists.ContainsKey(key))
+                    {
+                        lists[key].Add(temp);
+                    }
+                    else
+                    {
+                        lists.Add(key, new List<Dictionary<string, object>>());
+                        lists[key].Add(temp);
+                    }
+                }
+            }
+
+            list = lists["001"];
+
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    list[i].Add("itemList", lists[list[i]["processNo"].ToString()]);
+                }
+            }
+
+            return list;
+        }
     }
 }

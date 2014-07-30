@@ -9,6 +9,12 @@
     <link href="../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../libs/global.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
+        th
+        {
+            height: 30px;
+            font-weight: bolder;
+            background-color: #eeeeee;
+        }
         td
         {
             height: 30px;
@@ -31,9 +37,75 @@
                     var d = eval(data);
 
                     if (parseInt(d.msg) == 1) {
-                        m.html("成功生成首页！！！");
+                        m.html("成功生成网站首页！！！");
                     } else {
-                        m.html("生成首页失败。请重试！");
+                        m.html("生成网站首页失败。请重试！");
+                    }
+                },
+                'json'
+            );
+        }
+
+        function process() {
+            var m = $("#processDiv");
+            m.html("操作进行中……");
+
+            var param = { action: "process" };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var d = eval(data);
+
+                    if (parseInt(d.msg) == 1) {
+                        m.html("成功生成流程首页！！！");
+                    } else {
+                        m.html("生成流程首页失败。请重试！");
+                    }
+                },
+                'json'
+            );
+        }
+
+        function processList() {
+            var m = $("#processListDiv");
+            m.html("操作进行中……");
+
+            var param = { action: "processList" };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var d = eval(data);
+
+                    if (parseInt(d.msg) == 1) {
+                        m.html("成功生成流程列表！！！");
+                    } else {
+                        m.html("生成流程列表失败。请重试！");
+                    }
+                },
+                'json'
+            );
+        }
+
+        function processItem() {
+            var m = $("#processItemDiv");
+            m.html("操作进行中……");
+
+            var param = { action: "processItem" };
+
+            jQuery.post(
+                "Action.aspx",
+                param,
+                function (data) {
+                    var d = eval(data);
+
+                    if (parseInt(d.msg) == 1) {
+                        m.html("成功生成流程信息！！！");
+                    } else {
+                        m.html("生成流程信息失败。请重试！");
                     }
                 },
                 'json'
@@ -44,25 +116,43 @@
 <body>
     <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td width="50">
-                &nbsp;
-            </td>
-            <td width="100">
+            <th width="150">
                 操作命令
-            </td>
-            <td>
+            </th>
+            <th style="text-align: left;">
                 &nbsp;信息
-            </td>
+            </th>
         </tr>
         <tr>
-            <td>
-                &nbsp;
-            </td>
-            <td>
-                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="index()">&nbsp;生成首页&nbsp;</a>
+            <td style="text-align: center;">
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="index()">&nbsp;网站首页&nbsp;</a>
             </td>
             <td>
                 &nbsp;<span id="indexDiv"></span>
+            </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+            <td style="text-align: center;">
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="process()">&nbsp;流程首页&nbsp;</a>
+            </td>
+            <td>
+                &nbsp;<span id="processDiv"></span>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="processList()">&nbsp;流程列表&nbsp;</a>
+            </td>
+            <td>
+                &nbsp;<span id="processListDiv"></span>
+            </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+            <td style="text-align: center;">
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="processItem()">&nbsp;流程信息&nbsp;</a>
+            </td>
+            <td>
+                &nbsp;<span id="processItemDiv"></span>
             </td>
         </tr>
     </table>
