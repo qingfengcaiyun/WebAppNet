@@ -238,5 +238,57 @@ namespace WebDao.Dao.System
 
             return this.db.Update(this.sql, this.param);
         }
+
+        public List<Dictionary<string, object>> GetCityList()
+        {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location");
+
+            this.s.AddField("locationId");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("levelNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("levelCnName");
+            this.s.AddField("levelEnName");
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere(string.Empty, string.Empty, "levelEnName", "=", "'City'");
+
+            this.s.AddOrderBy("locationId", true);
+
+            this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+
+            return this.db.GetDataTable(this.sql, this.param);
+        }
+
+        public List<Dictionary<string, object>> GetProvinceList()
+        {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location");
+
+            this.s.AddField("locationId");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("levelNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("levelCnName");
+            this.s.AddField("levelEnName");
+            this.s.AddField("isLeaf");
+
+            this.s.AddWhere(string.Empty, string.Empty, "levelEnName", "=", "'Province'");
+
+            this.s.AddOrderBy("locationId", true);
+
+            this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+
+            return this.db.GetDataTable(this.sql, this.param);
+        }
     }
 }

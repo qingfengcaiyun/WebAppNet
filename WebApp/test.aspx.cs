@@ -54,7 +54,7 @@ namespace WebApp
             str += mb.DeclaringType.FullName + "\n";
             //取得父方法名
             str += mb.Name + "\n";
-            */
+            
 
             //Response.Write(WebPageCore.GetClassName());
 
@@ -75,6 +75,18 @@ namespace WebApp
             content.Add("regions", locals);
 
             Response.Write(VelocityDo.BuildStringByTemplate("test.vm", @"~/templates/", content));
+             * */
+
+            string ip = Request.UserHostAddress;
+            string ipfilePath = Server.MapPath(@"~/libs/qqwry.dat");
+            //IpUtil ipSearch = new IpUtil(ipfilePath);
+            //IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
+
+            LocationLogic l = new LocationLogic();
+
+            Dictionary<string, object> city = l.GetCurrentCity(ip, ipfilePath);
+
+            Response.Write("你查的ip是：" + ip + " 地理位置：" + city["cnName"].ToString());
         }
     }
 }

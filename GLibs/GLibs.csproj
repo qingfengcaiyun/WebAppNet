@@ -79,6 +79,7 @@
     <Compile Include="Util\Cryption.cs" />
     <Compile Include="Util\FileDo.cs" />
     <Compile Include="Util\ImageDo.cs" />
+    <Compile Include="Util\IpUtil.cs" />
     <Compile Include="Util\MicrosoftExcel.cs" />
     <Compile Include="Util\RegexDo.cs" />
     <Compile Include="Util\VelocityDo.cs" />

@@ -198,7 +198,7 @@
                     function (data) {
                         var d = eval(data);
 
-                        alert(data.longTitle);
+                        //alert(data.longTitle);
 
                         $("#longTitle").val(d.longTitle);
                         $("#shortTitle").val(d.shortTitle);

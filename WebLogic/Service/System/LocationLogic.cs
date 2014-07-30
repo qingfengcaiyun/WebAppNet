@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using WebDao.Dao.System;
+using Glibs.Util;
 
 namespace WebLogic.Service.System
 {
@@ -166,6 +167,57 @@ namespace WebLogic.Service.System
         public bool Delete(string levelNo)
         {
             return this.dao.Delete(levelNo);
+        }
+
+        public List<Dictionary<string, object>> GetCityList()
+        {
+            return this.dao.GetCityList();
+        }
+
+        public Dictionary<string, object> GetCurrentCity(string ip, string ipfilePath)
+        {
+            IpUtil ipSearch = new IpUtil(ipfilePath);
+            IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
+
+            List<Dictionary<string, object>> list = this.dao.GetCityList();
+            Dictionary<string, object> item = null;
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Dictionary<string, object> temp in list)
+                {
+                    if (loc.country.IndexOf(temp["cnName"].ToString()) >= 0)
+                    {
+                        item = temp;
+                        break;
+                    }
+                }
+            }
+
+            return item;
+        }
+
+        public Dictionary<string, object> GetCurrentProvince(string ip, string ipfilePath)
+        {
+            IpUtil ipSearch = new IpUtil(ipfilePath);
+            IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
+
+            List<Dictionary<string, object>> list = this.dao.GetProvinceList();
+            Dictionary<string, object> item = null;
+
+            if (list != null && list.Count > 0)
+            {
+                foreach (Dictionary<string, object> temp in list)
+                {
+                    if (loc.country.IndexOf(temp["cnName"].ToString()) >= 0)
+                    {
+                        item = temp;
+                        break;
+                    }
+                }
+            }
+
+            return item;
         }
     }
 }

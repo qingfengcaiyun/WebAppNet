@@ -210,6 +210,7 @@
     <Content Include="manage\sys\role\List.aspx" />
     <Content Include="manage\sys\webmsg\Action.aspx" />
     <Content Include="manage\sys\webmsg\View.aspx" />
+    <Content Include="libs\qqwry.dat" />
     <None Include="templates\test.vm" />
     <Content Include="templates\index.vm" />
     <Content Include="manage\webhtml\Action.aspx" />
