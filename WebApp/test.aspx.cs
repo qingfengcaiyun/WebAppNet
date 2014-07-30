@@ -79,14 +79,20 @@ namespace WebApp
 
             string ip = Request.UserHostAddress;
             string ipfilePath = Server.MapPath(@"~/libs/qqwry.dat");
-            //IpUtil ipSearch = new IpUtil(ipfilePath);
-            //IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
+            IpUtil ipSearch = new IpUtil(ipfilePath);
+            IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
 
             LocationLogic l = new LocationLogic();
 
             Dictionary<string, object> city = l.GetCurrentCity(ip, ipfilePath);
-
-            Response.Write("你查的ip是：" + ip + " 地理位置：" + city["cnName"].ToString());
+            if (city != null)
+            {
+                Response.Write("你查的ip是：" + ip + " 地理位置：" + city["cnName"].ToString());
+            }
+            else
+            {
+                Response.Write("你查的ip是：" + ip + " 地理位置：" + loc.country + " - " + loc.area);
+            }
         }
     }
 }

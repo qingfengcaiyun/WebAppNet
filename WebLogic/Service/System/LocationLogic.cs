@@ -186,7 +186,7 @@ namespace WebLogic.Service.System
             {
                 foreach (Dictionary<string, object> temp in list)
                 {
-                    if (loc.country.IndexOf(temp["cnName"].ToString()) >= 0)
+                    if (loc.country.IndexOf(temp["cnName"].ToString().Trim()) >= 0)
                     {
                         item = temp;
                         break;
