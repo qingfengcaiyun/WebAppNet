@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>欢迎访问装修人人通 - 宁波装修，宁波办公室装修，宁波厂房装修，宁波装饰，宁波装修公司，宁波装修网，宁波装修公司排名，宁波哪家装修公司好，宁波家庭装修，宁波二手房装修，宁波精装修楼盘，宁波店面装修……</title>
+    <meta name="Keywords" content="宁波装修，宁波办公室装修，宁波厂房装修，宁波装饰，宁波装修公司，宁波装修网，宁波装修公司排名，宁波哪家装修公司好，宁波家庭装修，宁波二手房装修，宁波精装修楼盘，宁波店面装修……" />
+    <link rel="stylesheet" type="text/css" href="../../css/gstyles.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+    <style type="text/css">
+        #Logo
+        {
+            float: left;
+            height: 100px;
+            width: 400px;
+        }
+        #Detail
+        {
+            float: left;
+            height: 100px;
+            width: 800px;
+        }
+        #TopBar
+        {
+            float: left;
+            height: 30px;
+            width: 800px;
+            line-height: 30px;
+            text-align: right;
+            font-weight: bolder;
+        }
+        #Search
+        {
+            float: left;
+            height: 70px;
+            width: 800px;
+            line-height: 70px;
+        }
+        #sdiv
+        {
+            float: left;
+            height: 30px;
+            width: 400px;
+            border: 5px solid #800000;
+            margin-top: 10px;
+            margin-left: 30px;
+            font-size: 14px;
+            _display: inline;
+        }
+        #catediv
+        {
+            margin-top: 8px;
+            margin-left: 20px;
+            _display: inline;
+            overflow: hidden;
+            width: 80px;
+            float: left;
+        }
+        #cate
+        {
+            float: left;
+            margin: -2px;
+        }
+        #msg
+        {
+            float: left;
+            border: 0;
+            margin-top: 8px;
+            margin-left: 5px;
+            width: 200px;
+        }
+        #msgSearch
+        {
+            float: right;
+            border: 0;
+            background-color: #800000;
+            height: 30px;
+            width: 60px;
+            color: #FFF;
+            font-weight: bold;
+        }
+        #NavBar
+        {
+            float: left;
+            height: 40px;
+            width: 1200px;
+            line-height: 40px;
+            background-color: #800000;
+            margin-top: 10px;
+        }
+        #NavBar .NavItem
+        {
+            float: left;
+            height: 40px;
+            width: 120px;
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .PageItem
+        {
+            float: left;
+            width: 1200px;
+            margin-bottom: 5px;
+        }
+        #ArticleList
+        {
+            float: left;
+            width: 936px;
+        }
+        #ArticleList .ArticleDiv
+        {
+            float: left;
+            width: 934px;
+            margin-bottom: 10px;
+            border: 1px solid #CCC;
+        }
+        #ArticleList .ArticleDiv .ArticleTitle
+        {
+            font-size: 14px;
+            line-height: 40px;
+            font-weight: bolder;
+            float: left;
+            height: 40px;
+            width: 900px;
+            margin-left: 15px;
+            _display: inline;
+        }
+        #ArticleList .ArticleDiv .ArticleMemo
+        {
+            float: left;
+            width: 900px;
+            margin-left: 15px;
+            line-height: 24px;
+            _display: inline;
+            overflow: hidden;
+        }
+        #ArticleList .ArticleDiv .ArticleMemo p
+        {
+            text-indent: 2em;
+        }
+        #ArticleList .ArticleDiv .ArticleTime
+        {
+            float: left;
+            width: 900px;
+            margin-left: 15px;
+            height: 30px;
+            text-align: right;
+            line-height: 30px;
+            _display: inline;
+        }
+        #Process
+        {
+            float: left;
+            width: 250px;
+            border: 2px dotted #CCC;
+            margin-left: 10px;
+            _display: inline;
+        }
+        #Process #ProcessLabel
+        {
+            float: left;
+            height: 40px;
+            width: 200px;
+            line-height: 40px;
+            font-size: 14px;
+            font-weight: bolder;
+            text-indent: 1em;
+        }
+        #Process .ProcessList
+        {
+            float: left;
+            width: 250px;
+            padding-bottom: 20px;
+        }
+        #Process .ProcessList .ProcessItems
+        {
+            float: left;
+            width: 230px;
+            margin-top: 5px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+            _display: inline;
+        }
+        #Process .ProcessList .ProcessTitle
+        {
+            float: left;
+            height: 24px;
+            width: 228px;
+            margin-left: 10px;
+            line-height: 24px;
+            background-color: #eee;
+            text-indent: 1em;
+            _display: inline;
+        }
+        #Process .ProcessList .ProcessItems .ProcessItemOn
+        {
+            background-color: #800000;
+            border: 1px solid #800000;
+            padding: 5px;
+            margin: 5px;
+            float: left;
+            text-decoration: none;
+            color: #FFF;
+            font-weight: bolder;
+            _display: inline;
+        }
+        #Process .ProcessList .ProcessItems .ProcessItemOff
+        {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 5px;
+            float: left;
+            color: #666;
+            text-decoration: none;
+            _display: inline;
+        }
+    </style>
+</head>
+<body>
+    <div id="Container">
+        <div id="HeadDiv">
+            <div id="Logo">
+                <a href="/">
+                    <img src="../../img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
+            <div id="Detail">
+                <div id="TopBar">
+                    <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-0574-132</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                <div id="Search">
+                    <div id="sdiv">
+                        <div id="catediv">
+                            <select name="cate" id="cate">
+                                <option>楼盘案例</option>
+                            </select>
+                        </div>
+                        <input name="msg" id="msg" type="text" value="" />
+                        <input name="msgSearch" id="msgSearch" type="button" value=" 搜索" />
+                    </div>
+                </div>
+            </div>
+            <div id="NavBar">
+                <div class="NavItem">
+                    首&nbsp;&nbsp;页</div>
+                <div class="NavItem">
+                    发布招标</div>
+                <div class="NavItem">
+                    找装修公司</div>
+                <div class="NavItem">
+                    装修案例</div>
+                <div class="NavItem">
+                    效果图</div>
+            </div>
+        </div>
+        <div id="PageDiv">
+            <div class="PageItem">
+                &nbsp;&nbsp;<a href="../../index.html">装修人人通</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a
+                    href="../index.html">装修流程</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;相关法规文件</div>
+            <div class="PageItem">
+                <div id="ArticleList">
+                                        <div class="ArticleDiv">
+                        <div class="ArticleTitle">
+                            最新宅基地申请书范文 2014宅基地申请条件</div>
+                        <div class="ArticleMemo">
+                            <p>
+                                现在买房需要比较大的经济支出，所以很多在外打工的人会回到家乡申请宅基地建造房子，或者随着时间推移有些家庭成员越来越多，也需要申请宅基地盖建新房子，那宅基地申请需要符合什么条件，宅基地申请书怎么写呢?在这里小编和大家分享宅基地申请书范文以及宅基地申请的一些条件：宅基地申请书范文：
+宅基地申请书范文1申请人：XXX，男，汉族，农民，云南省大理市人，住X市X村X号，身份证号XX。联系电话XX。
+申请事项……</p>
+                        </div>
+                        <div class="ArticleTime">
+                            2014-7-31 15:44:04</div>
+                    </div>
+                                        <div class="ArticleDiv">
+                        <div class="ArticleTitle">
+                            营业税改增值税范围 营业税改征增值税的意义</div>
+                        <div class="ArticleMemo">
+                            <p>
+                                你知道营业税改增值税范围是什么吗?营业税，是对在中国境内提供应税劳务、转让无形资产或销售不动产的单位和个人，就其所取得的营业额征收的一种税。增值税是对销售货物或者提供加工、修理修配劳务以及进口货物的单位和个人就其实现的增值额征收的一个税种。一、营业税改增值税范围营业税改增值税主要涉及范围是交通运输业和部分现代服务业;交通运输业包括：陆路运输、水路运输、航空运输、管道运输。现代服务业包括：研发和技术……</p>
+                        </div>
+                        <div class="ArticleTime">
+                            2014-7-31 15:39:47</div>
+                    </div>
+                                        <div class="ArticleDiv">
+                        <div class="ArticleTitle">
+                            现房抵押贷款利率是多少 现房抵押贷款流程详解</div>
+                        <div class="ArticleMemo">
+                            <p>
+                                出于对资金的需求，有的人手头比较紧的时候会选择把自己手上的现房用来抵押贷款，对此不清楚的人就会疑惑：什么是现房抵押贷款?利率是多少?流程怎么走呢?我们了解下：什么是现房抵押贷款?现房是指消费者在购买时具备即买即可入住的商品房，即开发商已办妥所售房屋的大产证的商品房，与消费者签订商品房买卖合同后，立即可以办理入住并取得产权证。现房抵押是指抵押人以自有房屋以不转移占有的方式向抵押权人提供债务履行担保的……</p>
+                        </div>
+                        <div class="ArticleTime">
+                            2014-7-31 15:33:20</div>
+                    </div>
+                                        <div class="ArticleDiv">
+                        <div class="ArticleTitle">
+                            新婚姻法离婚财产如何分割 具体内容介绍</div>
+                        <div class="ArticleMemo">
+                            <p>
+                                离婚财产如何分割呢？离婚财产分割即夫妻共同财产的分割，是指离婚时依法将夫妻共同财产划分为各自的个人财产。现行《婚姻法》第17条到第19条明确了夫妻共同财产是在夫妻关系存续期间取得的财产，以列举式和概括式的方式规定了夫妻共同财产的内容，该法也规定了夫妻共同财产的分割有协议分割和判决分割两种做法。离婚时，双方有合法婚姻财产约定的，依约定。一方的特有财产归本人所有。夫妻共有财产一般应当均等分割，必要时亦……</p>
+                        </div>
+                        <div class="ArticleTime">
+                            2014-7-31 15:26:44</div>
+                    </div>
+                                        <div class="ArticleDiv">
+                        <div class="ArticleTitle">
+                            最新房屋转让协议书范本 签房屋转让协议书注意事项</div>
+                        <div class="ArticleMemo">
+                            <p>
+                                房屋转让简单来说就是拥有方把房子通过买卖、交换、赠与等方式转让给别人的法律行为，房屋转让需要签订房屋转让协议书，那房屋转让协议书怎么写，房屋转让协议书签订要注意什么，我们了解下：房屋转让协议书范本一、房屋转让协议书范本房屋转让协议书双方当事人：
+房产转让方(以下简称甲方)： _____
+工作单位: _____
+住址: _____
+身份证号: _____
+房产受让方(以下简称乙方)：_____
+工作……</p>
+                        </div>
+                        <div class="ArticleTime">
+                            2014-7-31 10:10:58</div>
+                    </div>
+                                        <div id="indexPage">
+                        </div>
+                </div>
+                <div id="Process">
+                    <div id="ProcessLabel">
+                        装修流程</div>
+                    <div class="ProcessList">
+                                                <div class="ProcessTitle">
+                            收房准备中</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_11_1.html"
+                                target="_self">收房小常识</a>  <a class="ProcessItemOff" href="../list/list_12_1.html"
+                                target="_self">交房流程</a>  <a class="ProcessItemOn" href="../list/list_13_1.html"
+                                target="_self">相关法规文件</a>                         </div>
+                                                <div class="ProcessTitle">
+                            装修准备中</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_14_1.html"
+                                target="_self">装修小常识</a>  <a class="ProcessItemOff" href="../list/list_15_1.html"
+                                target="_self">定设计/装修方案</a>  <a class="ProcessItemOff" href="../list/list_16_1.html"
+                                target="_self">配置资金预算</a>  <a class="ProcessItemOff" href="../list/list_17_1.html"
+                                target="_self">选择装修公司</a>  <a class="ProcessItemOff" href="../list/list_18_1.html"
+                                target="_self">签订装修合同</a>  <a class="ProcessItemOff" href="../list/list_19_1.html"
+                                target="_self">相关法规文件</a>                         </div>
+                                                <div class="ProcessTitle">
+                            拆改/隐蔽工程</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_20_1.html"
+                                target="_self">结构拆改</a>  <a class="ProcessItemOff" href="../list/list_21_1.html"
+                                target="_self">水管</a>  <a class="ProcessItemOff" href="../list/list_22_1.html"
+                                target="_self">强弱电/开关插座</a>  <a class="ProcessItemOff" href="../list/list_23_1.html"
+                                target="_self">拆改施工验收</a>                         </div>
+                                                <div class="ProcessTitle">
+                            泥瓦工程</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_24_1.html"
+                                target="_self">瓷砖</a>  <a class="ProcessItemOff" href="../list/list_25_1.html"
+                                target="_self">石材</a>  <a class="ProcessItemOff" href="../list/list_26_1.html"
+                                target="_self">泥瓦施工验收</a>                         </div>
+                                                <div class="ProcessTitle">
+                            木工工程</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_27_1.html"
+                                target="_self">板材</a>  <a class="ProcessItemOff" href="../list/list_28_1.html"
+                                target="_self">龙骨</a>  <a class="ProcessItemOff" href="../list/list_29_1.html"
+                                target="_self">顶角/踢脚线</a>  <a class="ProcessItemOff" href="../list/list_30_1.html"
+                                target="_self">石膏制品</a>  <a class="ProcessItemOff" href="../list/list_31_1.html"
+                                target="_self">胶黏剂/胶水</a>  <a class="ProcessItemOff" href="../list/list_32_1.html"
+                                target="_self">铝合金/不锈钢</a>  <a class="ProcessItemOff" href="../list/list_33_1.html"
+                                target="_self">玻璃</a>  <a class="ProcessItemOff" href="../list/list_34_1.html"
+                                target="_self">铁艺制品</a>  <a class="ProcessItemOff" href="../list/list_35_1.html"
+                                target="_self">扣板</a>  <a class="ProcessItemOff" href="../list/list_36_1.html"
+                                target="_self">门窗</a>  <a class="ProcessItemOff" href="../list/list_37_1.html"
+                                target="_self">木工施工验收</a>                         </div>
+                                                <div class="ProcessTitle">
+                            油漆工程</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_38_1.html"
+                                target="_self">壁纸/壁布</a>  <a class="ProcessItemOff" href="../list/list_39_1.html"
+                                target="_self">涂料/油漆</a>  <a class="ProcessItemOff" href="../list/list_40_1.html"
+                                target="_self">油漆施工验收</a>                         </div>
+                                                <div class="ProcessTitle">
+                            安装/收尾工程</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_41_1.html"
+                                target="_self">木地板</a>  <a class="ProcessItemOff" href="../list/list_42_1.html"
+                                target="_self">地毯</a>  <a class="ProcessItemOff" href="../list/list_43_1.html"
+                                target="_self">灯具</a>  <a class="ProcessItemOff" href="../list/list_44_1.html"
+                                target="_self">洁具</a>  <a class="ProcessItemOff" href="../list/list_45_1.html"
+                                target="_self">龙头五金配件</a>  <a class="ProcessItemOff" href="../list/list_46_1.html"
+                                target="_self">家电</a>  <a class="ProcessItemOff" href="../list/list_47_1.html"
+                                target="_self">安装施工验收</a>                         </div>
+                                                <div class="ProcessTitle">
+                            软装进行中</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_48_1.html"
+                                target="_self">家具</a>  <a class="ProcessItemOff" href="../list/list_49_1.html"
+                                target="_self">布艺</a>  <a class="ProcessItemOff" href="../list/list_50_1.html"
+                                target="_self">壁饰/工艺品</a>  <a class="ProcessItemOff" href="../list/list_51_1.html"
+                                target="_self">花卉</a>                         </div>
+                                                <div class="ProcessTitle">
+                            即将入住</div>
+                        <div class="ProcessItems">
+                             <a class="ProcessItemOff" href="../list/list_52_1.html"
+                                target="_self">环保检测</a>  <a class="ProcessItemOff" href="../list/list_53_1.html"
+                                target="_self">搬家搬场</a>  <a class="ProcessItemOff" href="../list/list_54_1.html"
+                                target="_self">保洁</a>  <a class="ProcessItemOff" href="../list/list_55_1.html"
+                                target="_self">装修风水</a>                         </div>
+                                            </div>
+                </div>
+            </div>
+        </div>
+        <div id="FootDiv">
+            <div id="FootBar">
+                <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="#">关于我们</a></div>
+            <div id="FootDetail">
+                Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
+                备案信息：浙ICP备14024496号&nbsp;地址：浙江省宁波市海曙区中山西路11号海曙大厦10楼<br />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

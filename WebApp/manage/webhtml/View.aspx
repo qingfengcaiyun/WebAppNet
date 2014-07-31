@@ -90,11 +90,11 @@
             );
         }
 
-        function processItem() {
+        function processDetail() {
             var m = $("#processItemDiv");
             m.html("操作进行中……");
 
-            var param = { action: "processItem" };
+            var param = { action: "processDetail" };
 
             jQuery.post(
                 "Action.aspx",
@@ -149,7 +149,7 @@
         </tr>
         <tr style="background-color: #eeeeee;">
             <td style="text-align: center;">
-                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="processItem()">&nbsp;流程信息&nbsp;</a>
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="processDetail()">&nbsp;流程信息&nbsp;</a>
             </td>
             <td>
                 &nbsp;<span id="processItemDiv"></span>

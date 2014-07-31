@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问$webmsg.fullName - $webmsg.keywords</title>
-    <meta name="Keywords" content="$webmsg.keywords" />
+    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
+    <meta name="Keywords" content="${webmsg.keywords}" />
     <link rel="stylesheet" type="text/css" href="../css/gstyles.css" />
     <link rel="stylesheet" type="text/css" href="../css/global.css" />
     <style type="text/css">
@@ -135,11 +135,6 @@
             width: 1200px;
         }
     </style>
-    <script type="text/javascript">
-        function OpenList(id) {
-            window.open("list/" + id + ".html");
-        }
-    </script>
 </head>
 <body>
     <div id="Container">
@@ -150,7 +145,7 @@
             <div id="Detail">
                 <div id="TopBar">
                     <a href="#">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：${webmsg.phone}</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -188,13 +183,13 @@
                     #foreach($item in $list)
                     <div class="ProcessList">
                         <div class="ProcessItem" style="font-weight: bolder;">
-                            <a href="javascript:void(0)" onclick="OpenList($item.processId)" target="_blank">$item.processName</a>
+                            <a href="list/list_${item.processId}_1.html" target="_blank">${item.processName}</a>
                         </div>
                         <div class="ProcessItem">
                             ∨</div>
                         #foreach($t in $item.itemList)
                         <div class="ProcessItem">
-                            <a href="javascript:void(0)" onclick="OpenList($t.processId)" target="_blank">$t.processName</a>
+                            <a href="list/list_${t.processId}_1.html" target="_blank">${t.processName}</a>
                         </div>
                         #end
                     </div>
@@ -208,7 +203,7 @@
                     href="#">关于我们</a></div>
             <div id="FootDetail">
                 Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
-                备案信息：$webmsg.webNo&nbsp;地址：$webmsg.address<br />
+                备案信息：${webmsg.webNo}&nbsp;地址：${webmsg.address}<br />
             </div>
         </div>
     </div>

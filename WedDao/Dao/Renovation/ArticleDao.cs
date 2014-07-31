@@ -109,6 +109,37 @@ namespace WebDao.Dao.Renovation
             return this.db.GetDataTable(this.sql, this.param);
         }
 
+        public List<Dictionary<string, object>> GetList()
+        {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Renovation_Article", "a");
+            this.s.AddTable("Renovation_Process", "p");
+
+            this.s.AddField("p", "processName");
+
+            this.s.AddField("a", "raId");
+            this.s.AddField("a", "processId");
+            this.s.AddField("a", "longTitle");
+            this.s.AddField("a", "shortTitle");
+            this.s.AddField("a", "keywords");
+            this.s.AddField("a", "picUrl");
+            this.s.AddField("a", "itemIndex");
+            this.s.AddField("a", "content");
+            this.s.AddField("a", "outLink");
+            this.s.AddField("a", "isTop");
+            this.s.AddField("a", "topTime");
+            this.s.AddField("a", "isChecked");
+            this.s.AddField("a", "insertTime");
+            this.s.AddField("a", "updateTime");
+
+            this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+
+            return this.db.GetDataTable(this.sql, this.param);
+        }
+
         public PageRecords GetPage(int pageSize, int pageNo, int processId, string msg)
         {
             this.s = new SqlBuilder();
@@ -146,6 +177,7 @@ namespace WebDao.Dao.Renovation
             this.s.AddField("a", "shortTitle");
             this.s.AddField("a", "keywords");
             this.s.AddField("a", "picUrl");
+            this.s.AddField("a", "content");
             this.s.AddField("a", "itemIndex");
             this.s.AddField("a", "outLink");
             this.s.AddField("a", "isTop");

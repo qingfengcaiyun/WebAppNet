@@ -196,9 +196,7 @@
                         raId: raId
                     },
                     function (data) {
-                        var d = eval(data);
-
-                        //alert(data.longTitle);
+                        var d = jQuery.parseJSON(data);
 
                         $("#longTitle").val(d.longTitle);
                         $("#shortTitle").val(d.shortTitle);
@@ -216,8 +214,7 @@
                         switchTopOption(d.isTop);
 
                         $('#process').combotree('setValue', d.processId);
-                    },
-                    'json'
+                    }
                 );
             }
         }

@@ -20,9 +20,9 @@ namespace Glibs.Sql
                 foreach (KeyValuePair<string, object> kv in item)
                 {
                     str.Append(",\"");
-                    str.Append(kv.Key);
+                    str.Append(CleanCharForJson(kv.Key));
                     str.Append("\":\"");
-                    str.Append(kv.Value.ToString().Replace("\n", "\\n").Replace("\r", "\\r"));
+                    str.Append(CleanCharForJson(kv.Value.ToString()));
                     str.Append("\"");
                 }
 
@@ -134,6 +134,19 @@ namespace Glibs.Sql
             {
                 return string.Empty;
             }
+        }
+
+        public static string CleanCharForJson(string str)
+        {
+            str = str.Replace("\a", "\\a");
+            str = str.Replace("\b", "\\b");
+            str = str.Replace("\f", "\\f");
+            str = str.Replace("\v", "\\v");
+            str = str.Replace("\n", "\\n");
+            str = str.Replace("\r", "\\r");
+            str = str.Replace("\t", "\\t");
+
+            return str;
         }
     }
 }

@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问$webmsg.fullName - $webmsg.keywords</title>
-    <meta name="Keywords" content="$webmsg.keywords" />
+    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
+    <meta name="Keywords" content="${webmsg.keywords}" />
     <link rel="stylesheet" type="text/css" href="css/gstyles.css" />
     <link href="css/global.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -439,7 +439,7 @@
             <div id="Detail">
                 <div id="TopBar">
                     <a href="#">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：${webmsg.phone}</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -617,13 +617,13 @@
                         #foreach($item in $newsList)
                         <tr class="$item.cls">
                             <td height="30">
-                                【$item.cateName】
+                                【${item.cateName}】
                             </td>
                             <td>
-                                $item.longTitle
+                                ${item.longTitle}
                             </td>
                             <td>
-                                $item.insertTime
+                                ${item.timeStr}
                             </td>
                         </tr>
                         #end
@@ -648,7 +648,7 @@
                 <div class="ItemDetail">
                     <ul>
                         #foreach($item in $prices)
-                        <li class="zhuangxiuchengguo zhuangxiuchengguoOff">$item.paramValue</li>
+                        <li class="zhuangxiuchengguo zhuangxiuchengguoOff">${item.paramValue}</li>
                         #end
                     </ul>
                 </div>
@@ -682,7 +682,7 @@
                     href="#">关于我们</a></div>
             <div id="FootDetail">
                 Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
-                备案信息：$webmsg.webNo&nbsp;地址：$webmsg.address<br />
+                备案信息：${webmsg.webNo}&nbsp;地址：${webmsg.address}<br />
             </div>
         </div>
     </div>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 
 namespace Glibs.Sql
 {
@@ -13,13 +14,7 @@ namespace Glibs.Sql
         private int prevPage; // 上一页
         private int nextPage; // 下一页
         private int lastPage; // 最后一页
-        private string countSql; // 计数用的SQL
-        private string countKey;
-        private string querySql; // 查询用的SQL
-        private string sqlFields;
-        private string sqlTable;
-        private string sqlWhere;
-        private string sqlOrderBy;
+        private string indexPage;
         private List<Dictionary<string, object>> pageResult; // 分页记录集
         private string pageJSON; // 分页记录集JSON
 
@@ -82,18 +77,6 @@ namespace Glibs.Sql
             set { lastPage = value; }
         }
 
-        public string CountSql
-        {
-            get { return "select count(" + countKey + ") from " + sqlTable + " where " + sqlWhere; }
-            set { countSql = value; }
-        }
-
-        public string QuerySql
-        {
-            get { return "select top " + pageSize + " " + sqlFields + " from " + sqlTable + " where " + sqlWhere + " and " + countKey + " not in (select top " + startIndex + " " + countKey + " from " + sqlTable + " where " + sqlWhere + " order by " + sqlOrderBy + ") order by " + sqlOrderBy; }
-            set { querySql = value; }
-        }
-
         public List<Dictionary<string, object>> PageResult
         {
             get { return pageResult; }
@@ -106,34 +89,10 @@ namespace Glibs.Sql
             set { pageJSON = value; }
         }
 
-        public string SqlTable
+        public string IndexPage
         {
-            get { return sqlTable; }
-            set { sqlTable = value; }
-        }
-
-        public string SqlWhere
-        {
-            get { return sqlWhere; }
-            set { sqlWhere = value; }
-        }
-
-        public string SqlOrderBy
-        {
-            get { return sqlOrderBy; }
-            set { sqlOrderBy = value; }
-        }
-
-        public string CountKey
-        {
-            get { return countKey; }
-            set { countKey = value; }
-        }
-
-        public string SqlFields
-        {
-            get { return sqlFields; }
-            set { sqlFields = value; }
+            get { return indexPage; }
+            set { indexPage = value; }
         }
 
         public void SetBaseParam()
@@ -161,6 +120,54 @@ namespace Glibs.Sql
             this.lastPage = this.pageCount;
 
             this.startIndex = this.pageSize * (this.currentPage - 1);
+        }
+
+        public void BuildIndexPage(string pageKey)
+        {
+            StringBuilder indexPageT = new StringBuilder();
+            if (this.lastPage > 1)
+            {
+                indexPageT.Append("<a href=\"");
+                indexPageT.Append(pageKey);
+                indexPageT.Append("_1.html\" target=\"_self\">首页</a>");
+
+                indexPageT.Append("&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"");
+                indexPageT.Append(pageKey);
+                indexPageT.Append("_");
+                indexPageT.Append(this.prevPage.ToString());
+                indexPageT.Append(".html\" target=\"_self\">上一页</a>");
+
+                indexPageT.Append("&nbsp;&nbsp;&nbsp;&nbsp;去第&nbsp;<select class=\"itemselect\" name=\"gpageNum\" id=\"gpageNum\" onchange=\"javascript:window.location.href=this.value\">");
+                for (int j = this.firstPage; j < this.lastPage + 1; j++)
+                {
+                    indexPageT.Append("<option value=\"");
+                    indexPageT.Append(pageKey);
+                    indexPageT.Append("_");
+                    indexPageT.Append(j);
+                    indexPageT.Append(".html\"");
+                    if (this.currentPage == j)
+                    {
+                        indexPageT.Append(" selected=\"selected\"");
+                    }
+                    indexPageT.Append(">");
+                    indexPageT.Append(j.ToString());
+                    indexPageT.Append("</option>");
+                }
+                indexPageT.Append("</select>");
+
+                indexPageT.Append("&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"");
+                indexPageT.Append(pageKey);
+                indexPageT.Append("_");
+                indexPageT.Append(this.nextPage);
+                indexPageT.Append(".html\" target=\"_self\">下一页</a>");
+
+                indexPageT.Append("&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"");
+                indexPageT.Append(pageKey);
+                indexPageT.Append("_");
+                indexPageT.Append(this.lastPage);
+                indexPageT.Append(".html\" target=\"_self\">末页</a>");
+            }
+            this.indexPage = indexPageT.ToString();
         }
     }
 }

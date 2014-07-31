@@ -31,14 +31,14 @@ end
 
 GO
 
-CREATE TABLE [dbo].[Sys_WebMsg](
+CREATE TABLE [Sys_WebMsg](
 	[msgId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[msgKey] [nvarchar](255) NOT NULL,
 	[msgValue] [ntext] NOT NULL
 );
 
 /********/
-CREATE TABLE [dbo].[Sys_FileInfo](
+CREATE TABLE [Sys_FileInfo](
 	[fileId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[fileName] [nvarchar](255) NOT NULL,
 	[extName] [nvarchar](255) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE [dbo].[Sys_FileInfo](
 );
 
 /********/
-CREATE TABLE [dbo].[Sys_Location](
+CREATE TABLE [Sys_Location](
 	[locationId] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[cnName] [nvarchar](255) NOT NULL,
 	[enName] [nvarchar](255) NOT NULL,
@@ -345,7 +345,8 @@ INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('fullName', '装修人人
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('shortName', '装修人人通');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('keywords', '宁波装修，宁波办公室装修，宁波厂房装修，宁波装饰，宁波装修公司，宁波装修网，宁波装修公司排名，宁波哪家装修公司好，宁波家庭装修，宁波二手房装修，宁波精装修楼盘，宁波店面装修……');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('webUrl', 'www.zxrrt.com');
-INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('phone', '');
+INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('phone', '400-0574-132');
+INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('cellphone', '');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('webNo', '浙ICP备14024496号');
 INSERT INTO [Sys_WebMsg]([msgKey], [msgValue]) VALUES ('address', '浙江省宁波市海曙区中山西路11号海曙大厦10楼');
 

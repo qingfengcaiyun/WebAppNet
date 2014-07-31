@@ -58,7 +58,7 @@
         });
 
         function save() {
-            var paramStr = "fullName,shortName,keywords,memo,address,phone,webUrl,webNo";
+            var paramStr = "fullName,shortName,keywords,memo,address,phone,cellphone,webUrl,webNo";
 
             var fullName = $("#fullName").val();
             var shortName = $("#shortName").val();
@@ -66,6 +66,7 @@
             var memo = editor.html();
             var address = $("#address").val();
             var phone = $("#phone").val();
+            var cellphone = $("#cellphone").val();
             var webUrl = $("#webUrl").val();
             var webNo = $("#webNo").val();
 
@@ -78,6 +79,7 @@
                 memo: memo,
                 address: address,
                 phone: phone,
+                cellphone: cellphone,
                 webUrl: webUrl,
                 webNo: webNo
             };
@@ -113,6 +115,7 @@
                         editor.html(d.memo);
                         $("#webUrl").val(d.webUrl);
                         $("#phone").val(d.phone);
+                        $("#cellphone").val(d.cellphone);
                         $("#webNo").val(d.webNo);
                         $("#address").val(d.address);
                     }
@@ -155,6 +158,14 @@
                 </td>
                 <td>
                     <input class="txtInput w400" type="text" id="phone" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    移动电话：
+                </td>
+                <td>
+                    <input class="txtInput w400" type="text" id="cellphone" value="" />
                 </td>
             </tr>
             <tr>

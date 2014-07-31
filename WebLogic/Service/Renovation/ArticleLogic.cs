@@ -28,6 +28,11 @@ namespace WebLogic.Service.Renovation
             return this.dao.GetList(msg, processId);
         }
 
+        public List<Dictionary<string, object>> GetList()
+        {
+            return this.dao.GetList();
+        }
+
         public PageRecords GetPage(int pageSize, int pageNo, int processId, string msg)
         {
             return this.dao.GetPage(pageSize, pageNo, processId, msg);

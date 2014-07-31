@@ -1,80 +1,112 @@
-﻿body {
-	font-size:12px;
-	line-height:20px;
-	font-family:"宋体", Tahoma, Arial;
+﻿body
+{
+    font-size: 12px;
+    line-height: 20px;
+    font-family: "宋体" , Tahoma, Arial;
 }
-a:link {
-	text-decoration:none;
-	color: #000;
+a:link
+{
+    text-decoration: none;
+    color: #000;
 }
-a:visited {
-	text-decoration:none;
-	outline:none;
-	color: #666;
+a:visited
+{
+    text-decoration: none;
+    outline: none;
+    color: #666;
 }
-a:hover {
-	text-decoration:underline;
-	color: #00F;
+a:hover
+{
+    text-decoration: underline;
+    color: #00F;
 }
-a:active {
-	text-decoration:underline;
-	outline:none;
-	color: #F00;
+a:active
+{
+    text-decoration: underline;
+    outline: none;
+    color: #F00;
 }
 /*常见控件样式*/
-.txtInput {
-	border:1px solid #800000;
-	height:20px;
-	line-height:20px;
-	width:160px;
-	margin-right:10px;
+.txtInput
+{
+    border: 1px solid #800000;
+    height: 20px;
+    line-height: 20px;
+    width: 160px;
+    margin-right: 10px;
 }
-.w100 {
-	width:100px;
+.w100
+{
+    width: 100px;
 }
-.w400 {
-	width:400px;
+.w400
+{
+    width: 400px;
 }
-.w60c {
-	width:60px;
-	text-align:center;
+.w60c
+{
+    width: 60px;
+    text-align: center;
 }
-.txtArea {
-	border:1px solid #800000;
-	height:100px;
-	width:90%;
+.txtArea
+{
+    border: 1px solid #800000;
+    height: 100px;
+    width: 90%;
 }
-.fileInput {
-	border:1px solid #800000;
-	width:200px;
+.fileInput
+{
+    border: 1px solid #800000;
+    width: 200px;
 }
 /*通用CSS*/
-#Container {
-	margin-left:auto;
-	margin-right:auto;
-	width: 1200px;
+#Container
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
 }
-#HeadDiv, #PageDiv, #FootDiv {
-	float: left;
-	width: 1200px;
-	margin-top: 10px;
+#HeadDiv, #PageDiv, #FootDiv
+{
+    float: left;
+    width: 1200px;
+    margin-top: 10px;
 }
-#FootBar {
-	float: left;
-	height: 30px;
-	width: 1200px;
-	background-color: #333;
-	line-height: 30px;
-	font-weight: bold;
-	color: #FFF;
-	text-align: center;
+#FootBar
+{
+    float: left;
+    height: 30px;
+    width: 1200px;
+    background-color: #333;
+    line-height: 30px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
 }
-#FootBar a {
-	color: #FFF;
-}#FootDetail {
-	float: left;
-	width: 1200px;
-	text-align: center;
-	line-height: 30px;
-	margin-top: 10px;
+#FootBar a
+{
+    color: #FFF;
+}
+#FootDetail
+{
+    float: left;
+    width: 1200px;
+    text-align: center;
+    line-height: 30px;
+    margin-top: 10px;
+}
+#indexPage
+{
+    line-height: 1.231;
+    float: left;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #800000;
+}
+#indexPage a
+{
+    color: #800000;
+    line-height: 1.231;
 }

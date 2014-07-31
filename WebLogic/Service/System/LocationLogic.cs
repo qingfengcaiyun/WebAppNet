@@ -145,13 +145,37 @@ namespace WebLogic.Service.System
             Dictionary<string, object> node = this.dao.GetOne(nodeId);
             StringBuilder s = new StringBuilder();
 
-            s.Append(node["locationId"].ToString());
             if (string.CompareOrdinal(node["parentNo"].ToString(), "0") != 0)
             {
-                s.Append(",");
-                s.Append(GetParentIdString(Int32.Parse(node["locationId"].ToString())));
+                s.Append(GetLocationId((node["parentNo"].ToString())));
+            }
+            else
+            {
+                s.Append(node["locationId"].ToString());
             }
             return s.ToString();
+        }
+
+        private string GetLocationId(string levelNo)
+        {
+            Dictionary<string, object> node = this.dao.GetOne(levelNo);
+            if (node != null && node.Count > 0)
+            {
+                StringBuilder s = new StringBuilder();
+
+                s.Append(node["locationId"].ToString());
+                if (string.CompareOrdinal(node["parentNo"].ToString(), "0") != 0)
+                {
+                    s.Append(",");
+                    s.Append(GetLocationId((node["parentNo"].ToString())));
+                }
+
+                return s.ToString();
+            }
+            else
+            {
+                return "";
+            }
         }
 
         public long Insert(Dictionary<string, object> content)

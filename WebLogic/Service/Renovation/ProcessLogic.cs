@@ -212,6 +212,7 @@ namespace WebLogic.Service.Renovation
                 for (int i = 0, j = list.Count; i < j; i++)
                 {
                     temp = list[i];
+                    temp.Add("styleClass", "ProcessItemOff");
                     key = temp["parentNo"].ToString();
                     if (lists.ContainsKey(key))
                     {
