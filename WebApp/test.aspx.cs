@@ -82,17 +82,7 @@ namespace WebApp
             IpUtil ipSearch = new IpUtil(ipfilePath);
             IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
 
-            LocationLogic l = new LocationLogic();
-
-            Dictionary<string, object> city = l.GetCurrentCity(ip, ipfilePath);
-            if (city != null)
-            {
-                Response.Write("你查的ip是：" + ip + " 地理位置：" + city["cnName"].ToString());
-            }
-            else
-            {
-                Response.Write("你查的ip是：" + ip + " 地理位置：" + loc.country + " - " + loc.area);
-            }
+            Response.Write("你查的ip是：" + ip + " 地理位置：" + loc.country + " - " + loc.area);
         }
     }
 }

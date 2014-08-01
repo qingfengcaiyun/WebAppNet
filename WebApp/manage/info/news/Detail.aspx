@@ -278,6 +278,15 @@
             </tr>
             <tr>
                 <td class="algR">
+                    关键词：
+                </td>
+                <td>
+                    <input class="easyui-validatebox textbox txtInput w300" type="text" id="keywords"
+                        value="" required="true" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
                     文章分类：
                 </td>
                 <td>
@@ -309,15 +318,6 @@
             </tr>
             <tr>
                 <td class="algR">
-                    关键词：
-                </td>
-                <td>
-                    <input class="easyui-validatebox textbox txtInput w300" type="text" id="keywords"
-                        value="" required="true" />
-                </td>
-            </tr>
-            <tr>
-                <td class="algR">
                     排序值：
                 </td>
                 <td>
@@ -338,9 +338,8 @@
                     &nbsp;
                 </td>
                 <td>
-                    <a class="easyui-linkbutton" iconcls="icon-search" href="javascript:void(0)" onclick="preview()">
-                        &nbsp;预览&nbsp;</a>&nbsp;&nbsp;<a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)"
-                            onclick="save()">&nbsp;保存&nbsp;</a>
+                    &nbsp;&nbsp;<a class="easyui-linkbutton" iconcls="icon-save" href="javascript:void(0)"
+                        onclick="save()">&nbsp;保存&nbsp;</a>
                 </td>
             </tr>
             <tr>

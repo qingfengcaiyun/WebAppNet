@@ -62,88 +62,55 @@ namespace WebDao.Dao.Info
         {
             this.param = new Dictionary<string, object>();
 
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_News", "n");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Info_Category", "c");
+
+            this.s.AddField("c", "cateName");
+
+            this.s.AddField("l", "cnName", "location");
+
+            this.s.AddField("n", "newsId");
+            this.s.AddField("n", "cityId");
+            this.s.AddField("n", "cateId");
+            this.s.AddField("n", "longTitle");
+            this.s.AddField("n", "titleColor");
+            this.s.AddField("n", "shortTitle");
+            this.s.AddField("n", "keywords");
+            this.s.AddField("n", "readCount");
+            this.s.AddField("n", "itemIndex");
+            this.s.AddField("n", "isTop");
+            this.s.AddField("n", "topTime");
+            this.s.AddField("n", "insertTime");
+            this.s.AddField("n", "updateTime");
+            this.s.AddField("n", "isChecked");
+
+            this.s.SetTagField("n", "newsId");
+
+            this.s.AddOrderBy("n", "itemIndex", false);
+            this.s.AddOrderBy("n", "insertTime", false);
+
+            this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
+            this.s.AddWhere("and", "c", "cateId", "=", "n", "cateId");
+
             if (cateId > 1)
             {
-                this.s = new SqlBuilder();
-
-                this.s.AddTable("Info_News", "n");
-                this.s.AddTable("Sys_Location", "l");
-                this.s.AddTable("Info_Category", "c");
-
-                this.s.AddField("c", "cateName");
-
-                this.s.AddField("l", "cnName", "location");
-
-                this.s.AddField("n", "newsId");
-                this.s.AddField("n", "cityId");
-                this.s.AddField("n", "cateId");
-                this.s.AddField("n", "longTitle");
-                this.s.AddField("n", "titleColor");
-                this.s.AddField("n", "shortTitle");
-                this.s.AddField("n", "keywords");
-                this.s.AddField("n", "readCount");
-                this.s.AddField("n", "itemIndex");
-                this.s.AddField("n", "isTop");
-                this.s.AddField("n", "topTime");
-                this.s.AddField("n", "insertTime");
-                this.s.AddField("n", "updateTime");
-                this.s.AddField("n", "isChecked");
-
-                this.s.SetTagField("n", "newsId");
-
-                this.s.AddOrderBy("n", "itemIndex", false);
-                this.s.AddOrderBy("n", "insertTime", false);
-
-                this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
-                this.s.AddWhere("and", "c", "cateId", "=", "n", "cateId");
                 this.s.AddWhere("and", "n", "cateId", "=", "@cateId");
-                this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
-                this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
-                this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
-                this.s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
-
                 this.param.Add("cateId", cateId);
             }
-            else
+
+            this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
+
+            if (!string.IsNullOrEmpty(msg))
             {
-                this.s = new SqlBuilder();
-
-                this.s.AddTable("Info_News", "n");
-                this.s.AddTable("Sys_Location", "l");
-                this.s.AddTable("Info_Category", "c");
-
-                this.s.AddField("c", "cateName");
-
-                this.s.AddField("l", "cnName", "location");
-
-                this.s.AddField("n", "newsId");
-                this.s.AddField("n", "cityId");
-                this.s.AddField("n", "longTitle");
-                this.s.AddField("n", "titleColor");
-                this.s.AddField("n", "shortTitle");
-                this.s.AddField("n", "keywords");
-                this.s.AddField("n", "readCount");
-                this.s.AddField("n", "itemIndex");
-                this.s.AddField("n", "isTop");
-                this.s.AddField("n", "topTime");
-                this.s.AddField("n", "insertTime");
-                this.s.AddField("n", "updateTime");
-                this.s.AddField("n", "isChecked");
-
-                s.SetTagField("n", "newsId");
-
-                this.s.AddOrderBy("n", "itemIndex", false);
-                this.s.AddOrderBy("n", "insertTime", false);
-
-                this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
-                this.s.AddWhere("and", "c", "cateId", "=", "n", "cateId");
-                this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
                 this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
                 this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
                 this.s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
-            }
 
-            this.param.Add("msg", msg);
+                this.param.Add("msg", msg);
+            }
 
             PageRecords pr = new PageRecords();
             pr.CurrentPage = pageNo;
@@ -220,7 +187,7 @@ namespace WebDao.Dao.Info
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", content["content"].ToString().Replace('\"', '\''));
+            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
             this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
@@ -260,14 +227,14 @@ namespace WebDao.Dao.Info
             this.s.AddField("updateTime");
 
             this.sql = this.s.SqlUpdate();
-            
+
             this.param = new Dictionary<string, object>();
             this.param.Add("cityId", content["cityId"]);
             this.param.Add("cateId", content["cateId"]);
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", content["content"].ToString().Replace('\"', '\''));
+            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
             this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);

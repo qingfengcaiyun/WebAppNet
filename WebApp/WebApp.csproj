@@ -85,6 +85,7 @@
     <Content Include="about.txt" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="libs\ajaxfileupload.js" />
     <Content Include="manage\Action.aspx" />
     <Content Include="manage\Default.aspx" />
     <Content Include="libs\easyui\themes\default\accordion.css" />
@@ -194,6 +195,9 @@
     <Content Include="manage\renovation\article\Action.aspx" />
     <Content Include="manage\renovation\article\Detail.aspx" />
     <Content Include="manage\renovation\article\List.aspx" />
+    <Content Include="manage\renovation\building\Action.aspx" />
+    <Content Include="manage\renovation\building\Detail.aspx" />
+    <Content Include="manage\renovation\building\List.aspx" />
     <Content Include="manage\renovation\parameter\Action.aspx" />
     <Content Include="manage\renovation\parameter\List.aspx" />
     <Content Include="manage\renovation\process\Action.aspx" />
@@ -217,7 +221,7 @@
     <Content Include="manage\webhtml\View.aspx" />
     <Content Include="templates\process\detail.vm" />
     <Content Include="templates\process\index.vm" />
-    <None Include="templates\process\list.vm" />
+    <Content Include="templates\process\list.vm" />
     <Content Include="webhtml\css\global.css" />
     <Content Include="webhtml\css\gstyles.css" />
     <Content Include="webhtml\img\logo.jpg" />
@@ -521,6 +525,27 @@
     <Compile Include="manage\renovation\article\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\renovation\building\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\building\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\building\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\building\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\building\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\building\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="manage\renovation\parameter\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -748,6 +773,10 @@
     <ProjectReference Include="..\GLibs\Glibs.csproj">
       <Project>{44AE183D-516D-4F05-93F0-F8870B4A0AC2}</Project>
       <Name>Glibs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebHtml\WebHtml.csproj">
+      <Project>{3450A584-62B7-4205-A9F3-2A097BD2AACD}</Project>
+      <Name>WebHtml</Name>
     </ProjectReference>
     <ProjectReference Include="..\WebLogic\WebLogic.csproj">
       <Project>{D9EF6C81-E8DB-4A97-9F90-035BD9E1FBE1}</Project>

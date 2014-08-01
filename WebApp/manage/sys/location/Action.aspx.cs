@@ -20,6 +20,7 @@ namespace WebApp.manage.sys.location
             switch (action)
             {
                 case "tree": rs = Tree(); break;
+                case "treeList": rs = TreeList(); break;
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
@@ -32,6 +33,12 @@ namespace WebApp.manage.sys.location
         private string Tree()
         {
             return new LocationLogic().GetTreeGrid("0");
+        }
+
+        private string TreeList()
+        {
+            string parentNo = WebPageCore.GetRequest("parentNo");
+            return new LocationLogic().GetTreeGrid(parentNo);
         }
 
         private string One()

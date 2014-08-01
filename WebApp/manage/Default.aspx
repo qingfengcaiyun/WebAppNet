@@ -20,7 +20,7 @@
     <script type="text/javascript" src="../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-
+            initItem();
         });
 
         function chkForm() {
@@ -88,12 +88,23 @@
         function newCode() {
             $("#codeImg").attr("src", "/VerifyCodeAction.aspx?id=" + Math.random());
         }
+
+        function initItem() {
+            $("#loginDiv").window({
+                iconCls: "icon-blank",
+                minimizable: false,
+                maximizable: false,
+                closable: false,
+                collapsible: false,
+                resizable: false,
+                shadow: false,
+                title: "欢迎使用装修人人通管理系统"
+            });
+        }
     </script>
 </head>
 <body>
-    <div id="loginDiv" class="easyui-window" iconcls="icon-blank" minimizable="false"
-        maximizable="false" closable="false" collapsible="false" resizable="false" shadow="false"
-        title="欢迎使用装修人人通管理系统" style="width: 440px; height: 310px; padding: 5px; background: #fafafa;">
+    <div id="loginDiv" style="width: 440px; height: 310px; padding: 5px; background: #fafafa;">
         <div class="easyui-layout" fit="true">
             <div region="center" style="padding: 10px; background: #fff; border: 1px solid #ccc;">
                 <table width="380" border="0" cellspacing="0" cellpadding="0">
@@ -132,7 +143,8 @@
                         </td>
                         <td>
                             <input name="code" type="text" class="easyui-validatebox textbox txtInput" id="code"
-                                style="width: 5em;" size="5" maxlength="4" required="true" /><a href="javascript:void(0)" onclick="newCode()">看不清，换一张</a></span>
+                                style="width: 5em;" size="5" maxlength="4" required="true" /><span><a href="javascript:void(0)"
+                                    onclick="newCode()">看不清，换一张</a></span>
                         </td>
                         <td>
                             &nbsp;
@@ -143,7 +155,7 @@
                         </td>
                         <td colspan="2">
                             &nbsp;<img id="codeImg" src="/VerifyCodeAction.aspx" width="60" height="30" /><span
-                                style="height: 60px; line-height: 60px;">
+                                style="height: 60px; line-height: 60px;"></span>
                         </td>
                     </tr>
                 </table>

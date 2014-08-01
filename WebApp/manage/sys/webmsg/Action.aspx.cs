@@ -28,11 +28,13 @@ namespace WebApp.manage.sys.webmsg
 
         private string One()
         {
-            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs();
+            string locationId = WebPageCore.GetRequest("locationId");
+
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(Int32.Parse(locationId));
 
             if (msgs != null && msgs.Count > 0)
             {
-                return JsonDo.DictionaryToJSON(new WebMsgLogic().GetMsgs());
+                return JsonDo.DictionaryToJSON(msgs);
             }
             else
             {
@@ -42,8 +44,10 @@ namespace WebApp.manage.sys.webmsg
 
         private string Save()
         {
+            string locationId = WebPageCore.GetRequest("locationId");
+
             Dictionary<string, object> msgs = WebPageCore.GetParameters();
-            return JsonDo.Message(new WebMsgLogic().Save(msgs) ? "1" : "0");
+            return JsonDo.Message(new WebMsgLogic().Save(msgs, Int32.Parse(locationId)) ? "1" : "0");
         }
     }
 }

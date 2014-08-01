@@ -15,17 +15,21 @@ namespace WebDao.Dao.System
             this.db = DbUtil.CreateDatabase();
         }
 
-        public Dictionary<string, object> GetMsgs()
+        public Dictionary<string, object> GetMsgs(int locationId)
         {
             this.s = new SqlBuilder();
 
             this.s.AddTable("Sys_WebMsg");
 
-            this.s.AddField("msgId");
             this.s.AddField("msgKey");
             this.s.AddField("msgValue");
 
+            this.s.AddWhere("", "locationId", "=", "@locationId");
+
             this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("locationId", locationId);
 
             List<Dictionary<string, object>> list = this.db.GetDataTable(this.sql, null);
 
@@ -46,7 +50,7 @@ namespace WebDao.Dao.System
             }
         }
 
-        public bool Save(Dictionary<string, object> msgs)
+        public bool Save(Dictionary<string, object> msgs, int locationId)
         {
             if (msgs != null && msgs.Count > 0)
             {
@@ -64,6 +68,7 @@ namespace WebDao.Dao.System
 
                 this.s.AddField("msgKey");
                 this.s.AddField("msgValue");
+                this.s.AddField("locationId");
 
                 this.sql = this.s.SqlInsert();
 
@@ -75,6 +80,7 @@ namespace WebDao.Dao.System
 
                     this.param.Add("msgKey", kv.Key);
                     this.param.Add("msgValue", kv.Value);
+                    this.param.Add("locationId", locationId);
 
                     paramList.Add(this.param);
                 }

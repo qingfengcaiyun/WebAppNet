@@ -13,19 +13,19 @@ namespace WebLogic.Service.System
             this.dao = new WebMsgDao();
         }
 
-        public Dictionary<string, object> GetMsgs()
+        public Dictionary<string, object> GetMsgs(int locationId)
         {
-            return this.dao.GetMsgs();
+            return this.dao.GetMsgs(locationId);
         }
 
-        public string GetMsgsJson()
+        public string GetMsgsJson(int locationId)
         {
-            return JsonDo.DictionaryToJSON(this.dao.GetMsgs());
+            return JsonDo.DictionaryToJSON(this.dao.GetMsgs(locationId));
         }
 
-        public bool Save(Dictionary<string, object> msgs)
+        public bool Save(Dictionary<string, object> msgs, int locationId)
         {
-            return this.dao.Save(msgs);
+            return this.dao.Save(msgs, locationId);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Glibs.Sql
     {
         public static string Message(string msg)
         {
-            return "{\"msg\":\"" + msg + "\"}";
+            return "{\"msg\":\"" + CleanCharForJson(msg) + "\"}";
         }
 
         public static string DictionaryToJSON(Dictionary<string, object> item)
@@ -145,6 +145,7 @@ namespace Glibs.Sql
             str = str.Replace("\n", "\\n");
             str = str.Replace("\r", "\\r");
             str = str.Replace("\t", "\\t");
+            str = str.Replace('\"', '\'');
 
             return str;
         }

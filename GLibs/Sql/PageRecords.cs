@@ -97,6 +97,7 @@ namespace Glibs.Sql
 
         public void SetBaseParam()
         {
+            this.pageCount = 0;
             this.pageCount = this.recordsCount / this.pageSize;
             if (this.recordsCount % this.pageSize > 0)
             {
