@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Glibs.Sql;
-using System;
 
 namespace WebDao.Dao.System
 {
@@ -9,6 +9,7 @@ namespace WebDao.Dao.System
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public RoleFuncDao()
         {
@@ -17,31 +18,29 @@ namespace WebDao.Dao.System
 
         public List<Dictionary<string, object>> GetList(int roleId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_RoleFunc");
+            this.s.AddTable("Sys_RoleFunc");
 
-            s.AddField("funcId");
+            this.s.AddField("funcId");
 
-            s.AddWhere("", "", "roleId", "=", "@roleId");
+            this.s.AddWhere("", "", "roleId", "=", "@roleId");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
-            s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_Function");
+            this.s.AddTable("Sys_Function");
 
-            s.AddField("funcName");
-            s.AddField("funcNo");
-            s.AddField("funcId");
+            this.s.AddField("funcName");
+            this.s.AddField("funcNo");
+            this.s.AddField("funcId");
 
-            s.AddWhere("", "", "funcId", "in", "(" + this.sql + ")");
+            this.s.AddWhere("", "", "funcId", "in", "(" + this.sql + ")");
 
-            s.AddOrderBy("funcNo", true);
+            this.s.AddOrderBy("funcNo", true);
 
-            this.sql = s.SqlSelect();
-
-            //this.sql = @"select [funcName],[funcNo],[funcId] from [Sys_Functions] where [funcId] in (select [funcId] from [Sys_RoleFunc] where [roleId]=@roleId) order by [funcNo] asc";
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleId", roleId);
@@ -53,21 +52,18 @@ namespace WebDao.Dao.System
         {
             if (funcIds != null && funcIds.Length > 0)
             {
-                SqlBuilder s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Sys_RoleFunc");
+                this.s.AddTable("Sys_RoleFunc");
 
-                s.AddWhere("", "", "roleId", "=", "@roleId");
+                this.s.AddWhere("", "", "roleId", "=", "@roleId");
 
-                this.sql = s.SqlDelete();
-
-                //this.sql = @"delete from [Sys_RoleFunc] where [roleId]=@roleId;";
+                this.sql = this.s.SqlDelete();
 
                 this.param = new Dictionary<string, object>();
                 this.param.Add("roleId", roleId);
 
                 this.db.Update(this.sql, this.param);
-
 
                 List<Dictionary<string, object>> paramsList = new List<Dictionary<string, object>>();
 
@@ -80,16 +76,15 @@ namespace WebDao.Dao.System
                     paramsList.Add(this.param);
                 }
 
-                s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Sys_RoleFunc");
+                this.s.AddTable("Sys_RoleFunc");
 
-                s.AddField("roleId");
-                s.AddField("funcId");
+                this.s.AddField("roleId");
+                this.s.AddField("funcId");
 
-                this.sql = s.SqlInsert();
+                this.sql = this.s.SqlInsert();
 
-                //this.sql = @"insert into [Sys_RoleFunc] ([roleId],[funcId])values(@roleId,@funcId)";
                 return this.db.Batch(this.sql, paramsList);
             }
             else

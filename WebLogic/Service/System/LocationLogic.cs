@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using WebDao.Dao.System;
 using Glibs.Util;
+using WebDao.Dao.System;
 
 namespace WebLogic.Service.System
 {
@@ -28,6 +28,87 @@ namespace WebLogic.Service.System
         public List<Dictionary<string, object>> GetList(string parentNo)
         {
             return this.dao.GetList(parentNo);
+        }
+
+        public String GetTree(String parentNo)
+        {
+            List<Dictionary<string, object>> list = this.dao.GetList(parentNo);
+            Dictionary<string, object> temp = null;
+            Dictionary<string, List<Dictionary<string, object>>> lists = new Dictionary<string, List<Dictionary<string, object>>>();
+
+            string key = "";
+
+            if (list.Count > 0)
+            {
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+                    if (i == 0)
+                    {
+                        parentNo = temp["parentNo"].ToString();
+                    }
+
+                    key = temp["parentNo"].ToString();
+                    if (lists.ContainsKey(key))
+                    {
+                        lists[key].Add(temp);
+                    }
+                    else
+                    {
+                        lists.Add(key, new List<Dictionary<string, object>>());
+                        lists[key].Add(temp);
+                    }
+                }
+            }
+
+            StringBuilder str = new StringBuilder();
+            str.Append("[");
+            str.Append(this.GetSubTree(lists, parentNo));
+            str.Append("]");
+            return str.ToString();
+        }
+
+        private string GetSubTree(Dictionary<string, List<Dictionary<string, object>>> lists, string parentNo)
+        {
+            StringBuilder str = new StringBuilder();
+            List<Dictionary<string, object>> list = lists.ContainsKey(parentNo) ? lists[parentNo] : null;
+            Dictionary<string, object> temp = null;
+            string substr = string.Empty;
+
+            if (list != null && list.Count > 0)
+            {
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+
+                    str.Append(",{");
+                    str.Append("\"id\":\"");
+                    str.Append(temp["locationId"].ToString());
+                    str.Append("\",");
+                    str.Append("\"text\":\"");
+                    str.Append(temp["cnName"].ToString());
+                    str.Append("\"");
+
+                    substr = this.GetSubTree(lists, temp["levelNo"].ToString());
+                    if (string.IsNullOrEmpty(substr))
+                    {
+                        str.Append("}");
+                    }
+                    else
+                    {
+                        str.Append(",\"state\":\"closed\",");
+                        str.Append("\"children\":[");
+                        str.Append(substr);
+                        str.Append("]}");
+                    }
+                }
+
+                return str.ToString().Substring(1);
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         public string GetTreeGrid(string parentNo)
@@ -242,6 +323,44 @@ namespace WebLogic.Service.System
             }
 
             return item;
+        }
+
+        public string GetLocations(LocationType lType, string parentNo)
+        {
+            List<Dictionary<string, object>> list = this.dao.GetLocations(lType, parentNo);
+            Dictionary<string, object> temp = null;
+            Dictionary<string, List<Dictionary<string, object>>> lists = new Dictionary<string, List<Dictionary<string, object>>>();
+
+            string key = "";
+
+            if (list.Count > 0)
+            {
+                for (int i = 0, j = list.Count; i < j; i++)
+                {
+                    temp = list[i];
+                    if (i == 0)
+                    {
+                        parentNo = temp["parentNo"].ToString();
+                    }
+
+                    key = temp["parentNo"].ToString();
+                    if (lists.ContainsKey(key))
+                    {
+                        lists[key].Add(temp);
+                    }
+                    else
+                    {
+                        lists.Add(key, new List<Dictionary<string, object>>());
+                        lists[key].Add(temp);
+                    }
+                }
+            }
+
+            StringBuilder str = new StringBuilder();
+            str.Append("[");
+            str.Append(this.GetSubTree(lists, parentNo));
+            str.Append("]");
+            return str.ToString();
         }
     }
 }

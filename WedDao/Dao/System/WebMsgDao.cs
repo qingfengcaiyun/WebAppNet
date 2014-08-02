@@ -24,14 +24,14 @@ namespace WebDao.Dao.System
             this.s.AddField("msgKey");
             this.s.AddField("msgValue");
 
-            this.s.AddWhere("", "locationId", "=", "@locationId");
+            this.s.AddWhere("", "", "locationId", "=", "@locationId");
 
             this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("locationId", locationId);
 
-            List<Dictionary<string, object>> list = this.db.GetDataTable(this.sql, null);
+            List<Dictionary<string, object>> list = this.db.GetDataTable(this.sql, this.param);
 
             if (list != null && list.Count > 0)
             {

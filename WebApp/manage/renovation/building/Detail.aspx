@@ -20,15 +20,22 @@
     <script type="text/javascript" src="../../../libs/ajaxfileupload.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#panel").panel({
+                width: $(window).width(),
+                height: $(window).height(),
+                title: "&nbsp;楼盘信息"
+            });
 
+            getRegionList();
+            getOne();
         });
 
         function save() {
-            var t = $("#regionList").combotree('tree');
+            var t = $("#location").combotree('tree');
             var n = t.tree('getSelected');
-            var regionId;
+            var locationId;
 
-            var buildingId = $("#buildingId").val();
+            var buildingsId = $("#buildingsId").val();
             var buildingsName = $("#buildingsName").val();
             var address = $("#address").val();
             var picUrl = $("#picUrl").val();
@@ -42,10 +49,10 @@
 
             if (n == null) {
                 jQuery.messager.alert('错误', '请选择楼盘所属区县！！', 'error');
-                $("#regionList").focus();
+                $("#location").focus();
                 return;
             } else {
-                regionId = n.id;
+                locationId = n.id;
             }
 
             if (picUrl == null) {
@@ -56,10 +63,11 @@
 
             var param = {
                 action: "save",
-                paramStr: "buildingId,buildingsName,regionId,picUrl,itemIndex",
-                buildingId: buildingId,
+                paramStr: "buildingsId,buildingsName,locationId,address,picUrl,itemIndex",
+                buildingsId: buildingsId,
                 buildingsName: buildingsName,
-                regionId: regionId,
+                locationId: locationId,
+                address: address,
                 picUrl: picUrl,
                 itemIndex: itemIndex
             };
@@ -72,9 +80,9 @@
                     if (parseInt(d.msg) == 1) {
                         jQuery.messager.confirm('保存成功', '你想输入新信息么？', function (r) {
                             if (r) {
-                                window.location.href = "?buildingId=0";
+                                window.location.href = "?buildingsId=0";
                             } else {
-                                window.location.href = "List.aspx?regionId=" + regionId;
+                                window.location.href = "List.aspx?locationId=" + locationId;
                             }
                         });
                     } else {
@@ -86,13 +94,13 @@
         }
 
         function getOne() {
-            var buildingId = $("#buildingId").val();
-            if (parseInt(buildingId) > 0) {
+            var buildingsId = $("#buildingsId").val();
+            if (parseInt(buildingsId) > 0) {
                 jQuery.post(
                     "Action.aspx",
                     {
                         action: "one",
-                        buildingId: buildingId
+                        buildingsId: buildingsId
                     },
                     function (data) {
                         var d = eval(data);
@@ -100,56 +108,70 @@
                         $("#address").val(d.address);
                         $("#picUrl").val(d.picUrl);
                         $("#itemIndex").val(d.itemIndex);
-                        $('#regionList').combotree('setValue', d.regionId);
+                        $('#location').combotree('setValue', d.locationId);
+
+                        if ($("#picUrl").val() != null) {
+                            $("#preview").html('<img src="' + d.picUrl + '" />');
+                        }
                     },
                     'json'
                 );
+            } else {
+                $('#location').combotree('setValue', $("#locationId").val());
             }
         }
 
         function getRegionList() {
-            $("#regionList").combotree({
+            $("#location").combotree({
                 required: true,
-                panelWidth: 150,
-                panelHeight: 150
+                panelWidth: 200,
+                panelHeight: 200
             });
 
             jQuery.post(
                 "../../sys/location/Action.aspx",
                 {
                     action: "tree",
-                    parentNo: 6
+                    lType: "region"
                 },
                 function (data) {
                     var d = jQuery.parseJSON(data);
-                    $("#regionList").combotree('loadData', d);
+                    $("#location").combotree('loadData', d);
+                    $("#location").combotree('tree').tree('expandAll');
                 }
             );
         }
 
         function uploadPic() {
-            if (!isUploadFile($("#fileToUpload").val())) { alert("请选择要导入的图片"); return; }
+            var f = $("#imgFile").val();
+            var t = isUploadFile(f);
+            var fileToUpload = 'imgFile';
 
-            jQuery.ajaxFileUpload({
-                url: '../../../uploadAction/upload_json.aspx',
-                secureuri: false,
-                fileElementId: 'fileToUpload',
-                dataType: 'json',
-                success: function (data, status) {
-                    if (typeof (data.error) != 'undefined') {
-                        if (parseInt(data.error) == 0) {
-                            alert(data.url);
-                            $("#picUrl").val(data.url);
-                            $("#preview").html('<img src="' + data.url + '" />');
-                        } else {
-                            alert(data.message);
+            if (t) {
+                jQuery.ajaxFileUpload({
+                    url: '../../../uploadAction/upload_json.aspx',
+                    secureuri: false,
+                    fileElementId: fileToUpload,
+                    dataType: 'json',
+                    success: function (data, status) {
+                        if (typeof (data.error) != 'undefined') {
+                            if (parseInt(data.error) == 0) {
+                                $("#picUrl").val(data.url);
+                                $("#preview").html('<img src="' + data.url + '" />');
+                            } else {
+                                alert(data.message);
+                            }
                         }
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
                     }
-                },
-                error: function (data, status, e) {
-                    alert(e);
-                }
-            });
+                });
+            } else {
+                alert("请选择要导入的图片");
+                return;
+            }
+            /**/
         }
 
         function isUploadFile(filePath) {
@@ -169,14 +191,14 @@
     </script>
 </head>
 <body>
-    <div class="easyui-panel" title="&nbsp;楼盘信息" fit="true">
+    <div id="panel">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td width="100" class="algR">
                     区县：
                 </td>
                 <td width="">
-                    <select class="easyui-combotree txtInput" style="width: 200px;" id="regionList">
+                    <select class="easyui-combotree txtInput" style="width: 200px;" id="location">
                     </select>
                 </td>
             </tr>
@@ -212,7 +234,7 @@
                     楼盘图片：
                 </td>
                 <td>
-                    <input type="file" class="txtInput w400" id="fileToUpload" onchange="uploadPic()" />
+                    <input type="file" class="txtInput w400" name="imgFile" id="imgFile" onchange="uploadPic()" />
                 </td>
             </tr>
             <tr>
@@ -236,7 +258,8 @@
                     &nbsp;
                 </td>
                 <td>
-                    <input type="hidden" id="buildingId" value="<%=buildingId %>" />
+                    <input type="hidden" id="buildingsId" value="<%=buildingsId %>" />
+                    <input type="hidden" id="locationId" value="<%=locationId %>" />
                 </td>
             </tr>
         </table>

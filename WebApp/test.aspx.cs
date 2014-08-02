@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
-using System.Diagnostics;
-using System.Reflection;
-using System.Collections;
+using WebDao.Dao.System;
 using WebLogic.Service.System;
 
 namespace WebApp
@@ -75,7 +76,7 @@ namespace WebApp
             content.Add("regions", locals);
 
             Response.Write(VelocityDo.BuildStringByTemplate("test.vm", @"~/templates/", content));
-             * */
+             * 
 
             string ip = Request.UserHostAddress;
             string ipfilePath = Server.MapPath(@"~/libs/qqwry.dat");
@@ -83,6 +84,24 @@ namespace WebApp
             IpUtil.IPLocation loc = ipSearch.GetIPLocation(ip);
 
             Response.Write("你查的ip是：" + ip + " 地理位置：" + loc.country + " - " + loc.area);
+             * 
+             * */
+
+            string lType = "city";
+            LocationType localType;
+
+            foreach (string s in Enum.GetNames(typeof(LocationType)))
+            {
+                if (string.CompareOrdinal(s.ToLower(), lType.ToLower()) == 0)
+                {
+                    localType = (LocationType)Enum.Parse(typeof(LocationType), s);
+
+                    Response.Write(localType.ToString());
+                }
+            }
+
+
+            
         }
     }
 }

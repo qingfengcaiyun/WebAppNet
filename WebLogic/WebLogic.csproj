@@ -75,6 +75,7 @@
     <Compile Include="Service\Info\CategoryLogic.cs" />
     <Compile Include="Service\Info\NewsLogic.cs" />
     <Compile Include="Service\Renovation\ArticleLogic.cs" />
+    <Compile Include="Service\Renovation\BuildingsLogic.cs" />
     <Compile Include="Service\Renovation\ParameterLogic.cs" />
     <Compile Include="Service\Renovation\ProcessLogic.cs" />
     <Compile Include="Service\Renovation\ProjectLogic.cs" />

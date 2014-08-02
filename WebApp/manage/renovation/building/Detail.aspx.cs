@@ -10,18 +10,21 @@ namespace WebApp.manage.renovation.building
 {
     public partial class Detail : System.Web.UI.Page
     {
-        public string buildingId;
+        public string buildingsId;
+        public string locationId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                this.buildingId = WebPageCore.GetRequest("buildingId");
+                this.buildingsId = WebPageCore.GetRequest("buildingsId");
 
-                if (!RegexDo.IsInt32(this.buildingId))
+                if (!RegexDo.IsInt32(this.buildingsId))
                 {
-                    this.buildingId = "0";
+                    this.buildingsId = "0";
                 }
+
+                this.locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
             }
         }
     }

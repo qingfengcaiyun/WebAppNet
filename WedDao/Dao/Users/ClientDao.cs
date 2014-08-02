@@ -9,6 +9,7 @@ namespace WebDao.Dao.Users
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public ClientDao()
         {
@@ -17,33 +18,33 @@ namespace WebDao.Dao.Users
 
         public Dictionary<string, object> GetOne(int clientId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("User_Client", "c");
-            s.AddTable("Sys_User", "u");
-            s.AddTable("Sys_Location", "l");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("Sys_Location", "l");
 
-            s.AddField("l", "cnName", "location");
-            s.AddField("u", "userName");
-            s.AddField("u", "lastLogin");
-            s.AddField("c", "clientId");
-            s.AddField("c", "userId");
-            s.AddField("c", "locationId");
-            s.AddField("c", "fullName");
-            s.AddField("c", "sex");
-            s.AddField("c", "address");
-            s.AddField("c", "phone");
-            s.AddField("c", "qq");
-            s.AddField("c", "email");
-            s.AddField("c", "isDeleted");
-            s.AddField("c", "insertTime");
-            s.AddField("c", "updateTime");
+            this.s.AddField("l", "cnName", "location");
+            this.s.AddField("u", "userName");
+            this.s.AddField("u", "lastLogin");
+            this.s.AddField("c", "clientId");
+            this.s.AddField("c", "userId");
+            this.s.AddField("c", "locationId");
+            this.s.AddField("c", "fullName");
+            this.s.AddField("c", "sex");
+            this.s.AddField("c", "address");
+            this.s.AddField("c", "phone");
+            this.s.AddField("c", "qq");
+            this.s.AddField("c", "email");
+            this.s.AddField("c", "isDeleted");
+            this.s.AddField("c", "insertTime");
+            this.s.AddField("c", "updateTime");
 
-            s.AddWhere("", "u", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "u", "userId", "=", "c", "userId");
-            s.AddWhere("and", "c", "clientId", "=", "@clientId");
+            this.s.AddWhere("", "u", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "u", "userId", "=", "c", "userId");
+            this.s.AddWhere("and", "c", "clientId", "=", "@clientId");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("clientId", clientId);
@@ -53,25 +54,25 @@ namespace WebDao.Dao.Users
 
         public bool Delete(int userId, int clientId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_Users");
+            this.s.AddTable("Sys_Users");
 
-            s.AddField("isDeleted");
+            this.s.AddField("isDeleted");
 
-            s.AddWhere("", "", "userid", "=", "@userId");
+            this.s.AddWhere("", "", "userid", "=", "@userId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
-            s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("User_Client");
+            this.s.AddTable("User_Client");
 
-            s.AddField("isDeleted");
+            this.s.AddField("isDeleted");
 
-            s.AddWhere("", "", "clientId", "=", "@clientId");
+            this.s.AddWhere("", "", "clientId", "=", "@clientId");
 
-            this.sql = this.sql + ";" + s.SqlUpdate() + ";";
+            this.sql = this.sql + ";" + this.s.SqlUpdate() + ";";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", userId);
@@ -83,23 +84,23 @@ namespace WebDao.Dao.Users
 
         public Int64 Insert(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("User_Client");
+            this.s.AddTable("User_Client");
 
-            s.AddField("userId");
-            s.AddField("locationId");
-            s.AddField("fullName");
-            s.AddField("sex");
-            s.AddField("address");
-            s.AddField("phone");
-            s.AddField("qq");
-            s.AddField("email");
-            s.AddField("isDeleted");
-            s.AddField("insertTime");
-            s.AddField("updateTime");
+            this.s.AddField("userId");
+            this.s.AddField("locationId");
+            this.s.AddField("fullName");
+            this.s.AddField("sex");
+            this.s.AddField("address");
+            this.s.AddField("phone");
+            this.s.AddField("qq");
+            this.s.AddField("email");
+            this.s.AddField("isDeleted");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
 
-            this.sql = s.SqlInsert();
+            this.sql = this.s.SqlInsert();
 
             DateTime now = DateTime.Now;
 
@@ -121,23 +122,23 @@ namespace WebDao.Dao.Users
 
         public bool Update(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("User_Client");
+            this.s.AddTable("User_Client");
 
-            s.AddField("userId");
-            s.AddField("locationId");
-            s.AddField("fullName");
-            s.AddField("sex");
-            s.AddField("address");
-            s.AddField("phone");
-            s.AddField("qq");
-            s.AddField("email");
-            s.AddField("updateTime");
+            this.s.AddField("userId");
+            this.s.AddField("locationId");
+            this.s.AddField("fullName");
+            this.s.AddField("sex");
+            this.s.AddField("address");
+            this.s.AddField("phone");
+            this.s.AddField("qq");
+            this.s.AddField("email");
+            this.s.AddField("updateTime");
 
-            s.AddWhere("", "", "clientId", "=", "@clientId");
+            this.s.AddWhere("", "", "clientId", "=", "@clientId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", content["userId"]);
@@ -156,40 +157,40 @@ namespace WebDao.Dao.Users
 
         public List<Dictionary<string, object>> GetList(String msg, int locationId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_User", "u");
-            s.AddTable("User_Client", "c");
-            s.AddTable("Sys_Locations", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("Sys_Locations", "l");
 
-            s.AddField("u", "userId");
-            s.AddField("u", "userName");
-            s.AddField("u", "lastLogin");
-            s.AddField("c", "clientId");
-            s.AddField("c", "locationId");
-            s.AddField("c", "fullName");
-            s.AddField("c", "phone");
-            s.AddField("l", "cnName", "location");
+            this.s.AddField("u", "userId");
+            this.s.AddField("u", "userName");
+            this.s.AddField("u", "lastLogin");
+            this.s.AddField("c", "clientId");
+            this.s.AddField("c", "locationId");
+            this.s.AddField("c", "fullName");
+            this.s.AddField("c", "phone");
+            this.s.AddField("l", "cnName", "location");
 
-            s.AddOrderBy("c", "fullName", true);
+            this.s.AddOrderBy("c", "fullName", true);
 
-            s.AddWhere("", "u", "userId", "=", "u", "userId");
-            s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "c", "isDeleted", "=", "0");
-            s.AddWhere("and", "u", "userType", "=", "'C'");
+            this.s.AddWhere("", "u", "userId", "=", "u", "userId");
+            this.s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "isDeleted", "=", "0");
+            this.s.AddWhere("and", "u", "userType", "=", "'C'");
 
             this.param = new Dictionary<string, object>();
             if (locationId > 0)
             {
-                s.AddWhere("and", "c", "locationId", "=", "@locationId");
+                this.s.AddWhere("and", "c", "locationId", "=", "@locationId");
                 this.param.Add("locationId", locationId);
             }
 
-            s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
-            s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
+            this.s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             this.param.Add("msg", msg);
 
@@ -198,41 +199,41 @@ namespace WebDao.Dao.Users
 
         public PageRecords GetPage(int pageSize, int pageNo, String msg, int locationId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_User", "u");
-            s.AddTable("User_Client", "c");
-            s.AddTable("Sys_Locations", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("Sys_Locations", "l");
 
-            s.AddField("u", "userId");
-            s.AddField("u", "userName");
-            s.AddField("u", "lastLogin");
-            s.AddField("c", "clientId");
-            s.AddField("c", "locationId");
-            s.AddField("c", "fullName");
-            s.AddField("c", "phone");
-            s.AddField("l", "cnName", "location");
+            this.s.AddField("u", "userId");
+            this.s.AddField("u", "userName");
+            this.s.AddField("u", "lastLogin");
+            this.s.AddField("c", "clientId");
+            this.s.AddField("c", "locationId");
+            this.s.AddField("c", "fullName");
+            this.s.AddField("c", "phone");
+            this.s.AddField("l", "cnName", "location");
 
-            s.AddOrderBy("c", "fullName", true);
+            this.s.AddOrderBy("c", "fullName", true);
 
-            s.SetTagField("c", "clientId");
+            this.s.SetTagField("c", "clientId");
 
-            s.AddWhere("", "u", "userId", "=", "u", "userId");
-            s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "c", "isDeleted", "=", "0");
-            s.AddWhere("and", "u", "userType", "=", "'C'");
+            this.s.AddWhere("", "u", "userId", "=", "u", "userId");
+            this.s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "isDeleted", "=", "0");
+            this.s.AddWhere("and", "u", "userType", "=", "'C'");
 
             this.param = new Dictionary<string, object>();
 
             if (locationId > 0)
             {
-                s.AddWhere("and", "c", "locationId", "=", "@locationId");
+                this.s.AddWhere("and", "c", "locationId", "=", "@locationId");
                 this.param.Add("locationId", locationId);
             }
 
-            s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
-            s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
+            this.s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
 
             this.param.Add("msg", msg);
 
@@ -240,12 +241,12 @@ namespace WebDao.Dao.Users
             pr.CurrentPage = pageNo;
             pr.PageSize = pageSize;
 
-            this.sql = s.SqlCount();
+            this.sql = this.s.SqlCount();
 
             pr.RecordsCount = Int32.Parse(this.db.GetDataValue(this.sql, this.param).ToString());
             pr.SetBaseParam();
 
-            this.sql = s.SqlPage(pr.PageSize, pr.StartIndex);
+            this.sql = this.s.SqlPage(pr.PageSize, pr.StartIndex);
             pr.PageResult = this.db.GetDataTable(this.sql, this.param);
 
             return pr;

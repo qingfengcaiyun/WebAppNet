@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Glibs.Sql;
 using Glibs.Util;
 using WebLogic.Service.System;
+using WebDao.Dao.System;
 
 namespace WebApp.manage.sys.location
 {
@@ -24,13 +25,31 @@ namespace WebApp.manage.sys.location
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
-                default: rs = Tree(); break;
+                default: rs = TreeGrid(); break;
             }
 
             Response.Write(rs);
         }
 
         private string Tree()
+        {
+            string lType = WebPageCore.GetRequest("lType");
+            LocationType localType = LocationType.Region;
+
+            foreach (string s in Enum.GetNames(typeof(LocationType)))
+            {
+                if (string.CompareOrdinal(s.ToLower(), lType.ToLower()) == 0)
+                {
+                    localType = (LocationType)Enum.Parse(typeof(LocationType), s);
+                }
+            }
+
+            string locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
+            string parentNo = new LocationLogic().GetOne(Int32.Parse(locationId))["levelNo"].ToString();
+            return new LocationLogic().GetLocations(localType, parentNo);
+        }
+
+        private string TreeGrid()
         {
             return new LocationLogic().GetTreeGrid("0");
         }

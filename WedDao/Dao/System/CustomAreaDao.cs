@@ -9,6 +9,7 @@ namespace WebDao.Dao.System
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public CustomAreaDao()
         {
@@ -17,20 +18,18 @@ namespace WebDao.Dao.System
 
         public Dictionary<string, object> GetOne(int areaId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_CustomArea");
+            this.s.AddTable("Sys_CustomArea");
 
-            s.AddField("areaId");
-            s.AddField("cnName");
-            s.AddField("enName");
-            s.AddField("itemIndex");
+            this.s.AddField("areaId");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("itemIndex");
 
-            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            this.s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
-            this.sql = s.SqlSelect();
-
-            //this.sql = @"select [areaId],[cnName],[enName],[itemIndex] from [Sys_CustomArea] where [areaId]=@areaId";
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("areaId", areaId);
@@ -40,20 +39,18 @@ namespace WebDao.Dao.System
 
         public List<Dictionary<string, object>> GetList()
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_CustomArea");
+            this.s.AddTable("Sys_CustomArea");
 
-            s.AddField("areaId");
-            s.AddField("cnName");
-            s.AddField("enName");
-            s.AddField("itemIndex");
+            this.s.AddField("areaId");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("itemIndex");
 
-            s.AddOrderBy("itemIndex", true);
+            this.s.AddOrderBy("itemIndex", true);
 
-            this.sql = s.SqlSelect();
-
-            //this.sql = @"select [areaId],[cnName],[enName],[itemIndex] from [Sys_CustomArea] order by [itemIndex] asc";
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
 
@@ -62,23 +59,21 @@ namespace WebDao.Dao.System
 
         public Boolean Delete(int areaId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_AreaRelation");
+            this.s.AddTable("Sys_AreaRelation");
 
-            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            this.s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
-            s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_CustomArea");
+            this.s.AddTable("Sys_CustomArea");
 
-            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            this.s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
-            this.sql = this.sql + ";" + s.SqlSelect();
-
-            //this.sql = @"delete from [Sys_AreaRelation] where [areaId]=@areaId;delete from [Sys_CustomArea] where [areaId]=@areaId;";
+            this.sql = this.sql + ";" + this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("areaId", areaId);
@@ -88,17 +83,15 @@ namespace WebDao.Dao.System
 
         public Int64 Insert(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_CustomArea");
+            this.s.AddTable("Sys_CustomArea");
 
-            s.AddField("cnName");
-            s.AddField("enName");
-            s.AddField("itemIndex");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("itemIndex");
 
-            this.sql = s.SqlInsert();
-
-            //this.sql = @"insert into [Sys_CustomArea] ([cnName],[enName],[itemIndex])values(@cnName,@enName,@itemIndex)";
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cnName", content["cnName"]);
@@ -110,19 +103,17 @@ namespace WebDao.Dao.System
 
         public bool Update(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_CustomArea");
+            this.s.AddTable("Sys_CustomArea");
 
-            s.AddField("cnName");
-            s.AddField("enName");
-            s.AddField("itemIndex");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("itemIndex");
 
-            s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
+            this.s.AddWhere(string.Empty, string.Empty, "areaId", "=", "@areaId");
 
-            this.sql = s.SqlInsert();
-
-            //this.sql = @"update [Sys_CustomArea] set [cnName]=@cnName,[enName]=@enName,[itemIndex]=@itemIndex where [areaId]=@areaId";
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("cnName", content["cnName"]);

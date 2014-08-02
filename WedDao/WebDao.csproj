@@ -74,7 +74,7 @@
     <Compile Include="Dao\Info\NewsDao.cs" />
     <Compile Include="Dao\Info\CategoryDao.cs" />
     <Compile Include="Dao\Renovation\ArticleDao.cs" />
-    <Compile Include="Dao\Renovation\BuildingDao.cs" />
+    <Compile Include="Dao\Renovation\BuildingsDao.cs" />
     <Compile Include="Dao\Renovation\DiaryDao.cs" />
     <Compile Include="Dao\Renovation\ParameterDao.cs" />
     <Compile Include="Dao\Renovation\ProcessDao.cs" />

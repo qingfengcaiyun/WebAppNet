@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Glibs.Sql;
 using Glibs.Util;
 
@@ -82,7 +83,7 @@ namespace WebDao.Dao.System
 
             this.s.AddTable("Sys_Location");
 
-            this.s.AddWhere(string.Empty, string.Empty, "parentNo", "like", "@parentNo+'%'");
+            this.s.AddWhere(string.Empty, string.Empty, "levelNo", "like", "@parentNo+'%'");
 
             this.s.AddOrderBy("levelNo", true);
 
@@ -290,5 +291,61 @@ namespace WebDao.Dao.System
 
             return this.db.GetDataTable(this.sql, this.param);
         }
+
+        public List<Dictionary<string, object>> GetLocations(LocationType lType, string levelNo)
+        {
+            List<string> levels = new List<string>();
+            levels.Add("Planet");
+            levels.Add("Continent");
+            levels.Add("Country");
+            levels.Add("PoliticalArea");
+            levels.Add("Province");
+            levels.Add("City");
+            levels.Add("Region");
+
+            StringBuilder levelStr = new StringBuilder();
+
+            foreach (string level in levels)
+            {
+                levelStr.Append(",'");
+                levelStr.Append(level);
+                levelStr.Append("'");
+
+                if (string.CompareOrdinal(level.ToLower(), lType.ToString().ToLower()) == 0)
+                {
+                    break;
+                }
+            }
+
+            this.s = new SqlBuilder();
+
+            this.s.AddField("locationId");
+            this.s.AddField("cnName");
+            this.s.AddField("enName");
+            this.s.AddField("levelNo");
+            this.s.AddField("parentNo");
+            this.s.AddField("levelCnName");
+            this.s.AddField("levelEnName");
+            this.s.AddField("isLeaf");
+
+            this.s.AddTable("Sys_Location");
+
+            this.s.AddWhere(string.Empty, string.Empty, "levelNo", "like", "@levelNo+'%'");
+            this.s.AddWhere("and", string.Empty, "levelEnName", "in", "(" + levelStr.ToString().Substring(1) + ")");
+
+            this.s.AddOrderBy("levelNo", true);
+
+            this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("levelNo", levelNo);
+
+            return this.db.GetDataTable(this.sql, this.param);
+        }
+    }
+
+    public enum LocationType
+    {
+        Planet, Continent, Country, PoliticalArea, CustomArea, Province, City, Region
     }
 }

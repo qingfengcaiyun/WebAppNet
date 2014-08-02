@@ -110,7 +110,7 @@ namespace WebApp.uploadAction
 
             Hashtable hash = new Hashtable();
             hash["error"] = 0;
-            hash["url"] = fileUrl;
+            hash["url"] = newPath;
             Response.AddHeader("Content-Type", "text/html; charset=UTF-8");
             Response.Write(JsonMapper.ToJson(hash));
             Response.End();

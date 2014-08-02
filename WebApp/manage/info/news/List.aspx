@@ -154,13 +154,11 @@
     </script>
 </head>
 <body>
-    <div id="tb" style="padding: 5px; height: auto">
-        <div style="margin-bottom: 5px">
-            <a href="#" id="btnAdd" onclick="add()">添加</a> <a href="#" id="btnEdit" onclick="edit()">
-                编辑</a> <a href="#" id="btnDel" onclick="del()">删除</a>
-            <select class="easyui-combotree txtInput" style="width: 150px;" id="cate">
-            </select>
-        </div>
+    <div id="tb" style="padding: 5px;">
+        <a href="#" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="#" id="btnEdit"
+            onclick="edit()"> 编辑</a>&nbsp;|&nbsp;<a href="#" id="btnDel" onclick="del()">删除</a>&nbsp;|&nbsp;
+        <select class="easyui-combotree txtInput" style="width: 150px;" id="cate">
+        </select>
     </div>
     <input id="cityId" type="hidden" value="<%=cityId %>" />
     <input id="cateId" type="hidden" value="<%=cateId %>" />

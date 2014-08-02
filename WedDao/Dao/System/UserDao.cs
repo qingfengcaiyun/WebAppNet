@@ -10,6 +10,7 @@ namespace WebDao.Dao.System
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public UserDao()
         {
@@ -18,27 +19,27 @@ namespace WebDao.Dao.System
 
         public Dictionary<string, object> GetOne(string userName, string userPwd)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_User", "u");
-            s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("Sys_Location", "l");
 
-            s.AddField("u", "userId");
-            s.AddField("u", "userName");
-            s.AddField("u", "userPwd");
-            s.AddField("u", "userType");
-            s.AddField("u", "lastLogin");
-            s.AddField("u", "locationId");
-            s.AddField("u", "isDeleted");
-            s.AddField("u", "isLocked");
+            this.s.AddField("u", "userId");
+            this.s.AddField("u", "userName");
+            this.s.AddField("u", "userPwd");
+            this.s.AddField("u", "userType");
+            this.s.AddField("u", "lastLogin");
+            this.s.AddField("u", "locationId");
+            this.s.AddField("u", "isDeleted");
+            this.s.AddField("u", "isLocked");
 
-            s.AddField("l", "cnName", "location");
+            this.s.AddField("l", "cnName", "location");
 
-            s.AddWhere("", "u", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "u", "userName", "=", "@userName");
-            s.AddWhere("and", "u", "userPwd", "=", "@userPwd");
+            this.s.AddWhere("", "u", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "u", "userName", "=", "@userName");
+            this.s.AddWhere("and", "u", "userPwd", "=", "@userPwd");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userName", userName);
@@ -49,26 +50,26 @@ namespace WebDao.Dao.System
 
         public Dictionary<string, object> GetOne(int userId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_User", "u");
-            s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("Sys_Location", "l");
 
-            s.AddField("u", "userId");
-            s.AddField("u", "userName");
-            s.AddField("u", "userPwd");
-            s.AddField("u", "userType");
-            s.AddField("u", "lastLogin");
-            s.AddField("u", "locationId");
-            s.AddField("u", "isDeleted");
-            s.AddField("u", "isLocked");
+            this.s.AddField("u", "userId");
+            this.s.AddField("u", "userName");
+            this.s.AddField("u", "userPwd");
+            this.s.AddField("u", "userType");
+            this.s.AddField("u", "lastLogin");
+            this.s.AddField("u", "locationId");
+            this.s.AddField("u", "isDeleted");
+            this.s.AddField("u", "isLocked");
 
-            s.AddField("l", "cnName", "location");
+            this.s.AddField("l", "cnName", "location");
 
-            s.AddWhere("", "u", "locationId", "=", "l", "locationId");
-            s.AddWhere("and", "u", "userId", "=", "@userId");
+            this.s.AddWhere("", "u", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "u", "userId", "=", "@userId");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userId", userId);
@@ -78,16 +79,16 @@ namespace WebDao.Dao.System
 
         public bool UpdateUserPwd(string userPwd, string md5Pwd, int userId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("userPwd");
-            s.AddField("md5Pwd");
+            this.s.AddField("userPwd");
+            this.s.AddField("md5Pwd");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
+            this.s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userPwd", userPwd);
@@ -99,15 +100,15 @@ namespace WebDao.Dao.System
 
         public bool SetLastlogin(int userId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("lastLogin");
+            this.s.AddField("lastLogin");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
+            this.s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("lastLogin", DateTime.Now);
@@ -118,14 +119,14 @@ namespace WebDao.Dao.System
 
         public Boolean UpdateUserPwds()
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("userId");
-            s.AddField("md5Pwd");
+            this.s.AddField("userId");
+            this.s.AddField("md5Pwd");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             List<Dictionary<string, object>> list = this.db.GetDataTable(this.sql, null);
 
@@ -144,13 +145,13 @@ namespace WebDao.Dao.System
 
                 s = new SqlBuilder();
 
-                s.AddTable("Sys_User");
+                this.s.AddTable("Sys_User");
 
-                s.AddField("userPwd");
+                this.s.AddField("userPwd");
 
-                s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
+                this.s.AddWhere(string.Empty, string.Empty, "userId", "=", "@userId");
 
-                this.sql = s.SqlUpdate();
+                this.sql = this.s.SqlUpdate();
 
                 return this.db.Batch(this.sql, paramsList);
             }
@@ -162,22 +163,22 @@ namespace WebDao.Dao.System
 
         public long Insert(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("userName");
-            s.AddField("userPwd");
-            s.AddField("md5Pwd");
-            s.AddField("userType");
-            s.AddField("lastLogin");
-            s.AddField("locationId");
-            s.AddField("isDeleted");
-            s.AddField("isLocked");
-            s.AddField("insertTime");
-            s.AddField("updateTime");
+            this.s.AddField("userName");
+            this.s.AddField("userPwd");
+            this.s.AddField("md5Pwd");
+            this.s.AddField("userType");
+            this.s.AddField("lastLogin");
+            this.s.AddField("locationId");
+            this.s.AddField("isDeleted");
+            this.s.AddField("isLocked");
+            this.s.AddField("insertTime");
+            this.s.AddField("updateTime");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            this.sql = s.SqlInsert();
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userName", content["userName"]);
@@ -196,20 +197,20 @@ namespace WebDao.Dao.System
 
         public bool Update(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("userName");
-            s.AddField("userPwd");
-            s.AddField("md5Pwd");
-            s.AddField("userType");
-            s.AddField("locationId");
-            s.AddField("updateTime");
+            this.s.AddField("userName");
+            this.s.AddField("userPwd");
+            this.s.AddField("md5Pwd");
+            this.s.AddField("userType");
+            this.s.AddField("locationId");
+            this.s.AddField("updateTime");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            s.AddWhere("", "", "userId", "=", "@userId");
+            this.s.AddWhere("", "", "userId", "=", "@userId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("userName", content["userName"]);
@@ -225,15 +226,15 @@ namespace WebDao.Dao.System
 
         public bool Delete(int userId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("isDeleted");
+            this.s.AddField("isDeleted");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            s.AddWhere("", "", "userId", "=", "@userId");
+            this.s.AddWhere("", "", "userId", "=", "@userId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("isDeleted", 1);
@@ -244,15 +245,15 @@ namespace WebDao.Dao.System
 
         public bool SetLocked(int userId, bool isLock)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("isLocked");
+            this.s.AddField("isLocked");
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            s.AddWhere("", "", "userId", "=", "@userId");
+            this.s.AddWhere("", "", "userId", "=", "@userId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
 

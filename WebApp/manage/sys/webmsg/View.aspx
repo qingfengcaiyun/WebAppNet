@@ -60,18 +60,19 @@
         });
 
         function save() {
-            var t = $("#locationId").combotree('tree');
+            var t = $("#location").combotree('tree');
             var n = t.tree('getSelected');
             if (n != null) {
                 var locationId = n.id;
 
-                var paramStr = "fullName,shortName,keywords,memo,address,phone,cellphone,webUrl,webNo,locationId";
+                var paramStr = "fullName,shortName,keywords,memo,qq,address,phone,cellphone,webUrl,webNo,locationId";
 
                 var fullName = $("#fullName").val();
                 var shortName = $("#shortName").val();
                 var keywords = $("#keywords").val();
                 var memo = editor.html();
                 var address = $("#address").val();
+                var qq = $("#qq").val();
                 var phone = $("#phone").val();
                 var cellphone = $("#cellphone").val();
                 var webUrl = $("#webUrl").val();
@@ -84,6 +85,7 @@
                     fullName: fullName,
                     shortName: shortName,
                     keywords: keywords,
+                    qq: qq,
                     memo: memo,
                     address: address,
                     phone: phone,
@@ -110,9 +112,10 @@
         }
 
         function getOne() {
-            var t = $("#locationId").combotree('tree');
+            var t = $("#location").combotree('tree');
             var n = t.tree('getSelected');
-            if (n != null) {
+
+            if (n != null && t.tree('isLeaf', n.target)) {
                 var locationId = n.id;
                 jQuery.post(
                     "Action.aspx",
@@ -128,6 +131,7 @@
                             $("#keywords").val(d.keywords);
                             editor.html(d.memo);
                             $("#webUrl").val(d.webUrl);
+                            $("#qq").val(d.qq);
                             $("#phone").val(d.phone);
                             $("#cellphone").val(d.cellphone);
                             $("#webNo").val(d.webNo);
@@ -140,17 +144,19 @@
         }
 
         function getLocations() {
-            var locationId = $("#locationId").val();
-            var param = { action: "tree", locationId: locationId };
+            var param = { action: "tree", lType: "city" };
             jQuery.post(
-                "Action.aspx",
+                "../location/Action.aspx",
                 param,
                 function (data) {
                     var d = eval(data);
                     $("#location").combotree("loadData", d);
-                    $("#location").combotree("setValue", locationId);
-                    if (d.length == 1) {
-                        $("#location").combotree("disable");
+                    $("#location").combotree("setValue", $("#locationId").val());
+                    var nodes = $("#location").combotree("tree").tree('getChildren');
+                    if (nodes.length == 1) {
+                        $("#location").combotree('disable');
+                    } else {
+                        $("#location").combotree('tree').tree('expandAll');
                     }
                 },
                 "json"
@@ -228,6 +234,14 @@
                 </td>
                 <td>
                     <input class="txtInput w400" type="text" id="cellphone" value="" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    客服QQ：
+                </td>
+                <td>
+                    <input class="txtInput w400" type="text" id="qq" value="" />
                 </td>
             </tr>
             <tr>

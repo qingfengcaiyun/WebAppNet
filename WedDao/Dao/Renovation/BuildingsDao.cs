@@ -4,19 +4,19 @@ using Glibs.Sql;
 
 namespace WebDao.Dao.Renovation
 {
-    public class BuildingDao
+    public class BuildingsDao
     {
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
         private SqlBuilder s = null;
 
-        public BuildingDao()
+        public BuildingsDao()
         {
             this.db = DbUtil.CreateDatabase();
         }
 
-        public Dictionary<string, object> GetOne(long buildingId)
+        public Dictionary<string, object> GetOne(long buildingsId)
         {
             this.s = new SqlBuilder();
 
@@ -25,25 +25,42 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddField("l", "cnName", "location");
 
-            this.s.AddField("b", "buildingId");
+            this.s.AddField("b", "buildingsId");
             this.s.AddField("b", "buildingsName");
-            this.s.AddField("b", "cityId");
-            this.s.AddField("b", "regionId");
+            this.s.AddField("b", "locationId");
+            this.s.AddField("b", "address");
+            this.s.AddField("b", "picUrl");
             this.s.AddField("b", "itemIndex");
 
-            this.s.AddWhere("", "b", "regionId", "=", "l", "locationId");
-            this.s.AddWhere("and", "b", "buildingId", "=", "@buildingId");
+            this.s.AddWhere("", "b", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "b", "buildingsId", "=", "@buildingsId");
 
             this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("buildingId", buildingId);
+            this.param.Add("buildingsId", buildingsId);
 
             return this.db.GetDataRow(this.sql, this.param);
         }
 
-        public List<Dictionary<string, object>> GetList(string msg, int cityId, int regionId)
+        public List<Dictionary<string, object>> GetList(string msg, int locationId)
         {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "levelNo");
+            this.s.AddWhere("", "l", "locationId", "=", "@locationId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "locationId");
+            this.s.AddWhere("", "l", "levelNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
+
             this.s = new SqlBuilder();
 
             this.s.AddTable("Renovation_Buildings", "b");
@@ -51,23 +68,19 @@ namespace WebDao.Dao.Renovation
 
             this.s.AddField("l", "cnName", "location");
 
-            this.s.AddField("b", "buildingId");
+            this.s.AddField("b", "buildingsId");
             this.s.AddField("b", "buildingsName");
-            this.s.AddField("b", "cityId");
-            this.s.AddField("b", "regionId");
+            this.s.AddField("b", "locationId");
+            this.s.AddField("b", "address");
+            this.s.AddField("b", "picUrl");
             this.s.AddField("b", "itemIndex");
 
-            this.s.AddWhere("", "b", "regionId", "=", "l", "locationId");
-            this.s.AddWhere("and", "b", "cityId", "=", "@cityId");
+            this.s.AddWhere("", "b", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "b", "locationId", "in", "(" + this.sql + ")");
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("cityId", cityId);
 
-            if (regionId > 0)
-            {
-                this.s.AddWhere("and", "b", "regionId", "=", "@regionId");
-                this.param.Add("regionId", regionId);
-            }
+            this.param.Add("locationId", locationId);
 
             if (!string.IsNullOrEmpty(msg))
             {
@@ -82,34 +95,46 @@ namespace WebDao.Dao.Renovation
             return this.db.GetDataTable(this.sql, this.param);
         }
 
-        public PageRecords GetPage(int pageSize, int pageNo, int cityId, int regionId, string msg)
+        public PageRecords GetPage(int pageSize, int pageNo, int locationId, string msg)
         {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "levelNo");
+            this.s.AddWhere("", "l", "locationId", "=", "@locationId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "locationId");
+            this.s.AddWhere("", "l", "levelNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
+
             this.s = new SqlBuilder();
 
             this.s.AddTable("Renovation_Buildings", "b");
             this.s.AddTable("Sys_Location", "l");
 
-            this.s.SetTagField("b", "buildingId");
+            this.s.SetTagField("b", "buildingsId");
 
             this.s.AddField("l", "cnName", "location");
 
-            this.s.AddField("b", "buildingId");
+            this.s.AddField("b", "buildingsId");
             this.s.AddField("b", "buildingsName");
-            this.s.AddField("b", "cityId");
-            this.s.AddField("b", "regionId");
+            this.s.AddField("b", "locationId");
+            this.s.AddField("b", "address");
+            this.s.AddField("b", "picUrl");
             this.s.AddField("b", "itemIndex");
 
-            this.s.AddWhere("", "b", "regionId", "=", "l", "locationId");
-            this.s.AddWhere("and", "b", "cityId", "=", "@cityId");
+            this.s.AddWhere("", "b", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "b", "locationId", "in", "(" + this.sql + ")");
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("cityId", cityId);
 
-            if (regionId > 0)
-            {
-                this.s.AddWhere("and", "b", "regionId", "=", "@regionId");
-                this.param.Add("regionId", regionId);
-            }
+            this.param.Add("locationId", locationId);
 
             if (!string.IsNullOrEmpty(msg))
             {
@@ -134,18 +159,18 @@ namespace WebDao.Dao.Renovation
             return pr;
         }
 
-        public bool Delete(long buildingId)
+        public bool Delete(long buildingsId)
         {
             this.s = new SqlBuilder();
 
             this.s.AddTable("Renovation_Buildings");
 
-            this.s.AddWhere("", "", "buildingId", "=", "@buildingId");
+            this.s.AddWhere("", "", "buildingsId", "=", "@buildingsId");
 
             this.sql = this.s.SqlDelete();
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("buildingId", buildingId);
+            this.param.Add("buildingsId", buildingsId);
 
             return this.db.Update(this.sql, this.param);
         }
@@ -157,16 +182,18 @@ namespace WebDao.Dao.Renovation
             this.s.AddTable("Renovation_Buildings");
 
             this.s.AddField("buildingsName");
-            this.s.AddField("cityId");
-            this.s.AddField("regionId");
+            this.s.AddField("locationId");
+            this.s.AddField("address");
+            this.s.AddField("picUrl");
             this.s.AddField("itemIndex");
 
             this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("buildingsName", content["buildingsName"]);
-            this.param.Add("cityId", content["cityId"]);
-            this.param.Add("regionId", content["regionId"]);
+            this.param.Add("locationId", content["locationId"]);
+            this.param.Add("address", content["address"]);
+            this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("itemIndex", content["itemIndex"]);
 
             return this.db.Insert(this.sql, this.param);
@@ -179,20 +206,22 @@ namespace WebDao.Dao.Renovation
             this.s.AddTable("Renovation_Buildings");
 
             this.s.AddField("buildingsName");
-            this.s.AddField("cityId");
-            this.s.AddField("regionId");
+            this.s.AddField("locationId");
+            this.s.AddField("address");
+            this.s.AddField("picUrl");
             this.s.AddField("itemIndex");
 
-            this.s.AddWhere("", "", "buildingId", "=", "@buildingId");
+            this.s.AddWhere("", "", "buildingsId", "=", "@buildingsId");
 
             this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("buildingsName", content["buildingsName"]);
-            this.param.Add("cityId", content["cityId"]);
-            this.param.Add("regionId", content["regionId"]);
+            this.param.Add("locationId", content["locationId"]);
+            this.param.Add("address", content["address"]);
+            this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("itemIndex", content["itemIndex"]);
-            this.param.Add("buildingId", content["buildingId"]);
+            this.param.Add("buildingsId", content["buildingsId"]);
 
             return this.db.Update(this.sql, this.param);
         }

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Glibs.Sql;
-using System;
 
 namespace WebDao.Dao.System
 {
@@ -9,6 +9,7 @@ namespace WebDao.Dao.System
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public UserFuncDao()
         {
@@ -17,32 +18,30 @@ namespace WebDao.Dao.System
 
         public List<Dictionary<string, object>> GetList(int funcId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_UserFunc");
+            this.s.AddTable("Sys_UserFunc");
 
-            s.AddField("userId");
+            this.s.AddField("userId");
 
-            s.AddWhere("", "", "funcId", "=", "@funcId");
+            this.s.AddWhere("", "", "funcId", "=", "@funcId");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
-            s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_User");
+            this.s.AddTable("Sys_User");
 
-            s.AddWhere("", "", "isDeleted", "=", "0");
-            s.AddWhere("", "", "userId", "in", "(" + this.sql + ")");
+            this.s.AddWhere("", "", "isDeleted", "=", "0");
+            this.s.AddWhere("", "", "userId", "in", "(" + this.sql + ")");
 
-            s.AddField("userId");
-            s.AddField("userName");
-            s.AddField("userType");
+            this.s.AddField("userId");
+            this.s.AddField("userName");
+            this.s.AddField("userType");
 
-            s.AddOrderBy("userName", true);
+            this.s.AddOrderBy("userName", true);
 
-            this.sql = s.SqlSelect();
-
-            //this.sql = @"select [userId],[userName],[userType] from [Sys_User] where [isDelete]=0 and [userId] in (select [userId] from [Sys_UserFunc] where [funcId]=@funcId) order by [userName] asc";
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("funcId", funcId);
@@ -54,15 +53,13 @@ namespace WebDao.Dao.System
         {
             if (userIds != null && userIds.Length > 0)
             {
-                SqlBuilder s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Sys_UserRole");
+                this.s.AddTable("Sys_UserRole");
 
-                s.AddWhere("", "", "roleId", "=", "@roleId");
+                this.s.AddWhere("", "", "roleId", "=", "@roleId");
 
-                this.sql = s.SqlDelete();
-
-                //this.sql = @"delete from [Sys_UserRole] where [roleId]=@roleId;";
+                this.sql = this.s.SqlDelete();
 
                 this.param = new Dictionary<string, object>();
                 this.param.Add("roleId", roleId);
@@ -80,16 +77,14 @@ namespace WebDao.Dao.System
                     paramsList.Add(this.param);
                 }
 
-                s = new SqlBuilder();
+                this.s = new SqlBuilder();
 
-                s.AddTable("Sys_UserRole");
+                this.s.AddTable("Sys_UserRole");
 
-                s.AddField("roleId");
-                s.AddField("userId");
+                this.s.AddField("roleId");
+                this.s.AddField("userId");
 
-                this.sql = s.SqlInsert();
-
-                //this.sql = @"insert into [Sys_UserRole] ([roleId],[userId])values(@roleId,@userId)";
+                this.sql = this.s.SqlInsert();
 
                 return this.db.Batch(this.sql, paramsList);
             }

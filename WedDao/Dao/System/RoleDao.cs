@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Glibs.Sql;
-using System;
 
 namespace WebDao.Dao.System
 {
@@ -9,6 +9,7 @@ namespace WebDao.Dao.System
         private Database db = null;
         private string sql = string.Empty;
         private Dictionary<string, object> param = null;
+        private SqlBuilder s = null;
 
         public RoleDao()
         {
@@ -17,17 +18,17 @@ namespace WebDao.Dao.System
 
         public Dictionary<string, object> GetOne(int roleId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("roleId");
-            s.AddField("roleName");
-            s.AddField("itemIndex");
+            this.s.AddField("roleId");
+            this.s.AddField("roleName");
+            this.s.AddField("itemIndex");
 
-            s.AddTable("Sys_Role");
+            this.s.AddTable("Sys_Role");
 
-            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            this.s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleId", roleId);
@@ -37,47 +38,47 @@ namespace WebDao.Dao.System
 
         public List<Dictionary<string, object>> GetList(string msg)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("roleId");
-            s.AddField("roleName");
-            s.AddField("itemIndex");
+            this.s.AddField("roleId");
+            this.s.AddField("roleName");
+            this.s.AddField("itemIndex");
 
-            s.AddTable("Sys_Role");
+            this.s.AddTable("Sys_Role");
 
-            s.AddOrderBy("itemIndex", true);
+            this.s.AddOrderBy("itemIndex", true);
 
             this.param = new Dictionary<string, object>();
 
             if (!string.IsNullOrEmpty(msg))
             {
-                s.AddWhere(string.Empty, string.Empty, "roleName", "like", "'%'+@msg+'%'");
+                this.s.AddWhere(string.Empty, string.Empty, "roleName", "like", "'%'+@msg+'%'");
 
                 this.param.Add("msg", msg);
             }
 
-            this.sql = s.SqlSelect();
+            this.sql = this.s.SqlSelect();
 
             return this.db.GetDataTable(this.sql, this.param);
         }
 
         public bool Delete(int roleId)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_RoleFunc");
+            this.s.AddTable("Sys_RoleFunc");
 
-            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            this.s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
-            this.sql = s.SqlDelete();
+            this.sql = this.s.SqlDelete();
 
-            s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddTable("Sys_Role");
+            this.s.AddTable("Sys_Role");
 
-            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            this.s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
-            this.sql = this.sql + ";" + s.SqlDelete() + ";";
+            this.sql = this.sql + ";" + this.s.SqlDelete() + ";";
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleId", roleId);
@@ -87,14 +88,14 @@ namespace WebDao.Dao.System
 
         public Int64 Insert(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("roleName");
-            s.AddField("itemIndex");
+            this.s.AddField("roleName");
+            this.s.AddField("itemIndex");
 
-            s.AddTable("Sys_Role");
+            this.s.AddTable("Sys_Role");
 
-            this.sql = s.SqlInsert();
+            this.sql = this.s.SqlInsert();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleName", content["roleName"]);
@@ -105,16 +106,16 @@ namespace WebDao.Dao.System
 
         public bool Update(Dictionary<string, object> content)
         {
-            SqlBuilder s = new SqlBuilder();
+            this.s = new SqlBuilder();
 
-            s.AddField("roleName");
-            s.AddField("itemIndex");
+            this.s.AddField("roleName");
+            this.s.AddField("itemIndex");
 
-            s.AddTable("Sys_Role");
+            this.s.AddTable("Sys_Role");
 
-            s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
+            this.s.AddWhere(string.Empty, string.Empty, "roleId", "=", "@roleId");
 
-            this.sql = s.SqlUpdate();
+            this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();
             this.param.Add("roleName", content["roleName"]);
