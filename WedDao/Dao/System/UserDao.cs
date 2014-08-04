@@ -186,7 +186,7 @@ namespace WebDao.Dao.System
             this.param.Add("md5Pwd", content["md5Pwd"]);
             this.param.Add("userType", content["userType"]);
             this.param.Add("lastLogin", DateTime.Now);
-            this.param.Add("locationId", content["qq"]);
+            this.param.Add("locationId", content["locationId"]);
             this.param.Add("isDeleted", 0);
             this.param.Add("isLocked", 0);
             this.param.Add("insertTime", DateTime.Now);

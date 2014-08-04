@@ -24,11 +24,13 @@ namespace WebDao.Dao.Users
             this.s.AddTable("Sys_Location", "l");
             this.s.AddTable("Sys_User", "u");
 
-            this.s.AddField("l", "cnName");
-            this.s.AddField("m", "memberId");
-            this.s.AddField("m", "userId");
+            this.s.AddField("l", "cnName", "location");
+
             this.s.AddField("u", "userName");
             this.s.AddField("u", "lastLogin");
+
+            this.s.AddField("m", "memberId");
+            this.s.AddField("m", "userId");
             this.s.AddField("m", "locationId");
             this.s.AddField("m", "fullName");
             this.s.AddField("m", "shortName");
@@ -40,7 +42,11 @@ namespace WebDao.Dao.Users
             this.s.AddField("m", "email");
             this.s.AddField("m", "transit");
             this.s.AddField("m", "logoUrl");
+            this.s.AddField("m", "keywords");
             this.s.AddField("m", "memo");
+            this.s.AddField("m", "suggestNo");
+            this.s.AddField("m", "itemIndex");
+            this.s.AddField("m", "isDeleted");
             this.s.AddField("m", "insertTime");
             this.s.AddField("m", "updateTime");
 
@@ -50,8 +56,6 @@ namespace WebDao.Dao.Users
 
             this.sql = this.s.SqlSelect();
 
-            //this.sql = @"select [memberId],[userId],[locationId],[fullName],[shortName],[address],[tel],[cellphone],[fax],[qq],[email],[logoUrl],[memo],[insertTime],[updateTime] from [User_Member] where [memberId]=@memberId";
-
             this.param = new Dictionary<string, object>();
             this.param.Add("memberId", memberId);
 
@@ -60,7 +64,21 @@ namespace WebDao.Dao.Users
 
         public List<Dictionary<string, object>> GetList(string msg, int locationId)
         {
-            this.param = new Dictionary<string, object>();
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "levelNo");
+            this.s.AddWhere("", "l", "locationId", "=", "@locationId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "locationId");
+            this.s.AddWhere("", "l", "levelNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
 
             this.s = new SqlBuilder();
 
@@ -68,13 +86,17 @@ namespace WebDao.Dao.Users
             this.s.AddTable("Sys_Location", "l");
             this.s.AddTable("Sys_User", "u");
 
-            this.s.AddOrderBy("m", "fullName", true);
+            this.s.AddOrderBy("m", "suggestNo", false);
+            this.s.AddOrderBy("m", "itemIndex", false);
+            this.s.AddOrderBy("m", "insertTime", false);
 
-            this.s.AddField("l", "cnName");
-            this.s.AddField("m", "memberId");
-            this.s.AddField("m", "userId");
+            this.s.AddField("l", "cnName", "location");
+
             this.s.AddField("u", "userName");
             this.s.AddField("u", "lastLogin");
+
+            this.s.AddField("m", "memberId");
+            this.s.AddField("m", "userId");
             this.s.AddField("m", "locationId");
             this.s.AddField("m", "fullName");
             this.s.AddField("m", "shortName");
@@ -86,14 +108,19 @@ namespace WebDao.Dao.Users
             this.s.AddField("m", "email");
             this.s.AddField("m", "transit");
             this.s.AddField("m", "logoUrl");
+            this.s.AddField("m", "keywords");
             this.s.AddField("m", "memo");
+            this.s.AddField("m", "suggestNo");
+            this.s.AddField("m", "itemIndex");
+            this.s.AddField("m", "isDeleted");
             this.s.AddField("m", "insertTime");
             this.s.AddField("m", "updateTime");
 
             this.s.AddWhere("", "m", "userId", "=", "u", "userId");
             this.s.AddWhere("and", "m", "locationId", "=", "l", "locationId");
-            this.s.AddWhere("and", "m", "locationId", "=", "@locationId");
+            this.s.AddWhere("and", "m", "locationId", "in", "(" + this.sql + ")");
 
+            this.param = new Dictionary<string, object>();
             this.param.Add("locationId", locationId);
 
             if (!string.IsNullOrEmpty(msg))
@@ -109,7 +136,21 @@ namespace WebDao.Dao.Users
 
         public PageRecords GetPage(int pageSize, int pageNo, string msg, int locationId)
         {
-            this.param = new Dictionary<string, object>();
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "levelNo");
+            this.s.AddWhere("", "l", "locationId", "=", "@locationId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "locationId");
+            this.s.AddWhere("", "l", "levelNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
 
             this.s = new SqlBuilder();
 
@@ -117,15 +158,18 @@ namespace WebDao.Dao.Users
             this.s.AddTable("Sys_Location", "l");
             this.s.AddTable("Sys_User", "u");
 
-            this.s.AddOrderBy("m", "fullName", true);
+            this.s.AddOrderBy("m", "isDeleted", true);
+            this.s.AddOrderBy("m", "suggestNo", false);
+            this.s.AddOrderBy("m", "itemIndex", false);
+            this.s.AddOrderBy("m", "insertTime", false);
 
-            this.s.SetTagField("m", "memberId");
+            this.s.AddField("l", "cnName", "location");
 
-            this.s.AddField("l", "cnName");
-            this.s.AddField("m", "memberId");
-            this.s.AddField("m", "userId");
             this.s.AddField("u", "userName");
             this.s.AddField("u", "lastLogin");
+
+            this.s.AddField("m", "memberId");
+            this.s.AddField("m", "userId");
             this.s.AddField("m", "locationId");
             this.s.AddField("m", "fullName");
             this.s.AddField("m", "shortName");
@@ -137,14 +181,21 @@ namespace WebDao.Dao.Users
             this.s.AddField("m", "email");
             this.s.AddField("m", "transit");
             this.s.AddField("m", "logoUrl");
+            this.s.AddField("m", "keywords");
             this.s.AddField("m", "memo");
+            this.s.AddField("m", "suggestNo");
+            this.s.AddField("m", "itemIndex");
+            this.s.AddField("m", "isDeleted");
             this.s.AddField("m", "insertTime");
             this.s.AddField("m", "updateTime");
 
             this.s.AddWhere("", "m", "userId", "=", "u", "userId");
             this.s.AddWhere("and", "m", "locationId", "=", "l", "locationId");
-            this.s.AddWhere("and", "m", "locationId", "=", "@locationId");
+            this.s.AddWhere("and", "m", "locationId", "in", "(" + this.sql + ")");
 
+            this.s.SetTagField("m", "memberId");
+
+            this.param = new Dictionary<string, object>();
             this.param.Add("locationId", locationId);
 
             if (!string.IsNullOrEmpty(msg))
@@ -165,12 +216,11 @@ namespace WebDao.Dao.Users
             return pr;
         }
 
-        public bool Delete(int userId, int memberId)
+        public bool Delete(long memberId)
         {
-            this.sql = @"update [Sys_Users] set [isDeleted]=true where [userId]=@userId;update [User_Member] set [isDeleted]=true where [memberId]=@memberId ";
+            this.sql = @"update [Sys_User] set [isDeleted]=1 where [userId]=(select [userId] from [User_Member] where [memberId]=@memberId);update [User_Member] set [isDeleted]=1 where [memberId]=@memberId;";
 
             this.param = new Dictionary<string, object>();
-            this.param.Add("userId", userId);
             this.param.Add("memberId", memberId);
 
             return this.db.Update(this.sql, this.param);
@@ -194,7 +244,11 @@ namespace WebDao.Dao.Users
             this.s.AddField("email");
             this.s.AddField("transit");
             this.s.AddField("logoUrl");
+            this.s.AddField("keywords");
             this.s.AddField("memo");
+            this.s.AddField("suggestNo");
+            this.s.AddField("itemIndex");
+            this.s.AddField("isDeleted");
             this.s.AddField("insertTime");
             this.s.AddField("updateTime");
 
@@ -215,7 +269,11 @@ namespace WebDao.Dao.Users
             this.param.Add("email", content["email"]);
             this.param.Add("transit", content["transit"]);
             this.param.Add("logoUrl", content["logoUrl"]);
+            this.param.Add("keywords", content["keywords"]);
             this.param.Add("memo", content["memo"]);
+            this.param.Add("suggestNo", content["suggestNo"]);
+            this.param.Add("itemIndex", content["itemIndex"]);
+            this.param.Add("isDeleted", 0);
             this.param.Add("insertTime", now);
             this.param.Add("updateTime", now);
 
@@ -240,7 +298,10 @@ namespace WebDao.Dao.Users
             this.s.AddField("email");
             this.s.AddField("transit");
             this.s.AddField("logoUrl");
+            this.s.AddField("keywords");
             this.s.AddField("memo");
+            this.s.AddField("suggestNo");
+            this.s.AddField("itemIndex");
             this.s.AddField("updateTime");
 
             this.sql = this.s.SqlUpdate();
@@ -258,7 +319,10 @@ namespace WebDao.Dao.Users
             this.param.Add("email", content["email"]);
             this.param.Add("transit", content["transit"]);
             this.param.Add("logoUrl", content["logoUrl"]);
+            this.param.Add("keywords", content["keywords"]);
             this.param.Add("memo", content["memo"]);
+            this.param.Add("suggestNo", content["suggestNo"]);
+            this.param.Add("itemIndex", content["itemIndex"]);
             this.param.Add("memberId", content["memberId"]);
             this.param.Add("updateTime", DateTime.Now);
 

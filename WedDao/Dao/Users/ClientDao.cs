@@ -25,8 +25,10 @@ namespace WebDao.Dao.Users
             this.s.AddTable("Sys_Location", "l");
 
             this.s.AddField("l", "cnName", "location");
+
             this.s.AddField("u", "userName");
             this.s.AddField("u", "lastLogin");
+
             this.s.AddField("c", "clientId");
             this.s.AddField("c", "userId");
             this.s.AddField("c", "locationId");
@@ -159,46 +161,20 @@ namespace WebDao.Dao.Users
         {
             this.s = new SqlBuilder();
 
-            this.s.AddTable("Sys_User", "u");
-            this.s.AddTable("User_Client", "c");
-            this.s.AddTable("Sys_Locations", "l");
-
-            this.s.AddField("u", "userId");
-            this.s.AddField("u", "userName");
-            this.s.AddField("u", "lastLogin");
-            this.s.AddField("c", "clientId");
-            this.s.AddField("c", "locationId");
-            this.s.AddField("c", "fullName");
-            this.s.AddField("c", "phone");
-            this.s.AddField("l", "cnName", "location");
-
-            this.s.AddOrderBy("c", "fullName", true);
-
-            this.s.AddWhere("", "u", "userId", "=", "u", "userId");
-            this.s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
-            this.s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
-            this.s.AddWhere("and", "c", "isDeleted", "=", "0");
-            this.s.AddWhere("and", "u", "userType", "=", "'C'");
-
-            this.param = new Dictionary<string, object>();
-            if (locationId > 0)
-            {
-                this.s.AddWhere("and", "c", "locationId", "=", "@locationId");
-                this.param.Add("locationId", locationId);
-            }
-
-            this.s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
-            this.s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "levelNo");
+            this.s.AddWhere("", "l", "locationId", "=", "@locationId");
 
             this.sql = this.s.SqlSelect();
 
-            this.param.Add("msg", msg);
+            this.s = new SqlBuilder();
 
-            return this.db.GetDataTable(this.sql, this.param);
-        }
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "locationId");
+            this.s.AddWhere("", "l", "levelNo", "like", "(" + this.sql + ")+'%'");
 
-        public PageRecords GetPage(int pageSize, int pageNo, String msg, int locationId)
-        {
+            this.sql = this.s.SqlSelect();
+
             this.s = new SqlBuilder();
 
             this.s.AddTable("Sys_User", "u");
@@ -208,10 +184,69 @@ namespace WebDao.Dao.Users
             this.s.AddField("u", "userId");
             this.s.AddField("u", "userName");
             this.s.AddField("u", "lastLogin");
+
             this.s.AddField("c", "clientId");
             this.s.AddField("c", "locationId");
             this.s.AddField("c", "fullName");
             this.s.AddField("c", "phone");
+            this.s.AddField("c", "isDeleted");
+
+            this.s.AddField("l", "cnName", "location");
+
+            this.s.AddOrderBy("c", "fullName", true);
+
+            this.s.AddWhere("", "u", "userId", "=", "u", "userId");
+            this.s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "locationId", "in", "(" + this.sql + ")");
+            this.s.AddWhere("and", "c", "isDeleted", "=", "0");
+            this.s.AddWhere("and", "u", "userType", "=", "'C'");
+            this.s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
+            this.s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
+
+            this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("locationId", locationId);
+            this.param.Add("msg", msg);
+
+            return this.db.GetDataTable(this.sql, this.param);
+        }
+
+        public PageRecords GetPage(int pageSize, int pageNo, String msg, int locationId)
+        {
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "levelNo");
+            this.s.AddWhere("", "l", "locationId", "=", "@locationId");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddField("l", "locationId");
+            this.s.AddWhere("", "l", "levelNo", "like", "(" + this.sql + ")+'%'");
+
+            this.sql = this.s.SqlSelect();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Sys_User", "u");
+            this.s.AddTable("User_Client", "c");
+            this.s.AddTable("Sys_Locations", "l");
+
+            this.s.AddField("u", "userId");
+            this.s.AddField("u", "userName");
+            this.s.AddField("u", "lastLogin");
+
+            this.s.AddField("c", "clientId");
+            this.s.AddField("c", "locationId");
+            this.s.AddField("c", "fullName");
+            this.s.AddField("c", "phone");
+            this.s.AddField("c", "isDeleted");
+
             this.s.AddField("l", "cnName", "location");
 
             this.s.AddOrderBy("c", "fullName", true);
@@ -221,20 +256,16 @@ namespace WebDao.Dao.Users
             this.s.AddWhere("", "u", "userId", "=", "u", "userId");
             this.s.AddWhere("and", "u", "locationId", "=", "l", "locationId");
             this.s.AddWhere("and", "c", "locationId", "=", "l", "locationId");
+            this.s.AddWhere("and", "c", "locationId", "in", "(" + this.sql + ")");
             this.s.AddWhere("and", "c", "isDeleted", "=", "0");
             this.s.AddWhere("and", "u", "userType", "=", "'C'");
-
-            this.param = new Dictionary<string, object>();
-
-            if (locationId > 0)
-            {
-                this.s.AddWhere("and", "c", "locationId", "=", "@locationId");
-                this.param.Add("locationId", locationId);
-            }
-
             this.s.AddWhere("and", "(c", "fullName", "like", "'%'+@msg+'%'");
             this.s.AddWhere("or", "c", "phone", "like", "'%'+@msg+'%')");
 
+            this.sql = this.s.SqlSelect();
+
+            this.param = new Dictionary<string, object>();
+            this.param.Add("locationId", locationId);
             this.param.Add("msg", msg);
 
             PageRecords pr = new PageRecords();

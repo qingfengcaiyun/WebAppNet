@@ -617,10 +617,10 @@
                         #foreach($item in $newsList)
                         <tr class="$item.cls">
                             <td height="30">
-                                【${item.cateName}】
+                                【<a href="news/list/list_${item.cateId}_0.html" target="_blank">${item.cateName}</a>】
                             </td>
                             <td>
-                                ${item.longTitle}
+                                <a href="news/detail/detail_${item.newsId}.html" target="_blank">${item.longTitle}</a>
                             </td>
                             <td>
                                 ${item.timeStr}

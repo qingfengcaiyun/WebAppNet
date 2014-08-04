@@ -1,19 +1,13 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="WebApp.manage.info.news.List" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="List.aspx.cs" Inherits="WebApp.manage.user.member.List" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>文章管理</title>
+    <title>公司管理</title>
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        td
-        {
-            height: 30px;
-        }
-    </style>
     <script type="text/javascript" src="../../../libs/jquery.js"></script>
     <script type="text/javascript" src="../../../libs/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -21,59 +15,54 @@
     <script type="text/javascript">
         var pageNo = 1;
         var pageSize = 15;
-        var d;
 
         $(document).ready(function () {
             initBtn();
+            getTree();
             initDataGrid();
-            getCateTree();
 
-            $("#cate").combotree({
+            $("#location").combotree({
                 onChange: function (newValue, oldValue) {
                     getPager(newValue);
                 }
             });
 
-            var cateId = $("#cateId").val();
-
-            getPager(cateId);
-
-            //getPager(cateId);
+            var locationId = $("#locationId").val();
+            getPager(locationId);
         });
 
-        function getPager(cateId) {
+        function getPager(locationId) {
             $("#dg").datagrid({
                 url: "Action.aspx",
                 loadMsg: "数据加载中，请稍后……",
                 queryParams: {
                     action: "page",
-                    cateId: cateId,
-                    cityId: $("#cityId").val()
+                    locationId: locationId
                 }
             });
         }
 
         function add() {
-            window.location.href = "Detail.aspx?newsId=0";
+            window.location.href = "Detail.aspx?memberId=0";
         }
 
         function edit() {
             var n = $("#dg").datagrid('getSelected');
             if (n == null) {
-                jQuery.messager.alert('注意', '请选择要编辑的文章！', 'warning');
+                jQuery.messager.alert('注意', '请选择要编辑的信息！', 'warning');
             } else {
-                window.location.href = "Detail.aspx?newsId=" + $("#dg").datagrid('getSelected').newsId;
+                window.location.href = "Detail.aspx?memberId=" + $("#dg").datagrid('getSelected').memberId;
             }
         }
 
         function del() {
             var n = $("#dg").datagrid('getSelected');
             if (n == null) {
-                jQuery.messager.alert('注意', '请选择要删除的文章！', 'warning');
+                jQuery.messager.alert('注意', '请选择要删除的信息！', 'warning');
             } else {
-                jQuery.messager.confirm('删除', '确认删除该文章么？', function (r) {
+                jQuery.messager.confirm('删除', '确认删除该信息么？', function (r) {
                     if (r) {
-                        var param = { action: "delete", newsId: n.newsId };
+                        var param = { action: "delete", memberId: n.memberId };
                         jQuery.post(
                             "Action.aspx",
                             param,
@@ -87,37 +76,50 @@
             }
         }
 
-        function getCateTree() {
-            $("#cate").combotree({
+        function designer() {
+            var n = $("#dg").datagrid('getSelected');
+            if (n == null) {
+                jQuery.messager.alert('注意', '请选择要管理设计师的公司！', 'warning');
+            } else {
+                window.location.href = "../designer/List.aspx?memberId=" + n.memberId;
+            }
+        }
+
+        function project() {
+            var n = $("#dg").datagrid('getSelected');
+            if (n == null) {
+                jQuery.messager.alert('注意', '请选择要管理项目的公司！', 'warning');
+            } else {
+                window.location.href = "../../renovation/project/List.aspx?memberId=" + n.memberId;
+            }
+        }
+
+        function getTree() {
+            $("#location").combotree({
                 required: true,
-                panelWidth: 150,
-                panelHeight: 160
+                panelWidth: 200,
+                panelHeight: 200
             });
 
-            var param = { action: "tree" }
+            var param = { action: "tree", locationId: $("#locationId").val(), lType: "region" };
             jQuery.post(
-                "../category/Action.aspx",
+                "../../sys/location/Action.aspx",
                 param,
                 function (data) {
                     //alert(data);
-                    d = jQuery.parseJSON(data);
-                    $("#cate").combotree('loadData', d);
-                    $("#cate").combotree('setValue', $("#cateId").val());
-                }
+                    var d = eval(data);
+                    //alert(d);
+                    $("#location").combotree('loadData', d);
+                    $("#location").combotree('setValue', $("#locationId").val());
+                    $("#location").combotree('tree').tree('expandAll');
+                },
+                'json'
             );
-        }
-
-        function getNode(key) {
-            for (var i = 0; i < d.length; i++) {
-                if (d[i].id.toString() == key.toString()) {
-                    return d[i];
-                }
-            }
         }
 
         function initDataGrid() {
             $("#dg").datagrid({
-                title: "文章管理",
+                title: "公司管理",
                 height: $(window).height(),
                 rownumbers: true,
                 singleSelect: true,
@@ -125,12 +127,13 @@
                 toolbar: "#tb",
                 fitColumns: true,
                 columns: [[
-                    { field: 'longTitle', title: '标题', width: 750 },
-                    { field: 'cateName', title: '分类', width: 100, align: 'center' },
-                    { field: 'checkStr', title: '审核', width: 50, align: 'center' },
-                    { field: 'topStr', title: '置顶', width: 50, align: 'center' },
-                    { field: 'insertTime', title: '添加时间', width: 150, align: 'center' },
-                    { field: 'updateTime', title: '最后修改', width: 150, align: 'center' }
+                    { field: 'fullName', title: '公司名称', width: 500 },
+                    { field: 'location', title: '所属区县', width: 100, align: 'center' },
+                    { field: 'userName', title: '用户名', width: 100, align: 'center' },
+                    { field: 'lastLogin', title: '上次登录', width: 150, align: 'center' },
+                    { field: 'suggestNo', title: '推荐值', width: 80, align: 'center' },
+                    { field: 'itemIndex', title: '排序', width: 80, align: 'center' },
+                    { field: 'delStr', title: '已删除', width: 50, align: 'center' }
                 ]]
             });
         }
@@ -150,6 +153,16 @@
                 iconCls: 'icon-cut',
                 plain: true
             });
+
+            $("#btnDesigner").linkbutton({
+                iconCls: 'icon-edit',
+                plain: true
+            });
+
+            $("#btnProject").linkbutton({
+                iconCls: 'icon-redo',
+                plain: true
+            });
         }
     </script>
 </head>
@@ -157,11 +170,12 @@
     <div id="tb" style="padding: 5px;">
         <a href="#" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="#" id="btnEdit"
             onclick="edit()"> 编辑</a>&nbsp;|&nbsp;<a href="#" id="btnDel" onclick="del()">删除</a>&nbsp;|&nbsp;
-        <select class="easyui-combotree txtInput" style="width: 150px;" id="cate">
+        <select class="easyui-combotree txtInput" style="width: 200px;" id="location">
         </select>
+        &nbsp;|&nbsp;<a href="#" id="btnDesigner" onclick="designer()">设计师</a>&nbsp;|&nbsp;<a
+            href="#" id="btnProject" onclick="project()">案例项目</a>
     </div>
-    <input id="cityId" type="hidden" value="<%=cityId %>" />
-    <input id="cateId" type="hidden" value="<%=cateId %>" />
+    <input id="locationId" type="hidden" value="<%=locationId %>" />
     <table id="dg">
     </table>
 </body>

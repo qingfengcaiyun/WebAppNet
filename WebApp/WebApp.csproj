@@ -216,6 +216,13 @@
     <Content Include="manage\sys\webmsg\View.aspx" />
     <Content Include="libs\qqwry.dat" />
     <None Include="templates\test.vm" />
+    <Content Include="manage\user\client\Action.aspx" />
+    <Content Include="manage\user\designer\Action.aspx" />
+    <Content Include="manage\user\designer\Detail.aspx" />
+    <Content Include="manage\user\designer\List.aspx" />
+    <Content Include="manage\user\member\Action.aspx" />
+    <Content Include="manage\user\member\Detail.aspx" />
+    <Content Include="manage\user\member\List.aspx" />
     <Content Include="templates\index.vm" />
     <Content Include="manage\webhtml\Action.aspx" />
     <Content Include="manage\webhtml\View.aspx" />
@@ -658,6 +665,55 @@
     <Compile Include="manage\sys\webmsg\View.aspx.designer.cs">
       <DependentUpon>View.aspx</DependentUpon>
     </Compile>
+    <Compile Include="manage\user\client\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\client\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\user\designer\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\designer\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\user\designer\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\designer\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\user\designer\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\designer\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\user\member\Action.aspx.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\member\Action.aspx.designer.cs">
+      <DependentUpon>Action.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\user\member\Detail.aspx.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\member\Detail.aspx.designer.cs">
+      <DependentUpon>Detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\user\member\List.aspx.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\user\member\List.aspx.designer.cs">
+      <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
     <Compile Include="manage\webhtml\Action.aspx.cs">
       <DependentUpon>Action.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -763,7 +819,6 @@
     <Folder Include="client\" />
     <Folder Include="designer\" />
     <Folder Include="libs\kindeditor\attached\" />
-    <Folder Include="manage\user\" />
     <Folder Include="member\" />
     <Folder Include="templates\client\" />
     <Folder Include="templates\designer\" />

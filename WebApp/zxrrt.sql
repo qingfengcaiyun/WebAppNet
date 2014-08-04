@@ -153,7 +153,10 @@ create table [User_Member](
 	[email] [nvarchar](255) NOT NULL,
 	[transit] [nvarchar](1000),
 	[logoUrl] [nvarchar](255) NOT NULL,
+	[keywords] [nvarchar](500) NOT NULL,
 	[memo] [text],
+	[suggestNo] [int] not null,
+	[itemIndex] [int] not null,
 	[isDeleted] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
@@ -173,6 +176,8 @@ create table [User_Designer](
 	[email] [nvarchar](255) NOT NULL,
 	[photoUrl] [nvarchar](255) NOT NULL,
 	[memo] [text],
+	[suggestNo] [int] not null,
+	[itemIndex] [int] not null,
 	[isDeleted] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
@@ -417,8 +422,8 @@ INSERT INTO [Sys_Admin] ([userId], [locationId], [fullName], [phone], [email], [
 INSERT INTO [Sys_Admin] ([userId], [locationId], [fullName], [phone], [email], [qq])VALUES (4, 5, '网站编辑', '13857861942', '23586037@qq.com', '23586037');
 GO
 
-INSERT INTO [User_Member] ([userId], [locationId], [fullName], [shortName], [address], [tel], [cellphone], [fax], [qq], [email], [logoUrl], [memo], [isDeleted]) VALUES (5, 6, '装修公司', '装修公司', '地址', '电话', '手机', '传真', '35246464', 'email@123.com', 'logoUrl', 'memo,memo', 0);
-INSERT INTO [User_Designer] ([userId], [locationId], [fullName], [sex], [memberId], [job], [tel], [cellphone], [qq], [email], [photoUrl], [memo], [isDeleted]) VALUES (6, 6, '设计师', '女', 1, '高级设计师', '28829089', '13453536565', '35246464', '123@123.cn', 'photoUrl', 'memo,memo', 0);
+INSERT INTO [User_Member] ([userId], [locationId], [fullName], [shortName], [address], [tel], [cellphone], [fax], [qq], [email], [logoUrl], [keywords], [memo], [suggestNo], [itemIndex], [isDeleted]) VALUES (5, 6, '装修公司', '装修公司', '地址', '电话', '手机', '传真', '35246464', 'email@123.com', 'logoUrl', 'keywords', 'memo,memo', 1000, 1000, 0);
+INSERT INTO [User_Designer] ([userId], [locationId], [fullName], [sex], [memberId], [job], [tel], [cellphone], [qq], [email], [photoUrl], [memo], [suggestNo], [itemIndex], [isDeleted]) VALUES (6, 6, '设计师', '女', 1, '高级设计师', '28829089', '13453536565', '35246464', '123@123.cn', 'photoUrl', 'memo,memo', 1000, 1000, 0);
 INSERT INTO [User_Client] ([userId], [locationId], [fullName], [sex], [address], [phone], [qq], [email], [isDeleted]) VALUES (7, 6, '装修业主', '女', '地址', '电话', '352464640', '123@123.cn', 0);
 GO
 

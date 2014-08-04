@@ -17,7 +17,7 @@ namespace WebHtml.html
             List<Dictionary<string, object>> newsList = new NewsLogic().GetPage(10, 1, 0, cityId, "").PageResult;
             List<Dictionary<string, object>> prices = new ParameterLogic().GetList("PriceLevel");
             List<Dictionary<string, object>> regions = new LocationLogic().GetList("001001001001001001");
-            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(0);
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(6);
 
             if (newsList != null && newsList.Count > 0)
             {

@@ -223,7 +223,7 @@
             $("#cate").combotree({
                 required: true,
                 panelWidth: 150,
-                panelHeight: 150
+                panelHeight: auto
             });
 
             jQuery.post(
