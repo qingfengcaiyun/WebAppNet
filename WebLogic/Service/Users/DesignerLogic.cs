@@ -4,6 +4,7 @@ using Glibs.Sql;
 using Glibs.Util;
 using WebDao.Dao.System;
 using WebDao.Dao.Users;
+using System.Text;
 
 namespace WebLogic.Service.Users
 {
@@ -74,6 +75,31 @@ namespace WebLogic.Service.Users
         public bool Update(Dictionary<string, object> content)
         {
             return this.dao.Update(content);
+        }
+
+        public string GetTree(string msg, long memberId, int locationId)
+        {
+            List<Dictionary<string, object>> list = this.GetList(msg, memberId, locationId);
+
+            if (list != null && list.Count > 0)
+            {
+                StringBuilder s = new StringBuilder();
+
+                foreach (Dictionary<string, object> item in list)
+                {
+                    s.Append(",{\"id\":\"");
+                    s.Append(item["designerId"].ToString());
+                    s.Append("\",\"text\":\"");
+                    s.Append(item["fullName"].ToString());
+                    s.Append("\"}");
+                }
+
+                return "[" + s.ToString().Substring(1) + "]";
+            }
+            else
+            {
+                return "[]";
+            }
         }
     }
 }

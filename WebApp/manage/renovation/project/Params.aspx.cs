@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -10,10 +9,10 @@ using WebLogic.Service.Renovation;
 
 namespace WebApp.manage.renovation.project
 {
-    public partial class Detail : System.Web.UI.Page
+    public partial class Params : System.Web.UI.Page
     {
         public string projectId;
-        public string locationId;
+        public string projectName;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -21,15 +20,15 @@ namespace WebApp.manage.renovation.project
             {
                 projectId = WebPageCore.GetRequest("projectId");
 
-                if (RegexDo.IsInt64(projectId) && Int64.Parse(projectId) > 0)
+                if (RegexDo.IsInt64(projectId))
                 {
                     Dictionary<string, object> item = new ProjectLogic().GetOne(Int64.Parse(projectId));
-                    locationId = item["locationId"].ToString();
+                    projectName = item["projectName"].ToString();
                 }
                 else
                 {
                     projectId = "0";
-                    locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
+                    projectName = "";
                 }
             }
         }

@@ -7,9 +7,9 @@
 // </自动生成>
 //------------------------------------------------------------------------------
 
-namespace WebApp.manage.info.activity {
+namespace WebApp.manage.renovation.project {
     
     
-    public partial class Detail {
+    public partial class Params {
     }
 }

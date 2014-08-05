@@ -53,6 +53,31 @@ namespace WebLogic.Service.Renovation
             }
         }
 
+        public string GetParamValueJson(string paramKey)
+        {
+            List<Dictionary<string, object>> list = this.dao.GetList(paramKey);
+
+            if (list != null && list.Count > 0)
+            {
+                StringBuilder s = new StringBuilder();
+
+                foreach (Dictionary<string, object> item in list)
+                {
+                    s.Append(",{\"id\":\"");
+                    s.Append(item["paramId"].ToString());
+                    s.Append("\",\"text\":\"");
+                    s.Append(item["paramValue"].ToString());
+                    s.Append("\"}");
+                }
+
+                return s.Length > 0 ? "[" + s.ToString().Substring(1) + "]" : "[]";
+            }
+            else
+            {
+                return "[]";
+            }
+        }
+
         public bool Delete(int paramId)
         {
             return this.dao.Delete(paramId);

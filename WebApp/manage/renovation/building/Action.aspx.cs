@@ -19,6 +19,7 @@ namespace WebApp.manage.renovation.building
 
             switch (action)
             {
+                case "tree": rs = Tree(); break;
                 case "page": rs = GetPage(); break;
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
@@ -27,6 +28,17 @@ namespace WebApp.manage.renovation.building
             }
 
             Response.Write(rs);
+        }
+
+        private string Tree()
+        {
+            string locationId = WebPageCore.GetRequest("locationId");
+            if (!RegexDo.IsInt64(locationId))
+            {
+                locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
+            }
+
+            return new BuildingsLogic().GetTree("", Int32.Parse(locationId));
         }
 
         private string GetPage()

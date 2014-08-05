@@ -16,22 +16,62 @@ namespace WebLogic.Service.Info
 
         public Dictionary<string, object> GetOne(int actId)
         {
-            Dictionary<string, object> one = this.dao.GetOne(actId);
-
-            one["content"] = one["content"].ToString().Replace('\"', '\'');
-
-            return one;
+            return this.dao.GetOne(actId);
         }
 
-        public string GetPageJson(int pageNo, int pageSize, int locationId, string msg)
+        public List<Dictionary<string, object>> GetListOnIndex(int locationId)
         {
-            PageRecords pr = this.dao.GetPage(pageSize, pageNo, locationId.ToString(), msg);
-            return pr.PageJSON;
+            return this.dao.GetListOnIndex(locationId);
         }
 
-        public PageRecords GetPage(int pageNo, int pageSize, int locationId, string msg)
+        public List<Dictionary<string, object>> GetList(string msg, int locationId)
         {
-            return this.dao.GetPage(pageSize, pageNo, locationId.ToString(), msg);
+            return this.dao.GetList(msg, locationId);
+        }
+
+        public PageRecords GetPage(int pageSize, int pageNo, int locationId, string msg)
+        {
+            PageRecords pr = this.dao.GetPage(pageSize, pageNo, locationId, msg);
+
+            if (pr.PageResult != null && pr.PageResult.Count > 0)
+            {
+                for (int i = 0, j = pr.PageResult.Count; i < j; i++)
+                {
+                    if (Boolean.Parse(pr.PageResult[i]["isClosed"].ToString()))
+                    {
+                        pr.PageResult[i].Add("closedStr", "是");
+                    }
+                    else
+                    {
+                        pr.PageResult[i].Add("closedStr", "否");
+                    }
+
+                    if (Boolean.Parse(pr.PageResult[i]["isChecked"].ToString()))
+                    {
+                        pr.PageResult[i].Add("checkStr", "是");
+                    }
+                    else
+                    {
+                        pr.PageResult[i].Add("checkStr", "否");
+                    }
+
+                    if (Boolean.Parse(pr.PageResult[i]["onIndex"].ToString()))
+                    {
+                        pr.PageResult[i].Add("indexStr", "是");
+                    }
+                    else
+                    {
+                        pr.PageResult[i].Add("indexStr", "否");
+                    }
+                }
+            }
+
+            return pr;
+        }
+
+        public string GetPageJson(int pageSize, int pageNo, int locationId, string msg)
+        {
+            return this.GetPage(pageSize, pageNo, locationId, msg).PageJSON;
         }
 
         public bool Delete(int actId)
@@ -39,16 +79,24 @@ namespace WebLogic.Service.Info
             return this.dao.Delete(actId);
         }
 
-        public bool Update(Dictionary<string, object> content)
-        {
-            return this.dao.Update(content);
-        }
-
         public Int64 Insert(Dictionary<string, object> content)
         {
             return this.dao.Insert(content);
         }
 
+        public bool Update(Dictionary<string, object> content)
+        {
+            return this.dao.Update(content);
+        }
 
+        public int SetReadcount(int actId)
+        {
+            return this.dao.SetReadcount(actId);
+        }
+
+        public bool SetOnIndex(int actId)
+        {
+            return this.dao.SetOnIndex(actId);
+        }
     }
 }

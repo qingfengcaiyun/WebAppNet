@@ -20,6 +20,7 @@ namespace WebApp.manage.renovation.parameter
             switch (action)
             {
                 case "tree": rs = Tree(); break;
+                case "treeValue": rs = TreeValue(); break;
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
@@ -32,6 +33,12 @@ namespace WebApp.manage.renovation.parameter
         private string Tree()
         {
             return new ParameterLogic().GetParamTypeJson();
+        }
+
+        private string TreeValue()
+        {
+            string paramKey = WebPageCore.GetRequest("paramKey");
+            return new ParameterLogic().GetParamValueJson(paramKey);
         }
 
         private string One()

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>公司管理</title>
+    <title>设计师管理</title>
     <link href="../../../libs/easyui/themes/default/easyui.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../../libs/global.css" rel="stylesheet" type="text/css" />
@@ -196,12 +196,25 @@
 </head>
 <body>
     <div id="tb" style="padding: 5px;">
-        <a href="#" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="#" id="btnEdit"
-            onclick="edit()"> 编辑</a>&nbsp;|&nbsp;<a href="#" id="btnDel" onclick="del()">删除</a>&nbsp;|&nbsp;
-        <select class="easyui-combotree txtInput" style="width: 200px;" id="location">
-        </select><select class="easyui-combotree txtInput" style="width: 200px;" id="member">
-        </select>
-        &nbsp;|&nbsp;<a href="#" id="btnProject" onclick="project()">案例项目</a>
+        <table>
+            <tr>
+                <td>
+                    <a href="#" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="#" id="btnEdit"
+                        onclick="edit()"> 编辑</a>&nbsp;|&nbsp;<a href="#" id="btnDel" onclick="del()">删除</a>
+                </td>
+                <td>
+                    <select class="easyui-combotree txtInput" style="width: 200px;" id="location">
+                    </select>
+                </td>
+                <td>
+                    <select class="easyui-combotree txtInput" style="width: 200px;" id="member">
+                    </select>
+                </td>
+                <td>
+                    <a href="#" id="btnProject" onclick="project()">案例项目</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <table id="dg">
     </table>

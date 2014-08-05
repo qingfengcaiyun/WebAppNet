@@ -168,12 +168,22 @@
 </head>
 <body>
     <div id="tb" style="padding: 5px;">
-        <a href="#" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="#" id="btnEdit"
-            onclick="edit()"> 编辑</a>&nbsp;|&nbsp;<a href="#" id="btnDel" onclick="del()">删除</a>&nbsp;|&nbsp;
-        <select class="easyui-combotree txtInput" style="width: 200px;" id="location">
-        </select>
-        &nbsp;|&nbsp;<a href="#" id="btnDesigner" onclick="designer()">设计师</a>&nbsp;|&nbsp;<a
-            href="#" id="btnProject" onclick="project()">案例项目</a>
+        <table>
+            <tr>
+                <td>
+                    <a href="#" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="#" id="btnEdit"
+                        onclick="edit()"> 编辑</a>&nbsp;|&nbsp;<a href="#" id="btnDel" onclick="del()">删除</a>
+                </td>
+                <td>
+                    <select class="easyui-combotree txtInput" style="width: 200px;" id="location">
+                    </select>
+                </td>
+                <td>
+                    <a href="#" id="btnDesigner" onclick="designer()">设计师</a>&nbsp;|&nbsp;<a href="#"
+                        id="btnProject" onclick="project()">案例项目</a>
+                </td>
+            </tr>
+        </table>
     </div>
     <input id="locationId" type="hidden" value="<%=locationId %>" />
     <table id="dg">

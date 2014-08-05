@@ -9,14 +9,13 @@ namespace WebApp.manage.info.activity
 {
     public partial class List : System.Web.UI.Page
     {
-        public string cityId;
+        public string locationId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-                cityId = cUser["locationId"].ToString();
+                locationId = ((Dictionary<string, object>)Session["cUser"])["locationId"].ToString();
             }
         }
     }

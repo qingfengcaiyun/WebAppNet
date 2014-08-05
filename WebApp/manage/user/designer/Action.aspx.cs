@@ -23,10 +23,19 @@ namespace WebApp.manage.user.designer
                 case "one": rs = One(); break;
                 case "save": rs = Save(); break;
                 case "delete": rs = Delete(); break;
+                case "tree": rs = Tree(); break;
                 default: rs = GetPage(); break;
             }
 
             Response.Write(rs);
+        }
+
+        private string Tree()
+        {
+            string locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
+            string memberId = WebPageCore.GetRequest("memberId");
+
+            return new DesignerLogic().GetTree("", Int64.Parse(memberId), Int32.Parse(locationId));
         }
 
         private string GetPage()

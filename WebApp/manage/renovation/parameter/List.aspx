@@ -206,12 +206,18 @@
 </head>
 <body>
     <div id="tb" style="padding: 5px; height: auto">
-        <div style="margin-bottom: 5px">
-            <a href="#" id="btnAdd" onclick="add()">添加</a> <a href="#" id="btnEdit" onclick="edit()">
-                编辑</a> <a href="#" id="btnDel" onclick="del()">删除</a>
-            <select class="easyui-combotree txtInput" style="width: 200px;" id="paramType">
-            </select>
-        </div>
+        <table>
+            <tr>
+                <td>
+                    <a href="#" id="btnAdd" onclick="add()">添加</a> <a href="#" id="btnEdit" onclick="edit()">
+                        编辑</a> <a href="#" id="btnDel" onclick="del()">删除</a>
+                </td>
+                <td>
+                    <select class="easyui-combotree txtInput" style="width: 200px;" id="paramType">
+                    </select>
+                </td>
+            </tr>
+        </table>
     </div>
     <table id="dg">
     </table>

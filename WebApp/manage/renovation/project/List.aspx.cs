@@ -6,35 +6,46 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Glibs.Util;
-using System.Collections;
+using WebLogic.Service.Users;
 
 namespace WebApp.manage.renovation.project
 {
     public partial class List : System.Web.UI.Page
     {
+        public string locationId;
+        public string memberId;
+        public string designerId;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-                string cateId = WebPageCore.GetRequest("cateId");
+                designerId = WebPageCore.GetRequest("designerId");
 
-                if (!RegexDo.IsInt32(cateId))
+                if (RegexDo.IsInt64(designerId))
                 {
-                    cateId = "1";
+                    Dictionary<string, object> d = new DesignerLogic().GetOne(Int64.Parse(designerId));
+                    memberId = d["memberId"].ToString();
+
+                    Dictionary<string, object> m = new MemberLogic().GetOne(Int64.Parse(memberId));
+                    locationId = m["locationId"].ToString();
                 }
+                else
+                {
+                    designerId = "0";
+                    memberId = WebPageCore.GetRequest("memberId");
 
-                Dictionary<string, object> cUser = (Dictionary<string, object>)Session["cUser"];
-                Hashtable content = new Hashtable();
-                content.Add("cityId", cUser["locationId"]);
-                content.Add("cateId", cateId);
-
-                string nameSpace = MethodBase.GetCurrentMethod().DeclaringType.Namespace;
-                nameSpace = nameSpace.Substring(nameSpace.IndexOf('.') + 1).Replace('.', '/');
-
-                string className = MethodBase.GetCurrentMethod().DeclaringType.FullName;
-                className = className.Substring(className.LastIndexOf('.') + 1).ToLower();
-
-                Response.Write(VelocityDo.BuildStringByTemplate(className + ".vm", @"~/templates/" + nameSpace, content));
+                    if (RegexDo.IsInt64(memberId))
+                    {
+                        Dictionary<string, object> m = new MemberLogic().GetOne(Int64.Parse(memberId));
+                        locationId = m["locationId"].ToString();
+                    }
+                    else
+                    {
+                        locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
+                        memberId = "0";
+                    }
+                }
             }
         }
     }

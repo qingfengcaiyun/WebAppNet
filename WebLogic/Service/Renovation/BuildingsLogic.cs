@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using Glibs.Sql;
 using WebDao.Dao.Renovation;
 
@@ -23,6 +24,31 @@ namespace WebLogic.Service.Renovation
             return this.dao.GetList(msg, locationId);
         }
 
+        public string GetTree(string msg, int locationId)
+        {
+            List<Dictionary<string, object>> list = this.GetList(msg, locationId);
+
+            if (list != null && list.Count > 0)
+            {
+                StringBuilder s = new StringBuilder();
+
+                foreach (Dictionary<string, object> item in list)
+                {
+                    s.Append(",{\"id\":\"");
+                    s.Append(item["buildingsId"].ToString());
+                    s.Append("\",\"text\":\"");
+                    s.Append(item["buildingsName"].ToString());
+                    s.Append("\"}");
+                }
+
+                return "[" + s.ToString().Substring(1) + "]";
+            }
+            else
+            {
+                return "[]";
+            }
+        }
+
         public PageRecords GetPage(int pageSize, int pageNo, int locationId, string msg)
         {
             return this.dao.GetPage(pageSize, pageNo, locationId, msg);
@@ -30,8 +56,7 @@ namespace WebLogic.Service.Renovation
 
         public string GetPageJson(int pageSize, int pageNo, int locationId, string msg)
         {
-            PageRecords pr = this.dao.GetPage(pageSize, pageNo, locationId, msg);
-            return pr.PageJSON;
+            return this.GetPage(pageSize, pageNo, locationId, msg).PageJSON;
         }
 
         public bool Delete(long buildingsId)

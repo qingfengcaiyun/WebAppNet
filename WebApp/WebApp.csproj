@@ -205,6 +205,8 @@
     <Content Include="manage\renovation\project\Action.aspx" />
     <Content Include="manage\renovation\project\Detail.aspx" />
     <Content Include="manage\renovation\project\List.aspx" />
+    <Content Include="manage\renovation\project\Params.aspx" />
+    <Content Include="manage\renovation\project\Pictures.aspx" />
     <Content Include="manage\sys\function\View.aspx" />
     <Content Include="manage\sys\location\Action.aspx" />
     <Content Include="manage\sys\location\View.aspx" />
@@ -251,7 +253,7 @@
     <Content Include="webhtml\js\jquery.md5.js" />
     <Content Include="zxrrt.sql" />
     <Content Include="uploadAction\FileUpload.aspx" />
-    <Content Include="manage\imgs\big_bgcolor.jpg" />
+    <Content Include="libs\big_bgcolor.jpg" />
     <Content Include="manage\imgs\logo.jpg" />
     <Content Include="manage\info\category\View.aspx" />
     <Content Include="manage\info\news\Action.aspx" />
@@ -601,6 +603,20 @@
     </Compile>
     <Compile Include="manage\renovation\project\List.aspx.designer.cs">
       <DependentUpon>List.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\project\Params.aspx.cs">
+      <DependentUpon>Params.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\project\Params.aspx.designer.cs">
+      <DependentUpon>Params.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="manage\renovation\project\Pictures.aspx.cs">
+      <DependentUpon>Pictures.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="manage\renovation\project\Pictures.aspx.designer.cs">
+      <DependentUpon>Pictures.aspx</DependentUpon>
     </Compile>
     <Compile Include="manage\sys\function\View.aspx.cs">
       <DependentUpon>View.aspx</DependentUpon>

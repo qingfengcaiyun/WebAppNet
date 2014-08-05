@@ -155,8 +155,8 @@ create table [User_Member](
 	[logoUrl] [nvarchar](255) NOT NULL,
 	[keywords] [nvarchar](500) NOT NULL,
 	[memo] [text],
-	[suggestNo] [int] not null,
-	[itemIndex] [int] not null,
+	[suggestNo] [int] NOT NULL,
+	[itemIndex] [int] NOT NULL,
 	[isDeleted] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
@@ -176,8 +176,8 @@ create table [User_Designer](
 	[email] [nvarchar](255) NOT NULL,
 	[photoUrl] [nvarchar](255) NOT NULL,
 	[memo] [text],
-	[suggestNo] [int] not null,
-	[itemIndex] [int] not null,
+	[suggestNo] [int] NOT NULL,
+	[itemIndex] [int] NOT NULL,
 	[isDeleted] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
@@ -231,15 +231,17 @@ create table [Renovation_Process](
 
 create table [Renovation_Project](
 	[projectId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	[memberId] [bigint] not null FOREIGN KEY REFERENCES [User_Member]([memberId]),
-	[designerId] [bigint] not null FOREIGN KEY REFERENCES [User_Designer]([designerId]),
-	[cityId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
-	[regionId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
+	[memberId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Member]([memberId]),
+	[designerId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Designer]([designerId]),
+	[locationId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
 	[buildingsId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Renovation_Buildings]([buildingsId]),
-	[pName] [nvarchar](255) NOT NULL,
+	[projectName] [nvarchar](255) NOT NULL,
 	[clientId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Client]([clientId]),
-	[isClosed] [bit] not null,
+	[memo] [text],
+	[picSnap] [nvarchar](500),
+	[isClosed] [bit] NOT NULL,
 	[startTime] [datetime],
+	[itemIndex] [int] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
@@ -253,9 +255,7 @@ create table [Renovation_ProjectParam](
 create table [Renovation_ProjectPic](
 	[ppcId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	[projectId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Renovation_Project]([projectId]),
-	[fileId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Sys_FileInfo]([fileId]),
-	[memo] [text],
-	[itemIndex] [int] NOT NULL,
+	[picPath] [nvarchar](500) NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
 
@@ -273,7 +273,7 @@ create table [Renovation_Diary](
 	[keywords] [nvarchar](255) NOT NULL,
 	[picUrl] [nvarchar](255) NOT NULL,
 	[readCount] [bigint] NOT NULL,
-	[isChecked] [bit] not null,
+	[isChecked] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
@@ -293,7 +293,7 @@ create table [Renovation_Article](
 	[topTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[itemIndex] [int] NOT NULL,
 	[outLink] [nvarchar](500) NOT NULL,
-	[isChecked] [bit] not null,
+	[isChecked] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
@@ -312,8 +312,9 @@ create table [Info_Activity](
 	[qq] [nvarchar](20) NOT NULL,
 	[keywords] [nvarchar](255) NOT NULL,
 	[readCount] [int] NOT NULL,
-	[isChecked] [bit] not null,
-	[isClosed] [bit] NOT null,
+	[isChecked] [bit] NOT NULL,
+	[isClosed] [bit] NOT NULL,
+	[onIndex] [bit] NOT NULL,
 	[itemIndex] [int] NOT NULL
 );
 
@@ -342,7 +343,7 @@ create table [Info_News](
 	[outLink] [nvarchar](500) NOT NULL,
 	[isTop] [bit] NOT NULL,
 	[topTime] [datetime] NOT NULL DEFAULT GETDATE(),
-	[isChecked] [bit] not null,
+	[isChecked] [bit] NOT NULL,
 	[insertTime] [datetime] NOT NULL DEFAULT GETDATE(),
 	[updateTime] [datetime] NOT NULL DEFAULT GETDATE()
 );
