@@ -171,7 +171,6 @@
                 alert("请选择要导入的图片");
                 return;
             }
-            /**/
         }
 
         function isUploadFile(filePath) {

@@ -28,6 +28,7 @@
     <script type="text/javascript" src="../../../libs/kindeditor/kindeditor-all.js"></script>
     <script type="text/javascript" src="../../../libs/kindeditor/lang/zh_CN.js"></script>
     <script type="text/javascript" src="../../../libs/jquery.bigcolorpicker.js"></script>
+    <script type="text/javascript" src="../../../libs/ajaxfileupload.js"></script>
     <script type="text/javascript">
         var editor;
 
@@ -104,6 +105,7 @@
             var qq = $("#qq").val();
             var onIndex = $("#onIndex").val();
             var actId = $("#actId").val();
+            var publicAdpic = $("#publicAdpic").val();
 
             if (actName == null) {
                 jQuery.messager.alert('错误', '请输入活动名称！', 'error');
@@ -120,6 +122,11 @@
                 $("#keywords").focus();
                 return;
             }
+            if (publicAdpic == null) {
+                jQuery.messager.alert('错误', '请上传首页显示的图片！', 'error');
+                $("#imgFile").focus();
+                return;
+            }
             if (itemIndex == null) {
                 jQuery.messager.alert('错误', '请输入文章排序值。数值越大越往前！', 'error');
                 $("#itemIndex").focus();
@@ -133,17 +140,7 @@
                 locationId = n.id;
             }
 
-            var publicAdpic = "";
-            var txt = editor.html();
-            $(txt).each(function () {
-                if ($(this).attr("src") != undefined && isUploadFile($(this).attr("src"))) {
-                    publicAdpic = publicAdpic + "," + $(this).attr("src");
-                }
-            });
 
-            if (publicAdpic.length > 0) {
-                publicAdpic = publicAdpic.substr(1).split(',')[0];
-            }
 
             var param = {
                 action: "save",
@@ -243,6 +240,37 @@
             );
         }
 
+        function uploadPic() {
+            var f = $("#imgFile").val();
+            var t = isUploadFile(f);
+            var fileToUpload = 'imgFile';
+
+            if (t) {
+                jQuery.ajaxFileUpload({
+                    url: '../../../uploadAction/upload_json.aspx',
+                    secureuri: false,
+                    fileElementId: fileToUpload,
+                    dataType: 'json',
+                    success: function (data, status) {
+                        if (typeof (data.error) != 'undefined') {
+                            if (parseInt(data.error) == 0) {
+                                $("#publicAdpic").val(data.url);
+                                $("#preview").html('<img src="' + data.url + '" />');
+                            } else {
+                                alert(data.message);
+                            }
+                        }
+                    },
+                    error: function (data, status, e) {
+                        alert(e);
+                    }
+                });
+            } else {
+                alert("请选择要导入的图片");
+                return;
+            }
+        }
+
         function isUploadFile(filePath) {
             var b = false;
             var extName = filePath.substr(filePath.lastIndexOf(".") + 1);
@@ -307,6 +335,21 @@
                     <select class="easyui-combotree txtInput" required="true" panelwidth="200" panelheight="200"
                         id="location">
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    首页图片：
+                </td>
+                <td>
+                    <input type="file" class="txtInput w400" name="imgFile" id="imgFile" onchange="uploadPic()" />
+                </td>
+            </tr>
+            <tr>
+                <td class="algR">
+                    <input type="hidden" id="publicAdpic" value="" />
+                </td>
+                <td id="preview">
                 </td>
             </tr>
             <tr>
