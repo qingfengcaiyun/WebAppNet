@@ -32,29 +32,29 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="LitJSON">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\LitJSON.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\LitJSON.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\log4net.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\log4net.dll</HintPath>
     </Reference>
     <Reference Include="NPOI">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OOXML">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.OOXML.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\NPOI.OOXML.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.OpenXml4Net.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\NPOI.OpenXml4Net.dll</HintPath>
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats">
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NPOI.OpenXmlFormats.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="NVelocity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Work\Net\NetLibs\NVelocity.dll</HintPath>
+      <HintPath>..\..\..\..\NetLibs\NVelocity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
