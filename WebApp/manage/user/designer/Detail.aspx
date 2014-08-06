@@ -270,7 +270,7 @@
             } else {
                 $("#userId").val("0");
                 $("#sex").val(1);
-                switchOption(1);
+                switchOption("男");
             }
         }
 

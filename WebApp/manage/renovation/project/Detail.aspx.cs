@@ -14,6 +14,7 @@ namespace WebApp.manage.renovation.project
     {
         public string projectId;
         public string locationId;
+        public string blocationId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,11 +25,12 @@ namespace WebApp.manage.renovation.project
                 if (RegexDo.IsInt64(projectId) && Int64.Parse(projectId) > 0)
                 {
                     Dictionary<string, object> item = new ProjectLogic().GetOne(Int64.Parse(projectId));
-                    locationId = item["locationId"].ToString();
+                    blocationId = item["locationId"].ToString();
                 }
                 else
                 {
                     projectId = "0";
+                    blocationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
                     locationId = ((Dictionary<string, object>)WebPageCore.GetSession("cUser"))["locationId"].ToString();
                 }
             }

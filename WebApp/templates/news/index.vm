@@ -2,10 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
-    <meta name="Keywords" content="${webmsg.keywords}" />
-    <link rel="stylesheet" type="text/css" href="../../css/gstyles.css" />
-    <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+    <title>欢迎访问装修人人通</title>
+    <link rel="stylesheet" type="text/css" href="../css/gstyles.css" />
+    <link rel="stylesheet" type="text/css" href="../css/global.css" />
     <style type="text/css">
         #Logo
         {
@@ -103,119 +102,97 @@
         {
             float: left;
             width: 1200px;
-            margin-bottom: 5px;
+            margin-bottom: 20px;
         }
-        #ArticleList
+        
+        #CategoryList
         {
             float: left;
-            width: 936px;
+            width: 150px;
+            margin-top: 10px;
         }
-        #ArticleList .ArticleDiv
+        #CategoryList .CateOn
         {
             float: left;
-            width: 934px;
-            margin-bottom: 10px;
-            border: 1px solid #CCC;
+            height: 38px;
+            width: 148px;
+            margin-top: 5px;
+            line-height: 38px;
+            font-size: 14px;
+            font-weight: bolder;
+            color: #FFF;
+            background-color: #800000;
+            text-align: center;
+            border: 1px solid #800000;
+            cursor: pointer;
         }
-        #ArticleList .ArticleDiv .ArticleTitle
+        #CategoryList .CateOff
         {
+            float: left;
+            height: 38px;
+            width: 148px;
+            margin-top: 5px;
+            line-height: 38px;
+            font-size: 14px;
+            font-weight: bolder;
+            color: #FFF;
+            text-align: center;
+            border: 1px solid #999;
+            cursor: pointer;
+            background-color: #CCC;
+        }
+        #CategoryList .CateOn a
+        {
+            color: #FFF;
+            text-decoration: none;
+        }
+        #CategoryList .CateOff a
+        {
+            color: #000;
+            text-decoration: none;
+        }
+        #NewsList
+        {
+            float: left;
+            width: 800px;
+            margin-left: 25px;
+            margin-top: 10px;
+            _display: inline;
+        }
+        #NewsList .NewsDiv
+        {
+            float: left;
+            width: 800px;
+            margin-top: 5px;
+        }
+        #NewsList .NewsDiv .NewsTitle
+        {
+            float: left;
+            height: 40px;
+            width: 800px;
             font-size: 14px;
             line-height: 40px;
             font-weight: bolder;
-            float: left;
-            height: 40px;
-            width: 900px;
-            margin-left: 15px;
-            _display: inline;
+            text-decoration: none;
+            text-indent: 1em;
         }
-        #ArticleList .ArticleDiv .ArticleMemo
+        #NewsList .NewsDiv .NewsSummary
         {
             float: left;
-            width: 900px;
-            margin-left: 15px;
+            width: 800px;
             line-height: 24px;
-            _display: inline;
-            overflow: hidden;
         }
-        #ArticleList .ArticleDiv .ArticleMemo p
+        #NewsList .NewsDiv .NewsSummary p
         {
             text-indent: 2em;
         }
-        #ArticleList .ArticleDiv .ArticleTime
+        #NewsList .NewsDiv .NewsTime
         {
-            float: left;
-            width: 900px;
-            margin-left: 15px;
-            height: 30px;
+            line-height: 24px;
             text-align: right;
-            line-height: 30px;
-            _display: inline;
-        }
-        #Process
-        {
-            float: left;
-            width: 250px;
-            border: 2px dotted #CCC;
-            margin-left: 10px;
-            _display: inline;
-        }
-        #Process #ProcessLabel
-        {
-            float: left;
-            height: 40px;
-            width: 200px;
-            line-height: 40px;
-            font-size: 14px;
-            font-weight: bolder;
-            text-indent: 1em;
-        }
-        #Process .ProcessList
-        {
-            float: left;
-            width: 250px;
-            padding-bottom: 20px;
-        }
-        #Process .ProcessList .ProcessItems
-        {
-            float: left;
-            width: 230px;
-            margin-top: 5px;
-            margin-left: 10px;
-            margin-bottom: 20px;
-            _display: inline;
-        }
-        #Process .ProcessList .ProcessTitle
-        {
             float: left;
             height: 24px;
-            width: 228px;
-            margin-left: 10px;
-            line-height: 24px;
-            background-color: #eee;
-            text-indent: 1em;
-            _display: inline;
-        }
-        #Process .ProcessList .ProcessItems .ProcessItemOn
-        {
-            background-color: #800000;
-            border: 1px solid #800000;
-            padding: 5px;
-            margin: 5px;
-            float: left;
-            text-decoration: none;
-            color: #FFF;
-            font-weight: bolder;
-            _display: inline;
-        }
-        #Process .ProcessList .ProcessItems .ProcessItemOff
-        {
-            border: 1px solid #ccc;
-            padding: 5px;
-            margin: 5px;
-            float: left;
-            color: #666;
-            text-decoration: none;
-            _display: inline;
+            width: 800px;
         }
     </style>
 </head>
@@ -224,11 +201,11 @@
         <div id="HeadDiv">
             <div id="Logo">
                 <a href="/">
-                    <img src="../../img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
+                    <img src="../img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
             <div id="Detail">
                 <div id="TopBar">
                     <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：${webmsg.phone}</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-886-1234</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -256,38 +233,27 @@
         </div>
         <div id="PageDiv">
             <div class="PageItem">
-                &nbsp;&nbsp;<a href="../../index.html">$webmsg.shortName</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a
-                    href="../index.html">装修流程</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;${processName}</div>
-            <div class="PageItem">
-                <div id="ArticleList">
-                    #foreach($article in $articles)
-                    <div class="ArticleDiv">
-                        <div class="ArticleTitle">
-                            <a href="../detail/detail_${article.raId}.html" target="_blank">$article.longTitle</a></div>
-                        <div class="ArticleMemo">
-                            <p>
-                                $article.summary</p>
-                        </div>
-                        <div class="ArticleTime">
-                            $article.insertTime</div>
-                    </div>
-                    #end
-                    <div id="indexPage">
-                        $indexPage</div>
+                <div id="CategoryList">
+                    <div class="CateOn">
+                        <a href="index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
+                    <div class="CateOff">
+                        <a href="index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
                 </div>
-                <div id="Process">
-                    <div id="ProcessLabel">
-                        装修流程</div>
-                    <div class="ProcessList">
-                        #foreach($list in $processes)
-                        <div class="ProcessTitle">
-                            $list.processName</div>
-                        <div class="ProcessItems">
-                            #foreach($item in $list.itemList) <a class="$item.styleClass" href="../list/list_${item.processId}_1.html"
-                                target="_self">$item.processName</a> #end
+                <div id="NewsList">
+                    <div class="NewsDiv">
+                        <div class="NewsTitle">
+                            此处显示 class "NewsTitle" 的内容</div>
+                        <div class="NewsSummary">
+                            <p>
+                                此处显示 class "NewsSummary" 的内容<p>
                         </div>
-                        #end
+                        <div class="NewsTime">
+                            此处显示 class "NewsTime" 的内容&nbsp;&nbsp;&nbsp;&nbsp;</div>
                     </div>
+                    <div id="indexPage">
+                        <a href="#" target="_self">首页</a>&nbsp;&nbsp;<a href="#" target="_self">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;去第&nbsp;<select
+                            class="itemselect" name="gpageNum" id="gpageNum" onchange="javascript:window.location.href=this.value"></select>&nbsp;&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;<a
+                                href="#" target="_self">下一页</a>&nbsp;&nbsp;<a href="#" target="_self">末页</a></div>
                 </div>
             </div>
         </div>
@@ -296,8 +262,8 @@
                 <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
                     href="#">关于我们</a></div>
             <div id="FootDetail">
-                Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
-                备案信息：${webmsg.webNo}&nbsp;地址：${webmsg.address}<br />
+                Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
+                ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />
             </div>
         </div>
     </div>

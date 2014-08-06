@@ -364,10 +364,6 @@ namespace Glibs.Util
 
             Htmlstring = System.Text.RegularExpressions.Regex.Replace(Htmlstring, @"<!--.*", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
-            //Htmlstring =System.Text.RegularExpressions. Regex.Replace(Htmlstring,@"<A>.*</A>","");
-
-            //Htmlstring =System.Text.RegularExpressions. Regex.Replace(Htmlstring,@"<[a-zA-Z]*=\.[a-zA-Z]*\?[a-zA-Z]+=\d&\w=%[a-zA-Z]*|[A-Z0-9]","");
-
             Htmlstring = System.Text.RegularExpressions.Regex.Replace(Htmlstring, @"&(quot|#34);", "\"", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
             Htmlstring = System.Text.RegularExpressions.Regex.Replace(Htmlstring, @"&(amp|#38);", "&", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
@@ -389,13 +385,18 @@ namespace Glibs.Util
             Htmlstring = System.Text.RegularExpressions.Regex.Replace(Htmlstring, @"&#(\d+);", "", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
 
 
-            Htmlstring.Replace("<", "");
+            Htmlstring = Htmlstring.Replace("<", "");
 
-            Htmlstring.Replace(">", "");
+            Htmlstring = Htmlstring.Replace(">", "");
 
-            Htmlstring.Replace("\r\n", "");
+            Htmlstring = Htmlstring.Replace("\\a", "");
+            Htmlstring = Htmlstring.Replace("\\b", "");
+            Htmlstring = Htmlstring.Replace("\\f", "");
+            Htmlstring = Htmlstring.Replace("\\v", "");
+            Htmlstring = Htmlstring.Replace("\\n", "");
+            Htmlstring = Htmlstring.Replace("\\r", "");
+            Htmlstring = Htmlstring.Replace("\\t", "");
 
-            //Htmlstring=HttpContext.Current.Server.HtmlEncode(Htmlstring).Trim();
             #endregion
 
             return Htmlstring;

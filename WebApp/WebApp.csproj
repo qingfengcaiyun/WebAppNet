@@ -225,9 +225,14 @@
     <Content Include="manage\user\member\Action.aspx" />
     <Content Include="manage\user\member\Detail.aspx" />
     <Content Include="manage\user\member\List.aspx" />
+    <Content Include="templates\about.vm" />
+    <Content Include="templates\contact.vm" />
     <Content Include="templates\index.vm" />
     <Content Include="manage\webhtml\Action.aspx" />
     <Content Include="manage\webhtml\View.aspx" />
+    <Content Include="templates\news\detail.vm" />
+    <Content Include="templates\news\index.vm" />
+    <Content Include="templates\news\list.vm" />
     <Content Include="templates\process\detail.vm" />
     <Content Include="templates\process\index.vm" />
     <Content Include="templates\process\list.vm" />
@@ -466,7 +471,9 @@
     <Content Include="uploadAction\file_manager_json.aspx" />
     <Content Include="uploadAction\upload_json.aspx" />
     <Content Include="VerifyCodeAction.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

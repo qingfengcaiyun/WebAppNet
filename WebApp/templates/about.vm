@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>欢迎访问装修人人通</title>
+    <link rel="stylesheet" type="text/css" href="css/gstyles.css" />
+    <link href="css/global.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        #Logo
+        {
+            float: left;
+            height: 100px;
+            width: 400px;
+        }
+        #Detail
+        {
+            float: left;
+            height: 100px;
+            width: 800px;
+        }
+        #TopBar
+        {
+            float: left;
+            height: 30px;
+            width: 800px;
+            line-height: 30px;
+            text-align: right;
+            font-weight: bolder;
+        }
+        #Search
+        {
+            float: left;
+            height: 70px;
+            width: 800px;
+            line-height: 70px;
+        }
+        #sdiv
+        {
+            float: left;
+            height: 30px;
+            width: 400px;
+            border: 5px solid #800000;
+            margin-top: 10px;
+            margin-left: 30px;
+            font-size: 14px;
+            _display: inline;
+        }
+        #catediv
+        {
+            margin-top: 8px;
+            margin-left: 20px;
+            _display: inline;
+            overflow: hidden;
+            width: 80px;
+            float: left;
+        }
+        #cate
+        {
+            float: left;
+            margin: -2px;
+        }
+        #msg
+        {
+            float: left;
+            border: 0;
+            margin-top: 8px;
+            margin-left: 5px;
+            width: 200px;
+        }
+        #msgSearch
+        {
+            float: right;
+            border: 0;
+            background-color: #800000;
+            height: 30px;
+            width: 60px;
+            color: #FFF;
+            font-weight: bold;
+        }
+        #NavBar
+        {
+            float: left;
+            height: 40px;
+            width: 1200px;
+            line-height: 40px;
+            background-color: #800000;
+            margin-top: 10px;
+        }
+        #NavBar .NavItem
+        {
+            float: left;
+            height: 40px;
+            width: 120px;
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="Container">
+        <div id="HeadDiv">
+            <div id="Logo">
+                <a href="">
+                    <img src="img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
+            <div id="Detail">
+                <div id="TopBar">
+                    <a href="#">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-886-1234</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                <div id="Search">
+                    <div id="sdiv">
+                        <div id="catediv">
+                            <select name="cate" id="cate">
+                                <option>楼盘案例</option>
+                            </select>
+                        </div>
+                        <input name="msg" id="msg" type="text" value="" />
+                        <input name="msgSearch" id="msgSearch" type="button" value=" 搜索" />
+                    </div>
+                </div>
+            </div>
+            <div id="NavBar">
+                <div class="NavItem">
+                    首&nbsp;&nbsp;页</div>
+                <div class="NavItem">
+                    发布招标</div>
+                <div class="NavItem">
+                    找装修公司</div>
+                <div class="NavItem">
+                    装修案例</div>
+                <div class="NavItem">
+                    效果图</div>
+            </div>
+        </div>
+        <div id="PageDiv">
+            宁波海曙麦尔网络科技有限公司主推装修平台网站“装修人人通”.<br />
+            一、网站简介 装修人人通是装修装饰行业垂直性服务平台，是实用性最强的装修服务网站。汇集海量装修信息，提供各大品牌装修公司、独立设计师、优秀施工队三种选择方式，同时提供建材企业信息等。拥有明显的区域优势，能更全面更深入更有效地为业主提供针对性强的理想信息及服务。装修人人通真正做到以业主为服务中心，为业主提供免费装修装饰招标信息发布，百分百人工审核，支持线上沟通。
+            二、网站特色 装修人人通致力于为装修业主提供真实可靠的高口碑装修公司，功能性强，全心全意为广大业主提供装修一条龙服务。网站具有以下特色：特色一：以业主为服务中心，竭诚提供装修一条龙服务
+            免费发布装修装饰招标信息，提供验房、量房、设计、施工、验收、购买建材等装修相关的一条龙服务。 特色二：为装修及建材公司等提供更低成本更高效果的宣传服务 以更低的营销成本，更佳的形象展示，将优秀的装修装饰公司、优质的建材产品推荐给广大业主。
+            特色三：严格把关装修公司或队伍，建材企业的网站入驻加盟 坚决杜绝差口碑，乱收费，差做工，假宣传的公司或个人，从源头上解决服务差的团队，为广大业主把好装修的第一关。
+            特色四：提供让人放心的第三方保障服务 专业行业资讯，准确对接供应商和第三方保障服务，让业主能更轻松更方便地知道装修，找到适合的装饰公司和建材商品，更重要的是业主能额外享受我们第三方免费提供的保障服务。
+            三、网站宗旨 装修人人通主要提供装修相关的行业资讯，装修招标，装修知识，装修图片，装修公司或团队，设计团队，建材团购，免费验房，装修监理等服务。网站以一心一意为广大业主提供一条龙服务，让菜鸟业主轻松应对潜规则遍布、价格紊乱、工期不明朗的装修问题为网站服务立足宗旨，让装修人人通成为装饰家居中最大的垂直商业领域的佼佼者。<br />
+            装修人人通 是 宁波海曙麦尔网络科技有限公司旗下网站之一。
+        </div>
+        <div id="FootDiv">
+            <div id="FootBar">
+                <a href="contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="about.html">关于我们</a></div>
+            <div id="FootDetail">
+                Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
+                ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />
+            </div>
+        </div>
+    </div>
+</body>
+</html>

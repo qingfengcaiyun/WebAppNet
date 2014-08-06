@@ -304,6 +304,8 @@ namespace WebDao.Dao.Users
             this.s.AddField("itemIndex");
             this.s.AddField("updateTime");
 
+            this.s.AddWhere("", "", "memberId", "=", "@memberId");
+
             this.sql = this.s.SqlUpdate();
 
             this.param = new Dictionary<string, object>();

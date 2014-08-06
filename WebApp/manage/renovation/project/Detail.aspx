@@ -23,10 +23,15 @@
             initItems();
             initLocationTree();
 
+            $("#blocation").combotree({
+                onChange: function (newValue, oldValue) {
+                    getBuildingsTree();
+                }
+            });
+
             $("#location").combotree({
                 onChange: function (newValue, oldValue) {
                     getMemberTree();
-                    getBuildingsTree();
                 }
             });
 
@@ -75,7 +80,8 @@
             var projectId = $("#projectId").val();
 
             var b = $("#buildings").combotree('tree').tree('getSelected');
-            var l = $("#location").combotree('tree').tree('getSelected');
+            var l = $("#blocation").combotree('tree').tree('getSelected');
+
             var m = $("#member").combotree('tree').tree('getSelected');
             var d = $("#designer").combotree('tree').tree('getSelected');
 
@@ -188,12 +194,8 @@
                         $("#itemIndex").val(d.itemIndex);
                         $("#startTime").datetimebox("setValue", d.startTime.toString());
 
-                        $('#location').combotree('setValue', d.locationId);
-                        getMemberTree();
+                        $('#blocation').combotree('setValue', d.locationId);
                         getBuildingsTree();
-                        $('#member').combotree('setValue', d.memberId);
-                        getDesignerTree();
-                        $('#designer').combotree('setValue', d.designerId);
                         $('#buildings').combotree('setValue', d.buildingsId);
 
                         if (d.picSnap != null && isUploadFile(d.picSnap)) {
@@ -203,6 +205,23 @@
                             $("#picSnap").val("");
                             $("#photoPic").html("");
                         }
+
+                        param = { action: "one", memberId: d.memberId };
+
+                        jQuery.post(
+                            "../../user/member/Action.aspx",
+                            param,
+                            function (data) {
+                                var m = eval(data);
+
+                                $('#location').combotree('setValue', m.locationId);
+                                getMemberTree();
+                                $('#member').combotree('setValue', d.memberId);
+                                getDesignerTree();
+                                $('#designer').combotree('setValue', d.designerId);
+                            },
+                            'json'
+                        );
                     },
                     'json'
                 );
@@ -221,6 +240,10 @@
                     $("#location").combotree('loadData', d);
                     $("#location").combotree('setValue', $("#locationId").val());
                     $("#location").combotree('tree').tree('expandAll');
+
+                    $("#blocation").combotree('loadData', d);
+                    $("#blocation").combotree('setValue', $("#blocationId").val());
+                    $("#blocation").combotree('tree').tree('expandAll');
 
                     getBuildingsTree();
                     getMemberTree();
@@ -274,7 +297,7 @@
         }
 
         function getBuildingsTree() {
-            var n = $("#location").combotree("tree").tree("getSelected");
+            var n = $("#blocation").combotree("tree").tree("getSelected");
             if (n != null) {
                 var param = { action: "tree", locationId: n.id };
                 jQuery.post(
@@ -313,13 +336,17 @@
                 panelHeight: 200
             });
 
-            $("#buildings").combotree({
+            $("#blocation").combotree({
                 required: true,
                 panelWidth: 200,
                 panelHeight: 200
             });
 
-
+            $("#buildings").combotree({
+                required: true,
+                panelWidth: 200,
+                panelHeight: 200
+            });
         }
 
         function isUploadFile(filePath) {
@@ -340,7 +367,7 @@
     <div class="easyui-panel" title="&nbsp;项目管理" fit="true">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-                <td width="100" class="algR">
+                <td width="200" class="algR">
                     项目全名：
                 </td>
                 <td width="">
@@ -350,38 +377,44 @@
             </tr>
             <tr>
                 <td class="algR">
-                    所属地区：
+                    所属地区和楼盘：
                 </td>
                 <td>
-                    <select class="txtInput" id="location">
-                    </select>
+                    <table>
+                        <tr>
+                            <td>
+                                <select class="txtInput" id="blocation">
+                                </select>
+                            </td>
+                            <td>
+                                <select class="txtInput" id="buildings">
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
                 <td class="algR">
-                    所属公司：
+                    所属公司和设计师：
                 </td>
                 <td>
-                    <select class="txtInput" id="member">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="algR">
-                    所属设计师：
-                </td>
-                <td>
-                    <select class="txtInput" id="designer">
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="algR">
-                    所属楼盘：
-                </td>
-                <td>
-                    <select class="txtInput" id="buildings">
-                    </select>
+                    <table>
+                        <tr>
+                            <td>
+                                <select class="txtInput" id="location">
+                                </select>
+                            </td>
+                            <td>
+                                <select class="txtInput" id="member">
+                                </select>
+                            </td>
+                            <td>
+                                <select class="txtInput" id="designer">
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>
@@ -389,7 +422,8 @@
                     起始时间：
                 </td>
                 <td>
-                    <input class="easyui-datetimebox" value="10/11/2012 2:3:56" style="width: 200px;" id="startTime" />
+                    <input class="easyui-datetimebox" value="10/11/2012 2:3:56" style="width: 200px;"
+                        id="startTime" />
                 </td>
             </tr>
             <tr>
@@ -442,6 +476,7 @@
                 <td>
                     <input type="hidden" id="projectId" value="<%=projectId %>" />
                     <input type="hidden" id="locationId" value="<%=locationId %>" />
+                    <input type="hidden" id="blocationId" value="<%=blocationId %>" />
                 </td>
             </tr>
         </table>

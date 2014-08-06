@@ -24,9 +24,22 @@ namespace WebApp.manage
                 case "saveAdmin": rs = SaveAdmin(); break;
                 case "modPwd": rs = ModPwd(); break;
                 case "logout": rs = Logout(); break;
+                case "keepSession": rs = KeepSession(); break;
             }
 
             Response.Write(rs);
+        }
+
+        private string KeepSession()
+        {
+            if (Session != null && Session["cUser"] != null)
+            {
+                return "1";
+            }
+            else
+            {
+                return "0";
+            }
         }
 
         private string Login()

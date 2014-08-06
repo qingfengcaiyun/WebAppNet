@@ -14,8 +14,23 @@
     <script type="text/javascript" src="../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            setInterval(keepSession, 1000000);
             doFuncTree();
         });
+
+        function keepSession() {
+            jQuery.post(
+                "Action.aspx",
+                { action: "keepSession" },
+                function (data) {
+                    if (parseInt(data) == 0) {
+                        jQuery.messager.alert('错误！！！', '与服务器链接断开！请退出重新登录！', 'error', function () {
+                            logout();
+                        });
+                    }
+                }
+            );
+        }
 
         function logout() {
             var param = { action: "logout" };
