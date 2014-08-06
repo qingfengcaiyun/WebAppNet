@@ -27,6 +27,7 @@
             cursor: pointer;
             border: #CCC 1px solid;
             _display: inline;
+            float: left;
         }
     </style>
     <script type="text/javascript" src="../../../libs/jquery.js"></script>
@@ -47,11 +48,11 @@
                     $(this).toggle(
                         function () {
                             $(this).css("background-color", "#800000");
-                            $("#ppcIds").val($("#ppc").val() + "," + $(this).attr("id"));
+                            $("#ppcIds").val($("#ppcIds").val() + "," + $(this).attr("id"));
                         },
                         function () {
                             $(this).css("background-color", "#ffffff");
-                            var ppcIds = $("#ppc").val();
+                            var ppcIds = $("#ppcIds").val();
                             var p = ppcIds.split(',')
                             var id = $(this).attr("id");
                             var ids = "0";
@@ -82,7 +83,7 @@
                         for (var i = 0; i < d.length; i++) {
                             s = s + "<div id=\"" + d[i].ppcId + "\" class=\"previewDiv\"><img src=\"" + d[i].picPath + "\" height=\"200\" width=\"200\" alt=\"\" /></div>"
                         }
-                        $("#preview").html(s);
+                        $("#previews").html(s);
                         preview();
                     }
                 },
@@ -134,13 +135,13 @@
         }
 
         function del() {
-            var n = $("#ppcIds").val();
-            if (n == null || n.toString() == "0") {
+            var ppcIds = $("#ppcIds").val();
+            if (ppcIds == null || ppcIds.toString() == "0") {
                 jQuery.messager.alert('注意', '请选择要删除的图片！', 'warning');
             } else {
                 jQuery.messager.confirm('删除', '确认删除图片么？', function (r) {
                     if (r) {
-                        var param = { action: "delPics", ppcIds: ppcIds };
+                        var param = { action: "delPic", ppcIds: ppcIds };
                         jQuery.post(
                             "Action.aspx",
                             param,
@@ -154,10 +155,29 @@
             }
         }
 
+        function params() {
+            window.location.href = "Params.aspx?projectId=" + $("#projectId").val();
+        }
+
         function initItems() {
             $("#btnDel").linkbutton({
                 iconCls: 'icon-cut',
                 plain: true
+            });
+
+            $("#btnParam").linkbutton({
+                iconCls: 'icon-redo',
+                plain: true
+            });
+
+            $("#btnList").linkbutton({
+                iconCls: 'icon-undo',
+                plain: true
+            });
+
+            $("#panel").panel({
+                title: $("#projectName").val() + " 图片管理",
+                height: $(window).height()
             });
         }
 
@@ -176,14 +196,14 @@
     </script>
 </head>
 <body>
-    <div class="easyui-panel" title="&nbsp;项目图片管理" fit="true">
+    <div id="panel">
         <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
                 <td width="100" class="algR">
                     图片上传：
                 </td>
                 <td width="">
-                    <input type="file" class="txtInput w400" name="imgFile" id="File2" onchange="uploadPic()" />
+                    <input type="file" class="txtInput w400" name="imgFile" id="imgFile" onchange="uploadPic()" />
                 </td>
             </tr>
             <tr>
@@ -191,16 +211,6 @@
                     &nbsp;
                 </td>
                 <td id="previews">
-                    <div id="" class="previewDiv">
-                        <img src="" height="200" width="200" alt="" /></div>
-                    <div id="" class="previewDiv">
-                        <img src="" height="200" width="200" alt="" /></div>
-                    <div id="" class="previewDiv">
-                        <img src="" height="200" width="200" alt="" /></div>
-                    <div id="" class="previewDiv">
-                        <img src="" height="200" width="200" alt="" /></div>
-                    <div id="" class="previewDiv">
-                        <img src="" height="200" width="200" alt="" /></div>
                 </td>
             </tr>
             <tr>
@@ -208,7 +218,9 @@
                     &nbsp;
                 </td>
                 <td>
-                    <a href="javascript:void(0)" id="btnDel" onclick="del()">删除</a>
+                    <a href="javascript:void(0)" id="btnDel" onclick="del()">删除</a>&nbsp;&nbsp;<a href="#"
+                        id="btnParam" onclick="params()">设置参数</a>&nbsp;&nbsp;<a href="#"
+                        id="btnList" onclick="javascript:window.location.href='List.aspx'">返回列表</a>
                     <input id="projectId" type="hidden" value="<%=projectId %>" />
                     <input id="projectName" type="hidden" value="<%=projectName %>" />
                     <input id="ppcIds" type="hidden" value="0" />

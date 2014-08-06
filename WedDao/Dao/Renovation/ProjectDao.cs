@@ -74,6 +74,10 @@ namespace WebDao.Dao.Renovation
             this.s.AddTable("Renovation_ProjectParam", "pp");
             this.s.AddTable("Renovation_Parameter", "p");
 
+            this.s.AddField("pp", "pptId");
+            this.s.AddField("pp", "projectId");
+            this.s.AddField("pp", "paramId");
+
             this.s.AddField("p", "paramName");
             this.s.AddField("p", "paramValue");
 

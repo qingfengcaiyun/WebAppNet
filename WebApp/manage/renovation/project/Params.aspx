@@ -21,8 +21,15 @@
     <script type="text/javascript">
         $(document).ready(function () {
             initItems();
+            initDataGrid();
             getParamTypes();
             getData();
+
+            $("#paramTypes").combotree({
+                onChange: function (newValue, oldValue) {
+                    getParamValues();
+                }
+            });
         });
 
         function getData() {
@@ -30,7 +37,7 @@
                 url: "Action.aspx",
                 loadMsg: "数据加载中，请稍后……",
                 queryParams: {
-                    action: "listParam",
+                    action: "getParams",
                     projectId: $("#projectId").val()
                 }
             });
@@ -84,13 +91,12 @@
                 title: $("#projectName").val() + " 参数设置",
                 height: $(window).height(),
                 rownumbers: true,
-                singleselect: true,
-                pagination: true,
+                singleSelect: true,
                 toolbar: "#tb",
                 fitColumns: true,
                 columns: [[
-                    { field: 'paramName', title: '参数', width: 500, align: 'right' },
-                    { field: 'paramValue', title: '参数值', width: 500, align: 'left' }
+                    { field: 'paramName', title: '参数', width: 100, align: 'right' },
+                    { field: 'paramValue', title: '参数值', width: 900, align: 'left' }
                 ]]
             });
         }
@@ -108,6 +114,11 @@
 
             $("#btnPic").linkbutton({
                 iconCls: 'icon-ok',
+                plain: true
+            });
+
+            $("#btnList").linkbutton({
+                iconCls: 'icon-undo',
                 plain: true
             });
 
@@ -179,7 +190,8 @@
                 <td>
                     <a href="javascript:void(0)" id="btnAdd" onclick="add()">添加</a>&nbsp;|&nbsp;<a href="javascript:void(0)"
                         id="btnDel" onclick="del()">删除</a>&nbsp;|&nbsp;<a href="javascript:void(0)" id="btnPic"
-                            onclick="pic()">管理项目图片</a>
+                            onclick="pic()">管理项目图片</a>&nbsp;&nbsp;<a href="#"
+                        id="btnList" onclick="javascript:window.location.href='List.aspx'">返回列表</a>
                 </td>
             </tr>
         </table>

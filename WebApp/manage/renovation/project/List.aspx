@@ -101,6 +101,24 @@
             }
         }
 
+        function params() {
+            var n = $("#dg").datagrid('getSelected');
+            if (n == null) {
+                jQuery.messager.alert('注意', '请选择要设置的项目！', 'warning');
+            } else {
+                window.location.href = "Params.aspx?projectId=" + n.projectId;
+            }
+        }
+
+        function pics() {
+            var n = $("#dg").datagrid('getSelected');
+            if (n == null) {
+                jQuery.messager.alert('注意', '请选择要设置的项目！', 'warning');
+            } else {
+                window.location.href = "Pictures.aspx?projectId=" + n.projectId;
+            }
+        }
+
         function initLocationTree() {
             var param = { action: "tree", lType: "region" };
             jQuery.post(
@@ -219,8 +237,13 @@
                 plain: true
             });
 
-            $("#btnProject").linkbutton({
+            $("#btnParam").linkbutton({
                 iconCls: 'icon-redo',
+                plain: true
+            });
+
+            $("#btnPics").linkbutton({
+                iconCls: 'icon-undo',
                 plain: true
             });
         }
@@ -245,6 +268,10 @@
                 <td>
                     <select class="easyui-combotree txtInput" style="width: 200px;" id="designer">
                     </select>
+                </td>
+                <td>
+                    <a href="#" id="btnParam" onclick="params()">设置参数</a>&nbsp;|&nbsp;<a href="#" id="btnPics"
+                        onclick="pics()"> 设置图片</a>
                 </td>
             </tr>
         </table>
