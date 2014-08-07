@@ -9,6 +9,10 @@
     <link href="../../libs/easyui/themes/icon.css" rel="stylesheet" type="text/css" />
     <link href="../../libs/global.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
+        body
+        {
+            background-color: #eeeeee;
+        }
         th
         {
             height: 30px;
@@ -45,9 +49,9 @@
                         var d = eval(data);
 
                         if (parseInt(d.msg) == 1) {
-                            m.html("成功生成" + msgs + "！！！");
+                            m.html("成功生成【" + msgs + "】！！！");
                         } else {
-                            m.html("生成" + msgs + "失败。请重试！");
+                            m.html("生成【" + msgs + "】失败。请重试！");
                         }
                     },
                     'json'
@@ -94,7 +98,7 @@
                 &nbsp;信息
             </th>
         </tr>
-        <tr>
+        <tr style="background-color: #fff;">
             <td style="text-align: center;">
                 选择城市：
             </td>
@@ -103,7 +107,7 @@
                 </select><input type="hidden" id="locationId" value="<%=locationId %>" />
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('index', '网站首页')">&nbsp;网站首页&nbsp;</a>
             </td>
@@ -111,7 +115,7 @@
                 &nbsp;<span id="indexDiv"></span>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: #fff;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('processIndex', '流程首页')">&nbsp;流程首页&nbsp;</a>
             </td>
@@ -119,7 +123,7 @@
                 &nbsp;<span id="processIndexDiv"></span>
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('processList', '流程列表')">&nbsp;流程列表&nbsp;</a>
             </td>
@@ -127,7 +131,7 @@
                 &nbsp;<span id="processListDiv"></span>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: #fff;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('processDetail', '流程信息')">&nbsp;流程信息&nbsp;</a>
             </td>
@@ -146,7 +150,7 @@
                 &nbsp;信息
             </th>
         </tr>
-        <tr>
+        <tr style="background-color: #fff;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('activityList', '活动列表')">&nbsp;活动列表&nbsp;</a>
             </td>
@@ -154,7 +158,7 @@
                 &nbsp;<span id="activityListDiv"></span>
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('activityDetail', '活动详情')">&nbsp;活动详情&nbsp;</a>
             </td>
@@ -162,7 +166,7 @@
                 &nbsp;<span id="activityDetailDiv"></span>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: #fff;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('newsIndex', '资讯首页')">&nbsp;资讯首页&nbsp;</a>
             </td>
@@ -170,7 +174,7 @@
                 &nbsp;<span id="newsIndexDiv"></span>
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('newsList', '资讯列表')">&nbsp;资讯列表&nbsp;</a>
             </td>
@@ -178,7 +182,7 @@
                 &nbsp;<span id="newsListDiv"></span>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: #fff;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('newsDetail', '资讯信息')">&nbsp;资讯信息&nbsp;</a>
             </td>

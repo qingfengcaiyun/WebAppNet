@@ -220,6 +220,20 @@ CREATE TABLE [Renovation_Buildings](
   	[picUrl] [nvarchar](500),
  	[itemIndex] [int] NOT NULL
 );
+create table [Renovation_ClientHouse](
+	[chId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[clientId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Client]([clientId]),
+	[locationId] [int] NOT NULL FOREIGN KEY REFERENCES [Sys_Location]([locationId]),
+	[houseName] [nvarchar](255),
+	[insertTime] [datetime] NOT NULL DEFAULT GETDATE()
+);
+create table [Renovation_HouseWant](
+	[hwId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	[chId] [bigint] NOT NULL FOREIGN KEY REFERENCES [Renovation_ClientHouse]([chId]),
+	[clientId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Client]([clientId]),
+	[memberId] [bigint] NOT NULL FOREIGN KEY REFERENCES [User_Member]([memberId]),
+	[insertTime] [datetime] NOT NULL DEFAULT GETDATE()
+);
 
 create table [Renovation_Process](
 	[processId] [bigint] IDENTITY(1,1) NOT NULL PRIMARY KEY,
