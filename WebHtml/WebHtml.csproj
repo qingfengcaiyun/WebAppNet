@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="html\ActivityPage.cs" />
     <Compile Include="html\HtmlDo.cs" />
     <Compile Include="html\IndexPage.cs" />
     <Compile Include="html\NewsPage.cs" />

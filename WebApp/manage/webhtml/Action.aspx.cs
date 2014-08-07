@@ -26,6 +26,8 @@ namespace WebApp.manage.webhtml
                 case "newsIndex": rs = NewsIndex(); break;
                 case "newsList": rs = NewsList(); break;
                 case "newsDetail": rs = NewsDetail(); break;
+                case "activityList": rs = ActivityList(); break;
+                case "activityDetail": rs = ActivityDetail(); break;
                 default: rs = "嘿嘿！你怎么看到我的？？？"; break;
             }
 
@@ -73,5 +75,18 @@ namespace WebApp.manage.webhtml
             string locationId = WebPageCore.GetRequest("locationId");
             return JsonDo.Message(NewsPage.CreateDetail(Int32.Parse(locationId)) ? "1" : "0");
         }
+
+        private string ActivityList()
+        {
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(ActivityPage.CreateList(Int32.Parse(locationId)) ? "1" : "0");
+        }
+
+        private string ActivityDetail()
+        {
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(ActivityPage.CreateDetail(Int32.Parse(locationId)) ? "1" : "0");
+        }
+
     }
 }

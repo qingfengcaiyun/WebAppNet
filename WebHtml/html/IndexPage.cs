@@ -76,7 +76,7 @@ namespace WebHtml.html
             content.Add("buildingsList2", buildingsList2);
 
             string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates/" + enName, content);
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName);
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName);
             string fileName = @"index.html";
 
             return HtmlDo.WriteHtml(htmlStr, dirPath, fileName);

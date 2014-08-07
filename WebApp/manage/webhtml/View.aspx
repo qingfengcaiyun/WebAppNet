@@ -148,14 +148,18 @@
         </tr>
         <tr>
             <td style="text-align: center;">
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('activityList', '活动列表')">&nbsp;活动列表&nbsp;</a>
             </td>
             <td>
+                &nbsp;<span id="activityListDiv"></span>
             </td>
         </tr>
         <tr style="background-color: #eeeeee;">
             <td style="text-align: center;">
+                &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('activityDetail', '活动详情')">&nbsp;活动详情&nbsp;</a>
             </td>
             <td>
+                &nbsp;<span id="activityDetailDiv"></span>
             </td>
         </tr>
         <tr>

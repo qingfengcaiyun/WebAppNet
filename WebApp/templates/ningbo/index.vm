@@ -563,7 +563,7 @@
                 </div>
                 <div id="AdPicDiv">
                     #foreach($item in $actList) <a href="activity/detail/detail_${item.actId}.html">
-                        <img src="${item.publicAdpic}" alt="${item.actName}" /></a> #end
+                        <img src="http://${webmsg.webUrl}${item.publicAdpic}" alt="${item.actName}" /></a> #end
                 </div>
             </div>
             <div class="PageItem">
@@ -577,7 +577,7 @@
                     #foreach($item in $memberList)
                     <div class="CompanyItem">
                         <a href="member/detail/detail_${item.memberId}_1.html" target="_blank">
-                            <img src="$item.logoUrl" width="188" height="80" alt="$item.fullName" border="0" /></a></div>
+                            <img src="http://${webmsg.webUrl}$item.logoUrl" width="188" height="80" alt="$item.fullName" border="0" /></a></div>
                     #end
                 </div>
             </div>
@@ -635,7 +635,7 @@
                     #foreach($item in $buildingsList1)
                     <div class="AnliPicDiv">
                         <div class="AnliPic">
-                            <img src="$item.picUrl" width="390" height="290" alt="$item.buildingsName" border="0" /></div>
+                            <img src="http://${webmsg.webUrl}$item.picUrl" width="390" height="290" alt="$item.buildingsName" border="0" /></div>
                         <div class="AnliMemo">
                             $item.location /&nbsp;$item.buildingsName小区
                         </div>
@@ -723,7 +723,7 @@
                     #foreach($item in $buildingsList2)
                     <div class="AnliPicDiv">
                         <div class="AnliPic">
-                            <img src="$item.picUrl" width="390" height="290" alt="$item.buildingsName" border="0" /></div>
+                            <img src="http://${webmsg.webUrl}${item.picUrl}" width="390" height="290" alt="$item.buildingsName" border="0" /></div>
                         <div class="AnliMemo">
                             $item.location /&nbsp;$item.buildingsName小区
                         </div>

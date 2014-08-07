@@ -23,7 +23,7 @@ namespace WebHtml.html
             content.Add("list", list);
 
             string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates/" + enName + @"/process", content);
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/process");
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName + @"/process");
             string fileName = @"index.html";
 
             return HtmlDo.WriteHtml(htmlStr, dirPath, fileName);
@@ -37,7 +37,7 @@ namespace WebHtml.html
             Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             List<Dictionary<string, object>> list = new ProcessLogic().GetListWebHtml();
             string htmlStr = string.Empty;
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/process/list");
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName + @"/process/list");
             List<Dictionary<string, object>> temp = null;
 
             PageRecords pr = null;
@@ -129,7 +129,7 @@ namespace WebHtml.html
             List<Dictionary<string, object>> list = new ProcessLogic().GetListWebHtml();
             List<Dictionary<string, object>> aList = new ArticleLogic().GetList();
             string htmlStr = string.Empty;
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/process/detail");
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName + @"/process/detail");
 
             Hashtable content = new Hashtable();
 
@@ -139,6 +139,7 @@ namespace WebHtml.html
                 {
                     article.Add("timeStr", DateTime.Parse(article["insertTime"].ToString()).ToString("yyyy-MM-dd"));
                     article["content"] = JsonDo.UndoChar(article["content"].ToString());
+                    article["content"] = article["content"].ToString().Replace("/attached", "http://www.zxrrt.com/attached");
 
                     if (list != null && list.Count > 0)
                     {

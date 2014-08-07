@@ -18,7 +18,7 @@ namespace WebHtml.html
             string enName = location["enName"].ToString();
             string cityId = new LocationLogic().GetParentIdString(locationId) + "," + new LocationLogic().GetSubIdArray(locationId);
 
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/news");
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName + @"/news");
 
             Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             List<Dictionary<string, object>> cates = new CategoryLogic().GetList("001");
@@ -92,7 +92,7 @@ namespace WebHtml.html
             Dictionary<string, object> location = new LocationLogic().GetOne(locationId);
             string enName = location["enName"].ToString();
             string cityId = new LocationLogic().GetParentIdString(locationId) + "," + new LocationLogic().GetSubIdArray(locationId);
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/news/list");
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName + @"/news/list");
             Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             List<Dictionary<string, object>> cates = new CategoryLogic().GetList("001");
             for (int i = 0; i < cates.Count; i++)
@@ -184,7 +184,7 @@ namespace WebHtml.html
             Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             string enName = location["enName"].ToString();
             string cityId = new LocationLogic().GetParentIdString(locationId) + "," + new LocationLogic().GetSubIdArray(locationId);
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/news/detail");
+            string dirPath = WebPageCore.GetMapPath(@"~/" + enName + @"/news/detail");
 
             List<Dictionary<string, object>> cates = new CategoryLogic().GetList("001");
             for (int i = 0; i < cates.Count; i++)
@@ -208,6 +208,7 @@ namespace WebHtml.html
 
                     temp.Add("timeStr", DateTime.Parse(temp["insertTime"].ToString()).ToString("yyyy-MM-dd"));
                     temp["content"] = JsonDo.UndoChar(temp["content"].ToString());
+                    temp["content"] = temp["content"].ToString().Replace("/attached", "http://www.zxrrt.com/attached");
 
                     if (cates != null && cates.Count > 0)
                     {

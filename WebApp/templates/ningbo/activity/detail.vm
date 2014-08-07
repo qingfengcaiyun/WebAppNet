@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>欢迎访问装修人人通</title>
+    <link rel="stylesheet" type="text/css" href="../../css/gstyles.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/global.css" />
+    <style type="text/css">
+        #Logo
+        {
+            float: left;
+            height: 100px;
+            width: 400px;
+        }
+        #Detail
+        {
+            float: left;
+            height: 100px;
+            width: 800px;
+        }
+        #TopBar
+        {
+            float: left;
+            height: 30px;
+            width: 800px;
+            line-height: 30px;
+            text-align: right;
+            font-weight: bolder;
+        }
+        #Search
+        {
+            float: left;
+            height: 70px;
+            width: 800px;
+            line-height: 70px;
+        }
+        #sdiv
+        {
+            float: left;
+            height: 30px;
+            width: 400px;
+            border: 5px solid #800000;
+            margin-top: 10px;
+            margin-left: 30px;
+            font-size: 14px;
+            _display: inline;
+        }
+        #catediv
+        {
+            margin-top: 8px;
+            margin-left: 20px;
+            _display: inline;
+            overflow: hidden;
+            width: 80px;
+            float: left;
+        }
+        #cate
+        {
+            float: left;
+            margin: -2px;
+        }
+        #msg
+        {
+            float: left;
+            border: 0;
+            margin-top: 8px;
+            margin-left: 5px;
+            width: 200px;
+        }
+        #msgSearch
+        {
+            float: right;
+            border: 0;
+            background-color: #800000;
+            height: 30px;
+            width: 60px;
+            color: #FFF;
+            font-weight: bold;
+        }
+        #NavBar
+        {
+            float: left;
+            height: 40px;
+            width: 1200px;
+            line-height: 40px;
+            background-color: #800000;
+            margin-top: 10px;
+        }
+        #NavBar .NavItem
+        {
+            float: left;
+            height: 40px;
+            width: 120px;
+            font-size: 18px;
+            line-height: 40px;
+            font-weight: bold;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+        }
+        .PageItem
+        {
+            float: left;
+            width: 1200px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="Container">
+        <div id="HeadDiv">
+            <div id="Logo">
+                <a href="/">
+                    <img src="../../img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
+            <div id="Detail">
+                <div id="TopBar">
+                    <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-886-1234</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                <div id="Search">
+                    <div id="sdiv">
+                        <div id="catediv">
+                            <select name="cate" id="cate">
+                                <option>楼盘案例</option>
+                            </select>
+                        </div>
+                        <input name="msg" id="msg" type="text" value="" />
+                        <input name="msgSearch" id="msgSearch" type="button" value=" 搜索" />
+                    </div>
+                </div>
+            </div>
+            <div id="NavBar">
+                <div class="NavItem">
+                    首&nbsp;&nbsp;页</div>
+                <div class="NavItem">
+                    发布招标</div>
+                <div class="NavItem">
+                    找装修公司</div>
+                <div class="NavItem">
+                    装修案例</div>
+                <div class="NavItem">
+                    效果图</div>
+            </div>
+        </div>
+        <div id="PageDiv">
+            <div class="PageItem">
+                ${content}
+            </div>
+        </div>
+        <div id="FootDiv">
+            <div id="FootBar">
+                <a href="../../contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="../../about.html">关于我们</a></div>
+            <div id="FootDetail">
+                Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
+                ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />
+            </div>
+        </div>
+    </div>
+</body>
+</html>
