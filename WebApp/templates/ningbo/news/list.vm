@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问装修人人通</title>
+    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
+    <meta name="Keywords" content="${webmsg.keywords}" />
     <link rel="stylesheet" type="text/css" href="../../css/gstyles.css" />
     <link rel="stylesheet" type="text/css" href="../../css/global.css" />
     <style type="text/css">
@@ -205,7 +206,7 @@
             <div id="Detail">
                 <div id="TopBar">
                     <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-886-1234</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;全国热线：${webmsg.phone}&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -234,33 +235,35 @@
         <div id="PageDiv">
             <div class="PageItem">
                 <div id="CategoryList">
-                    <div class="CateOn">
-                        <a href="../index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
                     <div class="CateOff">
-                        <a href="list_id_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
+                        <a href="../index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
+                    #foreach($item in $cates)
+                    <div class="${item.cls}">
+                        <a href="list_${item.cateId}_1.html" target="_self">【&nbsp;${item.cateName}&nbsp;】</a></div>
+                    #end
                 </div>
                 <div id="NewsList">
+                    #foreach($item in $news)
                     <div class="NewsDiv">
                         <div class="NewsTitle">
-                            此处显示 class "NewsTitle" 的内容</div>
+                            <a href="../detail/detail_${item.newsId}.html">${item.longTitle}</a></div>
                         <div class="NewsSummary">
                             <p>
-                                此处显示 class "NewsSummary" 的内容<p>
+                                ${item.summary}<p>
                         </div>
                         <div class="NewsTime">
-                            此处显示 class "NewsTime" 的内容&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            ${item.timeStr}</div>
                     </div>
+                    #end
                     <div id="indexPage">
-                        <a href="#" target="_self">首页</a>&nbsp;&nbsp;<a href="#" target="_self">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;去第&nbsp;<select
-                            class="itemselect" name="gpageNum" id="gpageNum" onchange="javascript:window.location.href=this.value"></select>&nbsp;&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                href="#" target="_self">下一页</a>&nbsp;&nbsp;<a href="#" target="_self">末页</a></div>
+                        $indexPage</div>
                 </div>
             </div>
         </div>
         <div id="FootDiv">
             <div id="FootBar">
-                <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                    href="#">关于我们</a></div>
+                <a href="../../contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="../../about.html">关于我们</a></div>
             <div id="FootDetail">
                 Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
                 ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />

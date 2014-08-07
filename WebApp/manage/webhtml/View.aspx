@@ -24,25 +24,62 @@
     <script type="text/javascript" src="../../libs/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../../libs/easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
+        $(document).ready(function () {
+            getLocations();
+        });
+
         function createHtml(tag, msgs) {
-            var m = $("#" + tag + "Div");
-            m.html("操作进行中……");
+            var t = $("#location").combotree("tree");
+            var n = t.tree("getSelected");
 
-            var param = { action: tag };
+            if (t.tree('isLeaf', n.target)) {
+                var m = $("#" + tag + "Div");
+                m.html("操作进行中……");
 
+                var param = { action: tag, locationId: n.id };
+
+                jQuery.post(
+                    "Action.aspx",
+                    param,
+                    function (data) {
+                        var d = eval(data);
+
+                        if (parseInt(d.msg) == 1) {
+                            m.html("成功生成" + msgs + "！！！");
+                        } else {
+                            m.html("生成" + msgs + "失败。请重试！");
+                        }
+                    },
+                    'json'
+                );
+            } else {
+                jQuery.messager.alert('错误', '请选择操作的城市！', 'error');
+            }
+        }
+
+        function getLocations() {
+            $("#location").combotree({
+                required: true,
+                panelWidth: 200,
+                panelHeight: 200
+            });
+
+            var param = { action: "tree", lType: "city" };
             jQuery.post(
-                "Action.aspx",
+                "../sys/location/Action.aspx",
                 param,
                 function (data) {
-                    var d = eval(data);
-
-                    if (parseInt(d.msg) == 1) {
-                        m.html("成功生成" + msgs + "！！！");
+                    var l = eval(data);
+                    $("#location").combotree("loadData", l);
+                    $("#location").combotree("setValue", $("#locationId").val());
+                    var nodes = $("#location").combotree("tree").tree('getChildren');
+                    if (nodes.length == 1) {
+                        $("#location").combotree('disable');
                     } else {
-                        m.html("生成" + msgs + "失败。请重试！");
+                        $("#location").combotree('tree').tree('expandAll');
                     }
                 },
-                'json'
+                "json"
             );
         }
     </script>
@@ -59,13 +96,22 @@
         </tr>
         <tr>
             <td style="text-align: center;">
+                选择城市：
+            </td>
+            <td>
+                &nbsp;<select class="txtInput" id="location">
+                </select><input type="hidden" id="locationId" value="<%=locationId %>" />
+            </td>
+        </tr>
+        <tr style="background-color: #eeeeee;">
+            <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('index', '网站首页')">&nbsp;网站首页&nbsp;</a>
             </td>
             <td>
                 &nbsp;<span id="indexDiv"></span>
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('processIndex', '流程首页')">&nbsp;流程首页&nbsp;</a>
             </td>
@@ -73,7 +119,7 @@
                 &nbsp;<span id="processIndexDiv"></span>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: #eeeeee;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('processList', '流程列表')">&nbsp;流程列表&nbsp;</a>
             </td>
@@ -81,7 +127,7 @@
                 &nbsp;<span id="processListDiv"></span>
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('processDetail', '流程信息')">&nbsp;流程信息&nbsp;</a>
             </td>
@@ -108,13 +154,19 @@
         </tr>
         <tr style="background-color: #eeeeee;">
             <td style="text-align: center;">
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('newsIndex', '资讯首页')">&nbsp;资讯首页&nbsp;</a>
             </td>
             <td>
                 &nbsp;<span id="newsIndexDiv"></span>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: #eeeeee;">
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('newsList', '资讯列表')">&nbsp;资讯列表&nbsp;</a>
             </td>
@@ -122,7 +174,7 @@
                 &nbsp;<span id="newsListDiv"></span>
             </td>
         </tr>
-        <tr style="background-color: #eeeeee;">
+        <tr>
             <td style="text-align: center;">
                 &nbsp;<a class="easyui-linkbutton" href="javascript:void(0)" onclick="createHtml('newsDetail', '资讯信息')">&nbsp;资讯信息&nbsp;</a>
             </td>

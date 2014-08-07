@@ -256,7 +256,7 @@ namespace WebDao.Dao.Renovation
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
+            this.param.Add("content", JsonDo.UndoChar(content["content"].ToString()));
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("readCount", 0);
@@ -301,7 +301,7 @@ namespace WebDao.Dao.Renovation
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
+            this.param.Add("content", JsonDo.UndoChar(content["content"].ToString()));
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
             this.param.Add("fileIds", content["fileIds"]);

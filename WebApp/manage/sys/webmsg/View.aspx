@@ -62,7 +62,7 @@
         function save() {
             var t = $("#location").combotree('tree');
             var n = t.tree('getSelected');
-            if (n != null) {
+            if (t.tree("isLeaf", n.target)) {
                 var locationId = n.id;
 
                 var paramStr = "fullName,shortName,keywords,memo,qq,address,phone,cellphone,webUrl,webNo,locationId";
@@ -108,6 +108,8 @@
                     },
                     "json"
                 );
+            } else {
+                jQuery.messager.alert('错误', '请选择相应城市！', 'error');
             }
         }
 

@@ -23,6 +23,9 @@ namespace WebApp.manage.webhtml
                 case "processIndex": rs = ProcessIndex(); break;
                 case "processList": rs = ProcessList(); break;
                 case "processDetail": rs = ProcessDetail(); break;
+                case "newsIndex": rs = NewsIndex(); break;
+                case "newsList": rs = NewsList(); break;
+                case "newsDetail": rs = NewsDetail(); break;
                 default: rs = "嘿嘿！你怎么看到我的？？？"; break;
             }
 
@@ -31,22 +34,44 @@ namespace WebApp.manage.webhtml
 
         private string WebIndex()
         {
-            return JsonDo.Message(IndexPage.CreateIndex() ? "1" : "0");
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(IndexPage.CreateIndex(Int32.Parse(locationId)) ? "1" : "0");
         }
 
         private string ProcessIndex()
         {
-            return JsonDo.Message(ProcessPage.CreateIndex() ? "1" : "0");
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(ProcessPage.CreateIndex(Int32.Parse(locationId)) ? "1" : "0");
         }
 
         private string ProcessList()
         {
-            return JsonDo.Message(ProcessPage.CreateList() ? "1" : "0");
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(ProcessPage.CreateList(Int32.Parse(locationId)) ? "1" : "0");
         }
 
         private string ProcessDetail()
         {
-            return JsonDo.Message(ProcessPage.CreateDetail() ? "1" : "0");
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(ProcessPage.CreateDetail(Int32.Parse(locationId)) ? "1" : "0");
+        }
+
+        private string NewsIndex()
+        {
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(NewsPage.CreateIndex(Int32.Parse(locationId)) ? "1" : "0");
+        }
+
+        private string NewsList()
+        {
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(NewsPage.CreateList(Int32.Parse(locationId)) ? "1" : "0");
+        }
+
+        private string NewsDetail()
+        {
+            string locationId = WebPageCore.GetRequest("locationId");
+            return JsonDo.Message(NewsPage.CreateDetail(Int32.Parse(locationId)) ? "1" : "0");
         }
     }
 }

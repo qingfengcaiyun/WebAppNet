@@ -78,8 +78,8 @@ namespace WebDao.Dao.System
                 {
                     this.param = new Dictionary<string, object>();
 
-                    this.param.Add("msgKey", kv.Key);
-                    this.param.Add("msgValue", kv.Value);
+                    this.param.Add("msgKey", JsonDo.UndoChar(kv.Key));
+                    this.param.Add("msgValue", JsonDo.UndoChar(kv.Value.ToString()));
                     this.param.Add("locationId", locationId);
 
                     paramList.Add(this.param);

@@ -10,28 +10,34 @@ namespace WebHtml.html
 {
     public class ProcessPage
     {
-        public static bool CreateIndex()
+        public static bool CreateIndex(int locationId)
         {
-            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(6);
+            Dictionary<string, object> location = new LocationLogic().GetOne(locationId);
+            string enName = location["enName"].ToString();
+
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             List<Dictionary<string, object>> list = new ProcessLogic().GetListWebHtml();
 
             Hashtable content = new Hashtable();
             content.Add("webmsg", msgs);
             content.Add("list", list);
 
-            string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates/process", content);
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/process");
+            string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates/" + enName + @"/process", content);
+            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/process");
             string fileName = @"index.html";
 
             return HtmlDo.WriteHtml(htmlStr, dirPath, fileName);
         }
 
-        public static bool CreateList()
+        public static bool CreateList(int locationId)
         {
-            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(6);
+            Dictionary<string, object> location = new LocationLogic().GetOne(locationId);
+            string enName = location["enName"].ToString();
+
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             List<Dictionary<string, object>> list = new ProcessLogic().GetListWebHtml();
             string htmlStr = string.Empty;
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/process/list");
+            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/process/list");
             List<Dictionary<string, object>> temp = null;
 
             PageRecords pr = null;
@@ -69,7 +75,7 @@ namespace WebHtml.html
                                     }
                                 }
 
-                                pr.BuildIndexPage("list/list_" + item["processId"].ToString());
+                                pr.BuildIndexPage("list_" + item["processId"].ToString());
 
                                 content = new Hashtable();
                                 content.Add("webmsg", msgs);
@@ -78,7 +84,7 @@ namespace WebHtml.html
                                 content.Add("articles", pr.PageResult);
                                 content.Add("indexPage", pr.IndexPage);
 
-                                htmlStr = VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/process", content);
+                                htmlStr = VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/" + enName + @"/process", content);
                                 HtmlDo.WriteHtml(htmlStr, dirPath, "list_" + item["processId"].ToString() + "_" + cnt + ".html");
                             }
                         }
@@ -102,7 +108,7 @@ namespace WebHtml.html
                             content.Add("articles", pr.PageResult);
                             content.Add("indexPage", "");
 
-                            htmlStr = VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/process", content);
+                            htmlStr = VelocityDo.BuildStringByTemplate("list.vm", @"~/templates/" + enName + @"/process", content);
                             HtmlDo.WriteHtml(htmlStr, dirPath, "list_" + item["processId"].ToString() + "_1.html");
                         }
 
@@ -114,13 +120,16 @@ namespace WebHtml.html
             return true;
         }
 
-        public static bool CreateDetail()
+        public static bool CreateDetail(int locationId)
         {
-            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(6);
+            Dictionary<string, object> location = new LocationLogic().GetOne(locationId);
+            string enName = location["enName"].ToString();
+
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
             List<Dictionary<string, object>> list = new ProcessLogic().GetListWebHtml();
             List<Dictionary<string, object>> aList = new ArticleLogic().GetList();
             string htmlStr = string.Empty;
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/process/detail");
+            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName + @"/process/detail");
 
             Hashtable content = new Hashtable();
 
@@ -129,6 +138,7 @@ namespace WebHtml.html
                 foreach (Dictionary<string, object> article in aList)
                 {
                     article.Add("timeStr", DateTime.Parse(article["insertTime"].ToString()).ToString("yyyy-MM-dd"));
+                    article["content"] = JsonDo.UndoChar(article["content"].ToString());
 
                     if (list != null && list.Count > 0)
                     {
@@ -153,7 +163,7 @@ namespace WebHtml.html
                     content.Add("article", article);
                     content.Add("processes", list);
 
-                    htmlStr = VelocityDo.BuildStringByTemplate("detail.vm", @"~/templates/process", content);
+                    htmlStr = VelocityDo.BuildStringByTemplate("detail.vm", @"~/templates/" + enName + @"/process", content);
                     HtmlDo.WriteHtml(htmlStr, dirPath, "detail_" + article["raId"].ToString() + ".html");
                 }
             }

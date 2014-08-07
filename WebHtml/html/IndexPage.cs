@@ -11,19 +11,24 @@ namespace WebHtml.html
 {
     public class IndexPage
     {
-        public static bool CreateIndex()
+        public static bool CreateIndex(int locationId)
         {
-            string cityId = new LocationLogic().GetParentIdString(6) + "," + new LocationLogic().GetSubIdArray(6);
+            Dictionary<string, object> location = new LocationLogic().GetOne(locationId);
+
+            string enName = location["enName"].ToString();
+            string levelNo = location["levelNo"].ToString();
+
+            string cityId = new LocationLogic().GetParentIdString(locationId) + "," + new LocationLogic().GetSubIdArray(locationId);
 
             List<Dictionary<string, object>> newsList = new NewsLogic().GetPage(10, 1, 0, cityId, "").PageResult;
             List<Dictionary<string, object>> newsList1 = new NewsLogic().GetPage(10, 2, 0, cityId, "").PageResult;
             List<Dictionary<string, object>> prices = new ParameterLogic().GetList("PriceLevel");
-            List<Dictionary<string, object>> regions = new LocationLogic().GetList("001001001001001001");
-            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(6);
-            List<Dictionary<string, object>> actList = new ActivityLogic().GetListOnIndex(6);
-            List<Dictionary<string, object>> memberList = new MemberLogic().GetPage(12, 1, "", 6).PageResult;
-            List<Dictionary<string, object>> buildingsList1 = new BuildingsLogic().GetPage(3, 1, 6, "").PageResult;
-            List<Dictionary<string, object>> buildingsList2 = new BuildingsLogic().GetPage(3, 2, 6, "").PageResult;
+            List<Dictionary<string, object>> regions = new LocationLogic().GetList(levelNo);
+            Dictionary<string, object> msgs = new WebMsgLogic().GetMsgs(locationId);
+            List<Dictionary<string, object>> actList = new ActivityLogic().GetListOnIndex(locationId);
+            List<Dictionary<string, object>> memberList = new MemberLogic().GetPage(12, 1, "", locationId).PageResult;
+            List<Dictionary<string, object>> buildingsList1 = new BuildingsLogic().GetPage(3, 1, locationId, "").PageResult;
+            List<Dictionary<string, object>> buildingsList2 = new BuildingsLogic().GetPage(3, 2, locationId, "").PageResult;
 
             if (newsList != null && newsList.Count > 0)
             {
@@ -70,10 +75,8 @@ namespace WebHtml.html
             content.Add("buildingsList1", buildingsList1);
             content.Add("buildingsList2", buildingsList2);
 
-
-
-            string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates", content);
-            string dirPath = WebPageCore.GetMapPath(@"~/webhtml");
+            string htmlStr = VelocityDo.BuildStringByTemplate("index.vm", @"~/templates/" + enName, content);
+            string dirPath = WebPageCore.GetMapPath(@"~/webhtml/" + enName);
             string fileName = @"index.html";
 
             return HtmlDo.WriteHtml(htmlStr, dirPath, fileName);

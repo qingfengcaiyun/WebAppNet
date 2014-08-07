@@ -2,9 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问装修人人通</title>
-    <link rel="stylesheet" type="text/css" href="../css/gstyles.css" />
-    <link rel="stylesheet" type="text/css" href="../css/global.css" />
+    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
+    <meta name="Keywords" content="${webmsg.keywords}" />
+    <link rel="stylesheet" type="text/css" href="../../css/gstyles.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/global.css" />
     <style type="text/css">
         #Logo
         {
@@ -104,18 +105,58 @@
             width: 1200px;
             margin-bottom: 20px;
         }
-        
+        #ArticleDiv
+        {
+            float: left;
+            width: 933px;
+            border: 1px solid #CCC;
+            margin-top: 10px;
+            margin-left: 5px;
+            _display: inline;
+        }
+        #ArticleDiv .ArticleTitle
+        {
+            font-size: 16px;
+            line-height: 40px;
+            font-weight: bolder;
+            float: left;
+            height: 40px;
+            width: 900px;
+            margin-left: 15px;
+            _display: inline;
+        }
+        #ArticleDiv .ArticleDetail
+        {
+            line-height: 24px;
+            float: left;
+            height: 24px;
+            width: 900px;
+            margin-left: 15px;
+            _display: inline;
+            color: #999;
+        }
+        #ArticleDiv .ArticleContent
+        {
+            float: left;
+            width: 900px;
+            margin-top: 20px;
+            margin-left: 15px;
+            line-height: 24px;
+            _display: inline;
+        }
         #CategoryList
         {
             float: left;
-            width: 150px;
+            width: 245px;
             margin-top: 10px;
+            margin-left: 10px;
+            _display: inline;
         }
         #CategoryList .CateOn
         {
             float: left;
             height: 38px;
-            width: 148px;
+            width: 243px;
             margin-top: 5px;
             line-height: 38px;
             font-size: 14px;
@@ -130,7 +171,7 @@
         {
             float: left;
             height: 38px;
-            width: 148px;
+            width: 243px;
             margin-top: 5px;
             line-height: 38px;
             font-size: 14px;
@@ -151,48 +192,31 @@
             color: #000;
             text-decoration: none;
         }
-        #NewsList
+        #CategoryList .HotList
         {
             float: left;
-            width: 800px;
-            margin-left: 25px;
-            margin-top: 10px;
+            width: 243px;
+            margin-top: 20px;
+            border: 1px solid #CCC;
+        }
+        #CategoryList .HotList .HotLabel
+        {
+            float: left;
+            width: 230px;
+            height: 30px;
+            line-height: 30px;
+            margin-left: 10px;
             _display: inline;
-        }
-        #NewsList .NewsDiv
-        {
-            float: left;
-            width: 800px;
-            margin-top: 5px;
-        }
-        #NewsList .NewsDiv .NewsTitle
-        {
-            float: left;
-            height: 40px;
-            width: 800px;
             font-size: 14px;
-            line-height: 40px;
-            font-weight: bolder;
-            text-decoration: none;
-            text-indent: 1em;
         }
-        #NewsList .NewsDiv .NewsSummary
+        #CategoryList .HotList .HotItem
         {
             float: left;
-            width: 800px;
-            line-height: 24px;
-        }
-        #NewsList .NewsDiv .NewsSummary p
-        {
-            text-indent: 2em;
-        }
-        #NewsList .NewsDiv .NewsTime
-        {
-            line-height: 24px;
-            text-align: right;
-            float: left;
+            width: 230px;
             height: 24px;
-            width: 800px;
+            line-height: 24px;
+            margin-left: 10px;
+            _display: inline;
         }
     </style>
 </head>
@@ -201,11 +225,11 @@
         <div id="HeadDiv">
             <div id="Logo">
                 <a href="/">
-                    <img src="../img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
+                    <img src="../../img/logo.jpg" width="400" height="100" border="0" alt="进入首页" title="装修人人通" /></a></div>
             <div id="Detail">
                 <div id="TopBar">
                     <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-886-1234</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;全国热线：${webmsg.phone}&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -233,34 +257,40 @@
         </div>
         <div id="PageDiv">
             <div class="PageItem">
-                <div id="CategoryList">
-                    <div class="CateOn">
-                        <a href="index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
-                    <div class="CateOff">
-                        <a href="index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
-                </div>
-                <div id="NewsList">
-                    <div class="NewsDiv">
-                        <div class="NewsTitle">
-                            此处显示 class "NewsTitle" 的内容</div>
-                        <div class="NewsSummary">
-                            <p>
-                                此处显示 class "NewsSummary" 的内容<p>
-                        </div>
-                        <div class="NewsTime">
-                            此处显示 class "NewsTime" 的内容&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                &nbsp;&nbsp;<a href="../../index.html">$webmsg.shortName</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a
+                    href="../index_1.html">装修资讯</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="../list/list_${news.cateId}_0.html">$article.processName</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;$news.longTitle</div>
+            <div class="PageItem">
+                <div id="ArticleDiv">
+                    <div class="ArticleTitle">
+                        $news.longTitle</div>
+                    <div class="ArticleDetail">
+                        发表时间：$news.insertTime</div>
+                    <div class="ArticleContent">
+                        $news.content
                     </div>
-                    <div id="indexPage">
-                        <a href="#" target="_self">首页</a>&nbsp;&nbsp;<a href="#" target="_self">上一页</a>&nbsp;&nbsp;&nbsp;&nbsp;去第&nbsp;<select
-                            class="itemselect" name="gpageNum" id="gpageNum" onchange="javascript:window.location.href=this.value"></select>&nbsp;&nbsp;页&nbsp;&nbsp;&nbsp;&nbsp;<a
-                                href="#" target="_self">下一页</a>&nbsp;&nbsp;<a href="#" target="_self">末页</a></div>
+                </div>
+                <div id="CategoryList">
+                    <div class="CateOff">
+                        <a href="../index_1.html" target="_self">【&nbsp;全部类目&nbsp;】</a></div>
+                    #foreach($item in $cates)
+                    <div class="${item.cls}">
+                        <a href="../list/list_${item.cateId}_1.html" target="_self">【&nbsp;${item.cateName}&nbsp;】</a></div>
+                    #end
+                    <div class="HotList">
+                        <div class="HotLabel">
+                            最新文章</div>
+                        #foreach($item in $hotList)
+                        <div class="HotItem">
+                            <a href="detail_${item.newsId}.html" target="_blank">${item.longTitle}</a></div>
+                        #end
+                    </div>
                 </div>
             </div>
         </div>
         <div id="FootDiv">
             <div id="FootBar">
-                <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                    href="#">关于我们</a></div>
+                <a href="../../contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="../../about.html">关于我们</a></div>
             <div id="FootDetail">
                 Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
                 ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />

@@ -114,5 +114,10 @@ namespace WebLogic.Service.Info
         {
             return this.dao.GetPage(pageSize, pageNo, cateId, cityId, msg);
         }
+
+        public List<Dictionary<string, object>> GetList(int cateId, string cityId, string msg)
+        {
+            return this.dao.GetList(cateId, cityId, msg);
+        }
     }
 }

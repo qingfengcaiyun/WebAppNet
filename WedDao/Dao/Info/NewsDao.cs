@@ -58,6 +58,66 @@ namespace WebDao.Dao.Info
             return this.db.GetDataRow(this.sql, this.param);
         }
 
+        public List<Dictionary<string, object>> GetList(int cateId, string cityId, string msg)
+        {
+            this.param = new Dictionary<string, object>();
+
+            this.s = new SqlBuilder();
+
+            this.s.AddTable("Info_News", "n");
+            this.s.AddTable("Sys_Location", "l");
+            this.s.AddTable("Info_Category", "c");
+
+            this.s.AddField("c", "cateName");
+
+            this.s.AddField("l", "cnName", "location");
+
+            this.s.AddField("n", "newsId");
+            this.s.AddField("n", "cityId");
+            this.s.AddField("n", "cateId");
+            this.s.AddField("n", "longTitle");
+            this.s.AddField("n", "titleColor");
+            this.s.AddField("n", "shortTitle");
+            this.s.AddField("n", "content");
+            this.s.AddField("n", "keywords");
+            this.s.AddField("n", "readCount");
+            this.s.AddField("n", "itemIndex");
+            this.s.AddField("n", "isTop");
+            this.s.AddField("n", "topTime");
+            this.s.AddField("n", "insertTime");
+            this.s.AddField("n", "updateTime");
+            this.s.AddField("n", "isChecked");
+
+            this.s.SetTagField("n", "newsId");
+
+            this.s.AddOrderBy("n", "itemIndex", false);
+            this.s.AddOrderBy("n", "insertTime", false);
+
+            this.s.AddWhere("", "l", "locationId", "=", "n", "cityId");
+            this.s.AddWhere("and", "c", "cateId", "=", "n", "cateId");
+
+            if (cateId > 1)
+            {
+                this.s.AddWhere("and", "n", "cateId", "=", "@cateId");
+                this.param.Add("cateId", cateId);
+            }
+
+            this.s.AddWhere("and", "n", "cityId", "in", "(" + cityId + ")");
+
+            if (!string.IsNullOrEmpty(msg))
+            {
+                this.s.AddWhere("and", "(n", "longTitle", "like", "'%'+@msg+'%'");
+                this.s.AddWhere("or", "n", "shortTitle", "like", "'%'+@msg+'%'");
+                this.s.AddWhere("or", "n", "keywords", "like", "'%'+@msg+'%')");
+
+                this.param.Add("msg", msg);
+            }
+
+            this.sql = this.s.SqlSelect();
+
+            return this.db.GetDataTable(this.sql, this.param);
+        }
+
         public PageRecords GetPage(int pageSize, int pageNo, int cateId, string cityId, string msg)
         {
             this.param = new Dictionary<string, object>();
@@ -78,6 +138,7 @@ namespace WebDao.Dao.Info
             this.s.AddField("n", "longTitle");
             this.s.AddField("n", "titleColor");
             this.s.AddField("n", "shortTitle");
+            this.s.AddField("n", "content");
             this.s.AddField("n", "keywords");
             this.s.AddField("n", "readCount");
             this.s.AddField("n", "itemIndex");
@@ -187,7 +248,7 @@ namespace WebDao.Dao.Info
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
+            this.param.Add("content", JsonDo.UndoChar(content["content"].ToString()));
             this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);
@@ -234,7 +295,7 @@ namespace WebDao.Dao.Info
             this.param.Add("longTitle", content["longTitle"]);
             this.param.Add("titleColor", content["titleColor"]);
             this.param.Add("shortTitle", content["shortTitle"]);
-            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
+            this.param.Add("content", JsonDo.UndoChar(content["content"].ToString()));
             this.param.Add("fileIds", content["fileIds"]);
             this.param.Add("keywords", content["keywords"]);
             this.param.Add("picUrl", content["picUrl"]);

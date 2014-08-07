@@ -228,7 +228,7 @@
             <div id="Detail">
                 <div id="TopBar">
                     <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：${webmsg.phone}</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;全国热线：${webmsg.phone}&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -293,11 +293,11 @@
         </div>
         <div id="FootDiv">
             <div id="FootBar">
-                <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                    href="#">关于我们</a></div>
+                <a href="../../contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="../../about.html">关于我们</a></div>
             <div id="FootDetail">
-                Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
-                备案信息：${webmsg.webNo}&nbsp;地址：${webmsg.address}<br />
+                Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
+                ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />
             </div>
         </div>
     </div>

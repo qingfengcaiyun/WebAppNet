@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问装修人人通 - 宁波装修，宁波办公室装修，宁波厂房装修，宁波装饰，宁波装修公司，宁波装修网，宁波装修公司排名，宁波哪家装修公司好，宁波家庭装修，宁波二手房装修，宁波精装修楼盘，宁波店面装修……</title>
-    <meta name="Keywords" content="宁波装修，宁波办公室装修，宁波厂房装修，宁波装饰，宁波装修公司，宁波装修网，宁波装修公司排名，宁波哪家装修公司好，宁波家庭装修，宁波二手房装修，宁波精装修楼盘，宁波店面装修……" />
+    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
+    <meta name="Keywords" content="${webmsg.keywords}" />
     <link rel="stylesheet" type="text/css" href="css/gstyles.css" />
     <link href="css/global.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
@@ -235,7 +235,7 @@
         .CompanyItem
         {
             float: left;
-            height: 78px;
+            height: 80px;
             width: 188px;
             margin: 5px;
             _display: inline;
@@ -469,7 +469,7 @@
             <div id="Detail">
                 <div id="TopBar">
                     <a href="#">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-0574-132</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：${webmsg.phone}</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -562,10 +562,11 @@
                     </div>
                 </div>
                 <div id="AdPicDiv">
-                     <a href="activity/detail/detail_1.html">
-                        <img src="/attached/image/2014/08/06/20140806135900_4218.jpg" alt="现金红包送不停！无限量发放！" /></a>                 </div>
+                    #foreach($item in $actList) <a href="activity/detail/detail_${item.actId}.html">
+                        <img src="${item.publicAdpic}" alt="${item.actName}" /></a> #end
+                </div>
             </div>
-            <div class="PageItem" style="display:none">
+            <div class="PageItem">
                 <div class="ItemLabel">
                     <a href="#">宁波装修公司</a></div>
                 <div class="ItemDetail">
@@ -573,25 +574,12 @@
                 <div class="ItemMore">
                     <a href="#">&gt;&gt;&gt;&nbsp;查看全部&nbsp;&lt;&lt;&lt;</a></div>
                 <div class="PageFull">
-                                        <div class="CompanyItem">
-                        <a href="member/detail/detail_15_1.html" target="_blank">
-                            <img src="" width="188" height="80" alt="宁波甬庭装饰工程有限公司" border="0" /></a></div>
-                                        <div class="CompanyItem">
-                        <a href="member/detail/detail_14_1.html" target="_blank">
-                            <img src="" width="188" height="80" alt="宁波新侨装饰设计工程有限公司" border="0" /></a></div>
-                                        <div class="CompanyItem">
-                        <a href="member/detail/detail_13_1.html" target="_blank">
-                            <img src="" width="188" height="80" alt="宁波泰诚建筑装饰有限公司" border="0" /></a></div>
-                                        <div class="CompanyItem">
-                        <a href="member/detail/detail_12_1.html" target="_blank">
-                            <img src="" width="188" height="80" alt="宁波市鄞州城建装饰工程有限公司" border="0" /></a></div>
-                                        <div class="CompanyItem">
-                        <a href="member/detail/detail_11_1.html" target="_blank">
-                            <img src="" width="188" height="80" alt="宁波市鄞州博海装饰有限公司" border="0" /></a></div>
-                                        <div class="CompanyItem">
-                        <a href="member/detail/detail_10_1.html" target="_blank">
-                            <img src="" width="188" height="80" alt="宁波市江东仁和装饰设计工程有限公司" border="0" /></a></div>
-                                    </div>
+                    #foreach($item in $memberList)
+                    <div class="CompanyItem">
+                        <a href="member/detail/detail_${item.memberId}_1.html" target="_blank">
+                            <img src="$item.logoUrl" width="188" height="80" alt="$item.fullName" border="0" /></a></div>
+                    #end
+                </div>
             </div>
             <div class="PageItem">
                 <div id="ProcessDiv">
@@ -636,41 +624,24 @@
                 <div class="ItemDetail">
                     <ul style="display: none">
                         <li class="anliquyu anliquyuOn">精选</li>
-                                                <li class="anliquyu anliquyuOff">宁波</li>
-                                                <li class="anliquyu anliquyuOff">海曙</li>
-                                                <li class="anliquyu anliquyuOff">江东</li>
-                                                <li class="anliquyu anliquyuOff">江北</li>
-                                                <li class="anliquyu anliquyuOff">鄞州</li>
-                                                <li class="anliquyu anliquyuOff">北仑</li>
-                                                <li class="anliquyu anliquyuOff">镇海</li>
-                                                <li class="anliquyu anliquyuOff">高新区</li>
-                                            </ul>
+                        #foreach($item in $regions)
+                        <li class="anliquyu anliquyuOff">$item.cnName</li>
+                        #end
+                    </ul>
                 </div>
                 <div class="ItemMore">
                     <a href="#">&gt;&gt;&gt;&nbsp;查看全部&nbsp;&lt;&lt;&lt;</a></div>
                 <div class="PageFull">
-                                        <div class="AnliPicDiv">
+                    #foreach($item in $buildingsList1)
+                    <div class="AnliPicDiv">
                         <div class="AnliPic">
-                            <img src="/attached/image/2014/08/04/20140804094228_8102.jpg" width="390" height="290" alt="南塘金茂府" border="0" /></div>
+                            <img src="$item.picUrl" width="390" height="290" alt="$item.buildingsName" border="0" /></div>
                         <div class="AnliMemo">
-                            海曙 /&nbsp;南塘金茂府小区
+                            $item.location /&nbsp;$item.buildingsName小区
                         </div>
                     </div>
-                                        <div class="AnliPicDiv">
-                        <div class="AnliPic">
-                            <img src="/attached/image/2014/08/04/20140804094554_9059.jpg" width="390" height="290" alt="波波城" border="0" /></div>
-                        <div class="AnliMemo">
-                            江东 /&nbsp;波波城小区
-                        </div>
-                    </div>
-                                        <div class="AnliPicDiv">
-                        <div class="AnliPic">
-                            <img src="/attached/image/2014/08/04/20140804094636_0505.jpg" width="390" height="290" alt="格兰春晨" border="0" /></div>
-                        <div class="AnliMemo">
-                            鄞州 /&nbsp;格兰春晨小区
-                        </div>
-                    </div>
-                                    </div>
+                    #end
+                </div>
             </div>
             <div class="PageItem">
                 <div class="PageHalf">
@@ -683,117 +654,20 @@
                             <col width="65%" />
                             <col width="15%" />
                         </colgroup>
-                                                <tr class="bg2">
+                        #foreach($item in $newsList)
+                        <tr class="$item.cls">
                             <td height="30">
-                                【<a href="news/list/list_8_0.html" target="_blank">装修报价</a>】
+                                【<a href="news/list/list_${item.cateId}_0.html" target="_blank">${item.cateName}</a>】
                             </td>
                             <td>
-                                <a href="news/detail/detail_27.html" target="_blank">凉席什么牌子好 宁波不同品牌凉席价格</a>
+                                <a href="news/detail/detail_${item.newsId}.html" target="_blank">${item.longTitle}</a>
                             </td>
                             <td>
-                                2014-08-04
+                                ${item.timeStr}
                             </td>
                         </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_8_0.html" target="_blank">装修报价</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_26.html" target="_blank">什么是窗套 宁波窗套款式材料价格</a>
-                            </td>
-                            <td>
-                                2014-08-04
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_8_0.html" target="_blank">装修报价</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_25.html" target="_blank">中式地毯选择搭配注意 宁波中式地毯价格</a>
-                            </td>
-                            <td>
-                                2014-08-04
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_8_0.html" target="_blank">装修报价</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_24.html" target="_blank">橡木门怎么样 宁波地区橡木门价格</a>
-                            </td>
-                            <td>
-                                2014-08-04
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_8_0.html" target="_blank">装修报价</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_23.html" target="_blank">封阳台用什么材料好 封阳台多少钱</a>
-                            </td>
-                            <td>
-                                2014-08-04
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_7_0.html" target="_blank">人才招聘</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_22.html" target="_blank">诚聘有丰富经验的设计师</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_7_0.html" target="_blank">人才招聘</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_21.html" target="_blank">【阡陌装饰】招聘客户经理</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_7_0.html" target="_blank">人才招聘</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_20.html" target="_blank">【瑞宁装饰】诚招工程监理</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_6_0.html" target="_blank">样板美图</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_19.html" target="_blank">巧妙利用楼梯，收纳又美丽</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_3_0.html" target="_blank">家居风水</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_18.html" target="_blank">【宏居装饰】卧室颜色风水</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                            </table>
+                        #end
+                    </table>
                 </div>
                 <div class="PageHalf">
                     <div class="HalfLabel">
@@ -805,117 +679,20 @@
                             <col width="65%" />
                             <col width="15%" />
                         </colgroup>
-                                                <tr class="bg2">
+                        #foreach($item in $newsList2)
+                        <tr class="$item.cls">
                             <td height="30">
-                                【<a href="news/list/list_4_0.html" target="_blank">装修技巧</a>】
+                                【<a href="news/list/list_${item.cateId}_0.html" target="_blank">${item.cateName}</a>】
                             </td>
                             <td>
-                                <a href="news/detail/detail_17.html" target="_blank">【宏居装饰】瓷砖的优劣和卫浴安全有关</a>
+                                <a href="news/detail/detail_${item.newsId}.html" target="_blank">${item.longTitle}</a>
                             </td>
                             <td>
-                                2014-07-31
+                                ${item.timeStr}
                             </td>
                         </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_6_0.html" target="_blank">样板美图</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_16.html" target="_blank">城建装修</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_3_0.html" target="_blank">家居风水</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_15.html" target="_blank">★城建装饰★家具摆放的禁忌</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_2_0.html" target="_blank">软装家饰</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_14.html" target="_blank">【瑞宁装饰】家居饰品软装四大技巧</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_6_0.html" target="_blank">样板美图</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_13.html" target="_blank">【阡陌装饰】谱写锦茗晴园古典雅致生活</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_2_0.html" target="_blank">软装家饰</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_12.html" target="_blank">【蓝海装饰】鲜艳夺目的家居设计</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_5_0.html" target="_blank">行业动态</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_11.html" target="_blank">【蓝海装饰】卫浴洁具选购注意事项</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_4_0.html" target="_blank">装修技巧</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_10.html" target="_blank">【蓝海装饰】如何去除家里的甲醛异味</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg2">
-                            <td height="30">
-                                【<a href="news/list/list_7_0.html" target="_blank">人才招聘</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_9.html" target="_blank">★城建装饰★人才招聘</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                                <tr class="bg1">
-                            <td height="30">
-                                【<a href="news/list/list_4_0.html" target="_blank">装修技巧</a>】
-                            </td>
-                            <td>
-                                <a href="news/detail/detail_8.html" target="_blank">二手房装修的十大技巧 打造省钱温馨好家居</a>
-                            </td>
-                            <td>
-                                2014-07-31
-                            </td>
-                        </tr>
-                                            </table>
+                        #end
+                    </table>
                 </div>
                 <div class="PageHalf" style="display: none;">
                     <div class="HalfLabel">
@@ -935,55 +712,33 @@
                     <a href="#">最新装修成果</a></div>
                 <div class="ItemDetail">
                     <ul style="display: none">
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">2万以下</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">2-3万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">3-4万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">4-6万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">6-8万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">8-10万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">10-12万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">12-15万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">15-20万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">20-30万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">30-50万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">50-100万</li>
-                                                <li class="zhuangxiuchengguo zhuangxiuchengguoOff">100万以上</li>
-                                            </ul>
+                        #foreach($item in $prices)
+                        <li class="zhuangxiuchengguo zhuangxiuchengguoOff">${item.paramValue}</li>
+                        #end
+                    </ul>
                 </div>
                 <div class="ItemMore">
                     <a href="#">&gt;&gt;&gt;&nbsp;查看全部&nbsp;&lt;&lt;&lt;</a></div>
                 <div class="PageFull">
-                                        <div class="AnliPicDiv">
+                    #foreach($item in $buildingsList2)
+                    <div class="AnliPicDiv">
                         <div class="AnliPic">
-                            <img src="/attached/image/2014/08/04/20140804094708_4967.jpg" width="390" height="290" alt="皇冠花园" border="0" /></div>
+                            <img src="$item.picUrl" width="390" height="290" alt="$item.buildingsName" border="0" /></div>
                         <div class="AnliMemo">
-                            高新区 /&nbsp;皇冠花园小区
+                            $item.location /&nbsp;$item.buildingsName小区
                         </div>
                     </div>
-                                        <div class="AnliPicDiv">
-                        <div class="AnliPic">
-                            <img src="/attached/image/2014/08/04/20140804094741_4294.jpg" width="390" height="290" alt="锦绣东城" border="0" /></div>
-                        <div class="AnliMemo">
-                            江东 /&nbsp;锦绣东城小区
-                        </div>
-                    </div>
-                                        <div class="AnliPicDiv">
-                        <div class="AnliPic">
-                            <img src="/attached/image/2014/08/04/20140804094834_2741.jpg" width="390" height="290" alt="前程藏珑" border="0" /></div>
-                        <div class="AnliMemo">
-                            高新区 /&nbsp;前程藏珑小区
-                        </div>
-                    </div>
-                                    </div>
+                    #end
+                </div>
             </div>
         </div>
         <div id="FootDiv">
             <div id="FootBar">
-                <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                    href="#">关于我们</a></div>
+                <a href="contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="about.html">关于我们</a></div>
             <div id="FootDetail">
                 Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
-                备案信息：浙ICP备14024496号&nbsp;地址：浙江省宁波市海曙区中山西路11号海曙大厦10楼<br />
+                备案信息：${webmsg.webNo}&nbsp;地址：${webmsg.address}<br />
             </div>
         </div>
     </div>

@@ -294,7 +294,7 @@ namespace WebDao.Dao.Info
             this.param.Add("startTime", content["startTime"]);
             this.param.Add("endTime", content["endTime"]);
             this.param.Add("publicAdpic", content["publicAdpic"]);
-            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
+            this.param.Add("content", JsonDo.UndoChar(content["content"].ToString()));
             this.param.Add("address", content["address"]);
             this.param.Add("phone", content["phone"]);
             this.param.Add("qq", content["qq"]);
@@ -339,7 +339,7 @@ namespace WebDao.Dao.Info
             this.param.Add("startTime", content["startTime"]);
             this.param.Add("endTime", content["endTime"]);
             this.param.Add("publicAdpic", content["publicAdpic"]);
-            this.param.Add("content", JsonDo.CleanCharForJson(content["content"].ToString()));
+            this.param.Add("content", JsonDo.UndoChar(content["content"].ToString()));
             this.param.Add("address", content["address"]);
             this.param.Add("phone", content["phone"]);
             this.param.Add("qq", content["qq"]);

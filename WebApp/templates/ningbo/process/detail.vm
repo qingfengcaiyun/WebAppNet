@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>欢迎访问装修人人通</title>
+    <title>欢迎访问${webmsg.fullName} - ${webmsg.keywords}</title>
+    <meta name="Keywords" content="${webmsg.keywords}" />
     <link rel="stylesheet" type="text/css" href="../../css/gstyles.css" />
     <link rel="stylesheet" type="text/css" href="../../css/global.css" />
     <style type="text/css">
@@ -102,19 +103,15 @@
         {
             float: left;
             width: 1200px;
-            margin-bottom: 20px;
+            margin-bottom: 5px;
         }
         #ArticleDiv
         {
             float: left;
-            height: 1000px;
             width: 933px;
             border: 1px solid #CCC;
-            margin-top: 10px;
-            margin-left: 5px;
-            _display: inline;
         }
-        #ArticleDiv .ArticleTitle
+        #ArticleDiv #ArticleTitle
         {
             font-size: 14px;
             line-height: 40px;
@@ -125,7 +122,7 @@
             margin-left: 15px;
             _display: inline;
         }
-        #ArticleDiv .ArticleDetail
+        #ArticleDiv #ArticleDetail
         {
             line-height: 24px;
             float: left;
@@ -135,7 +132,7 @@
             _display: inline;
             color: #999;
         }
-        #ArticleDiv .ArticleContent
+        #ArticleDiv #ArticleContent
         {
             float: left;
             width: 900px;
@@ -144,81 +141,82 @@
             line-height: 24px;
             _display: inline;
         }
-        #CategoryList
+        #Process
         {
             float: left;
-            width: 245px;
-            margin-top: 10px;
+            width: 250px;
+            border: 2px dotted #CCC;
             margin-left: 10px;
             _display: inline;
         }
-        #CategoryList .CateOn
+        #Process #ProcessLabel
         {
             float: left;
-            height: 38px;
-            width: 243px;
-            margin-top: 5px;
-            line-height: 38px;
+            height: 40px;
+            width: 200px;
+            line-height: 40px;
             font-size: 14px;
             font-weight: bolder;
-            color: #FFF;
-            background-color: #800000;
-            text-align: center;
-            border: 1px solid #800000;
-            cursor: pointer;
+            text-indent: 1em;
         }
-        #CategoryList .CateOff
+        #Process .ProcessList
         {
             float: left;
-            height: 38px;
-            width: 243px;
-            margin-top: 5px;
-            line-height: 38px;
-            font-size: 14px;
-            font-weight: bolder;
-            color: #FFF;
-            text-align: center;
-            border: 1px solid #999;
-            cursor: pointer;
-            background-color: #CCC;
+            width: 250px;
+            padding-bottom: 20px;
         }
-        #CategoryList .CateOn a
-        {
-            color: #FFF;
-            text-decoration: none;
-        }
-        #CategoryList .CateOff a
-        {
-            color: #000;
-            text-decoration: none;
-        }
-        #CategoryList .HotList
-        {
-            float: left;
-            width: 243px;
-            margin-top: 20px;
-            border: 1px solid #CCC;
-        }
-        #CategoryList .HotList .HotLabel
+        #Process .ProcessList .ProcessItems
         {
             float: left;
             width: 230px;
-            height: 30px;
-            line-height: 30px;
+            margin-top: 5px;
             margin-left: 10px;
+            margin-bottom: 20px;
             _display: inline;
-            font-size: 14px;
         }
-        #CategoryList .HotList .HotItem
+        #Process .ProcessList .ProcessTitle
         {
             float: left;
-            width: 230px;
             height: 24px;
-            line-height: 24px;
+            width: 228px;
             margin-left: 10px;
+            line-height: 24px;
+            background-color: #eee;
+            text-indent: 1em;
+            _display: inline;
+        }
+        #Process .ProcessList .ProcessItems .ProcessItemOn
+        {
+            background-color: #800000;
+            border: 1px solid #800000;
+            padding: 5px;
+            margin: 5px;
+            float: left;
+            text-decoration: none;
+            color: #FFF;
+            font-weight: bolder;
+            _display: inline;
+        }
+        #Process .ProcessList .ProcessItems .ProcessItemOff
+        {
+            border: 1px solid #ccc;
+            padding: 5px;
+            margin: 5px;
+            float: left;
+            color: #666;
+            text-decoration: none;
             _display: inline;
         }
     </style>
+    <script type="text/javascript" src="../../js/jquery.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //jQuery.post(
+            // "../../../manage/renovation/article/Action.aspx",
+            //{ action: "readCount" }
+            // );
+        });
+    </script>
 </head>
 <body>
     <div id="Container">
@@ -229,7 +227,7 @@
             <div id="Detail">
                 <div id="TopBar">
                     <a href="/">首页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">登录</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：400-886-1234</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
+                        href="#">注册</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">全国热线：${webmsg.phone}</a>&nbsp;&nbsp;|&nbsp;&nbsp;</div>
                 <div id="Search">
                     <div id="sdiv">
                         <div id="catediv">
@@ -257,42 +255,41 @@
         </div>
         <div id="PageDiv">
             <div class="PageItem">
-                &nbsp;&nbsp;<a href="#">装修人人通</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="#">装修流程</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;收房小常识</div>
+                &nbsp;&nbsp;<a href="../../index.html">$webmsg.shortName</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a
+                    href="../index.html">装修流程</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;<a href="../list/list_${article.processId}_0.html">$article.processName</a>&nbsp;&nbsp;&gt;&nbsp;&nbsp;$article.longTitle</div>
             <div class="PageItem">
                 <div id="ArticleDiv">
-                    <div class="ArticleTitle">
-                        此处显示 class "ArticleTitle" 的内容</div>
-                    <div class="ArticleDetail">
-                        此处显示 class "ArticleTitle" 的内容</div>
-                    <div class="ArticleContent">
-                        <p>
-                            此处显示 class "ArticleTitle" 的内容此处显示 class &quot;ArticleTitle&quot; 的内容此处显示 class "ArticleTitle"
-                            的内容此处显示 class &quot;ArticleTitle&quot; 的内容此处显示 class "ArticleTitle" 的内容此处显示 class
-                            &quot;ArticleTitle&quot; 的内容此处显示 class "ArticleTitle" 的内容此处显示 class &quot;ArticleTitle&quot;
-                            的内容</p>
+                    <div id="ArticleTitle">
+                        $article.longTitle</div>
+                    <div id="ArticleDetail">
+                        发表时间：$article.insertTime</div>
+                    <div id="ArticleContent">
+                        $article.content
                     </div>
                 </div>
-                <div id="CategoryList">
-                    <div class="CateOn">
-                        <a href="../index_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
-                    <div class="CateOff">
-                        <a href="list_id_1.html">【&nbsp;全部资讯&nbsp;】</a></div>
-                    <div class="HotList">
-                        <div class="HotLabel">
-                            最新文章</div>
-                        <div class="HotItem">
-                            <a href="" target="_blank">最新文章</a></div>
+                <div id="Process">
+                    <div id="ProcessLabel">
+                        装修流程</div>
+                    <div class="ProcessList">
+                        #foreach($list in $processes)
+                        <div class="ProcessTitle">
+                            $list.processName</div>
+                        <div class="ProcessItems">
+                            #foreach($item in $list.itemList) <a class="$item.styleClass" href="../list/list_${item.processId}_1.html"
+                                target="_self">$item.processName</a> #end
+                        </div>
+                        #end
                     </div>
                 </div>
             </div>
         </div>
         <div id="FootDiv">
             <div id="FootBar">
-                <a href="#">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
-                    href="#">关于我们</a></div>
+                <a href="../../contact.html">联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="#">版权声明</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a
+                    href="../../about.html">关于我们</a></div>
             <div id="FootDetail">
-                Copyright&nbsp;@&nbsp;2008~2013&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
-                ICP经营许可证：浙B2-20120133&nbsp;经营信网站-备案证书<br />
+                Copyright&nbsp;@&nbsp;2010~2014&nbsp;Corporation,All&nbsp;Rights&nbsp;Reserved<br />
+                备案信息：${webmsg.webNo}&nbsp;地址：${webmsg.address}<br />
             </div>
         </div>
     </div>

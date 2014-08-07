@@ -149,5 +149,17 @@ namespace Glibs.Sql
 
             return str;
         }
+
+        public static string UndoChar(string str)
+        {
+            str = str.Replace("\\a", "\a");
+            str = str.Replace("\\b", "\b");
+            str = str.Replace("\\f", "\f");
+            str = str.Replace("\\v", "\v");
+            str = str.Replace("\\n", "\n");
+            str = str.Replace("\\r", "\r");
+            str = str.Replace("\\t", "\t");
+            return str;
+        }
     }
 }

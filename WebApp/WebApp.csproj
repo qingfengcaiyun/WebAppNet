@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="about.txt" />
+    <Content Include="client\Manage.aspx" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="libs\ajaxfileupload.js" />
@@ -225,37 +226,37 @@
     <Content Include="manage\user\member\Action.aspx" />
     <Content Include="manage\user\member\Detail.aspx" />
     <Content Include="manage\user\member\List.aspx" />
-    <Content Include="templates\about.vm" />
-    <Content Include="templates\contact.vm" />
-    <Content Include="templates\index.vm" />
+    <Content Include="templates\ningbo\about.vm" />
+    <Content Include="templates\ningbo\contact.vm" />
+    <Content Include="templates\ningbo\index.vm" />
     <Content Include="manage\webhtml\Action.aspx" />
     <Content Include="manage\webhtml\View.aspx" />
-    <Content Include="templates\news\detail.vm" />
-    <Content Include="templates\news\index.vm" />
-    <Content Include="templates\news\list.vm" />
-    <Content Include="templates\process\detail.vm" />
-    <Content Include="templates\process\index.vm" />
-    <Content Include="templates\process\list.vm" />
-    <Content Include="webhtml\css\global.css" />
-    <Content Include="webhtml\css\gstyles.css" />
-    <Content Include="webhtml\img\logo.jpg" />
-    <Content Include="webhtml\img\process.jpg" />
-    <Content Include="webhtml\img\process_1.jpg" />
-    <Content Include="webhtml\img\process_11.jpg" />
-    <Content Include="webhtml\img\process_12.jpg" />
-    <Content Include="webhtml\img\process_2.jpg" />
-    <Content Include="webhtml\img\process_21.jpg" />
-    <Content Include="webhtml\img\process_22.jpg" />
-    <Content Include="webhtml\img\process_23.jpg" />
-    <Content Include="webhtml\img\process_24.jpg" />
-    <Content Include="webhtml\img\process_25.jpg" />
-    <Content Include="webhtml\img\process_3.jpg" />
-    <Content Include="webhtml\img\process_31.jpg" />
-    <Content Include="webhtml\img\process_32.jpg" />
-    <Content Include="webhtml\img\process_bg.jpg" />
-    <Content Include="webhtml\js\glibs.js" />
-    <Content Include="webhtml\js\jquery.js" />
-    <Content Include="webhtml\js\jquery.md5.js" />
+    <Content Include="templates\ningbo\news\detail.vm" />
+    <Content Include="templates\ningbo\news\index.vm" />
+    <Content Include="templates\ningbo\news\list.vm" />
+    <Content Include="templates\ningbo\process\detail.vm" />
+    <Content Include="templates\ningbo\process\index.vm" />
+    <Content Include="templates\ningbo\process\list.vm" />
+    <Content Include="webhtml\ningbo\css\global.css" />
+    <Content Include="webhtml\ningbo\css\gstyles.css" />
+    <Content Include="webhtml\ningbo\img\logo.jpg" />
+    <Content Include="webhtml\ningbo\img\process.jpg" />
+    <Content Include="webhtml\ningbo\img\process_1.jpg" />
+    <Content Include="webhtml\ningbo\img\process_11.jpg" />
+    <Content Include="webhtml\ningbo\img\process_12.jpg" />
+    <Content Include="webhtml\ningbo\img\process_2.jpg" />
+    <Content Include="webhtml\ningbo\img\process_21.jpg" />
+    <Content Include="webhtml\ningbo\img\process_22.jpg" />
+    <Content Include="webhtml\ningbo\img\process_23.jpg" />
+    <Content Include="webhtml\ningbo\img\process_24.jpg" />
+    <Content Include="webhtml\ningbo\img\process_25.jpg" />
+    <Content Include="webhtml\ningbo\img\process_3.jpg" />
+    <Content Include="webhtml\ningbo\img\process_31.jpg" />
+    <Content Include="webhtml\ningbo\img\process_32.jpg" />
+    <Content Include="webhtml\ningbo\img\process_bg.jpg" />
+    <Content Include="webhtml\ningbo\js\glibs.js" />
+    <Content Include="webhtml\ningbo\js\jquery.js" />
+    <Content Include="webhtml\ningbo\js\jquery.md5.js" />
     <Content Include="zxrrt.sql" />
     <Content Include="uploadAction\FileUpload.aspx" />
     <Content Include="libs\big_bgcolor.jpg" />
@@ -482,6 +483,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="client\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="client\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -839,13 +847,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="attached\" />
-    <Folder Include="client\" />
     <Folder Include="designer\" />
     <Folder Include="libs\kindeditor\attached\" />
     <Folder Include="member\" />
-    <Folder Include="templates\client\" />
-    <Folder Include="templates\designer\" />
-    <Folder Include="templates\member\" />
+    <Folder Include="templates\ningbo\client\" />
+    <Folder Include="templates\ningbo\designer\" />
+    <Folder Include="templates\ningbo\member\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GLibs\Glibs.csproj">
